@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.theme
+package com.alife.anotherlife.theme
 
 import android.app.Activity
 import android.os.Build
