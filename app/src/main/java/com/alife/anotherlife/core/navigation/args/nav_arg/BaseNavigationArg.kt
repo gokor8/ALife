@@ -1,10 +1,10 @@
-package com.alife.anotherlife.core.navigation.argument.model
+package com.alife.anotherlife.core.navigation.args.nav_arg
 
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.alife.anotherlife.core.navigation.argument.NavigationArg
+import com.alife.anotherlife.core.navigation.args.nav_arg.base.NavigationArg
 
-sealed class NavigationArgModel<TYPE>(
+abstract class BaseNavigationArg<TYPE>(
     val name: String,
     protected val separator: String,
     protected val type: NavType<TYPE>
