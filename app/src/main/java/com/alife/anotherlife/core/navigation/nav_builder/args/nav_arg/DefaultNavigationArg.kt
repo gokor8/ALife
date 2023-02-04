@@ -1,4 +1,4 @@
-package com.alife.anotherlife.core.navigation.args.nav_arg
+package com.alife.anotherlife.core.navigation.nav_builder.args.nav_arg
 
 import androidx.navigation.NavType
 

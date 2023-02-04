@@ -4,43 +4,35 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.alife.anotherlife.core.navigation.NavigationGraph
-import com.alife.anotherlife.core.navigation.nav_factory.base.NavigationFactory
-import com.alife.anotherlife.ui.main_nav_models.TestArgsContainerModel
-import com.alife.anotherlife.ui.main_nav_models.TestDefaultNavigationFactory
-import com.alife.anotherlife.ui.main_nav_models.TestNavFactory
-import com.alife.anotherlife.ui.main_nav_models.UserIdNavArgModel
+import com.alife.anotherlife.core.navigation.routes.NavigationRoute
+import com.alife.anotherlife.ui.test_nav.TestUserArgsContainerModel
+import com.alife.anotherlife.ui.test_nav.builder.TestUserArgNavBuilder
+import com.alife.anotherlife.ui.test_nav.UserIdNavArgModel
+import com.alife.anotherlife.ui.test_nav.builder.TestUserNavBuilder
 
-class MainNavigationGraph(private val startNavigationFactory: NavigationFactory) : NavigationGraph {
+class MainNavigationGraph(private val startNavigationRoute: NavigationRoute) : NavigationGraph {
 
     @Composable
     override fun SetupNavigation(navHostController: NavHostController) {
         NavHost(
             navController = navHostController,
-            startDestination = startNavigationFactory.routeTag
+            startDestination = startNavigationRoute.routeTag
         ) {
+            TestUserArgNavBuilder { argsContainer, backStack ->
+                backStack.arguments?.getString(argsContainer.userIdNavArgModel.name)
+            }.navigationRoute(this)
 
-            TestNavFactory(
-                TestArgsContainerModel(UserIdNavArgModel())
+            TestUserNavBuilder{}.navigationRoute(this)
+
+            TestNavRouteBuilder(
+                TestUserArgsContainerModel(UserIdNavArgModel())
             ).navigationRoute(this) { containerModel, navBackStackEntry ->
                 navBackStackEntry.arguments?.getString(containerModel.userIdNavArgModel.name)
                 // Some Screen
             }
 
-            TestDefaultNavigationFactory().navigationRoute(this) {
+            TestDefaultNavigationRoute().navigationRoute(this) {
                 // Some Screen
-            }
-
-            // Сделать с дефолтным значением и диплинком
-
-            startNavigationFactory.navigationRoute(
-                navGraphBuilder = this,
-            ) { backStackEntry ->
-                // Может вынести в енам например, чтобы 2 раза не создавать класс
-
-                // А енам прокидывать сюда и в нав арг модел
-
-                // Еще прокидывать defaultValue надо сразу
-                backStackEntry.arguments?.getString(UserIdNavArgModel().name)
             }
         }
     }
