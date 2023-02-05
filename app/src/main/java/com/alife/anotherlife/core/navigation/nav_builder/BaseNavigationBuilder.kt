@@ -3,7 +3,7 @@ package com.alife.anotherlife.core.navigation.nav_builder
 import androidx.navigation.NavGraphBuilder
 import com.alife.anotherlife.core.navigation.routes.NavigationRoute
 
-abstract class NavigationRouteBuilder {
+abstract class BaseNavigationBuilder {
 
     protected abstract val navigationRoute: NavigationRoute
 

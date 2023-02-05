@@ -6,9 +6,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.alife.anotherlife.core.navigation.routes.NavigationRoute
 
-abstract class DefaultNavigationRoute(
+abstract class DefaultNavigationBuilder(
     override val navigationRoute: NavigationRoute,
-) : NavigationRouteBuilder() {
+) : BaseNavigationBuilder() {
 
     protected abstract val content: @Composable (NavBackStackEntry) -> Unit
 
