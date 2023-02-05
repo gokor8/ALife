@@ -32,13 +32,6 @@ class ExampleNavigationGraph : NavigationGraph {
                 val userName = backStack.arguments?.getString(argsContainer.optionalUserName.name)
                 UserScreen(userId = id, userName)
             }.navComposable(this)
-
-//            UserNavBuilder{
-//
-//            }.navComposable(this)
-//
-//            NavigationWrapper.Navigate(UserArgsNavigator("1")).navigate(navHostController)
-//            NavigationWrapper.Navigate(BaseNavigator(UserNavRoute())).navigate(navHostController)
         }
     }
 }

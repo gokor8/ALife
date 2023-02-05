@@ -65,4 +65,7 @@ dependencies {
 
     // Navigation
     implementation "androidx.navigation:navigation-compose:$nav_version"
+
+    // DI
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 }
