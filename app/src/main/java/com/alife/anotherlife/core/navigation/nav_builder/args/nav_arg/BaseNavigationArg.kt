@@ -10,6 +10,7 @@ abstract class BaseNavigationArg<TYPE>(
     protected val type: NavType<TYPE>
 ) : NavigationArg {
 
+    fun navigationArg(arg: TYPE) = "$separator{$arg}"
     override fun createNavArg() = navArgument(name) { type = this@BaseNavigationArg.type }
     override fun toString(): String = "$separator{$name}"
 }

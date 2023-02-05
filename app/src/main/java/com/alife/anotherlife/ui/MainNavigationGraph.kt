@@ -23,17 +23,6 @@ class MainNavigationGraph(private val startNavigationRoute: NavigationRoute) : N
             }.navigationRoute(this)
 
             TestUserNavBuilder{}.navigationRoute(this)
-
-            TestNavRouteBuilder(
-                TestUserArgsContainerModel(UserIdNavArgModel())
-            ).navigationRoute(this) { containerModel, navBackStackEntry ->
-                navBackStackEntry.arguments?.getString(containerModel.userIdNavArgModel.name)
-                // Some Screen
-            }
-
-            TestDefaultNavigationRoute().navigationRoute(this) {
-                // Some Screen
-            }
         }
     }
 }
