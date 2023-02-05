@@ -11,6 +11,6 @@ abstract class BaseNavigationArg<TYPE>(
 ) : NavigationArg {
 
     override fun createNavArg() = navArgument(name) { type = this@BaseNavigationArg.type }
-    fun navRoute(arg: TYPE) = "$separator{$arg}"
+    fun navRoute(arg: TYPE) = "$separator$arg"
     override fun toString(): String = "$separator{$name}"
 }

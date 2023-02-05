@@ -1,5 +1,6 @@
 package com.alife.anotherlife.core.navigation.nav_builder
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
@@ -15,8 +16,13 @@ abstract class ArgsNavigationBuilder<ACM : ArgsContainer>(
     protected abstract val content: @Composable (ACM, NavBackStackEntry) -> Unit
 
     override fun navComposable(navGraphBuilder: NavGraphBuilder) {
+        val route = "${navigationRoute.routeTag}${
+            containerModel.argsList().joinToString("") { it.toString() }
+        }"
+
+        Log.d("Route", route)
         navGraphBuilder.composable(
-            route = "${navigationRoute.routeTag}${containerModel.argsList().map { it.toString() }}",
+            route = route,
             arguments = containerModel.argsList().map { arg -> arg.createNavArg() },
             content = { navBackStackEntry -> content(containerModel, navBackStackEntry) }
         )

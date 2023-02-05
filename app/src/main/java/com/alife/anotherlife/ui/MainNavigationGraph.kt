@@ -20,16 +20,8 @@ class MainNavigationGraph(private val startNavigationRoute: NavigationRoute) : N
             navController = navHostController,
             startDestination = startNavigationRoute.routeTag
         ) {
-            UserArgsNavBuilder { argsContainer, backStack ->
-                backStack.arguments?.getString(argsContainer.userIdNavArg.name)
-            }.navComposable(this)
 
-            UserNavBuilder{
 
-            }.navComposable(this)
-
-            NavigationWrapper.Navigate(UserArgsNavigator("1")).navigate(navHostController)
-            NavigationWrapper.Navigate(BaseNavigator(UserNavRoute())).navigate(navHostController)
         }
     }
 }

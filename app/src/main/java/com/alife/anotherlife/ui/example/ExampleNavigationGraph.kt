@@ -25,11 +25,12 @@ class ExampleNavigationGraph : NavigationGraph {
         ) {
             StartNavBuilder {
                 StartScreen(navController = navHostController)
-            }
+            }.navComposable(this)
 
             UserArgsNavBuilder { argsContainer, backStack ->
                 val id = backStack.arguments?.getString(argsContainer.userIdNavArg.name)
-                UserScreen(userId = id)
+                val userName = backStack.arguments?.getString(argsContainer.optionalUserName.name)
+                UserScreen(userId = id, userName)
             }.navComposable(this)
 
 //            UserNavBuilder{
