@@ -12,7 +12,7 @@ abstract class DefaultNavigationBuilder(
 
     protected abstract val content: @Composable (NavBackStackEntry) -> Unit
 
-    override fun navigationRoute(navGraphBuilder: NavGraphBuilder) {
+    override fun navComposable(navGraphBuilder: NavGraphBuilder) {
         navGraphBuilder.composable(
             route = navigationRoute.routeTag,
             content = content

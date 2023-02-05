@@ -7,5 +7,8 @@ abstract class BaseNavigationBuilder {
 
     protected abstract val navigationRoute: NavigationRoute
 
-    abstract fun navigationRoute(navGraphBuilder: NavGraphBuilder)
+
+    fun routeTag() = navigationRoute.routeTag
+
+    abstract fun navComposable(navGraphBuilder: NavGraphBuilder)
 }

@@ -1,7 +1,7 @@
-package com.alife.anotherlife.ui.test_nav.route
+package com.alife.anotherlife.ui.example.navigation.user
 
 import com.alife.anotherlife.core.navigation.routes.NavigationRoute
 
-class TestUserNavRoute : NavigationRoute {
+class UserNavRoute : NavigationRoute {
     override val routeTag: String = "user"
 }
