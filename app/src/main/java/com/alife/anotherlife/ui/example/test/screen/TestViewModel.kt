@@ -1,10 +1,10 @@
-package com.alife.anotherlife.ui.test.screen
+package com.alife.anotherlife.ui.example.test.screen
 
 import com.alife.anotherlife.core.ui.view_model.BaseViewModel
-import com.alife.anotherlife.ui.test.custom_composable.TextsActionToModel
-import com.alife.anotherlife.ui.test.screen.reducer.TestScreenReducer
-import com.alife.anotherlife.ui.test.screen.state.TestScreenAction
-import com.alife.anotherlife.ui.test.screen.state.TestScreenState
+import com.alife.anotherlife.ui.example.test.custom_composable.TextsActionToModel
+import com.alife.anotherlife.ui.example.test.screen.reducer.TestScreenReducer
+import com.alife.anotherlife.ui.example.test.screen.state.TestScreenAction
+import com.alife.anotherlife.ui.example.test.screen.state.TestScreenState
 
 class TestViewModel : BaseViewModel<TestScreenAction, TestScreenState, Nothing>() {
 

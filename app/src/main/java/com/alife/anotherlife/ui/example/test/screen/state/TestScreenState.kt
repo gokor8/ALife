@@ -1,6 +1,6 @@
-package com.alife.anotherlife.ui.test.screen.state
+package com.alife.anotherlife.ui.example.test.screen.state
 
-import com.alife.anotherlife.ui.test.custom_composable.TextsModel
+import com.alife.anotherlife.ui.example.test.custom_composable.TextsModel
 import com.alife.core.mvi.MVI
 
 data class TestScreenState(

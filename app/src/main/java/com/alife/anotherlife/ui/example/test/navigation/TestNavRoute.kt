@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.test.navigation
+package com.alife.anotherlife.ui.example.test.navigation
 
 import com.alife.anotherlife.core.navigation.routes.NavigationRoute
 

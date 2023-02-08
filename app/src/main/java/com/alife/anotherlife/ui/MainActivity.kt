@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.alife.anotherlife.theme.AnotherLifeTheme
 import com.alife.anotherlife.ui.example.ExampleNavigationGraph
-import com.alife.anotherlife.ui.test.TestNavGraph
+import com.alife.anotherlife.ui.example.test.TestNavGraph
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

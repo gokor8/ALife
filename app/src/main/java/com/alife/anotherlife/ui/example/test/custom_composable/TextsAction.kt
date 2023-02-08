@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.test.custom_composable
+package com.alife.anotherlife.ui.example.test.custom_composable
 
 import com.alife.core.mvi.MVI
 

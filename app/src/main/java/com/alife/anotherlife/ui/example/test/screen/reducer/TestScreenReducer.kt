@@ -1,13 +1,13 @@
-package com.alife.anotherlife.ui.test.screen.reducer
+package com.alife.anotherlife.ui.example.test.screen.reducer
 
 import android.util.Log
 import com.alife.anotherlife.core.ui.reducer.BaseVMReducer
 import com.alife.anotherlife.core.ui.store.BaseUIStore
 import com.alife.anotherlife.core.ui.store.DefaultUIStore
 import com.alife.anotherlife.core.ui.store.UIStore
-import com.alife.anotherlife.ui.test.custom_composable.TextsModel
-import com.alife.anotherlife.ui.test.screen.state.TestScreenAction
-import com.alife.anotherlife.ui.test.screen.state.TestScreenState
+import com.alife.anotherlife.ui.example.test.custom_composable.TextsModel
+import com.alife.anotherlife.ui.example.test.screen.state.TestScreenAction
+import com.alife.anotherlife.ui.example.test.screen.state.TestScreenState
 import kotlinx.coroutines.flow.StateFlow
 
 class TestScreenReducer : BaseVMReducer<TestScreenState, Nothing>() {

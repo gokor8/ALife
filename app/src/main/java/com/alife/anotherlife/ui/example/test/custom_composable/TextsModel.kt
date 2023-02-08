@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.test.custom_composable
+package com.alife.anotherlife.ui.example.test.custom_composable
 
 data class TextsModel(
     val firstText: String,

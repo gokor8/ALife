@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.test.navigation
+package com.alife.anotherlife.ui.example.test.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
