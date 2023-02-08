@@ -2,7 +2,7 @@ package com.alife.anotherlife.core.ui.store
 
 import com.alife.core.mvi.MVI
 
-interface Store<STATE : MVI.State, EFFECT : MVI.Effect> {
+interface UIStore<STATE : MVI.State, EFFECT : MVI.Effect> {
 
     fun setState(state: STATE.() -> STATE)
 

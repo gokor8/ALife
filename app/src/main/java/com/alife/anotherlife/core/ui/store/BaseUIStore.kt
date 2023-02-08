@@ -5,11 +5,11 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 
-abstract class BaseStore<STATE : MVI.State, EFFECT : MVI.Effect> : Store<STATE, EFFECT> {
+abstract class BaseUIStore<STATE : MVI.State, EFFECT : MVI.Effect>(
+    initState: STATE
+) : UIStore<STATE, EFFECT> {
 
-    abstract val initState: STATE
-
-    protected val stateFlow: MutableStateFlow<STATE> = MutableStateFlow(initState)
+    val stateFlow: MutableStateFlow<STATE> = MutableStateFlow(initState)
 
     protected val effectChannel: Channel<EFFECT> = Channel()
 
@@ -22,11 +22,11 @@ abstract class BaseStore<STATE : MVI.State, EFFECT : MVI.Effect> : Store<STATE, 
 
     override suspend fun setStateDebounce(delayLong: Long, state: STATE.() -> STATE) {
         delay(delayLong)
-        state(getState())
+        stateFlow.value = getState().state()
     }
 
     override fun setState(state: STATE.() -> STATE) {
-        state(getState())
+        stateFlow.value = getState().state()
     }
 
     override suspend fun setEffect(effect: EFFECT) {

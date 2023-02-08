@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.alife.anotherlife.theme.AnotherLifeTheme
 import com.alife.anotherlife.ui.example.ExampleNavigationGraph
+import com.alife.anotherlife.ui.test.TestNavGraph
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +25,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ExampleNavigationGraph().SetupNavigation(navHostController = rememberNavController())
+                    TestNavGraph().SetupNavigation(navHostController = rememberNavController())
+                    //ExampleNavigationGraph().SetupNavigation(navHostController = rememberNavController())
 
                     //Greeting("Android")
                 }
