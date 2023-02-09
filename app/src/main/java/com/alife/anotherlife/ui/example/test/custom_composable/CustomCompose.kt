@@ -3,24 +3,29 @@ package com.alife.anotherlife.ui.example.test.custom_composable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.ui.view_model.BaseViewModel
+import com.alife.anotherlife.ui.example.test.custom_composable.action.ClickAction
+import com.alife.anotherlife.ui.example.test.custom_composable.action.TextCustomAction
 import com.alife.core.mvi.MVI
 
 @Composable
-fun<ACTION : MVI.Action> TextsCompose(
+fun <ACTION : MVI.Action> CustomCompose(
     viewModel: BaseViewModel<ACTION, *, *>,
     actionMVIBoxer: TextsBoxer<ACTION>,
-    textsModel: TextsModel
+    textsModel: TextsModel,
 ) = Column {
 
     listOf(
-        textsModel.firstText to { text: String -> TextsAction.FirstTextAction(text) },
-        textsModel.secondText to { text: String -> TextsAction.SecondTextAction(text) },
-        textsModel.thirdText to { text: String -> TextsAction.ThirdTextAction(text) }
+        textsModel.firstText to { text: String -> TextCustomAction.FirstTextAction(text) },
+        textsModel.secondText to { text: String -> TextCustomAction.SecondTextAction(text) },
+        textsModel.thirdText to { text: String -> TextCustomAction.ThirdTextAction(text) }
     ).forEach { pair ->
         TextField(
             value = pair.first,
@@ -32,4 +37,10 @@ fun<ACTION : MVI.Action> TextsCompose(
         )
         Spacer(modifier = Modifier.padding(top = 10.dp))
     }
+
+    Button(onClick = {
+        viewModel.reduce(
+            actionMVIBoxer.map(ClickAction.ContinueClick())
+        )
+    }) { Text("Continue") }
 }

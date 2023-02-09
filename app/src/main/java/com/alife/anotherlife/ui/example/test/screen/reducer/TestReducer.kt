@@ -1,12 +1,20 @@
 package com.alife.anotherlife.ui.example.test.screen.reducer
 
-import com.alife.anotherlife.ui.example.test.custom_composable.TextsAction
+import com.alife.anotherlife.ui.example.test.custom_composable.action.ClickAction
+import com.alife.anotherlife.ui.example.test.custom_composable.action.CustomAction
+import com.alife.anotherlife.ui.example.test.custom_composable.action.TextCustomAction
+import com.alife.anotherlife.ui.example.test.custom_composable.reduce.ClickReduce
 
-interface TestReducer {
+interface TestReducer : ClickReduce {
 
-    fun onTestTextAction(text: String)
+    suspend fun onTestTextAction(text: String)
 
-    fun onContinueClick()
+    suspend fun onButtonClick()
 
-    fun onTestBoxAction(textAction: TextsAction)
+    //fun onCustomBoxAction(customAction: CustomAction)
+
+    suspend fun onCustomTextBoxAction(textAction: TextCustomAction)
+
+    suspend fun onCustomClickBoxAction(clickAction: ClickAction)
+    override suspend fun onContinueClick()
 }
