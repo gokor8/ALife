@@ -22,16 +22,18 @@ class TestScreen {
 
         TextsCompose(viewModel, TestScreenBoxer(), viewModel.getUIState().textsModel)
 
-        TextField(value = "", onValueChange = { string: String ->
-            Log.e("Aboba", string)
-            Unit
-        })
+        TextField(
+            value = viewModel.getUIState().testScreenText,
+            onValueChange = { text: String ->
+                viewModel.reduce(TestScreenAction.TestTextAction(text))
+                Log.e("Aboba", text)
+            }
+        )
 
         Button(onClick = savable {
             viewModel.reduce(TestScreenAction.TestContinueClick())
             Log.e("Aboba", "Clicked")
-            Unit
-        }) {//{ viewModel.reduce(TestScreenAction.TestContinueClick()) }) {
+        }) {
             Text(text = viewModel.getUIState().testScreenText)
         }
     }

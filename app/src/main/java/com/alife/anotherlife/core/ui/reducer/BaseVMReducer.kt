@@ -1,12 +1,12 @@
 package com.alife.anotherlife.core.ui.reducer
 
+import com.alife.anotherlife.core.ui.FlowState
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.core.mvi.MVI
 import kotlinx.coroutines.flow.StateFlow
 
-abstract class BaseVMReducer<STATE : MVI.State, EFFECT : MVI.Effect> : VMReducer<STATE, EFFECT> {
+abstract class BaseVMReducer<STATE : MVI.State, EFFECT : MVI.Effect> :
+    VMReducer<STATE, EFFECT>, FlowState<STATE> {
 
-    abstract val UIStore: UIStore<STATE, EFFECT>
-
-    abstract fun getFlowState(): StateFlow<STATE>
+    protected abstract val uiStore: UIStore<STATE, EFFECT>
 }

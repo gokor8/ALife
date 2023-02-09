@@ -5,32 +5,31 @@ import com.alife.anotherlife.core.ui.reducer.BaseVMReducer
 import com.alife.anotherlife.core.ui.store.BaseUIStore
 import com.alife.anotherlife.core.ui.store.DefaultUIStore
 import com.alife.anotherlife.core.ui.store.UIStore
-import com.alife.anotherlife.ui.example.test.custom_composable.TextsModel
-import com.alife.anotherlife.ui.example.test.screen.state.TestScreenAction
+import com.alife.anotherlife.ui.example.test.custom_composable.TextsAction
+import com.alife.anotherlife.ui.example.test.custom_composable.TextsActionToModel
 import com.alife.anotherlife.ui.example.test.screen.state.TestScreenState
 import kotlinx.coroutines.flow.StateFlow
 
-class TestScreenReducer : BaseVMReducer<TestScreenState, Nothing>() {
+class TestScreenReducer(
+    override val uiStore: BaseUIStore<TestScreenState, Nothing> = DefaultUIStore(TestScreenState()),
+    private val textsActionToModel: TextsActionToModel = TextsActionToModel()
+) : BaseVMReducer<TestScreenState, Nothing>(), TestReducer {
 
-    override val UIStore: BaseUIStore<TestScreenState, Nothing> = DefaultUIStore(TestScreenState())
+    override fun getFlowState(): StateFlow<TestScreenState> = uiStore.stateFlow
 
-    override fun getFlowState(): StateFlow<TestScreenState> {
-        return UIStore.stateFlow
+    override fun onTestTextAction(text: String) {
+        uiStore.setState { copy(testScreenText = text) }
     }
 
-    override fun getStore(): UIStore<TestScreenState, Nothing> = UIStore
-
-    fun reduce(action: TestScreenAction.TestTextAction) {
-        UIStore.setState { copy(testScreenText = action.text) }
+    override fun onTestBoxAction(textAction: TextsAction) {
+        uiStore.setState {
+            copy(textsModel = textsActionToModel.reduce(textAction, textsModel))
+        }
     }
 
-    fun reduce(action: TestScreenAction.TestContinueClick) {
-        UIStore.setState { copy(testScreenText = testScreenText + "a") }
+    override fun onContinueClick() {
+        uiStore.setState { copy(testScreenText = testScreenText + "a") }
         Log.e("TestScreenReducer", "Set Effect ContinueClick")
-    }
-
-    fun reduceModel(model: TextsModel) {
-        UIStore.setState { copy(textsModel = model) }
     }
 
 }

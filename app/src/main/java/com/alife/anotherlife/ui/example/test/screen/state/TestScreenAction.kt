@@ -1,12 +1,26 @@
 package com.alife.anotherlife.ui.example.test.screen.state
 
 import com.alife.anotherlife.ui.example.test.custom_composable.TextsAction
+import com.alife.anotherlife.ui.example.test.screen.reducer.TestReducer
 import com.alife.core.mvi.MVI
 
-sealed interface TestScreenAction : MVI.Action {
+interface TestScreenAction : MVI.Action {
 
-    class TestTextAction(val text: String) : TestScreenAction
-    class TestContinueClick : TestScreenAction
+    fun onAction(testReducerReduce: TestReducer)
+    class TestTextAction(private val text: String) : TestScreenAction {
+        override fun onAction(testReducerReduce: TestReducer) {
+            testReducerReduce.onTestTextAction(text)
+        }
+    }
+    class TestContinueClick : TestScreenAction {
+        override fun onAction(testReducerReduce: TestReducer) {
+            testReducerReduce.onContinueClick()
+        }
+    }
 
-    class TestBoxAction(val action: TextsAction) : TestScreenAction
+    class TestBoxAction(private val action: TextsAction) : TestScreenAction {
+        override fun onAction(testReducerReduce: TestReducer) {
+            testReducerReduce.onTestBoxAction(action)
+        }
+    }
 }

@@ -26,12 +26,3 @@ abstract class BaseViewModel<ACTION : MVI.Action, STATE : MVI.State, EFFECT : MV
     }
 
 }
-/*
-VMReducer(private val UIStore: UIStore<STATE, EFFECT>) : SomeReducerInterface
-
-when(action) {
-    is VMActionGo -> reducer.go(action)
-    is VMActionSomething -> reducer.something(action)
-    is CBAction -> reducer.setModel(cbMapper(action, model))
-}
-*/
