@@ -1,8 +1,8 @@
-package com.example.testnavigation.screens.core.compose_bases.text
+package com.alife.anotherlife.core.composable.text
 
 import androidx.annotation.StringRes
-import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.Text
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color

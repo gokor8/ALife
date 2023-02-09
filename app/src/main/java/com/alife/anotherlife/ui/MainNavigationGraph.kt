@@ -11,6 +11,8 @@ import com.alife.anotherlife.ui.example.navigation.user.navigator.UserArgsNaviga
 import com.alife.anotherlife.ui.example.navigation.user.builder.UserArgsNavBuilder
 import com.alife.anotherlife.ui.example.navigation.user.builder.UserNavBuilder
 import com.alife.anotherlife.ui.example.navigation.user.UserNavRoute
+import com.alife.anotherlife.ui.screen.login.LoginScreen
+import com.alife.anotherlife.ui.screen.login.navigation.LoginNavBuilder
 
 class MainNavigationGraph(private val startNavigationRoute: NavigationRoute) : NavigationGraph {
 
@@ -20,8 +22,9 @@ class MainNavigationGraph(private val startNavigationRoute: NavigationRoute) : N
             navController = navHostController,
             startDestination = startNavigationRoute.routeTag
         ) {
-
-
+            LoginNavBuilder {
+                LoginScreen().Content()
+            }.navComposable(this)
         }
     }
 }

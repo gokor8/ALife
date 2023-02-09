@@ -1,4 +1,4 @@
-package com.example.testnavigation.screens.core.compose_bases.image
+package com.alife.anotherlife.core.composable.image
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
