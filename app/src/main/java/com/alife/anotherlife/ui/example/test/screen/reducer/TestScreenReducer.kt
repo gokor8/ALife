@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 class TestScreenReducer(
     override val uiStore: BaseUIStore<TestScreenState, TestScreenEffect> = DefaultUIStore(TestScreenState()),
-) : BaseVMReducer<TestScreenState, TestScreenEffect>(), TestReducer {
+) : TestVMReducer(), TestReducer {
 
     override fun getFlowState(): StateFlow<TestScreenState> = uiStore.stateFlow
 

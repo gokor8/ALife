@@ -5,6 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alife.anotherlife.core.ui.reducer.BaseVMReducer
+import com.alife.anotherlife.core.ui.reducer.VMReducer
 import com.alife.core.mvi.MVI
 import com.alife.core.mvi.MVIReducer
 import kotlinx.coroutines.launch
@@ -12,10 +13,10 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel<ACTION : MVI.Action, STATE : MVI.State, EFFECT : MVI.Effect>
     : ViewModel(), MVIReducer.Base<ACTION> {
 
-    abstract val reducerVM: BaseVMReducer<STATE, EFFECT>
+    abstract val reducerVM: VMReducer<STATE, EFFECT>
 
     @Composable
-    fun getUIState(): STATE = reducerVM.getFlowState().collectAsState().value
+    fun getUIState(): STATE = reducerVM.getState().collectAsState().value
 
     abstract suspend fun onAction(action: ACTION)
 

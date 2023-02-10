@@ -1,5 +1,7 @@
 package com.alife.anotherlife.core.ui.store
 
+import com.alife.anotherlife.core.ui.state_collector.StateCollector
+import com.alife.anotherlife.core.ui.state_collector.StateFlowCollector
 import com.alife.core.mvi.MVI
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
@@ -13,6 +15,10 @@ abstract class BaseUIStore<STATE : MVI.State, EFFECT : MVI.Effect>(
 
     protected val effectChannel: Channel<EFFECT> = Channel()
 
+
+    override fun getStateCollector(): StateCollector<STATE> {
+        return StateFlowCollector(stateFlow)
+    }
 
     override fun getState(): STATE = stateFlow.value
 
