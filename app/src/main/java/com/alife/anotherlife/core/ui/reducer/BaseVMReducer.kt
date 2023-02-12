@@ -6,7 +6,7 @@ import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.core.mvi.MVI
 
 abstract class BaseVMReducer<STATE : MVI.State, EFFECT : MVI.Effect> :
-    VMReducer<STATE, EFFECT>, FlowState<STATE> {
+    VMReducer<STATE, EFFECT> {
 
     protected abstract val uiStore: UIStore<STATE, EFFECT>
 

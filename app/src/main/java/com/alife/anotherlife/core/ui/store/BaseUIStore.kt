@@ -6,6 +6,7 @@ import com.alife.core.mvi.MVI
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 
 abstract class BaseUIStore<STATE : MVI.State, EFFECT : MVI.Effect>(
     initState: STATE
@@ -33,6 +34,10 @@ abstract class BaseUIStore<STATE : MVI.State, EFFECT : MVI.Effect>(
 
     override fun setState(state: STATE.() -> STATE) {
         stateFlow.value = getState().state()
+    }
+
+    override fun setState(state: STATE) {
+        stateFlow.value = state
     }
 
     override suspend fun setEffect(effect: EFFECT) {

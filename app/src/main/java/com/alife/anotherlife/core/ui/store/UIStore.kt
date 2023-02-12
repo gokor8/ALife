@@ -8,6 +8,7 @@ interface UIStore<STATE : MVI.State, EFFECT : MVI.Effect> {
     fun getStateCollector(): StateCollector<STATE>
 
     fun setState(state: STATE.() -> STATE)
+    fun setState(state: STATE)
 
     suspend fun setStateDebounce(delayLong: Long, state: STATE.() -> STATE)
 

@@ -15,8 +15,6 @@ class TestScreenReducer(
     override val uiStore: BaseUIStore<TestScreenState, TestScreenEffect> = DefaultUIStore(TestScreenState()),
 ) : TestVMReducer(), TestReducer {
 
-    override fun getFlowState(): StateFlow<TestScreenState> = uiStore.stateFlow
-
     override suspend fun onTestTextAction(text: String) {
         uiStore.setState { copy(testScreenText = text) }
     }

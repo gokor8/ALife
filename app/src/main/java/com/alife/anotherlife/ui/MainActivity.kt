@@ -15,7 +15,9 @@ import com.alife.anotherlife.theme.AnotherLifeTheme
 import com.alife.anotherlife.ui.example.ExampleNavigationGraph
 import com.alife.anotherlife.ui.example.test.TestNavGraph
 import com.alife.anotherlife.ui.screen.login.navigation.LoginNavRoute
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

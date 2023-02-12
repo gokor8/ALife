@@ -9,7 +9,6 @@ import com.alife.anotherlife.ui.example.test.screen.state.TestScreenEffect
 import com.alife.anotherlife.ui.example.test.screen.state.TestScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 
-@HiltViewModel
 class TestViewModel(
     override val reducerVM: TestVMReducer = TestScreenReducer()
 ) : BaseViewModel<TestScreenAction, TestScreenState, TestScreenEffect>() {

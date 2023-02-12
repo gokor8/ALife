@@ -18,7 +18,7 @@ abstract class BaseViewModel<ACTION : MVI.Action, STATE : MVI.State, EFFECT : MV
     @Composable
     fun getUIState(): STATE = reducerVM.getState().collectAsState().value
 
-    abstract suspend fun onAction(action: ACTION)
+    protected abstract suspend fun onAction(action: ACTION)
 
     override fun reduce(action: ACTION) {
         viewModelScope.launch {

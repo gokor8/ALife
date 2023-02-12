@@ -23,7 +23,7 @@ class MainNavigationGraph(private val startNavigationRoute: NavigationRoute) : N
             startDestination = startNavigationRoute.routeTag
         ) {
             LoginNavBuilder {
-                LoginScreen().Content()
+                LoginScreen().SetupContent()
             }.navComposable(this)
         }
     }
