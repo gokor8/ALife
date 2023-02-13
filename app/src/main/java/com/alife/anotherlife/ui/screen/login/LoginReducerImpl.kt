@@ -1,31 +1,29 @@
 package com.alife.anotherlife.ui.screen.login
 
-import com.alife.anotherlife.R
 import com.alife.anotherlife.core.ui.store.UIStore
-import com.alife.anotherlife.ui.screen.login.model.buttons.picture.PictureUIAuthModel
-import com.alife.anotherlife.ui.screen.login.model.buttons.text.LoginTextUIAuthModel
-import com.alife.anotherlife.ui.screen.login.model.buttons.text.StaticTextUIAuthModel
+import com.alife.anotherlife.ui.screen.login.mapper.base.BaseLoginAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.reducer.AbstractLoginReducer
 import com.alife.anotherlife.ui.screen.login.state.LoginState
+import com.alife.domain.login.base.BaseLoginAuthTypeUseCase
+import com.alife.domain.login.base.BaseMockAuthTypeUseCase
 import javax.inject.Inject
 
 class LoginReducerImpl @Inject constructor(
     override val uiStore: UIStore<LoginState, Nothing>,
+    private val baseLoginTextsUseCase: BaseLoginAuthTypeUseCase,
+    private val mockAuthTypeUseCase: BaseMockAuthTypeUseCase,
+    private val loginAuthTypeToUIAuth: BaseLoginAuthTypeToUIAuth
 ) : AbstractLoginReducer() {
 
     override fun onInit() {
+        val defaultAuthEntities = baseLoginTextsUseCase.getAuthTypes()
+        val mockAuthEntities = mockAuthTypeUseCase.getAuthTypes()
+
+        val uiAuthTypes = loginAuthTypeToUIAuth.map(defaultAuthEntities) +
+                loginAuthTypeToUIAuth.map(mockAuthEntities)
+
         uiStore.setState(
-            LoginState(
-                listOf(
-                    StaticTextUIAuthModel.Logo(),
-                    StaticTextUIAuthModel.Hint(),
-                    LoginTextUIAuthModel.Registration(),
-                    LoginTextUIAuthModel.LoginIn(),
-                    PictureUIAuthModel.ResImageUIAuthModel(R.drawable.ic_instagram),
-                    PictureUIAuthModel.ResImageUIAuthModel(R.drawable.ic_vk),
-                    PictureUIAuthModel.ResImageUIAuthModel(R.drawable.ic_google),
-                )
-            )
+            LoginState(uiAuthTypes)
         )
     }
 

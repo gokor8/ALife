@@ -8,4 +8,10 @@ interface UIAuthModel {
 
     @Composable
     fun Button(viewModel: LoginViewModel)
+
+
+    class Empty : UIAuthModel {
+        @Composable
+        override fun Button(viewModel: LoginViewModel) {}
+    }
 }
