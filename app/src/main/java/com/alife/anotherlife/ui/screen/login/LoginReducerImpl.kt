@@ -19,8 +19,8 @@ class LoginReducerImpl @Inject constructor(
                 listOf(
                     StaticTextUIAuthModel.Logo(),
                     StaticTextUIAuthModel.Hint(),
-                    LoginTextUIAuthModel.LoginIn(),
                     LoginTextUIAuthModel.Registration(),
+                    LoginTextUIAuthModel.LoginIn(),
                     PictureUIAuthModel.ResImageUIAuthModel(R.drawable.ic_instagram),
                     PictureUIAuthModel.ResImageUIAuthModel(R.drawable.ic_vk),
                     PictureUIAuthModel.ResImageUIAuthModel(R.drawable.ic_google),

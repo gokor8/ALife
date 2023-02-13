@@ -9,6 +9,7 @@ import com.alife.core.mvi.MVI
 interface TestScreenAction : MVI.Action {
 
     suspend fun onAction(testReducerReduce: TestReducer)
+
     class TestTextAction(private val text: String) : TestScreenAction {
 
         override suspend fun onAction(testReducerReduce: TestReducer) {

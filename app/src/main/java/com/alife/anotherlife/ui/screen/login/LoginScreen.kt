@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +20,7 @@ import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.ui.screen.DefaultScreen
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.ui.screen.login.model.buttons.text.StaticTextUIAuthModel
+import com.alife.anotherlife.ui.screen.login.state.LoginAction
 
 class LoginScreen : VMScreen<LoginViewModel>(ScrollableModifier()) {
 
@@ -28,6 +30,10 @@ class LoginScreen : VMScreen<LoginViewModel>(ScrollableModifier()) {
     @Composable
     override fun Content(modifier: Modifier) {
         Column {
+
+            LaunchedEffect(true) {
+                viewModel.reduce(LoginAction.InitAction())
+            }
 
             val state = viewModel.getUIState()
 
@@ -60,23 +66,6 @@ class LoginScreen : VMScreen<LoginViewModel>(ScrollableModifier()) {
                 ) {
                     it.Button(viewModel = viewModel)
                 }
-//                item(
-//                    span = { GridItemSpan(maxCurrentLineSpan) }
-//                ) {
-//                    TextBase(
-//                        textResId = R.string.horizontal_logo,
-//                        modifier = Modifier
-//                            .padding(start = 22.dp, end = 21.dp)
-//                            .height(IntrinsicSize.Min)
-//                            .width(5.dp)
-//                    )
-//                }
-//                item(
-//                    span = { GridItemSpan(0) }
-//                ) {
-//                    TextBase(textResId = R.string.authorization_type)
-//                    Spacer(modifier = Modifier.padding(bottom = 14.dp))
-//                }
             }
         }
     }
