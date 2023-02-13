@@ -4,7 +4,7 @@ import com.alife.anotherlife.ui.screen.login.model.AuthType
 import com.alife.anotherlife.ui.screen.login.reducer.LoginReducer
 import com.alife.core.mvi.MVI
 
-sealed interface LoginAction : MVI.Action {
+interface LoginAction : MVI.Action {
 
     fun onAction(reducer: LoginReducer)
 

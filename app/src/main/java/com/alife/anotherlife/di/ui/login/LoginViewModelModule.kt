@@ -15,7 +15,6 @@ import dagger.Binds
 import dagger.hilt.InstallIn
 import dagger.Module
 import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
