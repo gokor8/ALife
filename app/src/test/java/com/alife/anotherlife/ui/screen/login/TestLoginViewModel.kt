@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.login
 
 import com.alife.anotherlife.core.FakeUIStore
+import com.alife.anotherlife.core.ViewModelTest
 import com.alife.anotherlife.core.ui.state_collector.StateCollector
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.login.model.AuthType
@@ -9,10 +10,14 @@ import com.alife.anotherlife.ui.screen.login.reducer.LoginReducer
 import com.alife.anotherlife.ui.screen.login.state.LoginAction
 import com.alife.anotherlife.ui.screen.login.state.LoginState
 import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
-class TestLoginViewModel {
+@OptIn(ExperimentalCoroutinesApi::class)
+class TestLoginViewModel : ViewModelTest() {
 
     private lateinit var reduceCollector: MutableList<LoginReduce>
     private lateinit var viewModel: LoginViewModel
@@ -24,7 +29,7 @@ class TestLoginViewModel {
     }
 
     @Test
-    fun `test all valid action`() {
+    fun `test all valid actions triggered`() = runTest {
         val testActions = listOf(
             LoginAction.InitAction(),
             LoginAction.AuthTypeAction(AuthType.LOGIN_IN),
@@ -44,7 +49,7 @@ class TestLoginViewModel {
     }
 
     @Test
-    fun `test not valid action`() {
+    fun `test not valid action not triggered`() {
         val didntValidAction = DidntValidAction()
 
         viewModel.reduce(didntValidAction)

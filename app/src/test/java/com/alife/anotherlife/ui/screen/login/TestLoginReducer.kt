@@ -12,6 +12,7 @@ import com.alife.domain.login.LoginAuthType
 import com.alife.domain.login.base.BaseLoginAuthTypeUseCase
 import com.alife.domain.login.entity.AuthTypeEntity
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -65,10 +66,9 @@ class TestLoginReducer {
 
         reducer.onInit()
 
-        val expected = listOf(UIAuthModel.Empty(), UIAuthModel.Empty())
-
         assertEquals(uiStore.stateCollector.size, 1)
-        assertEquals(uiStore.getState().supportedAuthService, expected)
+        assertEquals(uiStore.getState().supportedAuthService.size, 2)
+        assertTrue(uiStore.getState().supportedAuthService.all { it is UIAuthModel.Empty })
     }
 }
 
@@ -79,16 +79,17 @@ class BadAuthType : AuthTypeEntity
 class TestFirstAuthType : AuthTypeEntity
 class TestSecondAuthType : AuthTypeEntity
 
-sealed interface FakeUIAuthModel : UIAuthModel{
+sealed interface FakeUIAuthModel : UIAuthModel {
 
     @Composable
-    override fun Button(viewModel: LoginViewModel) {}
+    override fun Button(viewModel: LoginViewModel) {
+    }
 
     class FakeFirst : FakeUIAuthModel {
         override fun equals(other: Any?) = other != null && other is FakeFirst
     }
 
-    class FakeSecond: FakeUIAuthModel {
+    class FakeSecond : FakeUIAuthModel {
         override fun equals(other: Any?) = other != null && other is FakeSecond
     }
 }
