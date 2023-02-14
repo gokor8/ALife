@@ -7,7 +7,7 @@ import com.alife.anotherlife.ui.example.navigation.user.UserNavRoute
 class UserArgsNavigator(
     val userId: String,
     val userName: String = ""
-    ) : ArgsNavigator(UserNavRoute()) {
+) : ArgsNavigator(UserNavRoute()) {
 
     override val argsContainer = UserArgsContainer()
 

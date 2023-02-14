@@ -13,7 +13,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.alife.anotherlife.theme.AnotherLifeTheme
 import com.alife.anotherlife.ui.example.ExampleNavigationGraph
+import com.alife.anotherlife.ui.example.test.TestNavGraph
+import com.alife.anotherlife.ui.screen.login.navigation.LoginNavRoute
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +28,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ExampleNavigationGraph().SetupNavigation(navHostController = rememberNavController())
+                    val navHostController = rememberNavController()
+                    MainNavigationGraph(
+                        LoginNavRoute()
+                    ).SetupNavigation(navHostController = navHostController)
+                    //TestNavGraph().SetupNavigation(navHostController = rememberNavController())
+                    //ExampleNavigationGraph().SetupNavigation(navHostController = rememberNavController())
 
                     //Greeting("Android")
                 }

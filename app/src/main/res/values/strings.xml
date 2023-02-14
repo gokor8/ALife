@@ -1,3 +1,11 @@
 <resources>
+    // Addons
     <string name="app_name">AnotherLife</string>
+    <string name="horizontal_logo">A Life</string>
+
+    // Login
+    <string name="pass_login_in">Hi, pass login in</string>
+    <string name="authorization_type">Выберите подходящий способ авторизации</string>
+    <string name="login_in">Войти</string>
+    <string name="registration">Зарегистрироваться</string>
 </resources>

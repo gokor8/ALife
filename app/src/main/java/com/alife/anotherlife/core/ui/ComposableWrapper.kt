@@ -1,4 +1,4 @@
-package com.alife.anotherlife.core
+package com.alife.anotherlife.core.ui
 
 import androidx.compose.runtime.Composable
 
