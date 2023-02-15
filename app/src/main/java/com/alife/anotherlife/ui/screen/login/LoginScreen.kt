@@ -1,10 +1,12 @@
 package com.alife.anotherlife.ui.screen.login
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -46,24 +48,13 @@ class LoginScreen : VMScreen<LoginViewModel>(ScrollableModifier()) {
                 TextBase(textResId = R.string.pass_login_in)
             }
 
-            LazyHorizontalGrid(
-                modifier = Modifier.height(158.dp),
-                rows = GridCells.Fixed(3),
+
+            LazyRow(
+                modifier = Modifier.fillMaxWidth().height(158.dp),
                 reverseLayout = true,
                 contentPadding = PaddingValues(vertical = 5.dp, horizontal = 5.dp)
             ) {
-                items(
-                    state.supportedAuthService,
-                    span = { authModel ->
-                        GridItemSpan(
-                            when (authModel) {
-                                is StaticTextUIAuthModel.Logo -> maxCurrentLineSpan
-                                is StaticTextUIAuthModel.Hint -> 0
-                                else -> 1
-                            }
-                        )
-                    }
-                ) {
+                items(state.supportedAuthService) {
                     it.Button(viewModel = viewModel)
                 }
             }

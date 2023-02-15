@@ -1,8 +1,9 @@
 package com.alife.anotherlife.ui.screen.login.model.buttons
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.alife.anotherlife.ui.screen.login.LoginViewModel
-import com.alife.anotherlife.ui.screen.login.model.AuthType
 
 interface UIAuthModel {
 

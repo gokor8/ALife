@@ -2,14 +2,11 @@ package com.alife.anotherlife.ui.screen.login
 
 import androidx.compose.runtime.Composable
 import com.alife.anotherlife.core.FakeUIStore
-import com.alife.anotherlife.core.ui.store.UIStore
-import com.alife.anotherlife.ui.screen.login.mapper.base.BaseLoginAuthTypeToUIAuth
-import com.alife.anotherlife.ui.screen.login.model.AuthType
+import com.alife.anotherlife.ui.screen.login.mapper.base.BaseAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.model.buttons.UIAuthModel
 import com.alife.anotherlife.ui.screen.login.reducer.LoginReducer
 import com.alife.anotherlife.ui.screen.login.state.LoginState
-import com.alife.domain.login.LoginAuthType
-import com.alife.domain.login.base.BaseLoginAuthTypeUseCase
+import com.alife.domain.login.base.LoginAuthType
 import com.alife.domain.login.entity.AuthTypeEntity
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
@@ -32,7 +29,7 @@ class TestLoginReducer {
             uiStore,
             firstAuthTypeUseCase,
             secondAuthTypeUseCase,
-            FakeLoginAuthTypeToUIAuth()
+            FakeAuthTypeToUIAuth()
         )
     }
 
@@ -41,7 +38,7 @@ class TestLoginReducer {
             uiStore,
             FakeLoginAuthTypeUseCase(firstAuthType),
             FakeLoginAuthTypeUseCase(secondAuthType),
-            FakeLoginAuthTypeToUIAuth()
+            FakeAuthTypeToUIAuth()
         )
     }
 
@@ -101,7 +98,7 @@ class FakeLoginAuthTypeUseCase(private val authType: AuthTypeEntity) : LoginAuth
 }
 
 
-class FakeLoginAuthTypeToUIAuth : BaseLoginAuthTypeToUIAuth {
+class FakeAuthTypeToUIAuth : BaseAuthTypeToUIAuth {
 
     override fun map(inputModel: List<AuthTypeEntity>): List<UIAuthModel> {
         return inputModel.map { authType ->

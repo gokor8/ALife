@@ -4,11 +4,13 @@ import com.alife.anotherlife.core.ui.store.DefaultUIStore
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.login.LoginReducerImpl
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseDefaultAuthTypeToUIAuth
-import com.alife.anotherlife.ui.screen.login.mapper.base.BaseLoginAuthTypeToUIAuth
+import com.alife.anotherlife.ui.screen.login.mapper.base.BaseAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseMockAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.mapper.DefaultAuthTypeToUIAuth
+import com.alife.anotherlife.ui.screen.login.mapper.ListAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.mapper.LoginAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.mapper.MockAuthTypeToUIAuth
+import com.alife.anotherlife.ui.screen.login.mapper.base.BaseLoginAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.reducer.AbstractLoginReducer
 import com.alife.anotherlife.ui.screen.login.state.LoginState
 import dagger.Binds
@@ -28,6 +30,9 @@ interface LoginViewModelModule {
 
     @Binds
     fun loginAuthTypeToUIAuth(mapper: LoginAuthTypeToUIAuth): BaseLoginAuthTypeToUIAuth
+
+    @Binds
+    fun listAuthTypeToUIAuth(mapper: ListAuthTypeToUIAuth): BaseAuthTypeToUIAuth
 
     @Binds
     fun defaultAuthTypeToUIAuth(mapper: DefaultAuthTypeToUIAuth): BaseDefaultAuthTypeToUIAuth

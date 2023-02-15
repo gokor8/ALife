@@ -1,8 +1,9 @@
 package com.alife.anotherlife.di.ui.login
 
-import com.alife.domain.login.LoginAuthType
+import com.alife.domain.login.base.LoginAuthType
 import com.alife.domain.login.LoginAuthTypeUseCase
 import com.alife.domain.login.MockAuthTypeUseCase
+import com.alife.domain.login.base.ListAuthType
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,5 +19,5 @@ interface LoginUseCaseModule {
 
     @LoginUseCaseAnnotations.MockATUseCase
     @Binds
-    fun mockAuthTypeUseCase(useCase: MockAuthTypeUseCase): LoginAuthType
+    fun mockAuthTypeUseCase(useCase: MockAuthTypeUseCase): ListAuthType
 }

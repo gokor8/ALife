@@ -13,7 +13,7 @@ import com.alife.anotherlife.ui.screen.login.LoginViewModel
 sealed class StaticTextUIAuthModel(
     @StringRes textRes: Int,
     private val modifier: Modifier = Modifier
-    ) : TextUIAuthModel(textRes) {
+) : TextUIAuthModel(textRes) {
 
     @Composable
     override fun Button(viewModel: LoginViewModel) {
@@ -31,6 +31,5 @@ sealed class StaticTextUIAuthModel(
 
     class Hint : StaticTextUIAuthModel(
         R.string.authorization_type,
-        Modifier.padding(end = 22.dp)
     )
 }
