@@ -1,7 +1,7 @@
 package com.alife.anotherlife.ui.screen.login.mapper
 
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseDefaultAuthTypeToUIAuth
-import com.alife.anotherlife.ui.screen.login.mapper.base.BaseAuthTypeToUIAuth
+import com.alife.anotherlife.ui.screen.login.mapper.base.BaseListAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseMockAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.model.buttons.UIAuthModel
 import com.alife.domain.login.entity.AuthTypeEntity
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class ListAuthTypeToUIAuth @Inject constructor(
     private val defaultAuthTypeToUIAuth: BaseDefaultAuthTypeToUIAuth,
     private val mockImageAuthTypeEntity: BaseMockAuthTypeToUIAuth
-) : BaseAuthTypeToUIAuth {
+) : BaseListAuthTypeToUIAuth {
 
     override fun map(inputModel: List<AuthTypeEntity>): List<UIAuthModel> {
         return inputModel.map { entity ->

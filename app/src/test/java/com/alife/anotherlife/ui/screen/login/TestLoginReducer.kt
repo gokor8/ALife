@@ -1,13 +1,19 @@
 package com.alife.anotherlife.ui.screen.login
 
-import androidx.compose.runtime.Composable
 import com.alife.anotherlife.core.FakeUIStore
-import com.alife.anotherlife.ui.screen.login.mapper.base.BaseAuthTypeToUIAuth
+import com.alife.anotherlife.ui.screen.login.mapper.base.BaseLoginAuthTypeToUIAuth
+import com.alife.anotherlife.ui.screen.login.mapper.base.BaseUIAuthToColumnUIAuth
+import com.alife.anotherlife.ui.screen.login.model.FakeUIAuthModel
+import com.alife.anotherlife.ui.screen.login.model.buttons.ColumnContainerUIAuthModel
 import com.alife.anotherlife.ui.screen.login.model.buttons.UIAuthModel
 import com.alife.anotherlife.ui.screen.login.reducer.LoginReducer
 import com.alife.anotherlife.ui.screen.login.state.LoginState
+import com.alife.domain.login.base.ListAuthType
 import com.alife.domain.login.base.LoginAuthType
 import com.alife.domain.login.entity.AuthTypeEntity
+import com.alife.domain.login.entity.DefaultAuthTypeEntity
+import com.alife.domain.login.entity.LoginAuthTypeEntity
+import com.alife.domain.login.entity.MockImageAuthTypeEntity
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Before
@@ -21,92 +27,101 @@ class TestLoginReducer {
     @Before
     fun before() {
         uiStore = FakeUIStore()
-
-        val firstAuthTypeUseCase = FakeLoginAuthTypeUseCase(TestFirstAuthType())
-        val secondAuthTypeUseCase = FakeLoginAuthTypeUseCase(TestSecondAuthType())
-
-        reducer = LoginReducerImpl(
-            uiStore,
-            firstAuthTypeUseCase,
-            secondAuthTypeUseCase,
-            FakeAuthTypeToUIAuth()
-        )
     }
 
-    fun setupReducer(firstAuthType: AuthTypeEntity, secondAuthType: AuthTypeEntity) {
+    private fun setupReducer(
+        useCaseAuthTypes: List<MockImageAuthTypeEntity>,
+        firstAuthTypes: List<UIAuthModel>,
+        secondAuthTypes: List<UIAuthModel>
+    ) {
         reducer = LoginReducerImpl(
             uiStore,
-            FakeLoginAuthTypeUseCase(firstAuthType),
-            FakeLoginAuthTypeUseCase(secondAuthType),
-            FakeAuthTypeToUIAuth()
+            FakeLoginAuthTypeUseCase(),
+            FakeMockAuthTypeUseCase(useCaseAuthTypes),
+            FakeLoginAuthTypeToContainerUIAuth(firstAuthTypes),
+            FakeUIAuthToColumnUIAuth(secondAuthTypes)
         )
     }
 
     @Test
     fun `test get list first + second auth types`() {
-        setupReducer(TestFirstAuthType(), TestSecondAuthType())
-
-        reducer.onInit()
-
-        val expected = listOf(
-            FakeUIAuthModel.FakeFirst(),
-            FakeUIAuthModel.FakeSecond()
+        setupReducer(
+            listOf(
+                MockImageAuthTypeEntity.VKAuthTypeEntity(),
+                MockImageAuthTypeEntity.GoogleAuthTypeEntity(),
+                MockImageAuthTypeEntity.InstagramAuthTypeEntity()
+            ),
+            listOf(FakeUIAuthModel.FakeFirst()),
+            listOf(FakeUIAuthModel.FakeSecond())
         )
-
-        assertEquals(uiStore.stateCollector.size, 1)
-        assertEquals(uiStore.getState().supportedAuthService, expected)
-    }
-
-    @Test
-    fun `test get list with empty auth types`() {
-        setupReducer(BadAuthType(), BadAuthType())
 
         reducer.onInit()
 
         assertEquals(uiStore.stateCollector.size, 1)
         assertEquals(uiStore.getState().supportedAuthService.size, 2)
-        assertTrue(uiStore.getState().supportedAuthService.all { it is UIAuthModel.Empty })
+        assertTrue(uiStore.getState().supportedAuthService.first() is FakeUIAuthModel.FakeFirst)
+        assertTrue(uiStore.getState().supportedAuthService.last() is ColumnContainerUIAuthModel)
+    }
+
+    @Test
+    fun `test with empty return usecase`() {
+        setupReducer(
+            emptyList(),
+            listOf(FakeUIAuthModel.FakeFirst()),
+            listOf(FakeUIAuthModel.FakeSecond())
+        )
+
+        reducer.onInit()
+
+        assertEquals(uiStore.stateCollector.size, 1)
+        assertEquals(uiStore.getState().supportedAuthService.size, 2)
+        assertTrue(uiStore.getState().supportedAuthService.first() is FakeUIAuthModel.FakeFirst)
+        assertTrue(uiStore.getState().supportedAuthService.last() is FakeUIAuthModel.FakeSecond)
+    }
+
+    @Test
+    fun `test with 1 authstate return from usecase`() {
+        setupReducer(
+            listOf(MockImageAuthTypeEntity.VKAuthTypeEntity()),
+            listOf(FakeUIAuthModel.FakeFirst()),
+            listOf(FakeUIAuthModel.FakeSecond())
+        )
+
+        reducer.onInit()
+
+        assertEquals(uiStore.stateCollector.size, 1)
+        assertEquals(uiStore.getState().supportedAuthService.size, 1)
+        assertTrue(uiStore.getState().supportedAuthService.first() is FakeUIAuthModel.FakeFirst)
     }
 }
+
 
 
 // Test Realization
+class FakeLoginAuthTypeToContainerUIAuth(private val authMode: List<UIAuthModel>) :
+    BaseLoginAuthTypeToUIAuth {
+    override fun map(
+        inputModel: LoginAuthTypeEntity,
+        thirdAuthType: MockImageAuthTypeEntity?
+    ): List<UIAuthModel> = authMode
+}
 
-class BadAuthType : AuthTypeEntity
-class TestFirstAuthType : AuthTypeEntity
-class TestSecondAuthType : AuthTypeEntity
-
-sealed interface FakeUIAuthModel : UIAuthModel {
-
-    @Composable
-    override fun Button(viewModel: LoginViewModel) {
-    }
-
-    class FakeFirst : FakeUIAuthModel {
-        override fun equals(other: Any?) = other != null && other is FakeFirst
-    }
-
-    class FakeSecond : FakeUIAuthModel {
-        override fun equals(other: Any?) = other != null && other is FakeSecond
+class FakeUIAuthToColumnUIAuth(private val uiAuthModels: List<UIAuthModel>) :
+    BaseUIAuthToColumnUIAuth {
+    override fun map(inputModel: List<AuthTypeEntity>) = uiAuthModels.map {
+        ColumnContainerUIAuthModel(it)
     }
 }
 
+class FakeLoginAuthTypeUseCase : LoginAuthType {
 
-class FakeLoginAuthTypeUseCase(private val authType: AuthTypeEntity) : LoginAuthType {
-
-    override fun getAuthTypes(): List<AuthTypeEntity> = listOf(authType)
+    override fun getLoginAuthTypes() = LoginAuthTypeEntity(
+        DefaultAuthTypeEntity.HorizontalLogoEntity(),
+        DefaultAuthTypeEntity.RegistrationEntity(),
+        DefaultAuthTypeEntity.LoginInEntity(),
+    )
 }
 
-
-class FakeAuthTypeToUIAuth : BaseAuthTypeToUIAuth {
-
-    override fun map(inputModel: List<AuthTypeEntity>): List<UIAuthModel> {
-        return inputModel.map { authType ->
-            when (authType) {
-                is TestFirstAuthType -> FakeUIAuthModel.FakeFirst()
-                is TestSecondAuthType -> FakeUIAuthModel.FakeSecond()
-                else -> UIAuthModel.Empty()
-            }
-        }
-    }
+class FakeMockAuthTypeUseCase(private val authTypes: List<MockImageAuthTypeEntity>) : ListAuthType {
+    override fun getAuthTypes(): List<MockImageAuthTypeEntity> = authTypes
 }

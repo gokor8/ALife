@@ -1,20 +1,22 @@
-package com.alife.anotherlife.ui.screen.login.mapper
+package com.alife.anotherlife.ui.screen.login.mapper.container
 
+import com.alife.anotherlife.ui.screen.login.mapper.MockAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseLoginAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.model.buttons.ContainerLoginUIAuthModel
 import com.alife.anotherlife.ui.screen.login.model.buttons.UIAuthModel
 import com.alife.anotherlife.ui.screen.login.model.buttons.text.LoginTextUIAuthModel
 import com.alife.anotherlife.ui.screen.login.model.buttons.text.StaticTextUIAuthModel
+import com.alife.domain.login.entity.BaseLoginAuthTypeEntity
 import com.alife.domain.login.entity.LoginAuthTypeEntity
 import com.alife.domain.login.entity.MockImageAuthTypeEntity
 import javax.inject.Inject
 
-class LoginAuthTypeToUIAuth @Inject constructor(
+class LoginAuthTypeToContainerUIAuth @Inject constructor(
     private val mockAuthTypeToUIAuth: MockAuthTypeToUIAuth
 ) : BaseLoginAuthTypeToUIAuth {
 
     override fun map(
-        inputModel: LoginAuthTypeEntity,
+        inputModel: BaseLoginAuthTypeEntity,
         thirdAuthType: MockImageAuthTypeEntity?
     ): List<UIAuthModel> = listOf(
         StaticTextUIAuthModel.Logo(),

@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.alife.anotherlife.ui.screen.login.LoginViewModel
 
-class ColumnContainerUIAuthModel(
+data class ColumnContainerUIAuthModel(
     private val firstUIAuthModel: UIAuthModel,
     private val secondUIAuthModel: UIAuthModel? = null
 ) : UIAuthModel {

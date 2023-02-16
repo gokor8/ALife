@@ -2,9 +2,9 @@ package com.alife.anotherlife.ui.screen.login
 
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.di.ui.login.LoginUseCaseAnnotations
-import com.alife.anotherlife.ui.screen.login.mapper.base.BaseAuthTypeToUIAuth
+import com.alife.anotherlife.ui.screen.login.mapper.base.BaseListAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseLoginAuthTypeToUIAuth
-import com.alife.anotherlife.ui.screen.login.model.buttons.UIAuthModel
+import com.alife.anotherlife.ui.screen.login.mapper.base.BaseUIAuthToColumnUIAuth
 import com.alife.anotherlife.ui.screen.login.reducer.AbstractLoginReducer
 import com.alife.anotherlife.ui.screen.login.reducer.LoginReducer
 import com.alife.anotherlife.ui.screen.login.state.LoginState
@@ -19,7 +19,7 @@ class LoginReducerImpl @Inject constructor(
     @LoginUseCaseAnnotations.MockATUseCase
     private val mockAuthTypeUseCase: ListAuthType,
     private val loginAuthTypeToUIAuth: BaseLoginAuthTypeToUIAuth,
-    private val authTypeToUIAuth: BaseAuthTypeToUIAuth
+    private val uiAuthToColumnUIAuth: BaseUIAuthToColumnUIAuth
 ) : AbstractLoginReducer(), LoginReducer {
 
     override fun onInit() {
@@ -29,7 +29,7 @@ class LoginReducerImpl @Inject constructor(
         val uiAuthTypes = loginAuthTypeToUIAuth.map(
             defaultAuthEntities,
             mockAuthEntities.firstOrNull()
-        ) + authTypeToUIAuth.map(
+        ) + uiAuthToColumnUIAuth.map(
             mockAuthEntities.subList(1, mockAuthEntities.size)
         )
 

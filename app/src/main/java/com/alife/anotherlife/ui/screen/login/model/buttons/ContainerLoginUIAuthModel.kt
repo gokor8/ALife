@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.alife.anotherlife.ui.screen.login.LoginViewModel
 import com.alife.anotherlife.ui.screen.login.model.buttons.text.LoginTextUIAuthModel
 
-class ContainerLoginUIAuthModel(
+data class ContainerLoginUIAuthModel(
     private val loginIn: LoginTextUIAuthModel.LoginIn,
     private val registration: LoginTextUIAuthModel.Registration,
     private val lastLeft: UIAuthModel
