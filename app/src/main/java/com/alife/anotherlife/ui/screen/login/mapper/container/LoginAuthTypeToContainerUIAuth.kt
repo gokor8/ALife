@@ -6,7 +6,6 @@ import com.alife.anotherlife.ui.screen.login.model.buttons.ContainerLoginUIAuthM
 import com.alife.anotherlife.ui.screen.login.model.buttons.UIAuthModel
 import com.alife.anotherlife.ui.screen.login.model.buttons.text.LoginTextUIAuthModel
 import com.alife.anotherlife.ui.screen.login.model.buttons.text.StaticTextUIAuthModel
-import com.alife.domain.login.entity.BaseLoginAuthTypeEntity
 import com.alife.domain.login.entity.LoginAuthTypeEntity
 import com.alife.domain.login.entity.MockImageAuthTypeEntity
 import javax.inject.Inject
@@ -16,7 +15,7 @@ class LoginAuthTypeToContainerUIAuth @Inject constructor(
 ) : BaseLoginAuthTypeToUIAuth {
 
     override fun map(
-        inputModel: BaseLoginAuthTypeEntity,
+        inputModel: LoginAuthTypeEntity,
         thirdAuthType: MockImageAuthTypeEntity?
     ): List<UIAuthModel> = listOf(
         StaticTextUIAuthModel.Logo(),
