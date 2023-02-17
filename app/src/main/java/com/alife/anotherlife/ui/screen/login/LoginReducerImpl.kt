@@ -29,9 +29,7 @@ class LoginReducerImpl @Inject constructor(
         val uiAuthTypes = loginAuthTypeToUIAuth.map(
             defaultAuthEntities,
             mockAuthEntities.firstOrNull()
-        ) + uiAuthToColumnUIAuth.map(
-            mockAuthEntities.subList(1, mockAuthEntities.size)
-        )
+        ) + uiAuthToColumnUIAuth.map(mockAuthEntities)
 
         uiStore.setState(
             LoginState(uiAuthTypes)

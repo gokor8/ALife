@@ -9,8 +9,8 @@ class FakeListAuthTypeToUIAuth : BaseListAuthTypeToUIAuth {
     override fun map(inputModel: List<AuthTypeEntity>): List<UIAuthModel> {
         return inputModel.map { authType ->
             when (authType) {
-                is TestAuthTypeEntity.TestFirstAuthType -> FakeUIAuthModel.FakeFirst()
-                is TestAuthTypeEntity.TestSecondAuthType -> FakeUIAuthModel.FakeSecond()
+                is FakeAuthTypeEntity.FakeFirstAuthType -> FakeUIAuthModel.FakeFirst()
+                is FakeAuthTypeEntity.FakeSecondAuthType -> FakeUIAuthModel.FakeSecond()
                 else -> UIAuthModel.Empty()
             }
         }

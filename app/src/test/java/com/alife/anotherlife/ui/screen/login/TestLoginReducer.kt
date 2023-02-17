@@ -30,14 +30,14 @@ class TestLoginReducer {
     }
 
     private fun setupReducer(
-        useCaseAuthTypes: List<MockImageAuthTypeEntity>,
         firstAuthTypes: List<UIAuthModel>,
-        secondAuthTypes: List<UIAuthModel>
+        secondAuthTypes: List<UIAuthModel>,
+        isLoadImagesEmpty: Boolean = false,
     ) {
         reducer = LoginReducerImpl(
             uiStore,
             FakeLoginAuthTypeUseCase(),
-            FakeMockAuthTypeUseCase(useCaseAuthTypes),
+            FakeMockAuthTypeUseCase(isLoadImagesEmpty),
             FakeLoginAuthTypeToContainerUIAuth(firstAuthTypes),
             FakeUIAuthToColumnUIAuth(secondAuthTypes)
         )
@@ -46,11 +46,6 @@ class TestLoginReducer {
     @Test
     fun `test get list first + second auth types`() {
         setupReducer(
-            listOf(
-                MockImageAuthTypeEntity.VKAuthTypeEntity(),
-                MockImageAuthTypeEntity.GoogleAuthTypeEntity(),
-                MockImageAuthTypeEntity.InstagramAuthTypeEntity()
-            ),
             listOf(FakeUIAuthModel.FakeFirst()),
             listOf(FakeUIAuthModel.FakeSecond())
         )
@@ -59,42 +54,32 @@ class TestLoginReducer {
 
         assertEquals(uiStore.stateCollector.size, 1)
         assertEquals(uiStore.getState().supportedAuthService.size, 2)
-        assertTrue(uiStore.getState().supportedAuthService.first() is FakeUIAuthModel.FakeFirst)
-        assertTrue(uiStore.getState().supportedAuthService.last() is ColumnContainerUIAuthModel)
+        assertEquals(uiStore.getState().supportedAuthService.first(), FakeUIAuthModel.FakeFirst())
+        assertEquals(
+            uiStore.getState().supportedAuthService.last(),
+            ColumnContainerUIAuthModel(FakeUIAuthModel.FakeSecond())
+        )
     }
 
     @Test
-    fun `test with empty return usecase`() {
+    fun `test with empty loaded images usecase`() {
         setupReducer(
-            emptyList(),
             listOf(FakeUIAuthModel.FakeFirst()),
-            listOf(FakeUIAuthModel.FakeSecond())
+            listOf(FakeUIAuthModel.FakeSecond()),
+            true
         )
 
         reducer.onInit()
 
         assertEquals(uiStore.stateCollector.size, 1)
         assertEquals(uiStore.getState().supportedAuthService.size, 2)
-        assertTrue(uiStore.getState().supportedAuthService.first() is FakeUIAuthModel.FakeFirst)
-        assertTrue(uiStore.getState().supportedAuthService.last() is FakeUIAuthModel.FakeSecond)
-    }
-
-    @Test
-    fun `test with 1 authstate return from usecase`() {
-        setupReducer(
-            listOf(MockImageAuthTypeEntity.VKAuthTypeEntity()),
-            listOf(FakeUIAuthModel.FakeFirst()),
-            listOf(FakeUIAuthModel.FakeSecond())
+        assertEquals(uiStore.getState().supportedAuthService.first(), FakeUIAuthModel.FakeFirst())
+        assertEquals(
+            uiStore.getState().supportedAuthService.last(),
+            ColumnContainerUIAuthModel(FakeUIAuthModel.FakeSecond())
         )
-
-        reducer.onInit()
-
-        assertEquals(uiStore.stateCollector.size, 1)
-        assertEquals(uiStore.getState().supportedAuthService.size, 1)
-        assertTrue(uiStore.getState().supportedAuthService.first() is FakeUIAuthModel.FakeFirst)
     }
 }
-
 
 
 // Test Realization
@@ -122,6 +107,13 @@ class FakeLoginAuthTypeUseCase : LoginAuthType {
     )
 }
 
-class FakeMockAuthTypeUseCase(private val authTypes: List<MockImageAuthTypeEntity>) : ListAuthType {
-    override fun getAuthTypes(): List<MockImageAuthTypeEntity> = authTypes
+class FakeMockAuthTypeUseCase(private val isEmpty: Boolean) : ListAuthType {
+    override fun getAuthTypes(): List<MockImageAuthTypeEntity> = if (isEmpty)
+        emptyList()
+    else
+        listOf(
+            MockImageAuthTypeEntity.VKAuthTypeEntity(),
+            MockImageAuthTypeEntity.GoogleAuthTypeEntity(),
+            MockImageAuthTypeEntity.InstagramAuthTypeEntity()
+        )
 }

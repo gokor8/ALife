@@ -30,18 +30,4 @@ interface LoginViewModelModule {
 
     @Binds
     fun bindUIStore(uiStore: DefaultUIStore<LoginState, Nothing>): UIStore<LoginState, Nothing>
-
-    @Binds
-    fun uiAuthToColumnUIAuth(mapper: UIAuthToColumnContainerUIAuth): BaseUIAuthToColumnUIAuth
-    @Binds
-    fun loginAuthTypeToUIAuth(mapper: LoginAuthTypeToContainerUIAuth): BaseLoginAuthTypeToUIAuth
-
-    @Binds
-    fun listAuthTypeToUIAuth(mapper: ListAuthTypeToUIAuth): BaseListAuthTypeToUIAuth
-
-    @Binds
-    fun defaultAuthTypeToUIAuth(mapper: DefaultAuthTypeToUIAuth): BaseDefaultAuthTypeToUIAuth
-
-    @Binds
-    fun mockAuthTypeToUIAuth(mapper: MockAuthTypeToUIAuth): BaseMockAuthTypeToUIAuth
 }
