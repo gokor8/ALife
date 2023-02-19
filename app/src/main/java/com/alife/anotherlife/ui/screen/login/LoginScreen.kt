@@ -40,22 +40,25 @@ class LoginScreen : VMScreen<LoginViewModel>(ScrollableModifier()) {
             val state = viewModel.getUIState()
 
             Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
+                modifier = Modifier.weight(1f).fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
                 TextBase(textResId = R.string.pass_login_in)
             }
 
+            StaticTextUIAuthModel.Hint().Button(
+                viewModel = viewModel,
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 14.dp)
+            )
 
             LazyRow(
-                modifier = Modifier.fillMaxWidth().height(158.dp),
+                modifier = Modifier.fillMaxWidth(),
                 reverseLayout = true,
-                contentPadding = PaddingValues(vertical = 5.dp, horizontal = 5.dp)
+                verticalAlignment = Alignment.Bottom,
+                contentPadding = PaddingValues(bottom = 15.dp, start = 5.dp, end = 5.dp)
             ) {
-                items(state.supportedAuthService) {
-                    it.Button(viewModel = viewModel)
+                items(state.supportedAuthService) { authServiceModel ->
+                    authServiceModel.Button(viewModel = viewModel, Modifier)
                 }
             }
         }

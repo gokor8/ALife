@@ -14,9 +14,9 @@ data class ColumnContainerUIAuthModel(
 ) : UIAuthModel {
     
     @Composable
-    override fun Button(viewModel: LoginViewModel) = Column {
-        firstUIAuthModel.Button(viewModel = viewModel)
+    override fun Button(viewModel: LoginViewModel, modifier: Modifier) = Column {
+        firstUIAuthModel.Button(viewModel = viewModel, modifier)
         Spacer(modifier = Modifier.padding(bottom = 5.dp))
-        secondUIAuthModel?.Button(viewModel = viewModel)
+        secondUIAuthModel?.Button(viewModel = viewModel, modifier)
     }
 }

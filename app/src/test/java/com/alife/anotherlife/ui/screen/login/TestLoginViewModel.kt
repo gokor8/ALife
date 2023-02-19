@@ -1,17 +1,17 @@
 package com.alife.anotherlife.ui.screen.login
 
+import com.alife.anotherlife.core.FakeStateCollector
 import com.alife.anotherlife.core.FakeUIStore
 import com.alife.anotherlife.core.ViewModelTest
 import com.alife.anotherlife.core.ui.state_collector.StateCollector
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.login.model.AuthType
-import com.alife.anotherlife.ui.screen.login.reducer.AbstractLoginReducer
+import com.alife.anotherlife.ui.screen.login.reducer.BaseLoginReducer
 import com.alife.anotherlife.ui.screen.login.reducer.LoginReducer
 import com.alife.anotherlife.ui.screen.login.state.LoginAction
 import com.alife.anotherlife.ui.screen.login.state.LoginState
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
@@ -70,14 +70,10 @@ enum class LoginReduce {
 
 class FakeLoginReducer(
     private val reduceCollector: MutableList<LoginReduce>,
-) : AbstractLoginReducer() {
+) : BaseLoginReducer {
 
-    // Переписать на интерфейс + интерфейс принимает вью модель
-    override val uiStore: UIStore<LoginState, Nothing> = FakeUIStore()
-
-    // Didnt need
     override fun getState(): StateCollector<LoginState> {
-        return uiStore.getStateCollector()
+        return FakeStateCollector(emptyList())
     }
 
     override fun onInit() {

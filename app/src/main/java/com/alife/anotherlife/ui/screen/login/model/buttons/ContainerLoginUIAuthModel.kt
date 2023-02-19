@@ -1,10 +1,6 @@
 package com.alife.anotherlife.ui.screen.login.model.buttons
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,15 +15,16 @@ data class ContainerLoginUIAuthModel(
 ) : UIAuthModel {
 
     @Composable
-    override fun Button(viewModel: LoginViewModel) = Column(
+    override fun Button(viewModel: LoginViewModel, modifier: Modifier) = Column(
+        modifier = modifier,
         horizontalAlignment = Alignment.End
     ) {
-        registration.Button(viewModel = viewModel)
-        Spacer(modifier = Modifier.fillMaxWidth().padding(bottom = 5.dp))
-        Row {
-            lastLeft.Button(viewModel = viewModel)
+        registration.Button(viewModel = viewModel, Modifier)
+        Spacer(modifier = Modifier.padding(bottom = 5.dp))
+        Row(modifier = Modifier) {
+            lastLeft.Button(viewModel = viewModel, Modifier)
             Spacer(modifier = Modifier.padding(bottom = 5.dp))
-            loginIn.Button(viewModel = viewModel)
+            loginIn.Button(viewModel = viewModel, Modifier)
         }
     }
 }

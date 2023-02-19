@@ -2,6 +2,7 @@ package com.alife.anotherlife.ui.screen.login.model.buttons.picture
 
 import android.media.Image
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.alife.anotherlife.core.composable.image.ImageBase
 import com.alife.anotherlife.ui.screen.login.LoginViewModel
 import com.alife.anotherlife.ui.screen.login.model.AuthType
@@ -18,8 +19,8 @@ sealed class RPictureUIAuthModel : UIAuthModel, UIAuthType {
     ) : RPictureUIAuthModel() {
 
         @Composable
-        override fun Button(viewModel: LoginViewModel) {
-            ImageBase(resId = imageResId)
+        override fun Button(viewModel: LoginViewModel, modifier: Modifier) {
+            ImageBase(resId = imageResId, modifier = modifier)
         }
     }
 
@@ -28,9 +29,7 @@ sealed class RPictureUIAuthModel : UIAuthModel, UIAuthType {
     ) : RPictureUIAuthModel() {
 
         @Composable
-        override fun Button(viewModel: LoginViewModel) {
-
-        }
+        override fun Button(viewModel: LoginViewModel, modifier: Modifier) {}
     }
 
 }

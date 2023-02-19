@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alife.anotherlife.core.ui.reducer.BaseVMReducer
 import com.alife.anotherlife.core.ui.reducer.VMReducer
+import com.alife.anotherlife.core.ui.state_collector.EffectCollector
+import com.alife.anotherlife.core.ui.state_collector.OnEffectCollect
 import com.alife.core.mvi.MVI
 import com.alife.core.mvi.MVIReducer
 import kotlinx.coroutines.launch
@@ -17,6 +19,10 @@ abstract class BaseViewModel<ACTION : MVI.Action, STATE : MVI.State, EFFECT : MV
 
     @Composable
     fun getUIState(): STATE = reducerVM.getState().collectAsState().value
+
+    suspend fun collectEffect(onEffectCollect: OnEffectCollect<EFFECT>) {
+        reducerVM.getEffect().collect(onEffectCollect)
+    }
 
     protected abstract suspend fun onAction(action: ACTION)
 
