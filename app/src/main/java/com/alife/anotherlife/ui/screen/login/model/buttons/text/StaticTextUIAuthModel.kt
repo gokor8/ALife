@@ -29,7 +29,7 @@ sealed class StaticTextUIAuthModel(
 
 
     class Logo : StaticTextUIAuthModel(
-        R.string.horizontal_logo,
+        R.string.vertical_logo,
         Modifier.padding(horizontal = 25.dp).width(5.dp)
     )
 

@@ -1,14 +1,17 @@
 package com.alife.anotherlife.ui.screen.login
 
+import com.alife.anotherlife.core.FakeEffectCollector
 import com.alife.anotherlife.core.FakeStateCollector
 import com.alife.anotherlife.core.FakeUIStore
 import com.alife.anotherlife.core.ViewModelTest
+import com.alife.anotherlife.core.ui.state_collector.EffectCollector
 import com.alife.anotherlife.core.ui.state_collector.StateCollector
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.login.model.AuthType
 import com.alife.anotherlife.ui.screen.login.reducer.BaseLoginReducer
 import com.alife.anotherlife.ui.screen.login.reducer.LoginReducer
 import com.alife.anotherlife.ui.screen.login.state.LoginAction
+import com.alife.anotherlife.ui.screen.login.state.LoginEffect
 import com.alife.anotherlife.ui.screen.login.state.LoginState
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -72,9 +75,8 @@ class FakeLoginReducer(
     private val reduceCollector: MutableList<LoginReduce>,
 ) : BaseLoginReducer {
 
-    override fun getStateCollector(): StateCollector<LoginState> {
-        return FakeStateCollector(emptyList())
-    }
+    override fun getStateCollector(): StateCollector<LoginState> = FakeStateCollector(emptyList())
+    override fun getEffectCollector(): EffectCollector<LoginEffect> = FakeEffectCollector()
 
     override fun onInit() {
         reduceCollector.add(LoginReduce.INIT)

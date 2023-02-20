@@ -7,6 +7,7 @@ import com.alife.anotherlife.ui.screen.login.model.FakeUIAuthModel
 import com.alife.anotherlife.ui.screen.login.model.buttons.ColumnContainerUIAuthModel
 import com.alife.anotherlife.ui.screen.login.model.buttons.UIAuthModel
 import com.alife.anotherlife.ui.screen.login.reducer.LoginReducer
+import com.alife.anotherlife.ui.screen.login.state.LoginEffect
 import com.alife.anotherlife.ui.screen.login.state.LoginState
 import com.alife.domain.login.base.ListAuthType
 import com.alife.domain.login.base.LoginAuthType
@@ -21,7 +22,7 @@ import org.junit.Test
 
 class TestLoginReducer {
 
-    private lateinit var uiStore: FakeUIStore<LoginState, Nothing>
+    private lateinit var uiStore: FakeUIStore<LoginState, LoginEffect>
     private lateinit var reducer: LoginReducer
 
     @Before
