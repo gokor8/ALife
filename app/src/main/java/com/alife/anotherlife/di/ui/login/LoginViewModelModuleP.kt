@@ -1,6 +1,8 @@
 package com.alife.anotherlife.di.ui.login
 
 import com.alife.anotherlife.core.ui.store.DefaultUIStore
+import com.alife.anotherlife.core.ui.store.UIStore
+import com.alife.anotherlife.ui.screen.login.state.LoginEffect
 import com.alife.anotherlife.ui.screen.login.state.LoginState
 import dagger.Module
 import dagger.Provides
@@ -13,5 +15,5 @@ import dagger.hilt.components.SingletonComponent
 class LoginViewModelModuleP {
 
     @Provides
-    fun loginViewModel() = DefaultUIStore<LoginState, Nothing>(LoginState())
+    fun loginViewModel(): UIStore<LoginState, LoginEffect> = DefaultUIStore(LoginState())
 }

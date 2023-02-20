@@ -17,7 +17,7 @@ class MainNavigationGraph(private val startNavigationRoute: NavigationRoute) : N
             startDestination = startNavigationRoute.routeTag
         ) {
             listOf(
-                LoginNavBuilder(),
+                LoginNavBuilder(navHostController),
                 RegistrationNavBuilder()
             ).forEach { it.navComposable(this) }
         }

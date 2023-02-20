@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.modifier.ScrollableModifier
 import com.alife.anotherlife.core.composable.text.TextBase
@@ -24,7 +26,8 @@ import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.ui.screen.login.model.buttons.text.StaticTextUIAuthModel
 import com.alife.anotherlife.ui.screen.login.state.LoginAction
 
-class LoginScreen : VMScreen<LoginViewModel>(ScrollableModifier()) {
+class LoginScreen(override val navController: NavController) :
+    VMScreen<LoginViewModel>(ScrollableModifier()) {
 
     @Composable
     override fun setupViewModel(): LoginViewModel = hiltViewModel()
@@ -40,7 +43,9 @@ class LoginScreen : VMScreen<LoginViewModel>(ScrollableModifier()) {
             val state = viewModel.getUIState()
 
             Box(
-                modifier = Modifier.weight(1f).fillMaxWidth(),
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
                 TextBase(textResId = R.string.pass_login_in)
@@ -68,5 +73,5 @@ class LoginScreen : VMScreen<LoginViewModel>(ScrollableModifier()) {
 @Preview
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen().SetupContent()
+    LoginScreen(rememberNavController()).SetupContent()
 }
