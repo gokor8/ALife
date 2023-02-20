@@ -9,7 +9,7 @@ sealed class NavigationWrapper(protected val defaultNavigator: BaseNavigator) {
     abstract fun navigate(navController: NavController)
 
 
-    class Navigate(defaultNavigator: BaseNavigator) : NavigationWrapper(defaultNavigator) {
+    abstract class Forward(defaultNavigator: BaseNavigator) : NavigationWrapper(defaultNavigator) {
 
         override fun navigate(navController: NavController) {
             Log.d("Nav Route", defaultNavigator.toString())

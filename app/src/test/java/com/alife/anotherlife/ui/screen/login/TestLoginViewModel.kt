@@ -72,7 +72,7 @@ class FakeLoginReducer(
     private val reduceCollector: MutableList<LoginReduce>,
 ) : BaseLoginReducer {
 
-    override fun getState(): StateCollector<LoginState> {
+    override fun getStateCollector(): StateCollector<LoginState> {
         return FakeStateCollector(emptyList())
     }
 
