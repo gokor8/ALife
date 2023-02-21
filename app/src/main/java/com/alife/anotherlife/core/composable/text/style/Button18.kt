@@ -14,12 +14,13 @@ import androidx.compose.ui.unit.sp
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.button.ButtonBase
 import com.alife.anotherlife.core.composable.text.TextBase
+import com.alife.anotherlife.theme.Shapes
 
 @Composable
 fun Button18(
     onClick: () -> Unit,
     @StringRes textResId: Int,
-    shape: Shape = RectangleShape
+    shape: Shape = Shapes.medium
 ) {
     ButtonBase(
         onClick = onClick,
