@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel<ACTION : MVI.Action, STATE : MVI.State, EFFECT : MVI.Effect>
     : ViewModel(), MVIReducer.Base<ACTION>, NavigationOnEffectCollect<EFFECT> {
 
-    abstract val reducerVM: VMReducer<STATE, EFFECT>
+    protected abstract val reducerVM: VMReducer<STATE, EFFECT>
 
     @Composable
     fun getUIState(): STATE = reducerVM.getStateCollector().collectAsState().value

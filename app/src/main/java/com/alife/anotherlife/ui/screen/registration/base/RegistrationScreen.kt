@@ -1,23 +1,22 @@
-package com.alife.anotherlife.ui.screen.registration
+package com.alife.anotherlife.ui.screen.registration.base
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.text.HintTextOutlined
-import com.alife.anotherlife.core.composable.text.OutlinedTextFieldBase
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.composable.text.style.Button18
 import com.alife.anotherlife.core.composable.text.style.Title22Style
 import com.alife.anotherlife.core.composable.view_group.CustomColumn
-import com.alife.anotherlife.core.ui.screen.DefaultScreen
+import com.alife.anotherlife.core.ui.screen.VMScreen
+import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationAction
 
-class RegistrationScreen : DefaultScreen() {
+abstract class RegistrationScreen : VMScreen<RegistrationViewModel>() {
 
     @Composable
     override fun Content(modifier: Modifier) = CustomColumn(
@@ -41,7 +40,9 @@ class RegistrationScreen : DefaultScreen() {
 
             HintTextOutlined(
                 value = "",
-                onValueChange = {},
+                onValueChange = { newText ->
+                    viewModel.reduce(RegistrationAction.OnTextInput(newText))
+                },
                 placeholderTextRes = R.string.name,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -57,16 +58,16 @@ class RegistrationScreen : DefaultScreen() {
             Spacer(modifier = Modifier.padding(bottom = 25.dp))
 
             Button18(
-                onClick = { /*TODO*/ },
+                onClick = { viewModel.reduce(RegistrationAction.OnContinueClick()) },
                 textResId = R.string.continue_next
             )
         }
     }
 }
 
-
-@Preview
-@Composable
-fun RegistrationScreenPreview() {
-    RegistrationScreen().SetupContent()
-}
+//
+//@Preview
+//@Composable
+//fun RegistrationScreenPreview() {
+//    RegistrationScreen().SetupContent()
+//}

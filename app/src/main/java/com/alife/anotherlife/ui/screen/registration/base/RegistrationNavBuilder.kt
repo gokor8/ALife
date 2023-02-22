@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.screen.registration
+package com.alife.anotherlife.ui.screen.registration.base
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
