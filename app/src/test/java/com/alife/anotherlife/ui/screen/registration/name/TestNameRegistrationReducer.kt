@@ -50,60 +50,53 @@ class TestNameRegistrationReducer {
 
     @Test
     fun `test on continue click, expect success`() {
+        setupReducer(FakeSuccessNameChain(uiStore))
         val testText = "test text"
 
         nameReducer.onTextInput(testText)
 
+        val expectedValue = "isSuccess: true"
+
         assertEquals(uiStore.stateCollector.size, 1)
-        assertEquals(uiStore.stateCollector.last().textWithErrorModel.text, testText)
+        assertEquals(uiStore.stateCollector.last().textWithErrorModel.text, expectedValue)
         assertEquals(uiStore.stateCollector.last().textWithErrorModel.errorResId, null)
     }
 
     @Test
     fun `test success text input, expect fail`() {
+        setupReducer(FakeFailNameChain(uiStore))
         val testText = "test text"
 
         nameReducer.onTextInput(testText)
 
+        val expectedValue = "isSuccess: false"
+
         assertEquals(uiStore.stateCollector.size, 1)
-        assertEquals(uiStore.stateCollector.last().textWithErrorModel.text, testText)
+        assertEquals(uiStore.stateCollector.last().textWithErrorModel.text, expectedValue)
         assertEquals(uiStore.stateCollector.last().textWithErrorModel.errorResId, null)
     }
 }
 
 
 // Test Realization
-data class FakeRegistrationState(
-    override val registrationModel: RegistrationModel,
-    override val textWithErrorModel: TextWithErrorModel,
-    val isSuccess: Boolean,
-) : BaseRegistrationState {
-
-    override fun copyBase(registrationModel: RegistrationModel) =
-        copy(registrationModel = registrationModel)
-    override fun copyBase(textWithErrorModel: TextWithErrorModel) =
-        copy(textWithErrorModel = textWithErrorModel)
-}
-
 sealed class FakeChainState(
-    protected val uiStore: FakeUIStore<BaseRegistrationState, RegistrationEffect>,
+    protected val uiStore: FakeUIStore<RegistrationState, RegistrationEffect>,
     private val isSuccess: Boolean
 ) : NameChainState {
 
     override fun onChainResult(reducer: BaseValidationNameRegReducer) {
         uiStore.setState {
-            FakeRegistrationState(registrationModel, textWithErrorModel, isSuccess)
+            copy(textWithErrorModel = textWithErrorModel.copy(text = "isSuccess: $isSuccess"))
         }
     }
 }
 
 class FakeSuccessNameChain(
-    uiStore: FakeUIStore<BaseRegistrationState, RegistrationEffect>,
-    private val isSuccess: Boolean
+    uiStore: FakeUIStore<RegistrationState, RegistrationEffect>,
 ) : FakeChainState(uiStore, true)
 
 class FakeFailNameChain(
-    uiStore: FakeUIStore<BaseRegistrationState, RegistrationEffect>,
+    uiStore: FakeUIStore<RegistrationState, RegistrationEffect>,
 ) : FakeChainState(uiStore, false)
 
 

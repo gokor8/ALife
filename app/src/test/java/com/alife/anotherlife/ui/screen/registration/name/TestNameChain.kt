@@ -1,0 +1,60 @@
+package com.alife.anotherlife.ui.screen.registration.name
+
+import com.alife.anotherlife.ui.screen.registration.name.chain.NameChainState
+import com.alife.anotherlife.ui.screen.registration.name.chain.NameChainValidator
+import com.alife.anotherlife.ui.screen.registration.name.reducer.BaseValidationNameRegReducer
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertTrue
+import org.junit.Test
+
+class TestNameChain {
+
+    private val chainValidator = NameChainValidator()
+    private val fakeChainNamRegReducer = FakeChainNamRegReducer()
+
+    @Test
+    fun `test name chain success`() {
+        val testString = "Caliy Oleg"
+
+        val chainState = chainValidator.handle(testString)
+
+        assertTrue(chainState is NameChainState.Success)
+    }
+
+    @Test
+    fun `test name chain less 4`() {
+        val testString = "Ole"
+
+        val chainState = chainValidator.handle(testString)
+
+        assertTrue(chainState is NameChainState.Fail)
+        chainState.onChainResult(fakeChainNamRegReducer)
+        assertEquals(fakeChainNamRegReducer, 1/*need watch value*/)
+    }
+
+    @Test
+    fun `test name chain more 25`() {
+        val testString = "CCCCCCCCCCCCCCCCCCCCCCCCaliy Oleg"
+
+        val chainState = chainValidator.handle(testString)
+
+        assertTrue(chainState is NameChainState.Fail)
+        chainState.onChainResult(fakeChainNamRegReducer)
+        assertEquals(fakeChainNamRegReducer, 1/*need watch value*/)
+    }
+}
+
+
+// Test Realization
+class FakeChainNamRegReducer : BaseValidationNameRegReducer {
+
+    var resultContainer: Int = 0
+
+    override fun onContinue() {
+        resultContainer = 0
+    }
+
+    override fun onValidationError(errorResId: Int) {
+        resultContainer = errorResId
+    }
+}
