@@ -11,7 +11,9 @@
     <string name="login_in">Войти</string>
     <string name="registration">Зарегистрироваться</string>
     
-    // Registration
+    // Registration Name
     <string name="what_is_your_name">What is your name?</string>
     <string name="name">Name</string>
+    <string name="error_less_4">Pidor</string>
+    <string name="error_more_25">Pidor x2</string>
 </resources>

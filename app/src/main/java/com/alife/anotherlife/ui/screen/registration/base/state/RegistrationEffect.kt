@@ -5,5 +5,5 @@ import com.alife.core.mvi.MVI
 
 interface RegistrationEffect : MVI.Effect {
 
-    class NavigateUsername : NavigationWrapper.Forward(), RegistrationEffect
+    class NavigateUsername : /*NavigationWrapper.Forward(),*/ RegistrationEffect
 }

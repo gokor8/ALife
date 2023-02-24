@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.screen.registration.base
+package com.alife.anotherlife.ui.screen.registration.name.navigation
 
 import com.alife.anotherlife.core.navigation.routes.NavigationRoute
 

@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import com.alife.anotherlife.core.navigation.NavigationGraph
 import com.alife.anotherlife.core.navigation.routes.NavigationRoute
 import com.alife.anotherlife.ui.screen.login.navigation.LoginNavBuilder
-import com.alife.anotherlife.ui.screen.registration.base.RegistrationNavBuilder
+import com.alife.anotherlife.ui.screen.registration.name.navigation.RegistrationNavBuilder
 
 class MainNavigationGraph(private val startNavigationRoute: NavigationRoute) : NavigationGraph {
 
