@@ -23,9 +23,6 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 interface LoginMapperModule {
 
-//    @Binds
-//    fun uiAuthToColumnUIAuth(mapper: UIAuthToColumnContainerUIAuth): BaseUIAuthToColumnUIAuth
-
     @Binds
     fun mockEmptyUIAuthToColumnUIAuth(mapper: MockUIAuthToColumnContainer): BaseUIAuthToColumnUIAuth
 

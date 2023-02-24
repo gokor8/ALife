@@ -15,5 +15,5 @@ import dagger.hilt.components.SingletonComponent
 class LoginViewModelModuleP {
 
     @Provides
-    fun loginViewModel(): UIStore<LoginState, LoginEffect> = DefaultUIStore(LoginState())
+    fun loginUIStore(): UIStore<LoginState, LoginEffect> = DefaultUIStore(LoginState())
 }

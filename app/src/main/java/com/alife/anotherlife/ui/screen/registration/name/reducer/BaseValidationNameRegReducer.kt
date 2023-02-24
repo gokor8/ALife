@@ -7,4 +7,5 @@ interface BaseValidationNameRegReducer {
     fun onContinue()
 
     fun onValidationError(@StringRes errorResId: Int)
+
 }
