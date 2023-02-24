@@ -1,4 +1,4 @@
-package com.alife.anotherlife.di.ui.registration.name
+package com.alife.anotherlife.di.ui.registration.birthday
 
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.ui.store.DefaultUIStore
@@ -9,8 +9,6 @@ import com.alife.anotherlife.ui.screen.registration.base.chain.RegTextTextChain
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
-import com.alife.anotherlife.ui.screen.registration.name.chain.MaxNameTextChain
-import com.alife.anotherlife.ui.screen.registration.name.chain.MinNameTextChain
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -19,28 +17,15 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class NameRegViewModelModuleP {
+class BirthdayRegViewModelModuleP {
 
-    @RegAnnotations.RegNameUIStore
+    @BirthdayAnnotation.BirthdayUIStore
     @Reusable
     @Provides
-    fun nameRegUIStore(): UIStore<RegistrationState, RegistrationEffect> =
+    fun birthdayUIStore(): UIStore<RegistrationState, RegistrationEffect> =
         DefaultUIStore(
             RegistrationState(
-                RegistrationModel(R.string.name, R.string.what_is_your_name)
+                RegistrationModel(R.string.birthday, R.string.i_need_your_birthday)
             )
         )
-
-    @Provides
-    fun regTextTextChain(
-        maxNameTextChain: MaxNameTextChain,
-        minNameTextChain: MinNameTextChain,
-        emptyTextChain: EmptyTextChain,
-    ) = RegTextTextChain(
-        emptyTextChain,
-        RegTextTextChain(
-            maxNameTextChain,
-            minNameTextChain
-        )
-    )
 }

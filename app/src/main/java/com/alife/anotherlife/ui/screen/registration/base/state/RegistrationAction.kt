@@ -1,6 +1,6 @@
 package com.alife.anotherlife.ui.screen.registration.base.state
 
-import com.alife.anotherlife.ui.screen.registration.base.RegistrationReducer
+import com.alife.anotherlife.ui.screen.registration.base.reducer.RegistrationReducer
 import com.alife.core.mvi.MVI
 
 interface RegistrationAction : MVI.Action {

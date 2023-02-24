@@ -10,10 +10,22 @@
     <string name="authorization_type">Выберите подходящий способ авторизации</string>
     <string name="login_in">Войти</string>
     <string name="registration">Зарегистрироваться</string>
-    
+
+    //Registration
+    <string name="error_empty">Field is Empty</string>
+
     // Registration Name
     <string name="what_is_your_name">What is your name?</string>
     <string name="name">Name</string>
-    <string name="error_less_4">Pidor</string>
-    <string name="error_more_25">Pidor x2</string>
+    <string name="error_less_4">Text less 4</string>
+    <string name="error_more_25">Text more 25</string>
+    
+    // Registration Username
+    <string name="also_need_your_username">Also need username</string>
+    <string name="username">Username</string>
+
+    // Registration Birthday
+    <string name="i_need_your_birthday">I need your birthday -_-</string>
+    <string name="birthday">Birthday</string>
+
 </resources>

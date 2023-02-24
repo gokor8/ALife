@@ -1,18 +1,18 @@
-package com.alife.anotherlife.ui.screen.registration.name.reducer
+package com.alife.anotherlife.ui.screen.registration.birthday.reducer
 
 import com.alife.anotherlife.core.ui.store.UIStore
-import com.alife.anotherlife.di.ui.registration.RegAnnotations
+import com.alife.anotherlife.di.ui.registration.birthday.BirthdayAnnotation
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import javax.inject.Inject
 
-class NameValidationRegReducer @Inject constructor(
-    @RegAnnotations.RegNameUIStore
+class BirthdayValidationRegReducer @Inject constructor(
+    @BirthdayAnnotation.BirthdayUIStore
     uiStore: UIStore<RegistrationState, RegistrationEffect>
-) : AbstractNameValidationRegReducer(uiStore) {
+) : BaseValidationRegReducer.Abstract(uiStore) {
 
     override fun navigateNext() {
-        uiStore.trySetEffect(RegistrationEffect.NavigateUsername())
+        uiStore.trySetEffect(RegistrationEffect.NavigateEmail())
     }
 }

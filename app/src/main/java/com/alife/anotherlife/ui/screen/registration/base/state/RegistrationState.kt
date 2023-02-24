@@ -5,6 +5,6 @@ import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.core.mvi.MVI
 
 data class RegistrationState(
-    val registrationModel: RegistrationModel? = null,
+    val registrationModel: RegistrationModel,
     val textWithErrorModel: TextWithErrorModel = TextWithErrorModel(),
 ) : MVI.State

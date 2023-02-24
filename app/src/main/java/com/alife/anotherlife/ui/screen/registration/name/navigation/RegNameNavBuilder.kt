@@ -6,9 +6,9 @@ import androidx.navigation.NavController
 import com.alife.anotherlife.core.navigation.nav_builder.NewDefaultNavBuilder
 import com.alife.anotherlife.ui.screen.registration.name.NameRegistrationScreen
 
-class RegistrationNavBuilder(
+class RegNameNavBuilder(
     private val navController: NavController
-) : NewDefaultNavBuilder(RegistrationNavRoute()) {
+) : NewDefaultNavBuilder(RegNameNavRoute()) {
 
     @Composable
     override fun Content(navBackStackEntry: NavBackStackEntry) {

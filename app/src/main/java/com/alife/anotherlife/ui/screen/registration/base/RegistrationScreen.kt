@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.alife.anotherlife.R
@@ -16,7 +17,9 @@ import com.alife.anotherlife.core.composable.view_group.CustomColumn
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationAction
 
-abstract class RegistrationScreen : VMScreen<RegistrationViewModel>() {
+abstract class RegistrationScreen(
+    private val visualTransformation: VisualTransformation = VisualTransformation.None,
+) : VMScreen<RegistrationViewModel>() {
 
     @Composable
     override fun Content(modifier: Modifier) = CustomColumn(
@@ -31,7 +34,7 @@ abstract class RegistrationScreen : VMScreen<RegistrationViewModel>() {
             verticalArrangement = Arrangement.Center
         ) {
             TextBase(
-                textResId = R.string.what_is_your_name,
+                textResId = viewModel.getUIState().registrationModel.hintText,
                 textAlign = TextAlign.Start,
                 style = Title22Style().style(),
                 modifier = Modifier.fillMaxWidth()
@@ -39,11 +42,12 @@ abstract class RegistrationScreen : VMScreen<RegistrationViewModel>() {
             Spacer(modifier = Modifier.padding(bottom = 25.dp))
 
             HintTextOutlined(
-                value = "",
+                textWithErrorModel = viewModel.getUIState().textWithErrorModel,
                 onValueChange = { newText ->
                     viewModel.reduce(RegistrationAction.OnTextInput(newText))
                 },
-                placeholderTextRes = R.string.name,
+                visualTransformation = visualTransformation,
+                placeholderTextRes = viewModel.getUIState().registrationModel.helpText,
                 modifier = Modifier.fillMaxWidth()
             )
         }

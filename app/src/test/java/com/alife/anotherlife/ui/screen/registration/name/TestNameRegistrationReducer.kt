@@ -1,12 +1,12 @@
 package com.alife.anotherlife.ui.screen.registration.name
 
 import com.alife.anotherlife.core.FakeUIStore
-import com.alife.anotherlife.ui.screen.registration.base.RegistrationReducer
+import com.alife.anotherlife.ui.screen.registration.base.reducer.RegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
-import com.alife.anotherlife.ui.screen.registration.name.chain.BaseNameChainValidator
-import com.alife.anotherlife.ui.screen.registration.name.chain.NameChainState
-import com.alife.anotherlife.ui.screen.registration.name.reducer.BaseValidationNameRegReducer
+import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
+import com.alife.anotherlife.ui.screen.registration.base.chain.base.ChainState
+import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.name.reducer.NameRegistrationReducer
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
@@ -24,7 +24,7 @@ class TestNameRegistrationReducer {
     }
 
     @Test
-    fun setupReducer(returnState: NameChainState) {
+    fun setupReducer(returnState: ChainState) {
         nameReducer = NameRegistrationReducer(
             uiStore,
             FakeNameChainValidator(returnState),
@@ -34,7 +34,7 @@ class TestNameRegistrationReducer {
 
     @Test
     fun `test success text input`() {
-        setupReducer(NameChainState.Success())
+        setupReducer(ChainState.Success())
         val testText = "test text"
 
         nameReducer.onTextInput(testText)
@@ -78,9 +78,9 @@ class TestNameRegistrationReducer {
 sealed class FakeChainState(
     protected val uiStore: FakeUIStore<RegistrationState, RegistrationEffect>,
     private val isSuccess: Boolean
-) : NameChainState {
+) : ChainState {
 
-    override fun onChainResult(reducer: BaseValidationNameRegReducer) {
+    override fun onChainResult(reducer: BaseValidationRegReducer) {
         uiStore.setState {
             copy(textWithErrorModel = textWithErrorModel.copy(text = "isSuccess: $isSuccess"))
         }
@@ -96,12 +96,12 @@ class FakeFailNameChain(
 ) : FakeChainState(uiStore, false)
 
 
-class FakeNameChainValidator(private val returnState: NameChainState) : BaseNameChainValidator {
+class FakeNameChainValidator(private val returnState: ChainState) : BaseRegTextChain {
 
     override fun handle(inputModel: String) = returnState
 }
 
-class FakeNameValidationNameRegReducer : BaseValidationNameRegReducer {
+class FakeNameValidationNameRegReducer : BaseValidationRegReducer {
 
     override fun onContinue() {}
 

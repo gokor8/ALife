@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.screen.registration.name.reducer
+package com.alife.anotherlife.ui.screen.registration.username.reducer
 
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.di.ui.registration.RegAnnotations
@@ -7,10 +7,10 @@ import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffec
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import javax.inject.Inject
 
-class NameRegistrationReducer @Inject constructor(
-    @RegAnnotations.RegNameUIStore
+class UsernameRegistrationReducer @Inject constructor(
+    @RegAnnotations.RegUsernameUIStore
     uiStore: UIStore<RegistrationState, RegistrationEffect>,
     nameChainValidator: BaseRegTextChain,
-    @RegAnnotations.NameValidationReducer
-    validationNameRegReducer: AbstractNameValidationRegReducer
-) : AbstractNameRegReducer(uiStore, nameChainValidator, validationNameRegReducer)
+    @RegAnnotations.UsernameValidationReducer
+    validationNameRegReducer: AbstractUsernameValidationRegReducer
+) : AbstractUsernameRegReducer(uiStore, nameChainValidator, validationNameRegReducer)

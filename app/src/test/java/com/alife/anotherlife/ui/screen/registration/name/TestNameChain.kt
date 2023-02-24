@@ -1,15 +1,17 @@
 package com.alife.anotherlife.ui.screen.registration.name
 
-import com.alife.anotherlife.ui.screen.registration.name.chain.NameChainState
-import com.alife.anotherlife.ui.screen.registration.name.chain.NameChainValidator
-import com.alife.anotherlife.ui.screen.registration.name.reducer.BaseValidationNameRegReducer
+import com.alife.anotherlife.ui.screen.registration.base.chain.base.ChainState
+import com.alife.anotherlife.ui.screen.registration.base.chain.RegTextTextChain
+import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
+import com.alife.anotherlife.ui.screen.registration.name.chain.MaxNameTextChain
+import com.alife.anotherlife.ui.screen.registration.name.chain.MinNameTextChain
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
 
 class TestNameChain {
 
-    private val chainValidator = NameChainValidator()
+    private val chainValidator = RegTextTextChain(MinNameTextChain(), MaxNameTextChain())
     private val fakeChainNamRegReducer = FakeChainNamRegReducer()
 
     @Test
@@ -18,7 +20,7 @@ class TestNameChain {
 
         val chainState = chainValidator.handle(testString)
 
-        assertTrue(chainState is NameChainState.Success)
+        assertTrue(chainState is ChainState.Success)
     }
 
     @Test
@@ -27,7 +29,7 @@ class TestNameChain {
 
         val chainState = chainValidator.handle(testString)
 
-        assertTrue(chainState is NameChainState.Fail)
+        assertTrue(chainState is ChainState.Fail)
         chainState.onChainResult(fakeChainNamRegReducer)
         assertEquals(fakeChainNamRegReducer, 1/*need watch value*/)
     }
@@ -38,7 +40,7 @@ class TestNameChain {
 
         val chainState = chainValidator.handle(testString)
 
-        assertTrue(chainState is NameChainState.Fail)
+        assertTrue(chainState is ChainState.Fail)
         chainState.onChainResult(fakeChainNamRegReducer)
         assertEquals(fakeChainNamRegReducer, 1/*need watch value*/)
     }
@@ -46,7 +48,7 @@ class TestNameChain {
 
 
 // Test Realization
-class FakeChainNamRegReducer : BaseValidationNameRegReducer {
+class FakeChainNamRegReducer : BaseValidationRegReducer {
 
     var resultContainer: Int = 0
 
