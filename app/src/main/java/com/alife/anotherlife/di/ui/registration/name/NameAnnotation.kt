@@ -2,7 +2,7 @@ package com.alife.anotherlife.di.ui.registration.name
 
 import javax.inject.Qualifier
 
-class NameAnnotation {
+interface NameAnnotation {
 
     @Qualifier
     @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
@@ -14,9 +14,9 @@ class NameAnnotation {
 
     @Qualifier
     @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-    annotation class BirthdayValidation
+    annotation class NameValidation
 
     @Qualifier
     @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-    annotation class BirthdayChain
+    annotation class NameChain
 }

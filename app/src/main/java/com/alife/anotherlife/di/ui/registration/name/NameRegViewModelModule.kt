@@ -1,10 +1,7 @@
 package com.alife.anotherlife.di.ui.registration.name
 
-import com.alife.anotherlife.di.ui.registration.RegAnnotations
-import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
-import com.alife.anotherlife.ui.screen.registration.base.chain.RegTextTextChain
-import com.alife.anotherlife.ui.screen.registration.name.reducer.AbstractNameRegReducer
-import com.alife.anotherlife.ui.screen.registration.name.reducer.AbstractNameValidationRegReducer
+import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
+import com.alife.anotherlife.ui.screen.registration.base.reducer.RegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.name.reducer.NameRegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.name.reducer.NameValidationRegReducer
 import dagger.Binds
@@ -16,13 +13,11 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 interface NameRegViewModelModule {
 
+    @NameAnnotation.NameRegistration
     @Binds
-    fun bindNameRegReducer(reducer: NameRegistrationReducer): AbstractNameRegReducer
+    fun bindNameRegReducer(reducer: NameRegistrationReducer): RegistrationReducer
 
-    @RegAnnotations.NameValidationReducer
+    @NameAnnotation.NameValidation
     @Binds
-    fun bindNameValidationRegReducer(reducer: NameValidationRegReducer): AbstractNameValidationRegReducer
-
-    @Binds
-    fun bindNameChainValidator(nameChainValidator: RegTextTextChain): BaseRegTextChain
+    fun bindNameValidationRegReducer(reducer: NameValidationRegReducer): BaseValidationRegReducer
 }

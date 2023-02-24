@@ -3,9 +3,6 @@ package com.alife.anotherlife.di.ui.registration.birthday
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.ui.store.DefaultUIStore
 import com.alife.anotherlife.core.ui.store.UIStore
-import com.alife.anotherlife.di.ui.registration.RegAnnotations
-import com.alife.anotherlife.ui.screen.registration.base.chain.EmptyTextChain
-import com.alife.anotherlife.ui.screen.registration.base.chain.RegTextTextChain
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState

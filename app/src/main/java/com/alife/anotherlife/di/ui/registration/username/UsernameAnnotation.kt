@@ -1,23 +1,22 @@
-package com.alife.anotherlife.di.ui.registration
+package com.alife.anotherlife.di.ui.registration.username
 
 import javax.inject.Qualifier
 
-interface RegAnnotations {
+interface UsernameAnnotation {
 
     @Qualifier
     @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-    annotation class NameValidationReducer
+    annotation class  UsernameUIStore
 
     @Qualifier
     @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-    annotation class UsernameValidationReducer
-
-    // UIStore
-    @Qualifier
-    @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-    annotation class RegNameUIStore
+    annotation class  UsernameRegistration
 
     @Qualifier
     @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-    annotation class RegUsernameUIStore
+    annotation class  UsernameValidation
+
+    @Qualifier
+    @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+    annotation class  UsernameChain
 }

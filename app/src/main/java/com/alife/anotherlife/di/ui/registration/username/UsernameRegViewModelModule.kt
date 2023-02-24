@@ -1,9 +1,7 @@
 package com.alife.anotherlife.di.ui.registration.username
 
-import com.alife.anotherlife.di.ui.registration.RegAnnotations
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
-import com.alife.anotherlife.ui.screen.registration.username.reducer.AbstractUsernameRegReducer
-import com.alife.anotherlife.ui.screen.registration.username.reducer.AbstractUsernameValidationRegReducer
+import com.alife.anotherlife.ui.screen.registration.base.reducer.RegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.username.reducer.UsernameRegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.username.reducer.UsernameValidationRegReducer
 import dagger.Binds
@@ -15,11 +13,12 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 interface UsernameRegViewModelModule {
 
+    @UsernameAnnotation.UsernameRegistration
     @Binds
-    fun bindUsernameRegReducer(reducer: UsernameRegistrationReducer): AbstractUsernameRegReducer
+    fun bindUsernameRegReducer(reducer: UsernameRegistrationReducer): RegistrationReducer
 
-    @RegAnnotations.UsernameValidationReducer
+    @UsernameAnnotation.UsernameValidation
     @Binds
-    fun bindUsernameValidationRegReducer(reducer: UsernameValidationRegReducer): AbstractUsernameValidationRegReducer
+    fun bindUsernameValidationRegReducer(reducer: UsernameValidationRegReducer): BaseValidationRegReducer
 
 }
