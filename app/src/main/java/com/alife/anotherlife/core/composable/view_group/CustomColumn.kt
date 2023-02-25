@@ -1,12 +1,11 @@
 package com.alife.anotherlife.core.composable.view_group
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
+import com.alife.anotherlife.core.composable.clickableNoRipple
 
 @Composable
 fun CustomColumn(
@@ -14,4 +13,13 @@ fun CustomColumn(
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     content: @Composable ColumnScope.() -> Unit
-) = Column(modifier, verticalArrangement, horizontalAlignment, content)
+) {
+    val focusManager = LocalFocusManager.current
+
+    Column(
+        modifier.clickableNoRipple { focusManager.clearFocus() },
+        verticalArrangement,
+        horizontalAlignment,
+        content
+    )
+}

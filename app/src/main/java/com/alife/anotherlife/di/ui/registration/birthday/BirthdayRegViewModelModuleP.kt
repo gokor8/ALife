@@ -4,8 +4,10 @@ import com.alife.anotherlife.R
 import com.alife.anotherlife.core.ui.store.DefaultUIStore
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
+import com.alife.anotherlife.ui.screen.registration.base.reducer.RegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
+import com.alife.anotherlife.ui.screen.registration.birthday.BirthdayRegistrationVM
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable

@@ -1,6 +1,8 @@
 package com.alife.anotherlife.ui.screen.registration.base
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,7 +25,7 @@ abstract class RegistrationScreen(
 
     @Composable
     override fun Content(modifier: Modifier) = CustomColumn(
-        modifier = Modifier.padding(horizontal = 32.dp, vertical = 35.dp)
+        modifier = modifier.padding(horizontal = 32.dp, vertical = 35.dp)
     ) {
         Column(
             modifier = Modifier
@@ -52,7 +54,7 @@ abstract class RegistrationScreen(
             )
         }
 
-        Column {
+        Column(modifier = Modifier.fillMaxWidth()) {
             TextBase(
                 textResId = R.string.horizontal_logo,
                 style = Title28Style().style(),
