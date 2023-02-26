@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -71,10 +72,11 @@ fun HintTextOutlined(
     )
 }
 
+
 @Composable
 fun ColumnScope.HintTextOutlined(
     textWithErrorModel: TextWithErrorModel,
-    onValueChange: (String) -> Unit,
+    onValueChange: (TextFieldValue) -> Unit,
     @StringRes placeholderTextRes: Int,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -93,7 +95,7 @@ fun ColumnScope.HintTextOutlined(
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
 ) {
     OutlinedTextField(
-        textWithErrorModel.text,
+        TextFieldValue(textWithErrorModel.text),
         onValueChange,
         modifier,
         enabled,

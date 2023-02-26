@@ -5,7 +5,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alife.anotherlife.ui.screen.registration.base.RegistrationScreen
 
-class NameRegistrationScreen(override val navController: NavController) : RegistrationScreen() {
+class NameRegistrationScreen(
+    override val navController: NavController,
+) : RegistrationScreen() {
 
     @Composable
     override fun setupViewModel(): NameRegistrationVM = hiltViewModel()

@@ -23,7 +23,6 @@ class TestNameRegistrationReducer {
         uiStore = FakeUIStore()
     }
 
-    @Test
     fun setupReducer(returnState: ChainState) {
         nameReducer = NameRegistrationReducer(
             uiStore,

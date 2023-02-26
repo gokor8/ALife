@@ -2,6 +2,7 @@ package com.alife.anotherlife.ui.screen.registration.base
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,10 +18,11 @@ import com.alife.anotherlife.core.composable.text.style.Button18
 import com.alife.anotherlife.core.composable.text.style.Title22Style
 import com.alife.anotherlife.core.composable.view_group.CustomColumn
 import com.alife.anotherlife.core.ui.screen.VMScreen
+import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationTextModel
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationAction
 
 abstract class RegistrationScreen(
-    private val visualTransformation: VisualTransformation = VisualTransformation.None,
+    private val customTextOutlined: RegistrationTextModel = RegistrationTextModel.Default()
 ) : VMScreen<RegistrationViewModel>() {
 
     @Composable
@@ -43,15 +45,7 @@ abstract class RegistrationScreen(
             )
             Spacer(modifier = Modifier.padding(bottom = 25.dp))
 
-            HintTextOutlined(
-                textWithErrorModel = viewModel.getUIState().textWithErrorModel,
-                onValueChange = { newText ->
-                    viewModel.reduce(RegistrationAction.OnTextInput(newText))
-                },
-                visualTransformation = visualTransformation,
-                placeholderTextRes = viewModel.getUIState().registrationModel.helpText,
-                modifier = Modifier.fillMaxWidth()
-            )
+            customTextOutlined.TextOutlined(columnScope = this, viewModel = viewModel)
         }
 
         Column(modifier = Modifier.fillMaxWidth()) {

@@ -29,9 +29,13 @@ class TestNameChain {
 
         val chainState = chainValidator.handle(testString)
 
-        assertTrue(chainState is ChainState.Fail)
         chainState.onChainResult(fakeChainNamRegReducer)
-        assertEquals(fakeChainNamRegReducer, 1/*need watch value*/)
+
+        val actual = fakeChainNamRegReducer.resultContainer
+        val expected = 2131427340
+
+        assertTrue(chainState is ChainState.Fail)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -40,9 +44,13 @@ class TestNameChain {
 
         val chainState = chainValidator.handle(testString)
 
-        assertTrue(chainState is ChainState.Fail)
         chainState.onChainResult(fakeChainNamRegReducer)
-        assertEquals(fakeChainNamRegReducer, 1/*need watch value*/)
+
+        val actual = fakeChainNamRegReducer.resultContainer
+        val expected = 2131427341
+
+        assertTrue(chainState is ChainState.Fail)
+        assertEquals(expected, actual)
     }
 }
 

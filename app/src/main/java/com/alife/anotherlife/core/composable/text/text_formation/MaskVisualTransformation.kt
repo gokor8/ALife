@@ -6,7 +6,6 @@ import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import com.alife.anotherlife.core.composable.text.text_formation.base.MaskTextFormatter
 import com.alife.anotherlife.core.composable.text.text_formation.mask.MaskList
-import com.alife.anotherlife.core.composable.text.text_formation.mask.MaskUnit
 
 class MaskVisualTransformation(private val maskList: MaskList) : VisualTransformation {
 
@@ -14,9 +13,14 @@ class MaskVisualTransformation(private val maskList: MaskList) : VisualTransform
 
         val formattedText = MaskTextFormatter().format(text.text, maskList)
 
-        Log.e("Aboba","New Text - $text | FormattedText - $formattedText")
+        Log.e("Aboba", "New Text - $text | FormattedText - $formattedText")
+
         return TransformedText(
-            text = AnnotatedString(formattedText),
+            text = AnnotatedString(
+                formattedText,
+                text.spanStyles,
+                text.paragraphStyles
+            ),
             offsetMapping = MaskOffsetMapping(maskList)
         )
     }
