@@ -13,7 +13,7 @@ class MaskTextFormatter : TextFormatter {
         } ?: inputModel.substring(0 until maskList.getClearSize())
 
         // First cycle, for fill symbol and empty mask units
-        val symbolUnitMap = maskList.getSymbolUnits()
+        val symbolUnitMap = maskList.getBaseUnits()
         for (index in symbolUnitMap.indices) {
             val unitIndex = symbolUnitMap[index].first
             val unit = symbolUnitMap[index].second

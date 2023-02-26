@@ -7,7 +7,7 @@ class MaskList(listMasks: List<MaskUnit>) : ArrayList<MaskUnit>(listMasks) {
 
     constructor(vararg masks: MaskUnit) : this(masks.asList())
 
-    fun getSymbolUnits(): List<Pair<Int, BaseUnits>> {
+    fun getBaseUnits(): List<Pair<Int, BaseUnits>> {
         val symbolUnitMap = mutableListOf<Pair<Int, BaseUnits>>()
 
         for (index in indices) {
@@ -23,55 +23,36 @@ class MaskList(listMasks: List<MaskUnit>) : ArrayList<MaskUnit>(listMasks) {
 
     fun getClearSize() = count { maskUnit -> maskUnit is BaseUnits }
 
-    fun maskUnitsCount(endRange: Int): Int {
-        var count = 0
-        for (unitIndex in 0 until endRange) {
-            if (get(unitIndex) is StaticUnits) count++
+    fun toOriginOffsetPosition(transformOffset: Int): Int {
+        var staticUnitsCount = 0
+        for (unitIndex in 0 until transformOffset) {
+            if (get(unitIndex) is StaticUnits) staticUnitsCount++
         }
-        return count
-    }
-
-    private fun getFirstStaticUnits(): Int {
-        var count = 0
-
-        for (index in 0 until size) {
-            if (get(index) !is BaseUnits)
-                count++
-            else
-                break
-        }
-        return count
-    }
-
-    fun notEmptyUnitCount(endRange: Int): Int {
-        var count = 0
-        for (unitIndex in 0 .. getFirstStaticUnits() + endRange) {
-            if(get(unitIndex) is StaticUnits && unitIndex == endRange) break
-            if (get(unitIndex) !is BaseUnits.EmptyUnit)
-                count++
-            else
-                break
-        }
-        return count
-    }
-
-    fun isStaticAndNextEmpty(index: Int): Boolean {
-        return get(index) is StaticUnits && getOrNull(index + 1) is BaseUnits.EmptyUnit
+        return transformOffset - staticUnitsCount
     }
 
     //12.12.2222
-    //1
-    fun getOffsetPosition(endRange: Int): Int {
-        //var offsetCount = getFirstStaticUnits() + endRange
-        var count = 0
-        for (unitIndex in 0 until getFirstStaticUnits() + endRange) {
-            if(get(unitIndex) is StaticUnits) count++
-            if(get(unitIndex) is StaticUnits && unitIndex == endRange) break
-            if (get(unitIndex) !is BaseUnits.EmptyUnit)
-                count++
-            else
-                break
+    // offset дает позицию каретки без StaticMaskUnit ов
+    //12.(3)12
+    //121(3)
+    fun toTransformOffsetPosition(originOffset: Int) : Int {
+        var symbolUnitCount = 0
+        var staticUnitCount = 0
+        var index = 0
+        while (symbolUnitCount != originOffset) {
+            if(getOrNull(index) is BaseUnits.EmptyUnit) break
+
+            getOrNull(index)?.also { maskUnit ->
+                if(maskUnit is StaticUnits) {
+                    staticUnitCount++
+                } else {
+                    symbolUnitCount++
+                }
+            } ?: break
+
+            index++
         }
-        return count
+
+        return symbolUnitCount + staticUnitCount
     }
 }

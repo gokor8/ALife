@@ -2,8 +2,7 @@ package com.alife.anotherlife.core.text_formatter
 
 import com.alife.anotherlife.core.composable.text.text_formation.base.MaskTextFormatter
 import com.alife.anotherlife.core.composable.text.text_formation.mask.MaskList
-import com.alife.anotherlife.core.composable.text.text_formation.mask.units.BaseUnits
-import com.alife.anotherlife.core.composable.text.text_formation.mask.units.StaticUnits
+import com.alife.anotherlife.core.composable.text.text_formation.mask.patterns.PhonePattern
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -16,24 +15,7 @@ class TestNumberMaskTextFormatter {
 
     @Before
     fun before() {
-        maskList = MaskList(
-            StaticUnits.Plus(),
-            StaticUnits.RusCode(),
-            StaticUnits.Space(),
-            BaseUnits.EmptyUnit(),
-            BaseUnits.EmptyUnit(),
-            BaseUnits.EmptyUnit(),
-            StaticUnits.Separator(),
-            BaseUnits.EmptyUnit(),
-            BaseUnits.EmptyUnit(),
-            BaseUnits.EmptyUnit(),
-            StaticUnits.Separator(),
-            BaseUnits.EmptyUnit(),
-            BaseUnits.EmptyUnit(),
-            StaticUnits.Separator(),
-            BaseUnits.EmptyUnit(),
-            BaseUnits.EmptyUnit(),
-        )
+        maskList = PhonePattern().getMaskPattern()
     }
 
     @Test
@@ -42,9 +24,9 @@ class TestNumberMaskTextFormatter {
 
         val actual = maskTextFormatter.format(testText, maskList)
 
-        val expected = "+7 "
+        val expected = "+7"
 
-        assertEquals(actual, expected)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -53,9 +35,22 @@ class TestNumberMaskTextFormatter {
 
         val actual = maskTextFormatter.format(testText, maskList)
 
-        val expected = "+7 989-535-"
+        val expected = "+7 989 535"
 
-        assertEquals(actual, expected)
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `test not empty text with change format`() {
+        maskTextFormatter.format("989535", maskList)
+
+        val changedText = "98935"
+
+        val actual = maskTextFormatter.format(changedText, maskList)
+
+        val expected = "+7 989 35"
+
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -64,7 +59,7 @@ class TestNumberMaskTextFormatter {
 
         val actual = maskTextFormatter.format(testText, maskList)
 
-        val expected = "+7 989-535-42-51"
+        val expected = "+7 989 535-42-51"
 
         assertEquals(actual, expected)
     }

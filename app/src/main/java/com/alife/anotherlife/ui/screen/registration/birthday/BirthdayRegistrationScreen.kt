@@ -9,7 +9,7 @@ import com.alife.anotherlife.ui.screen.registration.base.RegistrationScreen
 
 class BirthdayRegistrationScreen(
     override val navController: NavController,
-) : RegistrationScreen(MaskVisualTransformation(BirthdayPattern().birthdayMask)) {
+) : RegistrationScreen(MaskVisualTransformation(BirthdayPattern().getMaskPattern())) {
 
     @Composable
     override fun setupViewModel(): BirthdayRegistrationVM = hiltViewModel()

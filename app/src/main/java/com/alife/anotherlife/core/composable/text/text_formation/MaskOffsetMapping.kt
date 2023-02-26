@@ -7,18 +7,14 @@ import com.alife.anotherlife.core.composable.text.text_formation.mask.MaskList
 class MaskOffsetMapping(private val maskList: MaskList) : OffsetMapping {
 
     override fun originalToTransformed(offset: Int): Int {
-        val staticOffset = maskList.notEmptyUnitCount(offset)
-        Log.e("originalToTransformed", "$offset + res: $staticOffset")
-        return staticOffset//+ newOffset
+        val currentOffset = maskList.toTransformOffsetPosition(offset)
+        Log.e("originalToTransformed", "$offset + res: $currentOffset")
+        return currentOffset
     }
 
     override fun transformedToOriginal(offset: Int): Int {
-        val staticOffset = maskList.maskUnitsCount(offset)
-        Log.e("transformedToOriginal", "$offset - $staticOffset")
-        return offset - staticOffset
-        //return offset + maskList.getClearSize(offset - 1)
+        val currentOffset = maskList.toOriginOffsetPosition(offset)
+        Log.e("transformedToOriginal", "$offset - $currentOffset")
+        return currentOffset
     }
 }
-
-// +7(
-//(0)+(1)7(2|(|3)

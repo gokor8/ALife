@@ -17,7 +17,7 @@ sealed interface BaseUnits : MaskUnit {
     class SymbolUnit(symbol: Char) : MaskUnit.UnitMask(symbol), BaseUnits {
 
         override fun getUnitBySymbol(newSymbol: Char?): BaseUnits {
-            return newSymbol?.let { this } ?: EmptyUnit()
+            return newSymbol?.let { SymbolUnit(newSymbol) } ?: EmptyUnit()
         }
     }
 }
