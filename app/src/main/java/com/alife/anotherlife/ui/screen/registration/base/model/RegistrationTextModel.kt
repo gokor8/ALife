@@ -21,7 +21,7 @@ interface RegistrationTextModel {
             columnScope.HintTextOutlined(
                 textWithErrorModel = viewModel.getUIState().textWithErrorModel,
                 onValueChange = { newText ->
-                    viewModel.reduce(RegistrationAction.OnTextInput(newText.text))
+                    viewModel.reduce(RegistrationAction.OnTextInput(newText))
                 },
                 placeholderTextRes = viewModel.getUIState().registrationModel.helpText,
                 modifier = Modifier.fillMaxWidth()

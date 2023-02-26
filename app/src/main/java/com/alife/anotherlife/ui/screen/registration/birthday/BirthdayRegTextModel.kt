@@ -18,15 +18,18 @@ class BirthdayRegTextModel : RegistrationTextModel {
 
     @Composable
     override fun TextOutlined(columnScope: ColumnScope, viewModel: RegistrationViewModel) {
-        val maskVTDelegate = MaskVTDelegate(BirthdayPattern().getMaskPattern()) { newText ->
-            viewModel.reduce(RegistrationAction.OnTextInput(newText.text))
-        }
+        val birthdayMask = BirthdayPattern().getMaskPattern()
+        //val maskVTDelegate = MaskVTDelegate(BirthdayPattern().getMaskPattern()) { newText ->
+        //    viewModel.reduce(RegistrationAction.OnTextInput(newText.text))
+        //}
 
         columnScope.HintTextOutlined(
             textWithErrorModel = viewModel.getUIState().textWithErrorModel,
-            onValueChange = maskVTDelegate::onValue,
+            onValueChange = { newText ->
+                viewModel.reduce(RegistrationAction.OnTextInput(newText))
+            },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            visualTransformation = maskVTDelegate.createVisualTransformation(),
+            visualTransformation = MaskVisualTransformation(birthdayMask),
             placeholderTextRes = viewModel.getUIState().registrationModel.helpText,
             modifier = Modifier.fillMaxWidth()
         )
