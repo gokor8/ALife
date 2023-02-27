@@ -11,9 +11,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -21,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.alife.anotherlife.core.ui.state.error_text.TextWithErrorModel
 
 @Composable
-fun HintTextOutlined(
+fun HintErrorTextOutlined(
     value: String,
     onValueChange: (String) -> Unit,
     @StringRes placeholderTextRes: Int,
@@ -72,9 +73,9 @@ fun HintTextOutlined(
 }
 
 @Composable
-fun ColumnScope.HintTextOutlined(
+fun ColumnScope.HintErrorTextOutlined(
     textWithErrorModel: TextWithErrorModel,
-    onValueChange: (String) -> Unit,
+    onValueChange: (TextFieldValue) -> Unit,
     @StringRes placeholderTextRes: Int,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -93,7 +94,7 @@ fun ColumnScope.HintTextOutlined(
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
 ) {
     OutlinedTextField(
-        textWithErrorModel.text,
+        textWithErrorModel.textFieldValue,
         onValueChange,
         modifier,
         enabled,
@@ -119,12 +120,10 @@ fun ColumnScope.HintTextOutlined(
         shape,
         colors
     )
-    textWithErrorModel.errorResId?.also {
-        TextBase(
-            textResId = textWithErrorModel.errorResId,
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.End,
-            color = MaterialTheme.colorScheme.error
-        )
-    }
+    Text(
+        text = textWithErrorModel.errorResId?.let { stringResource(it) } ?: "",
+        modifier = Modifier.fillMaxWidth(),
+        textAlign = TextAlign.End,
+        color = MaterialTheme.colorScheme.error
+    )
 }

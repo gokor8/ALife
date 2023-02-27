@@ -1,11 +1,13 @@
 package com.alife.anotherlife.ui.screen.registration.name
 
+import androidx.compose.ui.text.input.TextFieldValue
 import com.alife.anotherlife.core.FakeUIStore
 import com.alife.anotherlife.ui.screen.registration.base.reducer.RegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.ChainState
+import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.name.reducer.NameRegistrationReducer
 import junit.framework.TestCase.assertEquals
@@ -20,7 +22,7 @@ class TestNameRegistrationReducer {
 
     @Before
     fun before() {
-        uiStore = FakeUIStore()
+        uiStore = FakeUIStore(RegistrationState(RegistrationModel(0, 0)))
     }
 
     fun setupReducer(returnState: ChainState) {
@@ -34,41 +36,64 @@ class TestNameRegistrationReducer {
     @Test
     fun `test success text input`() {
         setupReducer(ChainState.Success())
-        val testText = "test text"
+        val testText = TextFieldValue("test text")
 
         nameReducer.onTextInput(testText)
 
-        assertEquals(uiStore.stateCollector.size, 1)
-        assertEquals(uiStore.stateCollector.last().textWithErrorModel.text, testText)
+        assertEquals(2, uiStore.stateCollector.size)
+        assertEquals(uiStore.stateCollector.last().textWithErrorModel.textFieldValue.text, testText)
         assertEquals(uiStore.stateCollector.last().textWithErrorModel.errorResId, null)
+    }
+
+    @Test
+    fun `test on continue click, with empty text`() {
+        setupReducer(FakeSuccessNameChain(uiStore))
+
+        nameReducer.onNextClick()
+
+        val expectedValue = "isSuccess: true"
+
+        val storeTextFieldValue = uiStore.stateCollector.last().textWithErrorModel
+
+        assertEquals(2, uiStore.stateCollector.size)
+        assertEquals(expectedValue, storeTextFieldValue.textFieldValue.text)
+        assertEquals(null, storeTextFieldValue.errorResId)
     }
 
     @Test
     fun `test on continue click, expect success`() {
         setupReducer(FakeSuccessNameChain(uiStore))
-        val testText = "test text"
+        val testText = TextFieldValue("test text")
 
         nameReducer.onTextInput(testText)
 
+        nameReducer.onNextClick()
+
         val expectedValue = "isSuccess: true"
 
-        assertEquals(uiStore.stateCollector.size, 1)
-        assertEquals(uiStore.stateCollector.last().textWithErrorModel.text, expectedValue)
-        assertEquals(uiStore.stateCollector.last().textWithErrorModel.errorResId, null)
+        val storeTextFieldValue = uiStore.stateCollector.last().textWithErrorModel
+
+        assertEquals(3, uiStore.stateCollector.size)
+        assertEquals(expectedValue, storeTextFieldValue.textFieldValue.text)
+        assertEquals(null, storeTextFieldValue.errorResId)
     }
 
     @Test
     fun `test success text input, expect fail`() {
         setupReducer(FakeFailNameChain(uiStore))
-        val testText = "test text"
+        val testText = TextFieldValue("test text")
 
         nameReducer.onTextInput(testText)
 
+        nameReducer.onNextClick()
+
         val expectedValue = "isSuccess: false"
 
-        assertEquals(uiStore.stateCollector.size, 1)
-        assertEquals(uiStore.stateCollector.last().textWithErrorModel.text, expectedValue)
-        assertEquals(uiStore.stateCollector.last().textWithErrorModel.errorResId, null)
+        val storeTextFieldValue = uiStore.stateCollector.last().textWithErrorModel
+
+        assertEquals(3, uiStore.stateCollector.size)
+        assertEquals(expectedValue, storeTextFieldValue.textFieldValue.text)
+        assertEquals(null, storeTextFieldValue.errorResId)
     }
 }
 
@@ -81,7 +106,11 @@ sealed class FakeChainState(
 
     override fun onChainResult(reducer: BaseValidationRegReducer) {
         uiStore.setState {
-            copy(textWithErrorModel = textWithErrorModel.copy(text = "isSuccess: $isSuccess"))
+            copy(
+                textWithErrorModel = textWithErrorModel.copy(
+                    textFieldValue = TextFieldValue("isSuccess: $isSuccess")
+                )
+            )
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.registration.birthday.reducer
 
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.text.isDigitsOnly
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.di.ui.registration.birthday.BirthdayAnnotation
@@ -19,9 +20,9 @@ class BirthdayRegReducer @Inject constructor(
     validationNameRegReducer: BaseValidationRegReducer,
 ) : BaseRegistrationReducer.Abstract(uiStore, nameChainValidator, validationNameRegReducer) {
 
-    override fun onTextInput(text: String) {
-        if (text.isDigitsOnly()) {
-            super.onTextInput(text)
+    override fun onTextInput(textFieldValue: TextFieldValue) {
+        if (textFieldValue.text.isDigitsOnly()) {
+            super.onTextInput(textFieldValue)
         }
     }
 }

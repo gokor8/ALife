@@ -8,4 +8,8 @@ interface VisualTransformationDelegate {
     fun createVisualTransformation(): VisualTransformation
 
     fun onValue(textFieldValue: TextFieldValue)
+
+    fun getMaskedText(regexPattern: String = ""): String
+
+    fun getMaskedText(regexPattern: Regex): String
 }

@@ -8,13 +8,13 @@ class MaskOffsetMapping(private val maskList: MaskList) : OffsetMapping {
 
     override fun originalToTransformed(offset: Int): Int {
         val currentOffset = maskList.toTransformOffsetPosition(offset)
-        Log.e("originalToTransformed", "$offset + res: $currentOffset")
+        Log.e("Mask originalToTransformed", "$offset + res: $currentOffset")
         return currentOffset
     }
 
     override fun transformedToOriginal(offset: Int): Int {
         val currentOffset = maskList.toOriginOffsetPosition(offset)
-        Log.e("transformedToOriginal", "$offset - $currentOffset")
+        Log.e("Mask transformedToOriginal", "$offset - $currentOffset")
         return currentOffset
     }
 }

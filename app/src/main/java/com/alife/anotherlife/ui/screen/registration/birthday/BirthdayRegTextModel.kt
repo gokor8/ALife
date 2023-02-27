@@ -6,7 +6,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import com.alife.anotherlife.core.composable.text.HintTextOutlined
+import com.alife.anotherlife.core.composable.text.HintErrorTextOutlined
 import com.alife.anotherlife.core.composable.text.text_formation.MaskVTDelegate
 import com.alife.anotherlife.core.composable.text.text_formation.MaskVisualTransformation
 import com.alife.anotherlife.core.composable.text.text_formation.mask.patterns.BirthdayPattern
@@ -18,18 +18,15 @@ class BirthdayRegTextModel : RegistrationTextModel {
 
     @Composable
     override fun TextOutlined(columnScope: ColumnScope, viewModel: RegistrationViewModel) {
-        val birthdayMask = BirthdayPattern().getMaskPattern()
-        //val maskVTDelegate = MaskVTDelegate(BirthdayPattern().getMaskPattern()) { newText ->
-        //    viewModel.reduce(RegistrationAction.OnTextInput(newText.text))
-        //}
+        val maskVTDelegate = MaskVTDelegate(BirthdayPattern()) { textFieldValue ->
+            viewModel.reduce(RegistrationAction.OnTextInput(textFieldValue))
+        }
 
-        columnScope.HintTextOutlined(
+        columnScope.HintErrorTextOutlined(
             textWithErrorModel = viewModel.getUIState().textWithErrorModel,
-            onValueChange = { newText ->
-                viewModel.reduce(RegistrationAction.OnTextInput(newText))
-            },
+            onValueChange = maskVTDelegate::onValue,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            visualTransformation = MaskVisualTransformation(birthdayMask),
+            visualTransformation = maskVTDelegate.createVisualTransformation(),
             placeholderTextRes = viewModel.getUIState().registrationModel.helpText,
             modifier = Modifier.fillMaxWidth()
         )

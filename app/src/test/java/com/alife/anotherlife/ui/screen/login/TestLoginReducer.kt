@@ -27,7 +27,7 @@ class TestLoginReducer {
 
     @Before
     fun before() {
-        uiStore = FakeUIStore()
+        uiStore = FakeUIStore(LoginState())
     }
 
     private fun setupReducer(

@@ -21,29 +21,21 @@ class MaskList(listMasks: List<MaskUnit>) : ArrayList<MaskUnit>(listMasks) {
         return symbolUnitMap
     }
 
-    fun getClearSize() = count { maskUnit -> maskUnit is BaseUnits }
-
-    fun toOriginOffsetPosition(transformOffset: Int): Int {
-        var staticUnitsCount = 0
-        for (unitIndex in 0 until transformOffset) {
-            if (get(unitIndex) is StaticUnits) staticUnitsCount++
-        }
-        return transformOffset - staticUnitsCount
-    }
+    fun getClearCount() = count { maskUnit -> maskUnit is BaseUnits }
 
     //12.12.2222
     // offset дает позицию каретки без StaticMaskUnit ов
     //12.(3)12
     //121(3)
-    fun toTransformOffsetPosition(originOffset: Int) : Int {
+    fun toTransformOffsetPosition(originOffset: Int): Int {
         var symbolUnitCount = 0
         var staticUnitCount = 0
         var index = 0
         while (symbolUnitCount != originOffset) {
-            if(getOrNull(index) is BaseUnits.EmptyUnit) break
+            if (getOrNull(index) is BaseUnits.EmptyUnit) break
 
             getOrNull(index)?.also { maskUnit ->
-                if(maskUnit is StaticUnits) {
+                if (maskUnit is StaticUnits) {
                     staticUnitCount++
                 } else {
                     symbolUnitCount++
@@ -54,5 +46,19 @@ class MaskList(listMasks: List<MaskUnit>) : ArrayList<MaskUnit>(listMasks) {
         }
 
         return symbolUnitCount + staticUnitCount
+    }
+
+    fun toOriginOffsetPosition(transformOffset: Int): Int {
+        var staticUnitsCount = 0
+        for (unitIndex in 0 until transformOffset) {
+            if (get(unitIndex) is StaticUnits) staticUnitsCount++
+        }
+        return transformOffset - staticUnitsCount
+    }
+
+    override fun toString(): String {
+        return joinToString(separator = "") {
+            (it as? MaskUnit.SymbolMaskUnit)?.symbol?.toString() ?: ""
+        }
     }
 }

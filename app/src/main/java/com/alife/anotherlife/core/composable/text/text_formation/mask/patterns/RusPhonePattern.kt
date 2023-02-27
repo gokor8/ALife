@@ -5,12 +5,12 @@ import com.alife.anotherlife.core.composable.text.text_formation.mask.patterns.M
 import com.alife.anotherlife.core.composable.text.text_formation.mask.units.BaseUnits
 import com.alife.anotherlife.core.composable.text.text_formation.mask.units.StaticUnits
 
-class PhonePattern : MaskPattern {
+class RusPhonePattern : MaskPattern {
 
     override fun getMaskPattern(): MaskList {
         return MaskList(
             StaticUnits.Plus(),
-            BaseUnits.EmptyUnit(),
+            StaticUnits.RusCode(),
             StaticUnits.Space(),
             BaseUnits.EmptyUnit(),
             BaseUnits.EmptyUnit(),

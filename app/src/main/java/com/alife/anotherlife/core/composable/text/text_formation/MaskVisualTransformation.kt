@@ -11,9 +11,10 @@ class MaskVisualTransformation(private val maskList: MaskList) : VisualTransform
 
     override fun filter(text: AnnotatedString): TransformedText {
 
-        val formattedText = MaskTextFormatter().format(text.text, maskList)
+        val formattedText =
+            text.text.takeIf { it.isEmpty() } ?: MaskTextFormatter().format(text.text, maskList)
 
-        Log.e("Aboba", "New Text - $text | FormattedText - $formattedText")
+        Log.e("Mask", "New Text - $text | FormattedText - $formattedText")
 
         return TransformedText(
             text = AnnotatedString(

@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.alife.anotherlife.core.composable.text.HintTextOutlined
+import com.alife.anotherlife.core.composable.text.HintErrorTextOutlined
 import com.alife.anotherlife.ui.screen.registration.base.RegistrationViewModel
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationAction
 
@@ -18,10 +18,10 @@ interface RegistrationTextModel {
 
         @Composable
         override fun TextOutlined(columnScope: ColumnScope, viewModel: RegistrationViewModel) {
-            columnScope.HintTextOutlined(
+            columnScope.HintErrorTextOutlined(
                 textWithErrorModel = viewModel.getUIState().textWithErrorModel,
-                onValueChange = { newText ->
-                    viewModel.reduce(RegistrationAction.OnTextInput(newText))
+                onValueChange = { newTextFieldValue ->
+                    viewModel.reduce(RegistrationAction.OnTextInput(newTextFieldValue))
                 },
                 placeholderTextRes = viewModel.getUIState().registrationModel.helpText,
                 modifier = Modifier.fillMaxWidth()
