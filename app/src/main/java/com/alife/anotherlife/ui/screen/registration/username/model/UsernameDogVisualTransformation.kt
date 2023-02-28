@@ -5,7 +5,7 @@ import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import javax.inject.Inject
 
-class EmailDogVisualTransformation @Inject constructor() : VisualTransformation{
+class UsernameDogVisualTransformation @Inject constructor() : VisualTransformation {
 
     override fun filter(text: AnnotatedString): TransformedText {
         val formattedText = if(text.isNotEmpty()) "@${text.text}" else text.text

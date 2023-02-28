@@ -20,5 +20,4 @@ interface UsernameRegViewModelModule {
     @UsernameAnnotation.UsernameValidation
     @Binds
     fun bindUsernameValidationRegReducer(reducer: UsernameValidationRegReducer): BaseValidationRegReducer
-
 }

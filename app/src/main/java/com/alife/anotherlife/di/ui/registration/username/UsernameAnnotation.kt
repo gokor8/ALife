@@ -5,18 +5,23 @@ import javax.inject.Qualifier
 interface UsernameAnnotation {
 
     @Qualifier
-    @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-    annotation class  UsernameUIStore
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class UsernameUIStore
 
     @Qualifier
-    @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-    annotation class  UsernameRegistration
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class UsernameRegistration
 
     @Qualifier
-    @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-    annotation class  UsernameValidation
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class UsernameValidation
 
     @Qualifier
-    @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-    annotation class  UsernameChain
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class UsernameChain
+
+    @Qualifier
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class UsernameAccessSymbolArray
+
 }
