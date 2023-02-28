@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import com.alife.anotherlife.core.composable.text.HintErrorTextOutlined
 import com.alife.anotherlife.core.composable.text.text_formation.MaskVTDelegate
-import com.alife.anotherlife.core.composable.text.text_formation.MaskVisualTransformation
 import com.alife.anotherlife.core.composable.text.text_formation.mask.patterns.BirthdayPattern
 import com.alife.anotherlife.ui.screen.registration.base.RegistrationViewModel
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationTextModel
@@ -26,8 +25,8 @@ class BirthdayRegTextModel : RegistrationTextModel {
             textWithErrorModel = viewModel.getUIState().textWithErrorModel,
             onValueChange = maskVTDelegate::onValue,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            visualTransformation = maskVTDelegate.createVisualTransformation(),
             placeholderTextRes = viewModel.getUIState().registrationModel.helpText,
+            visualTransformation = maskVTDelegate.createVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
         )
     }

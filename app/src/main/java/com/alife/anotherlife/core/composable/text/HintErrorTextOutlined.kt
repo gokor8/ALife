@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alife.anotherlife.core.ui.state.error_text.TextWithErrorModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HintErrorTextOutlined(
     value: String,
@@ -33,17 +34,18 @@ fun HintErrorTextOutlined(
     label: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
+    supportingText: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
-    singleLine: Boolean = false,
+    singleLine: Boolean = true,
     maxLines: Int = Int.MAX_VALUE,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = RoundedCornerShape(4.0.dp),
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
 ) {
-    OutlinedTextField(
+    OutlinedTextFieldBase(
         value,
         onValueChange,
         modifier,
@@ -60,6 +62,7 @@ fun HintErrorTextOutlined(
         },
         leadingIcon,
         trailingIcon,
+        supportingText,
         isError,
         visualTransformation,
         keyboardOptions,
@@ -72,6 +75,7 @@ fun HintErrorTextOutlined(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ColumnScope.HintErrorTextOutlined(
     textWithErrorModel: TextWithErrorModel,
@@ -84,10 +88,11 @@ fun ColumnScope.HintErrorTextOutlined(
     label: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
+    supportingText: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
-    singleLine: Boolean = false,
+    singleLine: Boolean = true,
     maxLines: Int = Int.MAX_VALUE,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = RoundedCornerShape(4.0.dp),
@@ -110,6 +115,7 @@ fun ColumnScope.HintErrorTextOutlined(
         },
         leadingIcon,
         trailingIcon,
+        supportingText,
         textWithErrorModel.errorResId?.run { true } ?: false,
         visualTransformation,
         keyboardOptions,
