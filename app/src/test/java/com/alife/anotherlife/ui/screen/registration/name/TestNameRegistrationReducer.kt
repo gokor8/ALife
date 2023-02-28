@@ -9,6 +9,7 @@ import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextC
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.ChainState
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
+import com.alife.anotherlife.ui.screen.registration.name.chain.NameRegTextChain
 import com.alife.anotherlife.ui.screen.registration.name.reducer.NameRegistrationReducer
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
@@ -25,24 +26,45 @@ class TestNameRegistrationReducer {
         uiStore = FakeUIStore(RegistrationState(RegistrationModel(0, 0)))
     }
 
-    fun setupReducer(returnState: ChainState) {
+    private fun setupReducer(
+        onNextClickChainState: ChainState,
+        isValidOnTextInput: Boolean = true,
+    ) {
         nameReducer = NameRegistrationReducer(
             uiStore,
-            FakeNameChainValidator(returnState),
-            FakeNameValidationNameRegReducer()
+            FakeNameChainValidator(onNextClickChainState),
+            FakeNameValidationNameRegReducer(),
+            FakeNameRegTextChain(isValidOnTextInput)
         )
     }
 
     @Test
-    fun `test success text input`() {
-        setupReducer(ChainState.Success())
+    fun `test valid text input`() {
+        setupReducer(ChainState.Success(), true)
         val testText = TextFieldValue("test text")
 
         nameReducer.onTextInput(testText)
 
+        val state = uiStore.stateCollector.last().textWithErrorModel
+
         assertEquals(2, uiStore.stateCollector.size)
-        assertEquals(uiStore.stateCollector.last().textWithErrorModel.textFieldValue.text, testText)
-        assertEquals(uiStore.stateCollector.last().textWithErrorModel.errorResId, null)
+        assertEquals(testText, state.textFieldValue)
+        assertEquals(null, state.errorResId)
+    }
+
+    @Test
+    fun `test not valid text input`() {
+        setupReducer(ChainState.Success(), false)
+        val testText = TextFieldValue("test text")
+
+        nameReducer.onTextInput(testText)
+
+        val expected = ""
+
+        val state = uiStore.stateCollector.last().textWithErrorModel
+
+        assertEquals(1, uiStore.stateCollector.size)
+        assertEquals(expected, state.textFieldValue.text)
     }
 
     @Test
@@ -101,7 +123,7 @@ class TestNameRegistrationReducer {
 // Test Realization
 sealed class FakeChainState(
     protected val uiStore: FakeUIStore<RegistrationState, RegistrationEffect>,
-    private val isSuccess: Boolean
+    private val isSuccess: Boolean,
 ) : ChainState {
 
     override fun onChainResult(reducer: BaseValidationRegReducer) {
@@ -123,6 +145,9 @@ class FakeFailNameChain(
     uiStore: FakeUIStore<RegistrationState, RegistrationEffect>,
 ) : FakeChainState(uiStore, false)
 
+class FakeNameRegTextChain(private val isValid: Boolean) : NameRegTextChain {
+    override fun handle(inputModel: String): Boolean = isValid
+}
 
 class FakeNameChainValidator(private val returnState: ChainState) : BaseRegTextChain {
 

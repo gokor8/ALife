@@ -9,7 +9,7 @@ import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
 
-class TestNameChain {
+class TestNameOnNextClickChain {
 
     private val chainValidator = RegTextTextChain(MinNameTextChain(), MaxNameTextChain())
     private val fakeChainNamRegReducer = FakeChainNamRegReducer()

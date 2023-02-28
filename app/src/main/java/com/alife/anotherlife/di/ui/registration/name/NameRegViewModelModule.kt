@@ -2,6 +2,8 @@ package com.alife.anotherlife.di.ui.registration.name
 
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.base.reducer.RegistrationReducer
+import com.alife.anotherlife.ui.screen.registration.name.chain.AccessCharsNameTextChain
+import com.alife.anotherlife.ui.screen.registration.name.chain.NameRegTextChain
 import com.alife.anotherlife.ui.screen.registration.name.reducer.NameRegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.name.reducer.NameValidationRegReducer
 import dagger.Binds
@@ -20,4 +22,8 @@ interface NameRegViewModelModule {
     @NameAnnotation.NameValidation
     @Binds
     fun bindNameValidationRegReducer(reducer: NameValidationRegReducer): BaseValidationRegReducer
+
+    // Chain
+    @Binds
+    fun bindAccessCharsNameTextChain(chain: AccessCharsNameTextChain): NameRegTextChain
 }
