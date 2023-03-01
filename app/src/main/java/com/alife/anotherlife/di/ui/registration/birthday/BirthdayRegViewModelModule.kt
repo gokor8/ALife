@@ -25,8 +25,4 @@ interface BirthdayRegViewModelModule {
     fun bindBirthdayValidationRegReducer(
         reducer: BirthdayValidationRegReducer
     ): BaseValidationRegReducer
-
-    @BirthdayAnnotation.BirthdayChain
-    @Binds
-    fun bindNameChainValidator(nameChainValidator: EmptyTextChain): BaseRegTextChain
 }

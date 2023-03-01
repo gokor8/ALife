@@ -1,6 +1,6 @@
 package com.alife.core.chain
 
-sealed interface ChainHandler<R> {
+interface ChainHandler {
 
     interface Base<I, R> {
         fun handle(inputModel: I): R

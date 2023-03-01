@@ -19,7 +19,7 @@
     <string name="name">Name</string>
     <string name="error_less_4">Text less 4</string>
     <string name="error_more_25">Text more 25</string>
-    
+
     // Registration Username
     <string name="also_need_your_username">Also need username</string>
     <string name="username">Username</string>
@@ -27,5 +27,7 @@
     // Registration Birthday
     <string name="i_need_your_birthday">I need your birthday -_-</string>
     <string name="birthday">Birthday</string>
+    <string name="invalid_birthday">Invalid birthday</string>
+    <string name="gaffer">Gaffer</string>
 
 </resources>

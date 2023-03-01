@@ -9,6 +9,7 @@ import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseRegistratio
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
+import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayTextChain
 import javax.inject.Inject
 
 class BirthdayRegReducer @Inject constructor(
@@ -18,7 +19,11 @@ class BirthdayRegReducer @Inject constructor(
     nameChainValidator: BaseRegTextChain,
     @BirthdayAnnotation.BirthdayValidation
     validationNameRegReducer: BaseValidationRegReducer,
-) : BaseRegistrationReducer.Abstract(uiStore, nameChainValidator, validationNameRegReducer) {
+) : BaseRegistrationReducer.Abstract(
+    uiStore,
+    nameChainValidator,
+    validationNameRegReducer,
+) {
 
     override fun onTextInput(textFieldValue: TextFieldValue) {
         if (textFieldValue.text.isDigitsOnly()) {

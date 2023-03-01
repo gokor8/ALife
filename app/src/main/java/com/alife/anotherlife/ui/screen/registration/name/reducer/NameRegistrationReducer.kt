@@ -1,6 +1,5 @@
 package com.alife.anotherlife.ui.screen.registration.name.reducer
 
-import androidx.compose.ui.text.input.TextFieldValue
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.di.ui.registration.name.NameAnnotation
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
@@ -18,12 +17,10 @@ class NameRegistrationReducer @Inject constructor(
     nameChainValidator: BaseRegTextChain,
     @NameAnnotation.NameValidation
     validationNameRegReducer: BaseValidationRegReducer,
-    private val textInputChainValidator: NameRegTextChain,
-) : BaseRegistrationReducer.Abstract(uiStore, nameChainValidator, validationNameRegReducer) {
-
-    override fun onTextInput(textFieldValue: TextFieldValue) {
-        if (textInputChainValidator.handle(textFieldValue.text)) {
-            super.onTextInput(textFieldValue)
-        }
-    }
-}
+    textInputChainValidator: NameRegTextChain,
+) : BaseRegistrationReducer.WithInputChain(
+    uiStore,
+    nameChainValidator,
+    validationNameRegReducer,
+    textInputChainValidator
+)

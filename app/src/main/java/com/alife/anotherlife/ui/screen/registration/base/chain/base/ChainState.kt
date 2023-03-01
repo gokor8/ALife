@@ -8,12 +8,16 @@ interface ChainState {
     fun onChainResult(reducer: BaseValidationRegReducer)
 
 
-    class Success : ChainState {
+    interface BaseSuccess : ChainState {
 
         override fun onChainResult(reducer: BaseValidationRegReducer) {
             reducer.onContinue()
         }
     }
+
+    abstract class WithModelSuccess<M>(val inputModel: M) : BaseSuccess
+
+    class Success : BaseSuccess
 
     class Fail(@StringRes private val resIdError: Int) : ChainState {
 
