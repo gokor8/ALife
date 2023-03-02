@@ -2,15 +2,15 @@ package com.alife.anotherlife.ui.screen.registration.base.chain
 
 import com.alife.anotherlife.R
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
-import com.alife.anotherlife.ui.screen.registration.base.chain.base.ChainState
+import com.alife.anotherlife.ui.screen.registration.base.chain.base.RegChainState
 import javax.inject.Inject
 
 class EmptyTextChain @Inject constructor(): BaseRegTextChain {
 
-    override fun handle(inputModel: String): ChainState {
+    override fun handle(inputModel: String): RegChainState {
         return if (inputModel.isEmpty())
-            ChainState.Fail(R.string.error_empty)
+            RegChainState.Fail(R.string.error_empty)
         else
-            ChainState.Success()
+            RegChainState.Success()
     }
 }

@@ -1,6 +1,6 @@
 package com.alife.anotherlife.ui.screen.registration.name
 
-import com.alife.anotherlife.ui.screen.registration.base.chain.base.ChainState
+import com.alife.anotherlife.ui.screen.registration.base.chain.base.RegChainState
 import com.alife.anotherlife.ui.screen.registration.base.chain.RegTextTextChain
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.name.chain.MaxNameTextChain
@@ -20,7 +20,7 @@ class TestNameOnNextClickChain {
 
         val chainState = chainValidator.handle(testString)
 
-        assertTrue(chainState is ChainState.Success)
+        assertTrue(chainState is RegChainState.Success)
     }
 
     @Test
@@ -34,7 +34,7 @@ class TestNameOnNextClickChain {
         val actual = fakeChainNamRegReducer.resultContainer
         val expected = 2131427340
 
-        assertTrue(chainState is ChainState.Fail)
+        assertTrue(chainState is RegChainState.Fail)
         assertEquals(expected, actual)
     }
 
@@ -49,7 +49,7 @@ class TestNameOnNextClickChain {
         val actual = fakeChainNamRegReducer.resultContainer
         val expected = 2131427341
 
-        assertTrue(chainState is ChainState.Fail)
+        assertTrue(chainState is RegChainState.Fail)
         assertEquals(expected, actual)
     }
 }

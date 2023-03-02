@@ -7,22 +7,18 @@ import com.alife.anotherlife.ui.screen.registration.base.chain.EmptyTextChain
 import com.alife.anotherlife.ui.screen.registration.base.chain.RegTextTextChain
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
-import com.alife.anotherlife.ui.screen.registration.base.reducer.RegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
-import com.alife.anotherlife.ui.screen.registration.birthday.BirthdayRegistrationVM
 import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayChainValidator
 import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayDateTextChain
-import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayTextChain
-import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayYearLimit
-import com.alife.core.chain.ChainHandler
-import com.alife.domain.core.chain.ChainEmptyValidator
+import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayYearGafferLimit
+import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayYoungLimit
+import com.alife.core.chain.ChainValidator
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import java.util.Locale
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -43,12 +39,17 @@ class BirthdayRegViewModelModuleP {
     fun birthdayChain(
         emptyTextChain: EmptyTextChain,
         birthdayDateTextChain: BirthdayDateTextChain,
+        birthdayYoungLimit: BirthdayYoungLimit,
+        birthdayYearGafferLimit: BirthdayYearGafferLimit,
     ): BaseRegTextChain {
         return RegTextTextChain(
             emptyTextChain,
             BirthdayChainValidator(
                 birthdayDateTextChain,
-                BirthdayYearLimit()
+                ChainValidator(
+                    birthdayYoungLimit,
+                    birthdayYearGafferLimit
+                )
             )
         )
     }

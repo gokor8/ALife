@@ -2,13 +2,14 @@ package com.alife.anotherlife.ui.screen.registration.base.chain.base
 
 import androidx.annotation.StringRes
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
+import com.alife.core.chain.BaseChainState
 
-interface ChainState {
+interface RegChainState : BaseChainState {
 
     fun onChainResult(reducer: BaseValidationRegReducer)
 
 
-    interface BaseSuccess : ChainState {
+    interface BaseSuccess : RegChainState, BaseChainState.Success {
 
         override fun onChainResult(reducer: BaseValidationRegReducer) {
             reducer.onContinue()
@@ -19,7 +20,7 @@ interface ChainState {
 
     class Success : BaseSuccess
 
-    class Fail(@StringRes private val resIdError: Int) : ChainState {
+    class Fail(@StringRes private val resIdError: Int) : RegChainState, BaseChainState.Fail {
 
         override fun onChainResult(reducer: BaseValidationRegReducer) {
             reducer.onValidationError(resIdError)

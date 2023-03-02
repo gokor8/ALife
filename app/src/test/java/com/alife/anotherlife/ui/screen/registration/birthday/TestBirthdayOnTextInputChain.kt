@@ -1,12 +1,8 @@
 package com.alife.anotherlife.ui.screen.registration.birthday
 
-import com.alife.anotherlife.ui.screen.registration.base.chain.base.ChainState
-import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayChainValidator
-import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayDateTextChain
-import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayTextChain
-import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayYearLimit
-import com.alife.core.chain.ChainHandler
-import junit.framework.TestCase.assertEquals
+import com.alife.anotherlife.ui.screen.registration.base.chain.base.RegChainState
+import com.alife.anotherlife.ui.screen.registration.birthday.chain.*
+import com.alife.core.chain.ChainValidator
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
 import java.util.*
@@ -15,7 +11,10 @@ class TestBirthdayOnTextInputChain {
 
     private val birthdayOnTextInputChain: BirthdayTextChain = BirthdayChainValidator(
         BirthdayDateTextChain(Locale.UK),
-        BirthdayYearLimit()
+        ChainValidator(
+            BirthdayYoungLimit(),
+            BirthdayYearGafferLimit()
+        ),
     )
 
     @Test
@@ -25,7 +24,7 @@ class TestBirthdayOnTextInputChain {
         testData.map { it.replace(".", "") }.forEach { date ->
             val actual = birthdayOnTextInputChain.handle(date)
 
-            assertTrue(actual is ChainState.Success)
+            assertTrue(actual is RegChainState.Success)
         }
     }
 
@@ -36,7 +35,7 @@ class TestBirthdayOnTextInputChain {
         testData.map { it.replace(".", "") }.forEach { date ->
             val actual = birthdayOnTextInputChain.handle(date)
 
-            assertTrue(actual is ChainState.Fail)
+            assertTrue(actual is RegChainState.Fail)
         }
     }
 }

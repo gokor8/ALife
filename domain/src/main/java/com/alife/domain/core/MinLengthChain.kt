@@ -1,14 +1,15 @@
 package com.alife.domain.core
 
 import com.alife.core.chain.ChainHandler
-import com.alife.core.chain.EmptyChainState
+import com.alife.core.chain.BaseChainState
+import com.alife.core.chain.DefaultChainState
 
-class MinLengthChain : ChainHandler.Base<String, EmptyChainState> {
+class MinLengthChain : ChainHandler.Base<String, BaseChainState> {
 
-    override fun handle(inputModel: String): EmptyChainState {
+    override fun handle(inputModel: String): BaseChainState {
         return if(inputModel.isEmpty())
-            EmptyChainState.Fail()
+            DefaultChainState.Fail()
         else
-            EmptyChainState.Success()
+            DefaultChainState.Success()
     }
 }

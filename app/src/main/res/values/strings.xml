@@ -29,5 +29,6 @@
     <string name="birthday">Birthday</string>
     <string name="invalid_birthday">Invalid birthday</string>
     <string name="gaffer">Gaffer</string>
+    <string name="so_young">So Young</string>
 
 </resources>

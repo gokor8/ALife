@@ -6,7 +6,7 @@ import com.alife.anotherlife.ui.screen.registration.base.reducer.RegistrationRed
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
-import com.alife.anotherlife.ui.screen.registration.base.chain.base.ChainState
+import com.alife.anotherlife.ui.screen.registration.base.chain.base.RegChainState
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.name.chain.NameRegTextChain
@@ -27,12 +27,12 @@ class TestNameRegistrationReducer {
     }
 
     private fun setupReducer(
-        onNextClickChainState: ChainState,
+        onNextClickRegChainState: RegChainState,
         isValidOnTextInput: Boolean = true,
     ) {
         nameReducer = NameRegistrationReducer(
             uiStore,
-            FakeNameChainValidator(onNextClickChainState),
+            FakeNameChainValidator(onNextClickRegChainState),
             FakeNameValidationNameRegReducer(),
             FakeNameRegTextChain(isValidOnTextInput)
         )
@@ -40,7 +40,7 @@ class TestNameRegistrationReducer {
 
     @Test
     fun `test valid text input`() {
-        setupReducer(ChainState.Success(), true)
+        setupReducer(RegChainState.Success(), true)
         val testText = TextFieldValue("test text")
 
         nameReducer.onTextInput(testText)
@@ -54,7 +54,7 @@ class TestNameRegistrationReducer {
 
     @Test
     fun `test not valid text input`() {
-        setupReducer(ChainState.Success(), false)
+        setupReducer(RegChainState.Success(), false)
         val testText = TextFieldValue("test text")
 
         nameReducer.onTextInput(testText)
@@ -69,7 +69,7 @@ class TestNameRegistrationReducer {
 
     @Test
     fun `test on continue click, with empty text`() {
-        setupReducer(FakeSuccessNameChain(uiStore))
+        setupReducer(FakeSuccessNameRegChain(uiStore))
 
         nameReducer.onNextClick()
 
@@ -84,7 +84,7 @@ class TestNameRegistrationReducer {
 
     @Test
     fun `test on continue click, expect success`() {
-        setupReducer(FakeSuccessNameChain(uiStore))
+        setupReducer(FakeSuccessNameRegChain(uiStore))
         val testText = TextFieldValue("test text")
 
         nameReducer.onTextInput(testText)
@@ -102,7 +102,7 @@ class TestNameRegistrationReducer {
 
     @Test
     fun `test success text input, expect fail`() {
-        setupReducer(FakeFailNameChain(uiStore))
+        setupReducer(FakeFailNameRegChain(uiStore))
         val testText = TextFieldValue("test text")
 
         nameReducer.onTextInput(testText)
@@ -121,10 +121,10 @@ class TestNameRegistrationReducer {
 
 
 // Test Realization
-sealed class FakeChainState(
+sealed class FakeRegChainState(
     protected val uiStore: FakeUIStore<RegistrationState, RegistrationEffect>,
     private val isSuccess: Boolean,
-) : ChainState {
+) : RegChainState {
 
     override fun onChainResult(reducer: BaseValidationRegReducer) {
         uiStore.setState {
@@ -137,19 +137,19 @@ sealed class FakeChainState(
     }
 }
 
-class FakeSuccessNameChain(
+class FakeSuccessNameRegChain(
     uiStore: FakeUIStore<RegistrationState, RegistrationEffect>,
-) : FakeChainState(uiStore, true)
+) : FakeRegChainState(uiStore, true)
 
-class FakeFailNameChain(
+class FakeFailNameRegChain(
     uiStore: FakeUIStore<RegistrationState, RegistrationEffect>,
-) : FakeChainState(uiStore, false)
+) : FakeRegChainState(uiStore, false)
 
 class FakeNameRegTextChain(private val isValid: Boolean) : NameRegTextChain {
     override fun handle(inputModel: String): Boolean = isValid
 }
 
-class FakeNameChainValidator(private val returnState: ChainState) : BaseRegTextChain {
+class FakeNameChainValidator(private val returnState: RegChainState) : BaseRegTextChain {
 
     override fun handle(inputModel: String) = returnState
 }
