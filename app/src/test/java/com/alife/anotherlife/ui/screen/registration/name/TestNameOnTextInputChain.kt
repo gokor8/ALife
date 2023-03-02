@@ -1,13 +1,17 @@
 package com.alife.anotherlife.ui.screen.registration.name
 
-import com.alife.anotherlife.ui.screen.registration.name.chain.AccessCharsNameTextChain
+import com.alife.anotherlife.ui.screen.registration.name.chain.AccessCharsInputTextChain
+import com.alife.anotherlife.ui.screen.registration.name.chain.FirstIsLetterTextChain
 import com.alife.anotherlife.ui.screen.registration.name.chain.MaxNameTextChain
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 
 class TestNameOnTextInputChain {
 
-    private val chainValidator = AccessCharsNameTextChain(MaxNameTextChain())
+    private val chainValidator = AccessCharsInputTextChain(
+        MaxNameTextChain(),
+        FirstIsLetterTextChain()
+    )
 
     @Test
     fun `test name chain success`() {
@@ -29,6 +33,7 @@ class TestNameOnTextInputChain {
             "+",
             " ",
             " Caliy",
+            "    Caliy",
             "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCaliy"
         )
 

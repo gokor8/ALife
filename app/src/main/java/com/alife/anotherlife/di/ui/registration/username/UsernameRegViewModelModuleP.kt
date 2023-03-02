@@ -6,6 +6,7 @@ import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
+import com.alife.anotherlife.ui.screen.registration.name.chain.FirstIsLetterTextChain
 import com.alife.anotherlife.ui.screen.registration.username.chain.AccessCharsUsernameTextChain
 import com.alife.anotherlife.ui.screen.registration.username.chain.UsernameMaxTextChain
 import com.alife.anotherlife.ui.screen.registration.username.chain.UsernameRegTextChain
@@ -36,9 +37,11 @@ class UsernameRegViewModelModuleP {
     @Provides
     fun usernameRegTextChain(
         @UsernameAnnotation.UsernameAccessSymbolArray
-        accessSymbolArray: CharArray
+        accessSymbolArray: CharArray,
+        firstIsLetterTextChain: FirstIsLetterTextChain
     ): UsernameRegTextChain = AccessCharsUsernameTextChain(
         accessSymbolArray,
-        UsernameMaxTextChain()
+        UsernameMaxTextChain(),
+        firstIsLetterTextChain
     )
 }

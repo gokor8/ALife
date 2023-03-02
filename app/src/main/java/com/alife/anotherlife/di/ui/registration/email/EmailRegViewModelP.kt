@@ -15,7 +15,10 @@ import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayChain
 import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayDateTextChain
 import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayYearGafferLimit
 import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayYoungLimit
+import com.alife.anotherlife.ui.screen.registration.email.chain.EmailInputChain
 import com.alife.anotherlife.ui.screen.registration.email.chain.EmailRegTextChain
+import com.alife.anotherlife.ui.screen.registration.name.chain.FirstIsLetterTextChain
+import com.alife.anotherlife.ui.screen.registration.name.chain.InputRegTextChain
 import com.alife.core.chain.ChainValidator
 import dagger.Module
 import dagger.Provides
@@ -46,6 +49,17 @@ class EmailRegViewModelP {
         return RegChainValidator(
             emptyTextChain,
             emailRegTextChain
+        )
+    }
+
+    @EmailAnnotation.EmailTextInputChain
+    @Provides
+    fun emailTextInputChain(
+        firstIsLetterTextChain: FirstIsLetterTextChain
+    ): InputRegTextChain {
+        return EmailInputChain(
+            charArrayOf('.', '@'),
+            firstIsLetterTextChain
         )
     }
 }

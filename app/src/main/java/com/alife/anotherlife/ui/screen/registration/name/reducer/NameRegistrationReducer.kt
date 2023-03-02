@@ -7,7 +7,7 @@ import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseRegistratio
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
-import com.alife.anotherlife.ui.screen.registration.name.chain.NameRegTextChain
+import com.alife.anotherlife.ui.screen.registration.name.chain.InputRegTextChain
 import javax.inject.Inject
 
 class NameRegistrationReducer @Inject constructor(
@@ -17,7 +17,7 @@ class NameRegistrationReducer @Inject constructor(
     nameChainValidator: BaseRegTextChain,
     @NameAnnotation.NameValidation
     validationNameRegReducer: BaseValidationRegReducer,
-    textInputChainValidator: NameRegTextChain,
+    textInputChainValidator: InputRegTextChain,
 ) : BaseRegistrationReducer.WithInputChain(
     uiStore,
     nameChainValidator,

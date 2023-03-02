@@ -9,7 +9,7 @@ import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextC
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.RegChainState
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
-import com.alife.anotherlife.ui.screen.registration.name.chain.NameRegTextChain
+import com.alife.anotherlife.ui.screen.registration.name.chain.InputRegTextChain
 import com.alife.anotherlife.ui.screen.registration.name.reducer.NameRegistrationReducer
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
@@ -34,7 +34,7 @@ class TestNameRegistrationReducer {
             uiStore,
             FakeNameChainValidator(onNextClickRegChainState),
             FakeNameValidationNameRegReducer(),
-            FakeNameRegTextChain(isValidOnTextInput)
+            FakeInputRegTextChain(isValidOnTextInput)
         )
     }
 
@@ -145,7 +145,7 @@ class FakeFailNameRegChain(
     uiStore: FakeUIStore<RegistrationState, RegistrationEffect>,
 ) : FakeRegChainState(uiStore, false)
 
-class FakeNameRegTextChain(private val isValid: Boolean) : NameRegTextChain {
+class FakeInputRegTextChain(private val isValid: Boolean) : InputRegTextChain {
     override fun handle(inputModel: String): Boolean = isValid
 }
 

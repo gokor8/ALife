@@ -19,4 +19,8 @@ interface EmailAnnotation {
     @Qualifier
     @Retention(AnnotationRetention.RUNTIME)
     annotation class EmailChain
+
+    @Qualifier
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class EmailTextInputChain
 }
