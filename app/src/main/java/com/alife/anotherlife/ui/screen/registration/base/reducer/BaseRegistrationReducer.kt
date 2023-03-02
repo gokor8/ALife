@@ -16,23 +16,23 @@ interface BaseRegistrationReducer {
 
     abstract class Abstract(
         uiStore: UIStore<RegistrationState, RegistrationEffect>,
-        private val nameChainValidator: BaseRegTextChain,
-        private val validationNameRegReducer: BaseValidationRegReducer,
+        private val chainValidator: BaseRegTextChain,
+        private val validationRegReducer: BaseValidationRegReducer,
     ) : RegistrationReducer(uiStore), BaseRegistrationReducer {
 
         override fun onNextClick() {
-            nameChainValidator.handle(
+            chainValidator.handle(
                 uiStore.getState().textWithErrorModel.textFieldValue.text
-            ).onChainResult(validationNameRegReducer)
+            ).onChainResult(validationRegReducer)
         }
     }
 
     abstract class WithInputChain(
         uiStore: UIStore<RegistrationState, RegistrationEffect>,
-        nameChainValidator: BaseRegTextChain,
-        validationNameRegReducer: BaseValidationRegReducer,
+        ChainValidator: BaseRegTextChain,
+        validationRegReducer: BaseValidationRegReducer,
         private val inputTextChain: ChainHandler.Base<String, Boolean>,
-    ) : Abstract(uiStore, nameChainValidator, validationNameRegReducer) {
+    ) : Abstract(uiStore, ChainValidator, validationRegReducer) {
         override fun onTextInput(textFieldValue: TextFieldValue) {
             if (inputTextChain.handle(textFieldValue.text)) {
                 super.onTextInput(textFieldValue)

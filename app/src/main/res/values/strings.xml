@@ -31,4 +31,8 @@
     <string name="gaffer">Gaffer</string>
     <string name="so_young">So Young</string>
 
+    // Email
+    <string name="your_email">Your Email Plz.</string>
+    <string name="email">Email</string>
+    <string name="invalid_email">Invalid Email</string>
 </resources>

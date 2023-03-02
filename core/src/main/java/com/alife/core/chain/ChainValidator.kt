@@ -1,6 +1,6 @@
 package com.alife.core.chain
 
-class ChainValidator<I, R : BaseChainState>(
+open class ChainValidator<I, R : BaseChainState>(
     private val firstChain: ChainHandler.Base<I, R>,
     private val secondChain: ChainHandler.Base<I, R>,
 ) : ChainHandler.Base<I, R> {
