@@ -1,27 +1,28 @@
-package com.alife.anotherlife.core.text_formatter
+package com.alife.anotherlife.ui.text_formatter
 
 import com.alife.anotherlife.core.composable.text.text_formation.mask.MaskList
-import com.alife.anotherlife.core.composable.text.text_formation.mask.patterns.BirthdayPattern
 import com.alife.anotherlife.core.composable.text.text_formation.mask.patterns.MaskPattern
+import com.alife.anotherlife.core.composable.text.text_formation.mask.patterns.PhonePattern
 import com.alife.anotherlife.core.composable.text.text_formation.mask.units.BaseUnits
 import com.alife.anotherlife.core.composable.text.text_formation.mask.units.StaticUnits
-import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase
 import org.junit.Test
 
-class TestMaskBirthdayPattern {
-
+class TestMaskPhonePattern {
 
     private lateinit var maskList: MaskList
 
     @Test
     fun `test full pattern get transformOffsetPosition`() {
-        maskList = FakeFullBirthdayPatten().getMaskPattern()
+        maskList = FakeFullPhonePatten().getMaskPattern()
         val originTransformPairs = listOf(
             Pair(0, 0), // first
-            Pair(2, 2),
-            Pair(3, 4),
-            Pair(8, 10), // last
-            Pair(9, 10) // out of range
+            Pair(1, 4),
+            Pair(3, 6),
+            Pair(4, 8),
+            Pair(7, 12),
+            Pair(10, 16), // last
+            Pair(11, 16) // out of range
         )
         // 12.12.2222
 
@@ -31,19 +32,21 @@ class TestMaskBirthdayPattern {
 
             val expected = originTransform.second
 
-            assertEquals(expected, actual)
+            TestCase.assertEquals(expected, actual)
         }
     }
 
     @Test
     fun `test empty pattern get transformOffsetPosition`() {
-        maskList = BirthdayPattern().getMaskPattern() //Its Empty
+        maskList = PhonePattern().getMaskPattern()
         val originTransformPairs = listOf(
             Pair(0, 0), // first
-            Pair(2, 0),
-            Pair(3, 0),
-            Pair(8, 0), // last
-            Pair(9, 0) // out of range
+            Pair(1, 3),
+            Pair(3, 3),
+            Pair(4, 3),
+            Pair(7, 3),
+            Pair(10, 3), // last
+            Pair(11, 3) // out of range
         )
         // 12.12.2222
 
@@ -53,19 +56,21 @@ class TestMaskBirthdayPattern {
 
             val expected = originTransform.second
 
-            assertEquals(expected, actual)
+            TestCase.assertEquals(expected, actual)
         }
     }
 
     @Test
     fun `test not empty pattern get transformOffsetPosition`() {
-        maskList = FakeNotEmptyBirthdayPatten().getMaskPattern()
+        maskList = FakeNotEmptyPhonePatten().getMaskPattern()
         val originTransformPairs = listOf(
             Pair(0, 0), // first
-            Pair(2, 2),
-            Pair(3, 4),
-            Pair(8, 4), // last
-            Pair(9, 4) // out of range
+            Pair(1, 4),
+            Pair(3, 6),
+            Pair(4, 8),
+            Pair(7, 9),
+            Pair(10, 9), // last
+            Pair(11, 9) // out of range
         )
         // 12.12.2222
 
@@ -75,43 +80,60 @@ class TestMaskBirthdayPattern {
 
             val expected = originTransform.second
 
-            assertEquals(expected, actual)
+            TestCase.assertEquals(expected, actual)
         }
+    }
+
+    @Test
+    fun `test full patter get origin`() {
+
     }
 }
 
 
 // Test Realization
-class FakeFullBirthdayPatten : MaskPattern {
+class FakeFullPhonePatten : MaskPattern {
 
     override fun getMaskPattern(): MaskList {
         return MaskList(
-            BaseUnits.SymbolUnit('t'),
-            BaseUnits.SymbolUnit('t'),
-            StaticUnits.Dot(),
-            BaseUnits.SymbolUnit('t'),
-            BaseUnits.SymbolUnit('t'),
-            StaticUnits.Dot(),
+            StaticUnits.Plus(),
+            StaticUnits.RusCode(),
+            StaticUnits.Space(),
             BaseUnits.SymbolUnit('t'),
             BaseUnits.SymbolUnit('t'),
             BaseUnits.SymbolUnit('t'),
-            BaseUnits.SymbolUnit('t')
+            StaticUnits.Space(),
+            BaseUnits.SymbolUnit('t'),
+            BaseUnits.SymbolUnit('t'),
+            BaseUnits.SymbolUnit('t'),
+            StaticUnits.Separator(),
+            BaseUnits.SymbolUnit('t'),
+            BaseUnits.SymbolUnit('t'),
+            StaticUnits.Separator(),
+            BaseUnits.SymbolUnit('t'),
+            BaseUnits.SymbolUnit('t'),
         )
     }
 }
 
-class FakeNotEmptyBirthdayPatten : MaskPattern {
+class FakeNotEmptyPhonePatten : MaskPattern {
 
     override fun getMaskPattern(): MaskList {
         return MaskList(
+            StaticUnits.Plus(),
+            StaticUnits.RusCode(),
+            StaticUnits.Space(),
             BaseUnits.SymbolUnit('t'),
             BaseUnits.SymbolUnit('t'),
-            StaticUnits.Dot(),
+            BaseUnits.SymbolUnit('t'),
+            StaticUnits.Space(),
+            BaseUnits.SymbolUnit('t'),
             BaseUnits.SymbolUnit('t'),
             BaseUnits.EmptyUnit(),
-            StaticUnits.Dot(),
+            StaticUnits.Separator(),
             BaseUnits.EmptyUnit(),
             BaseUnits.EmptyUnit(),
+            StaticUnits.Separator(),
             BaseUnits.EmptyUnit(),
             BaseUnits.EmptyUnit()
         )

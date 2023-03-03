@@ -1,4 +1,4 @@
-package com.alife.anotherlife.core.text_formatter
+package com.alife.anotherlife.ui.text_formatter
 
 import com.alife.anotherlife.core.composable.text.text_formation.base.MaskTextFormatter
 import com.alife.anotherlife.core.composable.text.text_formation.mask.MaskList

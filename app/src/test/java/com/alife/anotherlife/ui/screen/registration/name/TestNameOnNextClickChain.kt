@@ -5,6 +5,7 @@ import com.alife.anotherlife.ui.screen.registration.base.chain.RegTextTextChain
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.name.chain.MaxNameTextChain
 import com.alife.anotherlife.ui.screen.registration.name.chain.MinNameTextChain
+import com.alife.anotherlife.ui.screen.registration.reg_test.model.FakeChainNamRegReducer
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
@@ -51,20 +52,5 @@ class TestNameOnNextClickChain {
 
         assertTrue(chainState is RegChainState.Fail)
         assertEquals(expected, actual)
-    }
-}
-
-
-// Test Realization
-class FakeChainNamRegReducer : BaseValidationRegReducer {
-
-    var resultContainer: Int = 0
-
-    override fun onContinue() {
-        resultContainer = 0
-    }
-
-    override fun onValidationError(errorResId: Int) {
-        resultContainer = errorResId
     }
 }

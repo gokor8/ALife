@@ -53,7 +53,7 @@ class TestLoginReducer {
 
         reducer.onInit()
 
-        assertEquals(uiStore.stateCollector.size, 1)
+        assertEquals(uiStore.stateCollector.size, 2)
         assertEquals(uiStore.getState().supportedAuthService.size, 2)
         assertEquals(uiStore.getState().supportedAuthService.first(), FakeUIAuthModel.FakeFirst())
         assertEquals(
@@ -72,7 +72,7 @@ class TestLoginReducer {
 
         reducer.onInit()
 
-        assertEquals(uiStore.stateCollector.size, 1)
+        assertEquals(uiStore.stateCollector.size, 2)
         assertEquals(uiStore.getState().supportedAuthService.size, 2)
         assertEquals(uiStore.getState().supportedAuthService.first(), FakeUIAuthModel.FakeFirst())
         assertEquals(
