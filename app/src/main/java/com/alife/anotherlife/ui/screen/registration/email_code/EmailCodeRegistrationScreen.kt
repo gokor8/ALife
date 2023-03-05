@@ -1,24 +1,32 @@
-package com.alife.anotherlife.ui.screen.registration.base
+package com.alife.anotherlife.ui.screen.registration.email_code
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.text.TextBase
-import com.alife.anotherlife.core.composable.text.style.Title28Style
+import com.alife.anotherlife.core.composable.text.code.CodeTextOutlined
 import com.alife.anotherlife.core.composable.text.style.Button18
 import com.alife.anotherlife.core.composable.text.style.Title22Style
+import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.composable.view_group.CustomColumn
 import com.alife.anotherlife.core.ui.screen.VMScreen
-import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationTextModel
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationAction
+import javax.inject.Inject
 
-abstract class RegistrationScreen(
-    private val customTextOutlined: RegistrationTextModel = RegistrationTextModel.Default()
-) : VMScreen<RegistrationViewModel>() {
+class EmailCodeRegistrationScreen @Inject constructor(
+    override val navController: NavController,
+) : VMScreen<EmailCodeRegistrationVM>() {
+
+    @Composable
+    override fun setupViewModel(): EmailCodeRegistrationVM = hiltViewModel()
 
     @Composable
     override fun Content(modifier: Modifier) = CustomColumn(
@@ -32,15 +40,14 @@ abstract class RegistrationScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            TextBase(
-                textResId = viewModel.getUIState().registrationModel.hintText,
-                textAlign = TextAlign.Start,
-                style = Title22Style().style(),
+            CodeTextOutlined(
+                codeModel = viewModel.getUIState().codeModel,
+                codeViewModel = viewModel,
                 modifier = Modifier.fillMaxWidth()
+                //textAlign = TextAlign.Start,
+                //style = Title22Style().style(),
             )
             Spacer(modifier = Modifier.padding(bottom = 25.dp))
-
-            customTextOutlined.TextOutlined(columnScope = this, viewModel = viewModel)
         }
 
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -51,11 +58,12 @@ abstract class RegistrationScreen(
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.padding(bottom = 25.dp))
-
-            Button18(
-                onClick = { viewModel.reduce(RegistrationAction.OnContinueClick()) },
-                textResId = R.string.continue_next
-            )
         }
     }
+}
+
+@Preview
+@Composable
+fun EmailCodeRegistrationScreenPreview() {
+    EmailCodeRegistrationScreen(rememberNavController()).SetupContent()
 }

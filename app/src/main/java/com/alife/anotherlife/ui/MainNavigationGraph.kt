@@ -10,6 +10,7 @@ import com.alife.anotherlife.ui.screen.registration.birthday.navigation.RegBirth
 import com.alife.anotherlife.ui.screen.registration.birthday.navigation.RegBirthdayNavRoute
 import com.alife.anotherlife.ui.screen.registration.email.navigation.RegEmailNavBuilder
 import com.alife.anotherlife.ui.screen.registration.email.navigation.RegEmailNavRoute
+import com.alife.anotherlife.ui.screen.registration.email_code.navigation.EmailCodeNavBuilder
 import com.alife.anotherlife.ui.screen.registration.name.navigation.RegNameNavBuilder
 import com.alife.anotherlife.ui.screen.registration.username.navigation.UsernameRegNavBuilder
 
@@ -26,7 +27,8 @@ class MainNavigationGraph(private val startNavigationRoute: NavigationRoute) : N
                 RegNameNavBuilder(navHostController),
                 UsernameRegNavBuilder(navHostController),
                 RegBirthdayNavBuilder(navHostController),
-                RegEmailNavBuilder(navHostController)
+                RegEmailNavBuilder(navHostController),
+                EmailCodeNavBuilder(navHostController)
             ).forEach { it.navComposable(this) }
         }
     }

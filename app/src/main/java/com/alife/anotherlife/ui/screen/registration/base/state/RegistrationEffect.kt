@@ -5,6 +5,7 @@ import com.alife.anotherlife.ui.screen.registration.base.chain.base.RegChainStat
 import com.alife.anotherlife.ui.screen.registration.birthday.navigation.RegBirthdayNavigator
 import com.alife.anotherlife.ui.screen.registration.email.EmailRegistrationScreen
 import com.alife.anotherlife.ui.screen.registration.email.navigation.RegEmailNavigator
+import com.alife.anotherlife.ui.screen.registration.email_code.navigation.EmailCodeNavigator
 import com.alife.anotherlife.ui.screen.registration.username.navigation.UsernameRegNavigator
 import com.alife.core.mvi.MVI
 
@@ -16,5 +17,5 @@ interface RegistrationEffect : MVI.Effect {
 
     class NavigateEmail : NavigationWrapper.Forward(RegEmailNavigator()), RegistrationEffect
 
-    class NavigateSmsCode : RegistrationEffect
+    class NavigateEmailCode : NavigationWrapper.Forward(EmailCodeNavigator()), RegistrationEffect
 }

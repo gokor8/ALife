@@ -31,17 +31,17 @@ fun <ACTION : MVI.Action> CustomCompose(
         TextField(
             value = pair.first,
             onValueChange = {
-                viewModel.reduce(
-                    actionMVIBoxer.map(pair.second(it))
-                )
+//                viewModel.reduce(
+//                    actionMVIBoxer.map(pair.second(it))
+//                )
             }
         )
         Spacer(modifier = Modifier.padding(top = 10.dp))
     }
 
     Button(onClick = {
-        viewModel.reduce(
-            actionMVIBoxer.map(ClickAction.ContinueClick())
-        )
+//        viewModel.reduce(
+//            actionMVIBoxer.map(ClickAction.ContinueClick())
+//        )
     }) { Text("Continue") }
 }
