@@ -4,16 +4,15 @@ import com.alife.anotherlife.R
 import com.alife.anotherlife.core.ui.store.DefaultUIStore
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.registration.base.chain.EmptyTextChain
-import com.alife.anotherlife.ui.screen.registration.base.chain.RegTextTextChain
+import com.alife.anotherlife.ui.screen.registration.base.chain.RegChainValidator
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayChainValidator
 import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayDateTextChain
-import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayYearGafferLimit
-import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayYoungLimit
-import com.alife.core.chain.ChainValidator
+import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayOldLimitChain
+import com.alife.domain.core.chain.BaseChainStateValidator
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -39,14 +38,14 @@ class BirthdayRegViewModelModuleP {
     fun birthdayChain(
         emptyTextChain: EmptyTextChain,
         birthdayDateTextChain: BirthdayDateTextChain,
-        birthdayYoungLimit: BirthdayYoungLimit,
-        birthdayYearGafferLimit: BirthdayYearGafferLimit,
+        birthdayYoungLimit: BirthdayOldLimitChain.BirthdayYoungLimit,
+        birthdayYearGafferLimit: BirthdayOldLimitChain.BirthdayYearGafferLimit,
     ): BaseRegTextChain {
-        return RegTextTextChain(
+        return RegChainValidator.StateValidator(
             emptyTextChain,
             BirthdayChainValidator(
                 birthdayDateTextChain,
-                ChainValidator(
+                BaseChainStateValidator(
                     birthdayYoungLimit,
                     birthdayYearGafferLimit
                 )

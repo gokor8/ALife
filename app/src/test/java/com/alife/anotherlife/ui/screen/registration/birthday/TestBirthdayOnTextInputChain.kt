@@ -2,7 +2,7 @@ package com.alife.anotherlife.ui.screen.registration.birthday
 
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.RegChainState
 import com.alife.anotherlife.ui.screen.registration.birthday.chain.*
-import com.alife.core.chain.ChainValidator
+import com.alife.domain.core.chain.BaseChainStateValidator
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
 import java.util.*
@@ -11,9 +11,9 @@ class TestBirthdayOnTextInputChain {
 
     private val birthdayOnTextInputChain: BirthdayTextChain = BirthdayChainValidator(
         BirthdayDateTextChain(Locale.UK),
-        ChainValidator(
-            BirthdayYoungLimit(),
-            BirthdayYearGafferLimit()
+        BaseChainStateValidator(
+            BirthdayOldLimitChain.BirthdayYoungLimit(),
+            BirthdayOldLimitChain.BirthdayYearGafferLimit()
         ),
     )
 

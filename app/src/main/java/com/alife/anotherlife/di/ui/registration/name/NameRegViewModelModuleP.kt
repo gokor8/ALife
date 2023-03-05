@@ -4,7 +4,7 @@ import com.alife.anotherlife.R
 import com.alife.anotherlife.core.ui.store.DefaultUIStore
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.registration.base.chain.EmptyTextChain
-import com.alife.anotherlife.ui.screen.registration.base.chain.RegTextTextChain
+import com.alife.anotherlife.ui.screen.registration.base.chain.RegChainValidator
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
@@ -37,9 +37,9 @@ class NameRegViewModelModuleP {
         maxNameTextChain: MaxNameTextChain,
         minNameTextChain: MinNameTextChain,
         emptyTextChain: EmptyTextChain,
-    ) : BaseRegTextChain = RegTextTextChain(
+    ) : BaseRegTextChain = RegChainValidator.StateValidator(
         emptyTextChain,
-        RegTextTextChain(
+        RegChainValidator.StateValidator(
             maxNameTextChain,
             minNameTextChain
         )

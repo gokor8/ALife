@@ -2,6 +2,7 @@ package com.alife.anotherlife.ui.screen.registration.email.reducer
 
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.di.ui.registration.email.EmailAnnotation
+import com.alife.anotherlife.ui.screen.registration.base.chain.RegChainValidator
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseRegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
@@ -18,5 +19,5 @@ class EmailRegistrationReducer @Inject constructor(
     @EmailAnnotation.EmailValidation
     validationNameRegReducer: BaseValidationRegReducer,
     @EmailAnnotation.EmailTextInputChain
-    onInputChain: InputRegTextChain
+    onInputChain: RegChainValidator.BooleanValidator
 ) : BaseRegistrationReducer.WithInputChain(reducer, chain, validationNameRegReducer, onInputChain)

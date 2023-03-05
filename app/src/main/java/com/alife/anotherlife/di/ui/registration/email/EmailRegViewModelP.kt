@@ -3,23 +3,15 @@ package com.alife.anotherlife.di.ui.registration.email
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.ui.store.DefaultUIStore
 import com.alife.anotherlife.core.ui.store.UIStore
-import com.alife.anotherlife.di.ui.registration.birthday.BirthdayAnnotation
+import com.alife.anotherlife.ui.screen.registration.base.chain.AccessSymbolsChain
 import com.alife.anotherlife.ui.screen.registration.base.chain.EmptyTextChain
 import com.alife.anotherlife.ui.screen.registration.base.chain.RegChainValidator
-import com.alife.anotherlife.ui.screen.registration.base.chain.RegTextTextChain
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
-import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayChainValidator
-import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayDateTextChain
-import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayYearGafferLimit
-import com.alife.anotherlife.ui.screen.registration.birthday.chain.BirthdayYoungLimit
-import com.alife.anotherlife.ui.screen.registration.email.chain.EmailInputChain
 import com.alife.anotherlife.ui.screen.registration.email.chain.EmailRegTextChain
 import com.alife.anotherlife.ui.screen.registration.name.chain.FirstIsLetterTextChain
-import com.alife.anotherlife.ui.screen.registration.name.chain.InputRegTextChain
-import com.alife.core.chain.ChainValidator
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -46,7 +38,7 @@ class EmailRegViewModelP {
         emptyTextChain: EmptyTextChain,
         emailRegTextChain: EmailRegTextChain
     ): BaseRegTextChain {
-        return RegChainValidator(
+        return RegChainValidator.StateValidator(
             emptyTextChain,
             emailRegTextChain
         )
@@ -56,10 +48,10 @@ class EmailRegViewModelP {
     @Provides
     fun emailTextInputChain(
         firstIsLetterTextChain: FirstIsLetterTextChain
-    ): InputRegTextChain {
-        return EmailInputChain(
-            charArrayOf('.', '@'),
-            firstIsLetterTextChain
+    ): RegChainValidator.BooleanValidator {
+        return RegChainValidator.BooleanValidator(
+            AccessSymbolsChain(charArrayOf('.', '@')),
+            firstIsLetterTextChain,
         )
     }
 }

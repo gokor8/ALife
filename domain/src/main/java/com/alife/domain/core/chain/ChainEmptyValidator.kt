@@ -3,6 +3,7 @@ package com.alife.domain.core.chain
 import com.alife.core.chain.ChainHandler
 import com.alife.core.chain.BaseChainState
 
+// TODO need delete
 class ChainEmptyValidator<I>(
     private val first: ChainHandler.Base<I, BaseChainState>,
     private val second: ChainHandler.Base<I, BaseChainState>,

@@ -10,7 +10,7 @@ import org.junit.Test
 
 class TestOnClickEmailChain {
 
-    private val emailChain = RegChainValidator(
+    private val emailChain = RegChainValidator.StateValidator(
         EmptyTextChain(),
         EmailRegTextChain()
     )

@@ -1,8 +1,7 @@
 package com.alife.anotherlife.ui.screen.registration.name
 
+import com.alife.anotherlife.ui.screen.registration.base.chain.RegChainValidator
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.RegChainState
-import com.alife.anotherlife.ui.screen.registration.base.chain.RegTextTextChain
-import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.name.chain.MaxNameTextChain
 import com.alife.anotherlife.ui.screen.registration.name.chain.MinNameTextChain
 import com.alife.anotherlife.ui.screen.registration.reg_test.model.FakeChainNamRegReducer
@@ -12,7 +11,7 @@ import org.junit.Test
 
 class TestNameOnNextClickChain {
 
-    private val chainValidator = RegTextTextChain(MinNameTextChain(), MaxNameTextChain())
+    private val chainValidator = RegChainValidator.StateValidator(MinNameTextChain(), MaxNameTextChain())
     private val fakeChainNamRegReducer = FakeChainNamRegReducer()
 
     @Test

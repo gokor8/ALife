@@ -1,15 +1,16 @@
 package com.alife.anotherlife.ui.screen.registration.email
 
-import com.alife.anotherlife.ui.screen.registration.email.chain.EmailInputChain
+import com.alife.anotherlife.ui.screen.registration.base.chain.AccessSymbolsChain
+import com.alife.anotherlife.ui.screen.registration.base.chain.RegChainValidator
 import com.alife.anotherlife.ui.screen.registration.name.chain.FirstIsLetterTextChain
 import junit.framework.TestCase
 import org.junit.Test
 
 class TestOnInputEmailChain {
 
-    private val emailChain = EmailInputChain(
-        charArrayOf('.', '@'),
-        FirstIsLetterTextChain()
+    private val emailChain = RegChainValidator.BooleanValidator(
+        AccessSymbolsChain(charArrayOf('.', '@')),
+        FirstIsLetterTextChain(),
     )
 
     @Test

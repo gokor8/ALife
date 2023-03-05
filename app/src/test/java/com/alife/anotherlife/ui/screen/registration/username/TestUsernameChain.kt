@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.registration.username
 
+import com.alife.anotherlife.ui.screen.registration.base.chain.AccessSymbolsChain
 import com.alife.anotherlife.ui.screen.registration.name.chain.FirstIsLetterTextChain
 import com.alife.anotherlife.ui.screen.registration.username.chain.AccessCharsUsernameTextChain
 import com.alife.anotherlife.ui.screen.registration.username.chain.UsernameMaxTextChain
@@ -9,7 +10,7 @@ import org.junit.Test
 class TestUsernameChain {
 
     private val usernameChain = AccessCharsUsernameTextChain(
-        charArrayOf('.'),
+        AccessSymbolsChain(charArrayOf('.')),
         UsernameMaxTextChain(),
         FirstIsLetterTextChain()
     )
