@@ -4,7 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
-import com.alife.anotherlife.core.composable.addons.ComposableMapper
+import com.alife.anotherlife.core.ui.ComposableMapper
 
 class FocusBorderMapper : ComposableMapper<Boolean, BorderStroke> {
 

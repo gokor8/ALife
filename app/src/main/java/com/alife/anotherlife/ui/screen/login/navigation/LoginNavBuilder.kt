@@ -12,7 +12,5 @@ class LoginNavBuilder(
 ) : NewDefaultNavBuilder(LoginNavRoute()) {
 
     @Composable
-    override fun Content(navBackStackEntry: NavBackStackEntry) {
-        LoginScreen(navController).SetupContent()
-    }
+    override fun content(navBackStackEntry: NavBackStackEntry) = LoginScreen(navController)
 }
