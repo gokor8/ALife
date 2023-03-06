@@ -13,12 +13,10 @@ import androidx.navigation.compose.rememberNavController
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.code.CodeTextOutlined
-import com.alife.anotherlife.core.composable.text.style.Button18
 import com.alife.anotherlife.core.composable.text.style.Title22Style
 import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.composable.view_group.CustomColumn
 import com.alife.anotherlife.core.ui.screen.VMScreen
-import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationAction
 import javax.inject.Inject
 
 class EmailCodeRegistrationScreen @Inject constructor(
@@ -40,12 +38,18 @@ class EmailCodeRegistrationScreen @Inject constructor(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            TextBase(
+                textResId = R.string.email_code,
+                textAlign = TextAlign.Center,
+                style = Title22Style().style(),
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.padding(bottom = 25.dp))
+
             CodeTextOutlined(
                 codeModel = viewModel.getUIState().codeModel,
                 codeViewModel = viewModel,
-                modifier = Modifier.fillMaxWidth()
-                //textAlign = TextAlign.Start,
-                //style = Title22Style().style(),
+                contentPaddingValues = PaddingValues(horizontal = 10.dp)
             )
             Spacer(modifier = Modifier.padding(bottom = 25.dp))
         }

@@ -35,4 +35,8 @@
     <string name="your_email">Your Email Plz.</string>
     <string name="email">Email</string>
     <string name="invalid_email">Invalid Email</string>
+
+    // Email Code
+    <string name="email_code">Code from email sms</string>
+
 </resources>
