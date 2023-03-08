@@ -1,4 +1,4 @@
-package com.alife.domain.registration.usecase
+package com.alife.domain.registration.usecase.name
 
 import com.alife.domain.registration.repository.BaseRegistrationRepository
 import javax.inject.Inject
