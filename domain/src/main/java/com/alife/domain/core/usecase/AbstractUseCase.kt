@@ -1,4 +1,4 @@
-package com.alife.domain.core
+package com.alife.domain.core.usecase
 
 import com.alife.core.usecase.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
