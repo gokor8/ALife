@@ -1,10 +1,9 @@
 package com.alife.anotherlife.di.domain.registration.name
 
-import com.alife.anotherlife.di.data.registration.RegistrationDataModule
 import com.alife.domain.core.mapper.ThrowableMapper
 import com.alife.domain.registration.usecase.name.BaseNameUseCase
-import com.alife.domain.registration.usecase.name.NameReadRegUseCase
-import com.alife.domain.registration.usecase.name.NameSaveRegUseCase
+import com.alife.domain.registration.usecase.name.NameReadBaseRegUseCase
+import com.alife.domain.registration.usecase.name.NameSaveBaseRegUseCase
 import com.alife.domain.registration.usecase.name.addons.NameRegEntity
 import com.alife.domain.registration.usecase.name.mapper.ThrowToNameRegEntity
 import dagger.Binds
@@ -17,10 +16,10 @@ import dagger.hilt.android.components.ViewModelComponent
 interface NameDomainModule {
 
     @Binds
-    fun bindNameReadUseCase(useCase: NameReadRegUseCase): BaseNameUseCase.Read
+    fun bindNameReadUseCase(useCase: NameReadBaseRegUseCase): BaseNameUseCase.Read
 
     @Binds
-    fun bindNameSaveUseCase(useCase: NameSaveRegUseCase): BaseNameUseCase.Save
+    fun bindNameSaveUseCase(useCase: NameSaveBaseRegUseCase): BaseNameUseCase.Save
 
     @Binds
     fun bindNameThrowMapper(throwMapper: ThrowToNameRegEntity): ThrowableMapper<NameRegEntity>

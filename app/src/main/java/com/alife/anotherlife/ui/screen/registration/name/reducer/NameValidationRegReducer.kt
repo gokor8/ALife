@@ -11,11 +11,10 @@ import javax.inject.Inject
 class NameValidationRegReducer @Inject constructor(
     @NameAnnotation.NameUIStore
     uiStore: UIStore<RegistrationState, RegistrationEffect>,
-    private val saveNameUseCase: BaseNameUseCase.Save,
-) : BaseValidationRegReducer.Abstract(uiStore) {
+    saveNameUseCase: BaseNameUseCase.Save,
+) : BaseValidationRegReducer.Abstract(uiStore, saveNameUseCase) {
 
     override suspend fun navigateNext() {
-        saveNameUseCase.saveData(getState().textWithErrorModel.getCurrentText())
         uiStore.trySetEffect(RegistrationEffect.NavigateUsername())
     }
 }

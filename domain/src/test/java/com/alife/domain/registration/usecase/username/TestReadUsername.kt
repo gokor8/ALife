@@ -16,11 +16,11 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class TestReadUsername {
 
-    private lateinit var usernameReadUseCase: UsernameReadUseCase
+    private lateinit var usernameReadUseCase: UsernameReadUseCaseBase
 
     @Before
     fun before() {
-        usernameReadUseCase = UsernameReadUseCase(
+        usernameReadUseCase = UsernameReadUseCaseBase(
             FakeRegistrationRepository("test"),
             dispatcher = Dispatchers.Unconfined,
             ThrowToUsernameRegEntity()
@@ -28,7 +28,7 @@ class TestReadUsername {
     }
 
     private fun setupUseCase(readData: String, exception: Exception? = null) {
-        usernameReadUseCase = UsernameReadUseCase(
+        usernameReadUseCase = UsernameReadUseCaseBase(
             FakeRegistrationRepository(readData, exception),
             dispatcher = Dispatchers.Unconfined,
             ThrowToUsernameRegEntity()

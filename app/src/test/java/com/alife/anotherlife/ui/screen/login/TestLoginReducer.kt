@@ -9,14 +9,13 @@ import com.alife.anotherlife.ui.screen.login.model.buttons.UIAuthModel
 import com.alife.anotherlife.ui.screen.login.reducer.LoginReducer
 import com.alife.anotherlife.ui.screen.login.state.LoginEffect
 import com.alife.anotherlife.ui.screen.login.state.LoginState
-import com.alife.domain.login.base.ListAuthType
-import com.alife.domain.login.base.LoginAuthType
-import com.alife.domain.login.entity.AuthTypeEntity
-import com.alife.domain.login.entity.DefaultAuthTypeEntity
-import com.alife.domain.login.entity.LoginAuthTypeEntity
-import com.alife.domain.login.entity.MockImageAuthTypeEntity
+import com.alife.domain.login.content.base.ListAuthType
+import com.alife.domain.login.content.base.LoginAuthType
+import com.alife.domain.login.content.entity.AuthTypeEntity
+import com.alife.domain.login.content.entity.DefaultAuthTypeEntity
+import com.alife.domain.login.content.entity.LoginAuthTypeEntity
+import com.alife.domain.login.content.entity.MockImageAuthTypeEntity
 import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertTrue
 import org.junit.Before
 import org.junit.Test
 

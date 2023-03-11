@@ -1,4 +1,4 @@
-package com.alife.domain.login.entity
+package com.alife.domain.login.content.entity
 
 class LoginAuthTypeEntity(
     val logo: DefaultAuthTypeEntity.HorizontalLogoEntity,

@@ -2,7 +2,7 @@ package com.alife.anotherlife.ui.screen.login.model
 
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseListAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.model.buttons.UIAuthModel
-import com.alife.domain.login.entity.AuthTypeEntity
+import com.alife.domain.login.content.entity.AuthTypeEntity
 
 class FakeListAuthTypeToUIAuth : BaseListAuthTypeToUIAuth {
 

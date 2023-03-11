@@ -3,7 +3,7 @@ package com.alife.anotherlife.ui.screen.login.mapper
 import com.alife.anotherlife.R
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseMockAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.model.buttons.picture.RPictureUIAuthModel
-import com.alife.domain.login.entity.MockImageAuthTypeEntity
+import com.alife.domain.login.content.entity.MockImageAuthTypeEntity
 import javax.inject.Inject
 
 class MockAuthTypeToUIAuth @Inject constructor(): BaseMockAuthTypeToUIAuth {

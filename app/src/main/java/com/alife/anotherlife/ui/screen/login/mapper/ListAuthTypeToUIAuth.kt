@@ -4,9 +4,9 @@ import com.alife.anotherlife.ui.screen.login.mapper.base.BaseDefaultAuthTypeToUI
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseListAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseMockAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.model.buttons.UIAuthModel
-import com.alife.domain.login.entity.AuthTypeEntity
-import com.alife.domain.login.entity.DefaultAuthTypeEntity
-import com.alife.domain.login.entity.MockImageAuthTypeEntity
+import com.alife.domain.login.content.entity.AuthTypeEntity
+import com.alife.domain.login.content.entity.DefaultAuthTypeEntity
+import com.alife.domain.login.content.entity.MockImageAuthTypeEntity
 import javax.inject.Inject
 
 class ListAuthTypeToUIAuth @Inject constructor(

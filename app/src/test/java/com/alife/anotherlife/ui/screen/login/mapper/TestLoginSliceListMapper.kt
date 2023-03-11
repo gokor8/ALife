@@ -1,7 +1,7 @@
 package com.alife.anotherlife.ui.screen.login.mapper
 
 import com.alife.anotherlife.ui.screen.login.model.FakeAuthTypeEntity
-import com.alife.domain.login.entity.AuthTypeEntity
+import com.alife.domain.login.content.entity.AuthTypeEntity
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Test

@@ -1,8 +1,8 @@
-package com.alife.domain.login
+package com.alife.domain.login.content
 
-import com.alife.domain.login.base.BaseLoginAuthTypeUseCase
-import com.alife.domain.login.entity.DefaultAuthTypeEntity
-import com.alife.domain.login.entity.LoginAuthTypeEntity
+import com.alife.domain.login.content.base.BaseLoginAuthTypeUseCase
+import com.alife.domain.login.content.entity.DefaultAuthTypeEntity
+import com.alife.domain.login.content.entity.LoginAuthTypeEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 

@@ -9,8 +9,8 @@ import com.alife.anotherlife.ui.screen.login.reducer.BaseLoginReducer
 import com.alife.anotherlife.ui.screen.login.reducer.LoginReducer
 import com.alife.anotherlife.ui.screen.login.state.LoginEffect
 import com.alife.anotherlife.ui.screen.login.state.LoginState
-import com.alife.domain.login.base.ListAuthType
-import com.alife.domain.login.base.LoginAuthType
+import com.alife.domain.login.content.base.ListAuthType
+import com.alife.domain.login.content.base.LoginAuthType
 import javax.inject.Inject
 
 class LoginReducerImpl @Inject constructor(

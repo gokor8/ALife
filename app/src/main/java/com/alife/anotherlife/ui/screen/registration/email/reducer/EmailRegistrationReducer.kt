@@ -9,6 +9,7 @@ import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationR
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.name.chain.InputRegTextChain
+import com.alife.domain.registration.usecase.email.BaseEmailUseCase
 import javax.inject.Inject
 
 class EmailRegistrationReducer @Inject constructor(
@@ -19,5 +20,12 @@ class EmailRegistrationReducer @Inject constructor(
     @EmailAnnotation.EmailValidation
     validationNameRegReducer: BaseValidationRegReducer,
     @EmailAnnotation.EmailTextInputChain
-    onInputChain: RegChainValidator.BooleanValidator
-) : BaseRegistrationReducer.WithInputChain(reducer, chain, validationNameRegReducer, onInputChain)
+    onInputChain: RegChainValidator.BooleanValidator,
+    readUseCase: BaseEmailUseCase.Read
+) : BaseRegistrationReducer.WithInputChain(
+    reducer,
+    chain,
+    validationNameRegReducer,
+    readUseCase,
+    onInputChain
+)

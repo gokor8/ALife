@@ -11,9 +11,8 @@ import com.alife.anotherlife.ui.screen.login.mapper.base.BaseMockAuthTypeToUIAut
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseUIAuthToColumnUIAuth
 import com.alife.anotherlife.ui.screen.login.mapper.container.LoginAuthTypeToContainerUIAuth
 import com.alife.anotherlife.ui.screen.login.mapper.container.MockUIAuthToColumnContainer
-import com.alife.anotherlife.ui.screen.login.mapper.container.UIAuthToColumnContainerUIAuth
 import com.alife.core.mapper.ListMapper
-import com.alife.domain.login.entity.AuthTypeEntity
+import com.alife.domain.login.content.entity.AuthTypeEntity
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -6,10 +6,12 @@ import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffec
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
 import com.alife.core.chain.ChainHandler
+import com.alife.domain.registration.core.entity.DefaultRegEntity
+import com.alife.domain.registration.usecase.base.BaseBaseRegUseCase
 
 interface BaseRegistrationReducer {
 
-    open suspend fun onInit() = Unit
+    suspend fun onInit()
 
     fun onTextInput(textFieldValue: TextFieldValue)
 
@@ -20,6 +22,7 @@ interface BaseRegistrationReducer {
         uiStore: UIStore<RegistrationState, RegistrationEffect>,
         private val chainValidator: BaseRegTextChain,
         private val validationRegReducer: BaseValidationRegReducer,
+        private val readUseCase: BaseBaseRegUseCase.Read<*>,
     ) : RegistrationReducer(uiStore), BaseRegistrationReducer {
 
         override suspend fun onNextClick() {
@@ -27,14 +30,28 @@ interface BaseRegistrationReducer {
                 uiStore.getState().textWithErrorModel.textFieldValue.text
             ).onChainResult(validationRegReducer)
         }
+
+        override suspend fun onInit() {
+            if (getState().textWithErrorModel.getCurrentText().isNotEmpty()) return
+
+            val nameRegEntity = readUseCase.readData().regEntity
+            if (nameRegEntity is DefaultRegEntity.Success) {
+                uiStore.setState {
+                    copy(textWithErrorModel = textWithErrorModel.copyText(nameRegEntity.result))
+                }
+            }
+        }
+
     }
 
     abstract class WithInputChain(
         uiStore: UIStore<RegistrationState, RegistrationEffect>,
         ChainValidator: BaseRegTextChain,
         validationRegReducer: BaseValidationRegReducer,
-        private val inputTextChain: ChainHandler.Base<String, Boolean>,
-    ) : Abstract(uiStore, ChainValidator, validationRegReducer) {
+        readUseCase: BaseBaseRegUseCase.Read<*>,
+        private val inputTextChain: ChainHandler.Base<String, Boolean>
+    ) : Abstract(uiStore, ChainValidator, validationRegReducer, readUseCase) {
+
         override fun onTextInput(textFieldValue: TextFieldValue) {
             if (inputTextChain.handle(textFieldValue.text)) {
                 super.onTextInput(textFieldValue)

@@ -1,4 +1,4 @@
-package com.alife.domain.login.entity
+package com.alife.domain.login.content.entity
 
 sealed interface DefaultAuthTypeEntity : AuthTypeEntity {
 

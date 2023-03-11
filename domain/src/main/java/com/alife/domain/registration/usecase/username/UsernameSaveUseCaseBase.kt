@@ -1,4 +1,4 @@
-package com.alife.domain.registration.usecase.name
+package com.alife.domain.registration.usecase.username
 
 import com.alife.domain.core.usecase.AbstractUseCase
 import com.alife.domain.registration.repository.BaseRegistrationRepository
@@ -6,14 +6,14 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class NameSaveRegUseCase @Inject constructor(
+class UsernameSaveUseCaseBase @Inject constructor(
     private val registrationRepository: BaseRegistrationRepository,
     override val dispatcher: CoroutineDispatcher,
-) : AbstractUseCase(), BaseNameUseCase.Save {
+) : AbstractUseCase(), BaseUsernameUseCase.Save {
 
     override suspend fun saveData(inputData: String) = withContext(dispatcher) {
         registrationRepository.saveRegData(
-            NameSaveRegEntity(inputData)
+            UsernameSaveRegEntity(inputData)
         )
     }
 }

@@ -1,20 +1,21 @@
-package com.alife.domain.registration.usecase.birthday
+package com.alife.domain.registration.usecase.base
 
 import com.alife.domain.core.usecase.AbstractUseCase
+import com.alife.domain.registration.core.entity.BoxerRegEntity
 import com.alife.domain.registration.repository.BaseRegistrationRepository
-import com.alife.domain.registration.usecase.name.NameSaveRegEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class BirthdaySaveRegUseCase @Inject constructor(
+abstract class RegistrationSaveUseCaseBase<M : BoxerRegEntity>(
     private val registrationRepository: BaseRegistrationRepository,
-    override val dispatcher: CoroutineDispatcher,
-) : AbstractUseCase(), BaseBirthdayUseCase.Save {
+    override val dispatcher: CoroutineDispatcher
+) : AbstractUseCase(), BaseBaseRegUseCase.Save<M> {
+
+    abstract fun getSaveModel(inputData: String): SaveRegInputEntity<*>
 
     override suspend fun saveData(inputData: String) = withContext(dispatcher) {
         registrationRepository.saveRegData(
-            NameSaveRegEntity(inputData)
+            getSaveModel(inputData)
         )
     }
 }

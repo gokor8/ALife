@@ -4,7 +4,7 @@ import com.alife.anotherlife.ui.screen.login.mapper.base.BaseListAuthTypeToUIAut
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseUIAuthToColumnUIAuth
 import com.alife.anotherlife.ui.screen.login.model.buttons.ColumnContainerUIAuthModel
 import com.alife.core.mapper.ListMapper
-import com.alife.domain.login.entity.AuthTypeEntity
+import com.alife.domain.login.content.entity.AuthTypeEntity
 import javax.inject.Inject
 
 class UIAuthToColumnContainerUIAuth @Inject constructor(

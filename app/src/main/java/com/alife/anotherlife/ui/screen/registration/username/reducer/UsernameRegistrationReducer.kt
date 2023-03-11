@@ -22,22 +22,11 @@ class UsernameRegistrationReducer @Inject constructor(
     @UsernameAnnotation.UsernameValidation
     validationNameRegReducer: BaseValidationRegReducer,
     usernameRegTextChain: UsernameRegTextChain,
-    private val readUsernameUseCase: BaseUsernameUseCase.Read,
+    readUsernameUseCase: BaseUsernameUseCase.Read,
 ) : BaseRegistrationReducer.WithInputChain(
     uiStore,
     nameChainValidator,
     validationNameRegReducer,
-    usernameRegTextChain
-) {
-
-    override suspend fun onInit() {
-        val nameRegEntity = readUsernameUseCase.readName().regEntity
-
-        if (nameRegEntity is DefaultRegEntity.Success)
-            uiStore.setState {
-                copy(
-                    textWithErrorModel = textWithErrorModel.copyText(nameRegEntity.result)
-                )
-            }
-    }
-}
+    readUsernameUseCase,
+    usernameRegTextChain,
+)

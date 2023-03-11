@@ -1,4 +1,4 @@
-package com.alife.domain.login.base
+package com.alife.domain.login.content.base
 
 import com.alife.domain.core.usecase.AbstractUseCase
 

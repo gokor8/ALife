@@ -20,23 +20,13 @@ class BirthdayRegReducer @Inject constructor(
     nameChainValidator: BaseRegTextChain,
     @BirthdayAnnotation.BirthdayValidation
     validationNameRegReducer: BaseValidationRegReducer,
-    private val birthdayReadRegUseCase: BaseBirthdayUseCase.Read
+    birthdayReadRegUseCase: BaseBirthdayUseCase.Read
 ) : BaseRegistrationReducer.Abstract(
     uiStore,
     nameChainValidator,
     validationNameRegReducer,
+    birthdayReadRegUseCase
 ) {
-
-    override suspend fun onInit() {
-        val nameRegEntity = birthdayReadRegUseCase.readBirthday().regEntity
-
-        if (nameRegEntity is DefaultRegEntity.Success)
-            uiStore.setState {
-                copy(
-                    textWithErrorModel = textWithErrorModel.copyText(nameRegEntity.result)
-                )
-            }
-    }
 
     override fun onTextInput(textFieldValue: TextFieldValue) {
         if (textFieldValue.text.isDigitsOnly()) {

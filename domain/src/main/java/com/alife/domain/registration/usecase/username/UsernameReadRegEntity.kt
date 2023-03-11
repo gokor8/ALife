@@ -1,5 +1,5 @@
 package com.alife.domain.registration.usecase.username
 
-import com.alife.domain.registration.core.entity.RegInputEntity
+import com.alife.domain.registration.usecase.base.ReadRegInputEntity
 
-class UsernameReadRegEntity : RegInputEntity<String>
+class UsernameReadRegEntity : ReadRegInputEntity<String>

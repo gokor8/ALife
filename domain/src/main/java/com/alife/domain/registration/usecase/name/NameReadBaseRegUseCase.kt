@@ -7,13 +7,13 @@ import com.alife.domain.registration.usecase.name.addons.NameRegEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
-class NameReadRegUseCase @Inject constructor(
+class NameReadBaseRegUseCase @Inject constructor(
     private val registrationRepository: BaseRegistrationRepository,
     dispatcher: CoroutineDispatcher,
     exceptionMapper: ThrowableMapper<NameRegEntity>,
 ) : AbstractSafeUseCase<NameRegEntity>(dispatcher, exceptionMapper), BaseNameUseCase.Read {
 
-    override suspend fun readName() = withSafe {
+    override suspend fun readData() = withSafe {
         NameRegEntity(
             registrationRepository.readRegData(NameReadRegEntity())
         )

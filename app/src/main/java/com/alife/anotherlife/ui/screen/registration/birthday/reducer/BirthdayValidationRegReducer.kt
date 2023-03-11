@@ -12,11 +12,10 @@ import javax.inject.Inject
 class BirthdayValidationRegReducer @Inject constructor(
     @BirthdayAnnotation.BirthdayUIStore
     uiStore: UIStore<RegistrationState, RegistrationEffect>,
-    private val saveBirthdayUseCase: BaseBirthdayUseCase.Save,
-) : BaseValidationRegReducer.Abstract(uiStore) {
+    saveBirthdayUseCase: BaseBirthdayUseCase.Save,
+) : BaseValidationRegReducer.Abstract(uiStore, saveBirthdayUseCase) {
 
     override suspend fun navigateNext() {
-        saveBirthdayUseCase.saveData(getState().textWithErrorModel.getCurrentText())
         uiStore.trySetEffect(RegistrationEffect.NavigateEmail())
     }
 }

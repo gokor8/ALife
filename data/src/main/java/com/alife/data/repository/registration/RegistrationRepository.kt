@@ -5,6 +5,8 @@ import com.alife.data.repository.registration.mapper.BaseRegEntityToReadRegModel
 import com.alife.data.repository.registration.mapper.BaseRegEntityToWriteRegModel
 import com.alife.domain.registration.core.entity.RegInputEntity
 import com.alife.domain.registration.repository.BaseRegistrationRepository
+import com.alife.domain.registration.usecase.base.ReadRegInputEntity
+import com.alife.domain.registration.usecase.base.SaveRegInputEntity
 import javax.inject.Inject
 
 class RegistrationRepository @Inject constructor(
@@ -13,13 +15,13 @@ class RegistrationRepository @Inject constructor(
     private val baseRegEntityToReadRegModel: BaseRegEntityToReadRegModel,
 ) : BaseRegistrationRepository {
 
-    override fun saveRegData(regEntity: RegInputEntity<*>) {
+    override fun saveRegData(regEntity: SaveRegInputEntity<*>) {
         sharedCacheDataSource.save(
             baseRegEntityToWriteRegModel.map(regEntity)
         )
     }
 
-    override fun <M : Any> readRegData(regEntity: RegInputEntity<M>): M {
+    override fun <M : Any> readRegData(regEntity: ReadRegInputEntity<M>): M {
         return sharedCacheDataSource.read(
             baseRegEntityToReadRegModel.map(regEntity)
         ) as M
