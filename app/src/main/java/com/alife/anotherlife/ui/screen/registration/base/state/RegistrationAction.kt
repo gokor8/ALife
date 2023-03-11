@@ -6,19 +6,25 @@ import com.alife.core.mvi.MVI
 
 interface RegistrationAction : MVI.Action {
 
-    fun onAction(reducer: RegistrationReducer)
+    suspend fun onAction(reducer: RegistrationReducer)
 
+    class OnInit : RegistrationAction {
+
+        override suspend fun onAction(reducer: RegistrationReducer) {
+            reducer.onInit()
+        }
+    }
 
     class OnTextInput(private val textFieldValue: TextFieldValue) : RegistrationAction {
 
-        override fun onAction(reducer: RegistrationReducer) {
+        override suspend fun onAction(reducer: RegistrationReducer) {
             reducer.onTextInput(textFieldValue)
         }
     }
 
     class OnContinueClick : RegistrationAction {
 
-        override fun onAction(reducer: RegistrationReducer) {
+        override suspend fun onAction(reducer: RegistrationReducer) {
             reducer.onNextClick()
         }
     }

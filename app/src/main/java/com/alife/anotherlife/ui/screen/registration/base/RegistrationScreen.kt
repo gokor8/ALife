@@ -20,6 +20,10 @@ abstract class RegistrationScreen(
     private val customTextOutlined: RegistrationTextModel = RegistrationTextModel.Default()
 ) : VMScreen<RegistrationViewModel>() {
 
+    override suspend fun onInit() {
+        viewModel.reduce(RegistrationAction.OnInit())
+    }
+
     @Composable
     override fun Content(modifier: Modifier) = CustomColumn(
         modifier = modifier.padding(horizontal = 32.dp, vertical = 35.dp)

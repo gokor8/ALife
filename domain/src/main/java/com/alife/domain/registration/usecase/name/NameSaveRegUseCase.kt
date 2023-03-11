@@ -9,9 +9,9 @@ import javax.inject.Inject
 class NameSaveRegUseCase @Inject constructor(
     private val registrationRepository: BaseRegistrationRepository,
     override val dispatcher: CoroutineDispatcher,
-) : AbstractUseCase() {
+) : AbstractUseCase(), BaseNameUseCase.Save {
 
-    suspend fun saveData(inputData: String) = withContext(dispatcher) {
+    override suspend fun saveData(inputData: String) = withContext(dispatcher) {
         registrationRepository.saveRegData(
             NameSaveRegEntity(inputData)
         )

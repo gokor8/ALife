@@ -1,10 +1,10 @@
 package com.alife.domain.registration.repository
 
-import com.alife.domain.registration.entity.RegistrationEntity
+import com.alife.domain.registration.core.entity.RegInputEntity
 
 interface BaseRegistrationRepository {
 
-    fun saveRegData(regEntity: RegistrationEntity<*>)
+    fun saveRegData(regEntity: RegInputEntity<*>)
 
-    fun<M : Any> readRegData(regEntity: RegistrationEntity<M>): M
+    fun<M : Any> readRegData(regEntity: RegInputEntity<M>): M
 }

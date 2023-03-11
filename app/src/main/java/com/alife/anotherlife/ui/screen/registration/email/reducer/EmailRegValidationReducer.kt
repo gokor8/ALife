@@ -13,7 +13,7 @@ class EmailRegValidationReducer @Inject constructor(
     uiStore: UIStore<RegistrationState, RegistrationEffect>
 ) : BaseValidationRegReducer.Abstract(uiStore) {
 
-    override fun navigateNext() {
+    override suspend fun navigateNext() {
         uiStore.trySetEffect(RegistrationEffect.NavigateEmailCode())
     }
 }

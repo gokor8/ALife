@@ -8,6 +8,10 @@ import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationR
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.name.chain.InputRegTextChain
+import com.alife.domain.registration.core.entity.DefaultRegEntity
+import com.alife.domain.registration.core.entity.RegEntity
+import com.alife.domain.registration.usecase.name.BaseNameUseCase
+import com.alife.domain.registration.usecase.name.addons.NameRegEntity
 import javax.inject.Inject
 
 class NameRegistrationReducer @Inject constructor(
@@ -18,9 +22,22 @@ class NameRegistrationReducer @Inject constructor(
     @NameAnnotation.NameValidation
     validationNameRegReducer: BaseValidationRegReducer,
     textInputChainValidator: InputRegTextChain,
+    private val readNameUseCase: BaseNameUseCase.Read,
 ) : BaseRegistrationReducer.WithInputChain(
     uiStore,
     nameChainValidator,
     validationNameRegReducer,
     textInputChainValidator
-)
+) {
+
+    override suspend fun onInit() {
+        val nameRegEntity = readNameUseCase.readName().regEntity
+
+        if (nameRegEntity is DefaultRegEntity.Success)
+            uiStore.setState {
+                copy(
+                    textWithErrorModel = textWithErrorModel.copyText(nameRegEntity.result)
+                )
+            }
+    }
+}

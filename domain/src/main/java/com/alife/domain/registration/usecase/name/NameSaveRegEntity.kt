@@ -1,5 +1,5 @@
 package com.alife.domain.registration.usecase.name
 
-import com.alife.domain.registration.entity.RegistrationEntity
+import com.alife.domain.registration.core.entity.RegInputEntity
 
-class NameSaveRegEntity(val name: String) : RegistrationEntity<String>
+class NameSaveRegEntity(val name: String) : RegInputEntity<String>

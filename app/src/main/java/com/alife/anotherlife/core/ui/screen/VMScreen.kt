@@ -20,6 +20,8 @@ abstract class VMScreen<VM : BaseViewModel<*, *, *>>(
     @Composable
     abstract fun setupViewModel(): VM
 
+    open suspend fun onInit() = Unit
+
     @Composable
     override fun SetupContent() {
         viewModel = setupViewModel()
@@ -30,6 +32,7 @@ abstract class VMScreen<VM : BaseViewModel<*, *, *>>(
     @Composable
     fun SetupEffect() {
         LaunchedEffect(true) {
+            onInit()
             viewModel.collectEffect(navController)
         }
     }

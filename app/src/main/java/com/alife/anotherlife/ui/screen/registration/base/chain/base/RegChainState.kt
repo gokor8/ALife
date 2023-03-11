@@ -6,12 +6,12 @@ import com.alife.core.chain.BaseChainState
 
 interface RegChainState : BaseChainState {
 
-    fun onChainResult(reducer: BaseValidationRegReducer)
+    suspend fun onChainResult(reducer: BaseValidationRegReducer)
 
 
     interface BaseSuccess : RegChainState, BaseChainState.Success {
 
-        override fun onChainResult(reducer: BaseValidationRegReducer) {
+        override suspend fun onChainResult(reducer: BaseValidationRegReducer) {
             reducer.onContinue()
         }
     }
@@ -22,7 +22,7 @@ interface RegChainState : BaseChainState {
 
     class Fail(@StringRes private val resIdError: Int) : RegChainState, BaseChainState.Fail {
 
-        override fun onChainResult(reducer: BaseValidationRegReducer) {
+        override suspend fun onChainResult(reducer: BaseValidationRegReducer) {
             reducer.onValidationError(resIdError)
         }
     }

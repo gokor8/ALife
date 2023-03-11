@@ -23,6 +23,6 @@ abstract class StringCacheRead(
     override fun defaultValue(): String = ""
 
     override fun read(sharedPreferences: SharedPreferences): String {
-        return sharedPreferences.getString(getKey(), defaultValue()) ?: onReadNull()
+        return sharedPreferences.getString(getKey(), null) ?: onReadNull()
     }
 }

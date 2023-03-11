@@ -1,17 +1,21 @@
 package com.alife.domain.registration.usecase.name
 
-import com.alife.domain.core.usecase.AbstractUseCase
+import com.alife.domain.core.mapper.ThrowableMapper
+import com.alife.domain.core.usecase.AbstractSafeUseCase
 import com.alife.domain.registration.repository.BaseRegistrationRepository
+import com.alife.domain.registration.usecase.name.addons.NameRegEntity
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class NameReadRegUseCase@Inject constructor(
+class NameReadRegUseCase @Inject constructor(
     private val registrationRepository: BaseRegistrationRepository,
-    override val dispatcher: CoroutineDispatcher,
-) : AbstractUseCase() {
+    dispatcher: CoroutineDispatcher,
+    exceptionMapper: ThrowableMapper<NameRegEntity>,
+) : AbstractSafeUseCase<NameRegEntity>(dispatcher, exceptionMapper), BaseNameUseCase.Read {
 
-    suspend fun readName() = withContext(dispatcher) {
-        registrationRepository.saveRegData(NameReadRegEntity())
+    override suspend fun readName() = withSafe {
+        NameRegEntity(
+            registrationRepository.readRegData(NameReadRegEntity())
+        )
     }
 }

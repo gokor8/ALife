@@ -1,10 +1,10 @@
 package com.alife.domain.registration.usecase.username.addons
 
-import com.alife.domain.registration.usecase.entity.RegUseCaseEntity
+import com.alife.domain.registration.core.entity.BoxerRegEntity
+import com.alife.domain.registration.core.entity.DefaultRegEntity
+import com.alife.domain.registration.core.entity.RegEntity
 
-interface UsernameRegEntity : RegUseCaseEntity {
+class UsernameRegEntity(regEntity: RegEntity) : BoxerRegEntity(regEntity) {
 
-    class Success(val username: String) : UsernameRegEntity, RegUseCaseEntity.Success
-
-    class Fail : UsernameRegEntity, RegUseCaseEntity.Fail
+    constructor(username: String) : this(DefaultRegEntity.Success(username))
 }

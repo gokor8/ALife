@@ -8,7 +8,7 @@ import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 
 interface BaseValidationRegReducer {
 
-    fun onContinue()
+    suspend fun onContinue()
 
     fun onValidationError(@StringRes errorResId: Int)
 
@@ -17,9 +17,9 @@ interface BaseValidationRegReducer {
         override val uiStore: UIStore<RegistrationState, RegistrationEffect>
     ) : BaseVMReducer<RegistrationState, RegistrationEffect>(), BaseValidationRegReducer {
 
-        abstract fun navigateNext()
+        abstract suspend fun navigateNext()
 
-        override fun onContinue() {
+        override suspend fun onContinue() {
             uiStore.setState { copy(textWithErrorModel = textWithErrorModel.copyEmptyError()) }
             navigateNext()
         }

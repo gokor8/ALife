@@ -10,6 +10,8 @@ abstract class BaseVMReducer<STATE : MVI.State, EFFECT : MVI.Effect> :
 
     protected abstract val uiStore: UIStore<STATE, EFFECT>
 
+    protected fun getState() = uiStore.getState()
+
     override fun getStateCollector(): StateCollector<STATE> = uiStore.getStateCollector()
 
     override fun getEffectCollector(): EffectCollector<EFFECT> = uiStore.getEffectCollector()

@@ -9,9 +9,11 @@ import com.alife.core.chain.ChainHandler
 
 interface BaseRegistrationReducer {
 
+    open suspend fun onInit() = Unit
+
     fun onTextInput(textFieldValue: TextFieldValue)
 
-    fun onNextClick()
+    suspend fun onNextClick()
 
 
     abstract class Abstract(
@@ -20,7 +22,7 @@ interface BaseRegistrationReducer {
         private val validationRegReducer: BaseValidationRegReducer,
     ) : RegistrationReducer(uiStore), BaseRegistrationReducer {
 
-        override fun onNextClick() {
+        override suspend fun onNextClick() {
             chainValidator.handle(
                 uiStore.getState().textWithErrorModel.textFieldValue.text
             ).onChainResult(validationRegReducer)
