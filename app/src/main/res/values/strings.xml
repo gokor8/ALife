@@ -1,11 +1,42 @@
 <resources>
     // Addons
     <string name="app_name">AnotherLife</string>
-    <string name="horizontal_logo">A Life</string>
+    <string name="vertical_logo">A Life</string>
+    <string name="horizontal_logo">Another Life</string>
+    <string name="continue_next">Continue</string>
 
     // Login
     <string name="pass_login_in">Hi, pass login in</string>
     <string name="authorization_type">Выберите подходящий способ авторизации</string>
     <string name="login_in">Войти</string>
     <string name="registration">Зарегистрироваться</string>
+
+    //Registration
+    <string name="error_empty">Field is Empty</string>
+
+    // Registration Name
+    <string name="what_is_your_name">What is your name?</string>
+    <string name="name">Name</string>
+    <string name="error_less_4">Text less 4</string>
+    <string name="error_more_25">Text more 25</string>
+
+    // Registration Username
+    <string name="also_need_your_username">Also need username</string>
+    <string name="username">Username</string>
+
+    // Registration Birthday
+    <string name="i_need_your_birthday">I need your birthday -_-</string>
+    <string name="birthday">Birthday</string>
+    <string name="invalid_birthday">Invalid birthday</string>
+    <string name="gaffer">Gaffer</string>
+    <string name="so_young">So Young</string>
+
+    // Email
+    <string name="your_email">Your Email Plz.</string>
+    <string name="email">Email</string>
+    <string name="invalid_email">Invalid Email</string>
+
+    // Email Code
+    <string name="email_code">Code from email sms</string>
+
 </resources>

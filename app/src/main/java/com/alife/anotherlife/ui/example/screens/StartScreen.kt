@@ -15,8 +15,8 @@ fun StartScreen(navController: NavController) =
 
         Button(
             onClick = {
-                NavigationWrapper.Navigate(UserArgsNavigator("aboba")).navigate(navController)
-                //NavigationWrapper.Navigate(UserArgsNavigator("aboba", "boba")).navigate(navController)
+                object : NavigationWrapper.Forward(UserArgsNavigator("aboba")){}.navigate(navController)
+                //NavigationWrapper.Forward(UserArgsNavigator("aboba", "boba")).navigate(navController)
             }
         ) {}
     }

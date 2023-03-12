@@ -1,19 +1,22 @@
 package com.alife.anotherlife.core
 
+import com.alife.anotherlife.core.ui.state_collector.EffectCollector
 import com.alife.anotherlife.core.ui.state_collector.StateCollector
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.core.mvi.MVI
 
-class FakeUIStore<STATE : MVI.State, EFFECT : MVI.Effect> : UIStore<STATE, EFFECT> {
+class FakeUIStore<STATE : MVI.State, EFFECT : MVI.Effect>(initState: STATE) : UIStore<STATE, EFFECT> {
 
-    val stateCollector: MutableList<STATE> = mutableListOf()
+    val stateCollector: MutableList<STATE> = mutableListOf(initState)
     val effectCollector: MutableList<EFFECT> = mutableListOf()
 
     private val fakeStateCollector = FakeStateCollector(stateCollector)
+    private val fakeEffectCollector = FakeEffectCollector<EFFECT>()
 
-    override fun getStateCollector(): StateCollector<STATE> {
-        return fakeStateCollector
-    }
+
+    override fun getStateCollector(): StateCollector<STATE> = fakeStateCollector
+    override fun getEffectCollector(): EffectCollector<EFFECT> = fakeEffectCollector
+
 
     override fun getState(): STATE {
         return stateCollector.last()

@@ -6,7 +6,7 @@ interface LoginReducer {
 
     fun onLoginIn()
 
-    fun onRegistration()
+    suspend fun onRegistration()
 
     fun onAuthService()
 }

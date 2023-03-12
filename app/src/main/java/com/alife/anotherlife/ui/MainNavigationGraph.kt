@@ -4,15 +4,15 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.alife.anotherlife.core.navigation.NavigationGraph
-import com.alife.anotherlife.core.navigation.NavigationWrapper
-import com.alife.anotherlife.core.navigation.nav_navigator.BaseNavigator
 import com.alife.anotherlife.core.navigation.routes.NavigationRoute
-import com.alife.anotherlife.ui.example.navigation.user.navigator.UserArgsNavigator
-import com.alife.anotherlife.ui.example.navigation.user.builder.UserArgsNavBuilder
-import com.alife.anotherlife.ui.example.navigation.user.builder.UserNavBuilder
-import com.alife.anotherlife.ui.example.navigation.user.UserNavRoute
-import com.alife.anotherlife.ui.screen.login.LoginScreen
 import com.alife.anotherlife.ui.screen.login.navigation.LoginNavBuilder
+import com.alife.anotherlife.ui.screen.registration.birthday.navigation.RegBirthdayNavBuilder
+import com.alife.anotherlife.ui.screen.registration.birthday.navigation.RegBirthdayNavRoute
+import com.alife.anotherlife.ui.screen.registration.email.navigation.RegEmailNavBuilder
+import com.alife.anotherlife.ui.screen.registration.email.navigation.RegEmailNavRoute
+import com.alife.anotherlife.ui.screen.registration.email_code.navigation.EmailCodeNavBuilder
+import com.alife.anotherlife.ui.screen.registration.name.navigation.RegNameNavBuilder
+import com.alife.anotherlife.ui.screen.registration.username.navigation.UsernameRegNavBuilder
 
 class MainNavigationGraph(private val startNavigationRoute: NavigationRoute) : NavigationGraph {
 
@@ -22,9 +22,14 @@ class MainNavigationGraph(private val startNavigationRoute: NavigationRoute) : N
             navController = navHostController,
             startDestination = startNavigationRoute.routeTag
         ) {
-            LoginNavBuilder {
-                LoginScreen().SetupContent()
-            }.navComposable(this)
+            listOf(
+                LoginNavBuilder(navHostController),
+                RegNameNavBuilder(navHostController),
+                UsernameRegNavBuilder(navHostController),
+                RegBirthdayNavBuilder(navHostController),
+                RegEmailNavBuilder(navHostController),
+                EmailCodeNavBuilder(navHostController)
+            ).forEach { it.navComposable(this) }
         }
     }
 }
