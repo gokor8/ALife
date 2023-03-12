@@ -16,4 +16,12 @@ sealed class NavigationWrapper(protected val defaultNavigator: BaseNavigator) {
             navController.navigate(defaultNavigator.toString())
         }
     }
+
+    abstract class Back(defaultNavigator: BaseNavigator) : NavigationWrapper(defaultNavigator) {
+
+        override fun navigate(navController: NavController) {
+            Log.d("Nav Route", defaultNavigator.toString())
+            navController.popBackStack(defaultNavigator.toString(), false, saveState = false)
+        }
+    }
 }

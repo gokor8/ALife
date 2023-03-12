@@ -8,6 +8,13 @@ interface RegistrationAction : MVI.Action {
 
     suspend fun onAction(reducer: RegistrationReducer)
 
+    class OnBackPress : RegistrationAction {
+
+        override suspend fun onAction(reducer: RegistrationReducer) {
+            reducer.onBackPress()
+        }
+    }
+
     class OnInit : RegistrationAction {
 
         override suspend fun onAction(reducer: RegistrationReducer) {

@@ -1,8 +1,9 @@
 package com.alife.domain.registration.usecase.username
 
-import com.alife.domain.registration.core.entity.RegInputEntity
 import com.alife.domain.registration.repository.BaseRegistrationRepository
 import com.alife.domain.registration.core.entity.DefaultRegEntity
+import com.alife.domain.registration.usecase.base.ReadRegInputEntity
+import com.alife.domain.registration.usecase.base.SaveRegInputEntity
 import com.alife.domain.registration.usecase.username.addons.UsernameException
 import com.alife.domain.registration.usecase.username.mapper.ThrowToUsernameRegEntity
 import junit.framework.TestCase.assertEquals
@@ -16,11 +17,11 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class TestReadUsername {
 
-    private lateinit var usernameReadUseCase: UsernameReadUseCaseBase
+    private lateinit var usernameReadUseCase: UsernameReadRegStageUseCase
 
     @Before
     fun before() {
-        usernameReadUseCase = UsernameReadUseCaseBase(
+        usernameReadUseCase = UsernameReadRegStageUseCase(
             FakeRegistrationRepository("test"),
             dispatcher = Dispatchers.Unconfined,
             ThrowToUsernameRegEntity()
@@ -28,7 +29,7 @@ class TestReadUsername {
     }
 
     private fun setupUseCase(readData: String, exception: Exception? = null) {
-        usernameReadUseCase = UsernameReadUseCaseBase(
+        usernameReadUseCase = UsernameReadRegStageUseCase(
             FakeRegistrationRepository(readData, exception),
             dispatcher = Dispatchers.Unconfined,
             ThrowToUsernameRegEntity()
@@ -39,7 +40,7 @@ class TestReadUsername {
     fun `test not empty read success`() = runTest {
         val expected = "test"
 
-        val actual = usernameReadUseCase.readName().regEntity
+        val actual = usernameReadUseCase.readData().regEntity
 
         assertTrue(actual is DefaultRegEntity.Success)
         assertEquals(expected, (actual as DefaultRegEntity.Success).result)
@@ -49,7 +50,7 @@ class TestReadUsername {
     fun `test empty read fail`() = runTest {
         setupUseCase("", UsernameException())
 
-        val actual = usernameReadUseCase.readName().regEntity
+        val actual = usernameReadUseCase.readData().regEntity
 
         assertTrue(actual is DefaultRegEntity.Fail)
         assertTrue((actual as DefaultRegEntity.Fail).throwable is UsernameException)
@@ -59,7 +60,7 @@ class TestReadUsername {
     fun `test exception read fail`() = runTest {
         setupUseCase("test", IllegalStateException())
 
-        val actual = usernameReadUseCase.readName().regEntity
+        val actual = usernameReadUseCase.readData().regEntity
 
         assertTrue(actual is DefaultRegEntity.Fail)
         assertTrue((actual as DefaultRegEntity.Fail).throwable is IllegalStateException)
@@ -72,11 +73,11 @@ class FakeRegistrationRepository(
     private val readException: Exception? = null
 ) : BaseRegistrationRepository {
 
-    override fun saveRegData(regEntity: RegInputEntity<*>) {
+    override fun saveRegData(regEntity: SaveRegInputEntity<*>) {
 
     }
 
-    override fun <M : Any> readRegData(regEntity: RegInputEntity<M>): M {
+    override fun <M : Any> readRegData(regEntity: ReadRegInputEntity<M>): M {
         readException?.apply { throw readException }
         readData.takeIf { it.isNotEmpty() } ?: throw UsernameException()
         return readData as M

@@ -6,10 +6,9 @@ import com.alife.data.repository.registration.model.email.EmailRegReadModel
 import com.alife.data.repository.registration.model.name.NameRegReadModel
 import com.alife.data.repository.registration.model.username.UsernameRegReadModel
 import com.alife.domain.core.MappingException
-import com.alife.domain.registration.core.entity.RegInputEntity
 import com.alife.domain.registration.usecase.base.ReadRegInputEntity
 import com.alife.domain.registration.usecase.birthday.BirthdayReadRegEntity
-import com.alife.domain.registration.usecase.email.EmailReadRegEntity
+import com.alife.domain.registration.usecase.email.save_read.EmailReadRegEntity
 import com.alife.domain.registration.usecase.name.NameReadRegEntity
 import com.alife.domain.registration.usecase.username.UsernameReadRegEntity
 import javax.inject.Inject

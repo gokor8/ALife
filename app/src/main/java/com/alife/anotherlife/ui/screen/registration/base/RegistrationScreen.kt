@@ -20,6 +20,10 @@ abstract class RegistrationScreen(
     private val customTextOutlined: RegistrationTextModel = RegistrationTextModel.Default()
 ) : VMScreen<RegistrationViewModel>() {
 
+    override val backHandle = {
+        viewModel.reduce(RegistrationAction.OnBackPress())
+    }
+
     override suspend fun onInit() {
         viewModel.reduce(RegistrationAction.OnInit())
     }

@@ -5,7 +5,7 @@ import com.alife.anotherlife.core.ui.reducer.BaseVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
-import com.alife.domain.registration.usecase.base.BaseBaseRegUseCase
+import com.alife.domain.registration.usecase.base.BaseRegStageUseCase
 
 interface BaseValidationRegReducer {
 
@@ -16,7 +16,7 @@ interface BaseValidationRegReducer {
 
     abstract class Abstract(
         override val uiStore: UIStore<RegistrationState, RegistrationEffect>,
-        private val saveBirthdayUseCase: BaseBaseRegUseCase.Save<*>
+        private val saveBirthdayUseCase: BaseRegStageUseCase.Save<*>
     ) : BaseVMReducer<RegistrationState, RegistrationEffect>(), BaseValidationRegReducer {
 
         abstract suspend fun navigateNext()

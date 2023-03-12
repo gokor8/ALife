@@ -2,8 +2,8 @@ package com.alife.anotherlife.di.domain.registration.username
 
 import com.alife.domain.core.mapper.ThrowableMapper
 import com.alife.domain.registration.usecase.username.BaseUsernameUseCase
-import com.alife.domain.registration.usecase.username.UsernameReadUseCaseBase
-import com.alife.domain.registration.usecase.username.UsernameSaveUseCaseBase
+import com.alife.domain.registration.usecase.username.UsernameReadRegStageUseCase
+import com.alife.domain.registration.usecase.username.UsernameSaveUseCaseBaseStage
 import com.alife.domain.registration.usecase.username.addons.UsernameRegEntity
 import com.alife.domain.registration.usecase.username.mapper.ThrowToUsernameRegEntity
 import dagger.Binds
@@ -16,10 +16,10 @@ import dagger.hilt.android.components.ViewModelComponent
 interface UsernameDomainModule {
 
     @Binds
-    fun bindUsernameReadUseCase(useCase: UsernameReadUseCaseBase): BaseUsernameUseCase.Read
+    fun bindUsernameReadUseCase(useCase: UsernameReadRegStageUseCase): BaseUsernameUseCase.Read
 
     @Binds
-    fun bindUsernameSaveUseCase(useCase: UsernameSaveUseCaseBase): BaseUsernameUseCase.Save
+    fun bindUsernameSaveUseCase(useCase: UsernameSaveUseCaseBaseStage): BaseUsernameUseCase.Save
 
     @Binds
     fun bindUsernameThrowMapper(throwMapper: ThrowToUsernameRegEntity): ThrowableMapper<UsernameRegEntity>

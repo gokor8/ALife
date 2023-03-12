@@ -8,8 +8,7 @@ import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseRegistratio
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
-import com.alife.anotherlife.ui.screen.registration.name.chain.InputRegTextChain
-import com.alife.domain.registration.usecase.email.BaseEmailUseCase
+import com.alife.domain.registration.usecase.email.save_read.BaseEmailUseCase
 import javax.inject.Inject
 
 class EmailRegistrationReducer @Inject constructor(
@@ -28,4 +27,9 @@ class EmailRegistrationReducer @Inject constructor(
     validationNameRegReducer,
     readUseCase,
     onInputChain
-)
+) {
+
+    override suspend fun onBackPress() {
+        uiStore.setEffect(RegistrationEffect.NavigateBirthday())
+    }
+}

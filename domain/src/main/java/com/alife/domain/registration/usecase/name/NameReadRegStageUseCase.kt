@@ -7,7 +7,7 @@ import com.alife.domain.registration.usecase.name.addons.NameRegEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
-class NameReadBaseRegUseCase @Inject constructor(
+class NameReadRegStageUseCase @Inject constructor(
     private val registrationRepository: BaseRegistrationRepository,
     dispatcher: CoroutineDispatcher,
     exceptionMapper: ThrowableMapper<NameRegEntity>,

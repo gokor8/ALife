@@ -6,18 +6,18 @@ import com.alife.core.mvi.MVI
 
 interface LoginAction : MVI.Action {
 
-    fun onAction(reducer: LoginReducer)
+    suspend fun onAction(reducer: LoginReducer)
 
     class InitAction() : LoginAction {
 
-        override fun onAction(reducer: LoginReducer) {
+        override suspend fun onAction(reducer: LoginReducer) {
             reducer.onInit()
         }
     }
 
     class AuthTypeAction(private val authType: AuthType): LoginAction {
 
-        override fun onAction(reducer: LoginReducer) {
+        override suspend fun onAction(reducer: LoginReducer) {
             when(authType) {
                 AuthType.LOGIN_IN -> reducer.onLoginIn()
                 AuthType.REGISTRATION -> reducer.onRegistration()

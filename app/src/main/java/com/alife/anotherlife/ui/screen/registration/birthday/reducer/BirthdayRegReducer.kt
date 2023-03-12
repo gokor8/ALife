@@ -28,6 +28,10 @@ class BirthdayRegReducer @Inject constructor(
     birthdayReadRegUseCase
 ) {
 
+    override suspend fun onBackPress() {
+        uiStore.setEffect(RegistrationEffect.NavigateUsername())
+    }
+
     override fun onTextInput(textFieldValue: TextFieldValue) {
         if (textFieldValue.text.isDigitsOnly()) {
             super.onTextInput(textFieldValue)

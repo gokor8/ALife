@@ -29,4 +29,9 @@ class UsernameRegistrationReducer @Inject constructor(
     validationNameRegReducer,
     readUsernameUseCase,
     usernameRegTextChain,
-)
+) {
+
+    override suspend fun onBackPress() {
+        uiStore.setEffect(RegistrationEffect.NavigateName())
+    }
+}

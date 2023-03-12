@@ -7,11 +7,13 @@ import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
 import com.alife.core.chain.ChainHandler
 import com.alife.domain.registration.core.entity.DefaultRegEntity
-import com.alife.domain.registration.usecase.base.BaseBaseRegUseCase
+import com.alife.domain.registration.usecase.base.BaseRegStageUseCase
 
 interface BaseRegistrationReducer {
 
     suspend fun onInit()
+
+    suspend fun onBackPress()
 
     fun onTextInput(textFieldValue: TextFieldValue)
 
@@ -22,7 +24,7 @@ interface BaseRegistrationReducer {
         uiStore: UIStore<RegistrationState, RegistrationEffect>,
         private val chainValidator: BaseRegTextChain,
         private val validationRegReducer: BaseValidationRegReducer,
-        private val readUseCase: BaseBaseRegUseCase.Read<*>,
+        private val readUseCase: BaseRegStageUseCase.Read<*>,
     ) : RegistrationReducer(uiStore), BaseRegistrationReducer {
 
         override suspend fun onNextClick() {
@@ -48,7 +50,7 @@ interface BaseRegistrationReducer {
         uiStore: UIStore<RegistrationState, RegistrationEffect>,
         ChainValidator: BaseRegTextChain,
         validationRegReducer: BaseValidationRegReducer,
-        readUseCase: BaseBaseRegUseCase.Read<*>,
+        readUseCase: BaseRegStageUseCase.Read<*>,
         private val inputTextChain: ChainHandler.Base<String, Boolean>
     ) : Abstract(uiStore, ChainValidator, validationRegReducer, readUseCase) {
 
