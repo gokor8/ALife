@@ -5,8 +5,7 @@ import com.alife.anotherlife.di.ui.registration.email.EmailAnnotation
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
-import com.alife.domain.registration.core.entity.RegEntity
-import com.alife.domain.registration.usecase.email.BaseSendRegDataUseCase
+import com.alife.domain.registration.usecase.email.send_reg_data.BaseSendRegDataUseCase
 import com.alife.domain.registration.usecase.email.RegDataState
 import com.alife.domain.registration.usecase.email.save_read.BaseEmailUseCase
 import javax.inject.Inject

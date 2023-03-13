@@ -1,13 +1,13 @@
 package com.alife.domain.registration.usecase.email.save_read.mapper
 
-import com.alife.domain.core.mapper.ThrowableMapper
-import com.alife.domain.registration.core.entity.DefaultRegEntity
-import com.alife.domain.registration.usecase.email.save_read.entity.BoxEmailRegEntity
+import com.alife.domain.core.mapper.ThrowableUCMapper
+import com.alife.domain.core.usecase.UseCaseResult
+import com.alife.domain.registration.usecase.email.save_read.entity.EmailRegEntity
 import javax.inject.Inject
 
-class ThrowToEmailRegEntity  @Inject constructor() : ThrowableMapper<BoxEmailRegEntity> {
+class ThrowToEmailRegEntity  @Inject constructor() : ThrowableUCMapper<EmailRegEntity> {
 
-    override fun map(inputModel: Throwable): BoxEmailRegEntity {
-        return BoxEmailRegEntity(DefaultRegEntity.Fail(inputModel))
+    override fun map(inputModel: Throwable): UseCaseResult<EmailRegEntity> {
+        return UseCaseResult.Fail(inputModel)
     }
 }

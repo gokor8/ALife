@@ -2,8 +2,8 @@ package com.alife.anotherlife.di.domain.registration.birthday
 
 import com.alife.domain.core.mapper.ThrowableMapper
 import com.alife.domain.registration.usecase.birthday.BaseBirthdayUseCase
-import com.alife.domain.registration.usecase.birthday.BirthdayReadRegStageUseCase
-import com.alife.domain.registration.usecase.birthday.BirthdaySaveBaseRegStageUseCase
+import com.alife.domain.registration.usecase.birthday.BirthdayReadRegStageUC
+import com.alife.domain.registration.usecase.birthday.BirthdaySaveRegStageUC
 import com.alife.domain.registration.usecase.birthday.entity.BirthdayRegEntity
 import com.alife.domain.registration.usecase.birthday.mapper.ThrowToBirthdayRegEntity
 import dagger.Binds
@@ -16,10 +16,10 @@ import dagger.hilt.android.components.ViewModelComponent
 interface BirthdayDomainModule {
 
     @Binds
-    fun bindBirthdayReadUseCase(useCase: BirthdayReadRegStageUseCase): BaseBirthdayUseCase.Read
+    fun bindBirthdayReadUseCase(useCase: BirthdayReadRegStageUC): BaseBirthdayUseCase.Read
 
     @Binds
-    fun bindBirthdaySaveUseCase(useCase: BirthdaySaveBaseRegStageUseCase): BaseBirthdayUseCase.Save
+    fun bindBirthdaySaveUseCase(useCase: BirthdaySaveRegStageUC): BaseBirthdayUseCase.Save
 
     @Binds
     fun bindBirthdayThrowMapper(throwMapper: ThrowToBirthdayRegEntity): ThrowableMapper<BirthdayRegEntity>

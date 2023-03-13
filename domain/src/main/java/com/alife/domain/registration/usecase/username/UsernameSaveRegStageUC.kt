@@ -1,21 +1,19 @@
-package com.alife.domain.registration.usecase.base
+package com.alife.domain.registration.usecase.username
 
 import com.alife.domain.core.usecase.AbstractUseCase
-import com.alife.domain.registration.core.entity.BoxRegEntity
 import com.alife.domain.registration.repository.BaseRegistrationRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-abstract class RegistrationSaveUseCaseBaseStage<M : BoxRegEntity>(
+class UsernameSaveRegStageUC @Inject constructor(
     private val registrationRepository: BaseRegistrationRepository,
-    override val dispatcher: CoroutineDispatcher
-) : AbstractUseCase(), BaseRegStageUseCase.Save<M> {
-
-    abstract fun getSaveModel(inputData: String): SaveRegInputEntity<*>
+    override val dispatcher: CoroutineDispatcher,
+) : AbstractUseCase(), BaseUsernameUseCase.Save {
 
     override suspend fun saveData(inputData: String) = withContext(dispatcher) {
         registrationRepository.saveRegData(
-            getSaveModel(inputData)
+            UsernameSaveRegEntity(inputData)
         )
     }
 }

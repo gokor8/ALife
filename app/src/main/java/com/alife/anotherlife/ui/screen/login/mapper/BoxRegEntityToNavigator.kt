@@ -8,7 +8,7 @@ import com.alife.anotherlife.ui.screen.registration.username.navigation.Username
 import com.alife.core.mapper.Mapper
 import com.alife.domain.registration.core.entity.BoxRegEntity
 import com.alife.domain.registration.usecase.birthday.entity.BirthdayRegEntity
-import com.alife.domain.registration.usecase.email.save_read.entity.BoxEmailRegEntity
+import com.alife.domain.registration.usecase.email.save_read.entity.EmailRegEntity
 import com.alife.domain.registration.usecase.username.addons.UsernameRegEntity
 import javax.inject.Inject
 
@@ -18,7 +18,7 @@ class BoxRegEntityToNavigator @Inject constructor() : Mapper<BoxRegEntity, BaseN
         return when(inputModel) {
             is UsernameRegEntity -> UsernameRegNavigator()
             is BirthdayRegEntity -> RegBirthdayNavigator()
-            is BoxEmailRegEntity -> RegEmailNavigator()
+            is EmailRegEntity -> RegEmailNavigator()
             else -> RegNameNavigator()
             // in else -> is NameRegEntity too
         }
