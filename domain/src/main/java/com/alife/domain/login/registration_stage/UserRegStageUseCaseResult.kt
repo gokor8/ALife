@@ -9,7 +9,7 @@ import javax.inject.Inject
 class UserRegStageUseCaseResult @Inject constructor(
     private val stageList: ListRegStageUseCase,
     override val dispatcher: CoroutineDispatcher,
-    // Is need handle exceptions?
+    // do need handle exceptions?
     // Are they possible(exceptions) there
 ) : AbstractUseCase(), BaseUserRegStageUseCase {
 

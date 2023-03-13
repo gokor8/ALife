@@ -4,6 +4,7 @@ import com.alife.domain.core.usecase.AbstractUseCase
 import com.alife.domain.registration.usecase.birthday.BaseBirthdayUseCase
 import com.alife.domain.registration.usecase.email.send_reg_data.entity.RegDataEntity
 import com.alife.domain.registration.usecase.email.save_read.BaseEmailUseCase
+import com.alife.domain.registration.usecase.email.send_reg_data.mapper.UCResultToEntityMapper
 import com.alife.domain.registration.usecase.name.BaseNameUseCase
 import com.alife.domain.registration.usecase.username.BaseUsernameUseCase
 import kotlinx.coroutines.CoroutineDispatcher

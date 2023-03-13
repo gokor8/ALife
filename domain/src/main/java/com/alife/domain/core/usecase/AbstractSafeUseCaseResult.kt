@@ -8,11 +8,16 @@ abstract class AbstractSafeUseCaseResult<M : UseCaseEntity>(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val exceptionMapper: ThrowableMapper<UseCaseResult<M>>,
 ) {
+
+    protected open fun onSuccess(result: M): UseCaseResult.BaseSuccess<M> {
+        return UseCaseResult.Success(result)
+    }
+
     protected suspend fun withSafe(block: suspend CoroutineScope.() -> M): UseCaseResult<M> =
         withContext(dispatcher) {
             try {
                 val result = block()
-                UseCaseResult.Success(result)
+                onSuccess(result)
             } catch (throwable: Throwable) {
                 exceptionMapper.map(throwable)
             }

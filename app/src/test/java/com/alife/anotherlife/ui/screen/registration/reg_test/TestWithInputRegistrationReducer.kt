@@ -5,7 +5,6 @@ import com.alife.anotherlife.core.FakeUIStore
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.RegChainState
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseRegistrationReducer
-import com.alife.anotherlife.ui.screen.registration.base.reducer.RegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.name.*
@@ -46,7 +45,7 @@ class TestWithInputRegistrationReducer {
         nameReducer.onTextInput(TextFieldValue(testText))
 
         val expectedValue = ""
-        val storeTextFieldValue = uiStore.stateCollector.last().textWithErrorModel
+        val storeTextFieldValue = uiStore.stateCollector.last().textErrorModel
 
         TestCase.assertEquals(1, uiStore.stateCollector.size)
         TestCase.assertEquals(expectedValue, storeTextFieldValue.textFieldValue.text)
@@ -61,7 +60,7 @@ class TestWithInputRegistrationReducer {
 
         nameReducer.onTextInput(TextFieldValue(testText))
 
-        val storeTextFieldValue = uiStore.stateCollector.last().textWithErrorModel
+        val storeTextFieldValue = uiStore.stateCollector.last().textErrorModel
 
         TestCase.assertEquals(2, uiStore.stateCollector.size)
         TestCase.assertEquals(testText, storeTextFieldValue.textFieldValue.text)

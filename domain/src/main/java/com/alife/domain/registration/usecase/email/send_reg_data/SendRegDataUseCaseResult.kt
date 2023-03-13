@@ -10,12 +10,17 @@ import javax.inject.Inject
 
 class SendRegDataUseCaseResult @Inject constructor(
     dispatcher: CoroutineDispatcher,
-    exceptionMapper: ThrowableUCMapper<RegDataEntity>,
+    exceptionMapper: ThrowableUCMapper<Nothing>,
     private val regDataFacadeUseCase: BaseRegDataFacadeUseCase,
-    private val registrationRepository: BaseRegistrationRepository
-) : AbstractSafeUseCaseResult<RegDataEntity>(dispatcher, exceptionMapper), BaseSendRegDataUseCase {
+    private val registrationRepository: BaseRegistrationRepository,
+) : AbstractSafeUseCaseResult<Nothing>(dispatcher, exceptionMapper),
+    BaseSendRegDataUseCase {
 
-    override suspend fun sendRegData(): UseCaseResult<RegDataEntity> = withSafe {
+    override fun onSuccess(result: Nothing): UseCaseResult.BaseSuccess<Nothing> {
+        return UseCaseResult.EmptySuccess()
+    }
+
+    override suspend fun sendRegData() = withSafe {
         registrationRepository.sendRegData(
             regDataFacadeUseCase.fillRegData()
         )

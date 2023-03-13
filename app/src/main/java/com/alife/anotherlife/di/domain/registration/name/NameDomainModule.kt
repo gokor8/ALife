@@ -1,6 +1,7 @@
 package com.alife.anotherlife.di.domain.registration.name
 
 import com.alife.domain.core.mapper.ThrowableMapper
+import com.alife.domain.core.mapper.ThrowableUCMapper
 import com.alife.domain.registration.usecase.name.BaseNameUseCase
 import com.alife.domain.registration.usecase.name.NameReadRegStageUC
 import com.alife.domain.registration.usecase.name.NameSaveRegRegStageUC
@@ -22,5 +23,5 @@ interface NameDomainModule {
     fun bindNameSaveUseCase(useCase: NameSaveRegRegStageUC): BaseNameUseCase.Save
 
     @Binds
-    fun bindNameThrowMapper(throwMapper: ThrowToNameRegEntity): ThrowableMapper<NameRegEntity>
+    fun bindNameThrowMapper(throwMapper: ThrowToNameRegEntity): ThrowableUCMapper<NameRegEntity>
 }

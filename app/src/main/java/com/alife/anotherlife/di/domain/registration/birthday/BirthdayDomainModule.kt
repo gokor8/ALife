@@ -1,6 +1,7 @@
 package com.alife.anotherlife.di.domain.registration.birthday
 
 import com.alife.domain.core.mapper.ThrowableMapper
+import com.alife.domain.core.mapper.ThrowableUCMapper
 import com.alife.domain.registration.usecase.birthday.BaseBirthdayUseCase
 import com.alife.domain.registration.usecase.birthday.BirthdayReadRegStageUC
 import com.alife.domain.registration.usecase.birthday.BirthdaySaveRegRegStageUC
@@ -22,5 +23,5 @@ interface BirthdayDomainModule {
     fun bindBirthdaySaveUseCase(useCase: BirthdaySaveRegRegStageUC): BaseBirthdayUseCase.Save
 
     @Binds
-    fun bindBirthdayThrowMapper(throwMapper: ThrowToBirthdayRegEntity): ThrowableMapper<BirthdayRegEntity>
+    fun bindBirthdayThrowMapper(throwMapper: ThrowToBirthdayRegEntity): ThrowableUCMapper<BirthdayRegEntity>
 }

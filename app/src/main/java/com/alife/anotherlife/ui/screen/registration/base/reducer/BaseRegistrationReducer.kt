@@ -6,8 +6,9 @@ import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffec
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
 import com.alife.core.chain.ChainHandler
-import com.alife.domain.registration.core.entity.DefaultRegEntity
+import com.alife.domain.core.usecase.UseCaseResult
 import com.alife.domain.registration.usecase.base.BaseRegStageUseCase
+import com.alife.domain.registration.usecase.base.entity.BaseRegEntity
 
 interface BaseRegistrationReducer {
 
@@ -20,39 +21,43 @@ interface BaseRegistrationReducer {
     suspend fun onNextClick()
 
 
-    abstract class Abstract(
+    abstract class Abstract<M : BaseRegEntity>(
         uiStore: UIStore<RegistrationState, RegistrationEffect>,
         private val chainValidator: BaseRegTextChain,
         private val validationRegReducer: BaseValidationRegReducer,
-        private val readUseCase: BaseRegStageUseCase.Read<*>,
+        private val readUseCase: BaseRegStageUseCase.Read<M>,
     ) : RegistrationReducer(uiStore), BaseRegistrationReducer {
 
         override suspend fun onNextClick() {
             chainValidator.handle(
-                uiStore.getState().textWithErrorModel.textFieldValue.text
+                uiStore.getState().textErrorModel.textFieldValue.text
             ).onChainResult(validationRegReducer)
         }
 
         override suspend fun onInit() {
-            if (getState().textWithErrorModel.getCurrentText().isNotEmpty()) return
+            if (getState().textErrorModel.getCurrentText().isNotEmpty()) return
 
-            val nameRegEntity = readUseCase.readData().regEntity
-            if (nameRegEntity is DefaultRegEntity.Success) {
+            val nameRegEntity = readUseCase.readData()
+            // Можно убрать дженерик
+            // Перемапить в юай модель, и инкапсулировать в юай модель setState
+            if (nameRegEntity is UseCaseResult.Success) {
                 uiStore.setState {
-                    copy(textWithErrorModel = textWithErrorModel.copyText(nameRegEntity.result))
+                    copy(
+                        textErrorModel = textErrorModel.copyText(nameRegEntity.model.text)
+                    )
                 }
             }
         }
 
     }
 
-    abstract class WithInputChain(
+    abstract class WithInputChain<M : BaseRegEntity>(
         uiStore: UIStore<RegistrationState, RegistrationEffect>,
         ChainValidator: BaseRegTextChain,
         validationRegReducer: BaseValidationRegReducer,
-        readUseCase: BaseRegStageUseCase.Read<*>,
-        private val inputTextChain: ChainHandler.Base<String, Boolean>
-    ) : Abstract(uiStore, ChainValidator, validationRegReducer, readUseCase) {
+        readUseCase: BaseRegStageUseCase.Read<M>,
+        private val inputTextChain: ChainHandler.Base<String, Boolean>,
+    ) : Abstract<M>(uiStore, ChainValidator, validationRegReducer, readUseCase) {
 
         override fun onTextInput(textFieldValue: TextFieldValue) {
             if (inputTextChain.handle(textFieldValue.text)) {

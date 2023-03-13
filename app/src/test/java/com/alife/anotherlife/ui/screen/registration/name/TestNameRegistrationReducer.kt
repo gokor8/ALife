@@ -13,7 +13,6 @@ import com.alife.anotherlife.ui.screen.registration.name.chain.InputRegTextChain
 import com.alife.anotherlife.ui.screen.registration.name.reducer.NameRegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.reg_test.model.FakeChainNamRegReducer
 import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -52,7 +51,7 @@ class TestNameRegistrationReducer {
 
         val expectedValue = 0
 
-        val storeTextFieldValue = uiStore.stateCollector.last().textWithErrorModel
+        val storeTextFieldValue = uiStore.stateCollector.last().textErrorModel
 
         assertEquals(2, uiStore.stateCollector.size)
         assertEquals(expectedValue, fakeChainNamRegReducer.resultContainer)
@@ -71,7 +70,7 @@ class TestNameRegistrationReducer {
 
         val expectedValue = 1
 
-        val storeTextFieldValue = uiStore.stateCollector.last().textWithErrorModel
+        val storeTextFieldValue = uiStore.stateCollector.last().textErrorModel
 
         assertEquals(2, uiStore.stateCollector.size)
         assertEquals(expectedValue, fakeChainNamRegReducer.resultContainer)

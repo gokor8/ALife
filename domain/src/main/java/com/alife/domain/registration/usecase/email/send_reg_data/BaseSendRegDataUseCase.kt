@@ -5,5 +5,5 @@ import com.alife.domain.registration.usecase.email.send_reg_data.entity.RegDataE
 
 interface BaseSendRegDataUseCase {
 
-    suspend fun sendRegData(): UseCaseResult<RegDataEntity>
+    suspend fun sendRegData()
 }
