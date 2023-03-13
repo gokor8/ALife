@@ -2,7 +2,7 @@ package com.alife.domain.registration.usecase.base
 
 import com.alife.core.usecase.UseCase
 import com.alife.domain.core.usecase.UseCaseResult
-import com.alife.domain.registration.core.entity.BoxRegEntity
+import com.alife.domain.registration.usecase.base.entity.ReadBoxRegEntity
 
 sealed interface BaseRegStageUseCase<M> : UseCase {
 

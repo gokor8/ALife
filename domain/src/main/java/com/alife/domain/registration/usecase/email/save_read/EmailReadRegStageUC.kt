@@ -2,7 +2,6 @@ package com.alife.domain.registration.usecase.email.save_read
 
 import com.alife.domain.core.mapper.ThrowableUCMapper
 import com.alife.domain.registration.repository.BaseRegistrationRepository
-import com.alife.domain.registration.usecase.base.ReadBoxRegEntity
 import com.alife.domain.registration.usecase.base.RegistrationReadRegStageUC
 import com.alife.domain.registration.usecase.email.save_read.entity.EmailReadBoxEntity
 import com.alife.domain.registration.usecase.email.save_read.entity.EmailRegEntity

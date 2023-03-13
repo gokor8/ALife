@@ -7,7 +7,7 @@ import com.alife.data.data_source.model.CacheModel
 import com.alife.data.repository.registration.mapper.BaseRegEntityToReadRegModel
 import com.alife.data.repository.registration.mapper.BaseRegEntityToWriteRegModel
 import com.alife.domain.core.MappingException
-import com.alife.domain.registration.core.entity.RegInputEntity
+import com.alife.domain.registration.usecase.base.entity.RegInputEntity
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test

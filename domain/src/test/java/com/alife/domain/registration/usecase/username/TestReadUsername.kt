@@ -2,8 +2,8 @@ package com.alife.domain.registration.usecase.username
 
 import com.alife.domain.registration.repository.BaseRegistrationRepository
 import com.alife.domain.registration.core.entity.DefaultRegEntity
-import com.alife.domain.registration.usecase.base.ReadRegInputEntity
-import com.alife.domain.registration.usecase.base.SaveRegInputEntity
+import com.alife.domain.registration.usecase.base.entity.ReadRegInputEntity
+import com.alife.domain.registration.usecase.base.entity.SaveRegInputEntity
 import com.alife.domain.registration.usecase.username.addons.UsernameException
 import com.alife.domain.registration.usecase.username.mapper.ThrowToUsernameRegEntity
 import junit.framework.TestCase.assertEquals

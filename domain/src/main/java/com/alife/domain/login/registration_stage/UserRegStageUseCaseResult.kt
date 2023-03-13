@@ -2,7 +2,7 @@ package com.alife.domain.login.registration_stage
 
 import com.alife.domain.core.usecase.AbstractUseCase
 import com.alife.domain.core.usecase.UseCaseResult
-import com.alife.domain.registration.usecase.base.ReadBoxRegEntity
+import com.alife.domain.registration.usecase.base.entity.ReadBoxRegEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 

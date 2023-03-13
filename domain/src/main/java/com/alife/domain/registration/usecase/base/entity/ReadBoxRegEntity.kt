@@ -1,4 +1,4 @@
-package com.alife.domain.registration.usecase.base
+package com.alife.domain.registration.usecase.base.entity
 
 import com.alife.core.usecase.UseCaseEntity
 import com.alife.domain.core.usecase.UseCaseResult

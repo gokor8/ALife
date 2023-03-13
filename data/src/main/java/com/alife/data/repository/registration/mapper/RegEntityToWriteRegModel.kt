@@ -6,7 +6,7 @@ import com.alife.data.repository.registration.model.email.EmailRegWriteModel
 import com.alife.data.repository.registration.model.name.NameRegWriteModel
 import com.alife.data.repository.registration.model.username.UsernameRegWriteModel
 import com.alife.domain.core.MappingException
-import com.alife.domain.registration.usecase.base.SaveRegInputEntity
+import com.alife.domain.registration.usecase.base.entity.SaveRegInputEntity
 import com.alife.domain.registration.usecase.birthday.BirthdaySaveRegEntity
 import com.alife.domain.registration.usecase.email.save_read.EmailSaveRegEntity
 import com.alife.domain.registration.usecase.name.NameSaveRegEntity
