@@ -4,5 +4,5 @@ import com.alife.domain.registration.usecase.base.BaseRegStageUseCase
 import javax.inject.Inject
 
 class ListRegStageUseCase(
-    vararg regStageUseCase: BaseRegStageUseCase.Read<*>
-) : ArrayList<BaseRegStageUseCase.Read<*>>(regStageUseCase.toList())
+    vararg regStageUseCase: BaseRegStageUseCase.ReadBox<*>
+) : ArrayList<BaseRegStageUseCase.ReadBox<*>>(regStageUseCase.toList())

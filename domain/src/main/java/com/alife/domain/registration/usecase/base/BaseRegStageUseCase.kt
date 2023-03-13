@@ -10,6 +10,10 @@ sealed interface BaseRegStageUseCase<M> : UseCase {
         suspend fun readData(): UseCaseResult<M>
     }
 
+    interface ReadBox<M> : BaseRegStageUseCase<M> {
+        suspend fun readAndBox(): ReadBoxRegEntity<M>
+    }
+
     interface Save<M> : BaseRegStageUseCase<M> {
         suspend fun saveData(inputData: String)
     }

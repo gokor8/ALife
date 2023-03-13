@@ -12,10 +12,10 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class TestUserRegStageUseCase {
 
-    private lateinit var useCase: UserRegStageUseCase
+    private lateinit var useCase: UserRegStageUseCaseResult
 
     private fun setupUseCase(vararg useCases: FakeRegStageUseCase) {
-        useCase = UserRegStageUseCase(
+        useCase = UserRegStageUseCaseResult(
             useCases.toList(),
             Dispatchers.Unconfined,
             ThrowToRegStageEntity()

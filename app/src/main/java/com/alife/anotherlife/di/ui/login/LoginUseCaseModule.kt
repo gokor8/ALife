@@ -5,7 +5,7 @@ import com.alife.domain.login.content.LoginAuthTypeUseCase
 import com.alife.domain.login.content.MockAuthTypeUseCase
 import com.alife.domain.login.content.base.ListAuthType
 import com.alife.domain.login.registration_stage.BaseUserRegStageUseCase
-import com.alife.domain.login.registration_stage.UserRegStageUseCase
+import com.alife.domain.login.registration_stage.UserRegStageUseCaseResult
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -24,5 +24,5 @@ interface LoginUseCaseModule {
     fun mockAuthTypeUseCase(useCase: MockAuthTypeUseCase): ListAuthType
 
     @Binds
-    fun bindUserRegStageUseCase(useCase: UserRegStageUseCase): BaseUserRegStageUseCase
+    fun bindUserRegStageUseCase(useCase: UserRegStageUseCaseResult): BaseUserRegStageUseCase
 }

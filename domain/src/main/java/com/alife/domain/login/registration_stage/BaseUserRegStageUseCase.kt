@@ -1,8 +1,8 @@
 package com.alife.domain.login.registration_stage
 
-import com.alife.domain.core.usecase.UseCaseResult
+import com.alife.domain.registration.usecase.base.ReadBoxRegEntity
 
 interface BaseUserRegStageUseCase {
 
-    suspend fun getStage(): UseCaseResult<UseCaseResult.EmptySuccess>
+    suspend fun getStage(): ReadBoxRegEntity<*>
 }

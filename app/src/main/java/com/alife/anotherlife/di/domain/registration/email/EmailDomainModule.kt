@@ -3,7 +3,7 @@ package com.alife.anotherlife.di.domain.registration.email
 import com.alife.domain.core.mapper.ThrowableMapper
 import com.alife.domain.registration.usecase.email.send_reg_data.BaseSendRegDataUseCase
 import com.alife.domain.registration.usecase.email.RegDataState
-import com.alife.domain.registration.usecase.email.send_reg_data.SendRegDataUseCase
+import com.alife.domain.registration.usecase.email.send_reg_data.SendRegDataUseCaseResult
 import com.alife.domain.registration.usecase.email.send_reg_data.ThrowToRegDataState
 import com.alife.domain.registration.usecase.email.save_read.BaseEmailUseCase
 import com.alife.domain.registration.usecase.email.save_read.EmailReadRegStageUC
@@ -29,7 +29,7 @@ interface EmailDomainModule {
     fun bindEmailThrowMapper(throwMapper: ThrowToEmailRegEntity): ThrowableMapper<EmailRegEntity>
 
     @Binds
-    fun bindSendRegDataUseCase(useCase: SendRegDataUseCase): BaseSendRegDataUseCase
+    fun bindSendRegDataUseCase(useCase: SendRegDataUseCaseResult): BaseSendRegDataUseCase
 
     @Binds
     fun bindSendRegDataThrowMapper(throwMapper: ThrowToRegDataState): ThrowableMapper<RegDataState>

@@ -8,5 +8,7 @@ sealed interface BaseEmailUseCase : UseCase {
 
     interface Read : BaseEmailUseCase, BaseRegStageUseCase.Read<EmailRegEntity>
 
+    interface ReadBox : BaseEmailUseCase, BaseRegStageUseCase.ReadBox<EmailRegEntity>
+
     interface Save : BaseEmailUseCase, BaseRegStageUseCase.Save<EmailRegEntity>
 }
