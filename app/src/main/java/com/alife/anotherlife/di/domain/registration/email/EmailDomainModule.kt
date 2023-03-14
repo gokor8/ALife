@@ -7,6 +7,7 @@ import com.alife.domain.registration.usecase.email.save_read.EmailSaveRegRegStag
 import com.alife.domain.registration.usecase.email.save_read.entity.EmailRegEntity
 import com.alife.domain.registration.usecase.email.save_read.mapper.ThrowToEmailRegEntity
 import com.alife.domain.registration.usecase.email.send_reg_data.*
+import com.alife.domain.registration.usecase.email.send_reg_data.mapper.BaseThrowToRegData
 import com.alife.domain.registration.usecase.email.send_reg_data.mapper.UCResultToEntityMapper
 import com.alife.domain.registration.usecase.email.send_reg_data.mapper.UCResultToEntityToSuccess
 import dagger.Binds
@@ -28,7 +29,7 @@ interface EmailDomainModule {
     fun bindEmailThrowMapper(throwMapper: ThrowToEmailRegEntity): ThrowableUCMapper<EmailRegEntity>
 
     @Binds
-    fun bindSendRegDataUseCase(useCase: SendRegDataUseCaseResult): BaseSendRegDataUseCase
+    fun bindSendRegDataUseCase(useCase: SendRegDataUseCase): BaseSendRegDataUseCase
 
     @Binds
     fun bindRegDataFacadeUseCase(useCase: RegDataFacadeUseCase): BaseRegDataFacadeUseCase
@@ -37,5 +38,5 @@ interface EmailDomainModule {
     fun bindUCResultToEntityToSuccess(mapper: UCResultToEntityToSuccess): UCResultToEntityMapper
 
     @Binds
-    fun bindSendRegDataThrowMapper(throwMapper: ThrowToRegDataState): ThrowableUCMapper<Nothing>
+    fun bindSendRegDataThrowMapper(throwMapper: ThrowToRegData): BaseThrowToRegData
 }

@@ -7,7 +7,9 @@ import com.alife.data.data_source.model.CacheModel
 import com.alife.data.repository.registration.mapper.BaseRegEntityToReadRegModel
 import com.alife.data.repository.registration.mapper.BaseRegEntityToWriteRegModel
 import com.alife.domain.core.MappingException
+import com.alife.domain.registration.usecase.base.entity.ReadRegInputEntity
 import com.alife.domain.registration.usecase.base.entity.RegInputEntity
+import com.alife.domain.registration.usecase.base.entity.SaveRegInputEntity
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -31,7 +33,7 @@ class TestRegistrationRepository {
         fakeCache = FakeSharedCacheDataSource(fakeSharedPreferences, writeException, readException)
         return RegistrationRepository(
             fakeCache,
-            FakeBaseRegEntityToWriteRegModel(),
+            FakeBaseRegEntityToSaveRegModel(),
             FakeRegEntityToReadRegModel()
         )
     }
@@ -40,7 +42,7 @@ class TestRegistrationRepository {
     fun `test save data`() {
         registrationRepository = setupRegistrationRepository()
 
-        registrationRepository.saveRegData(FakeStringRegInputEntity())
+        registrationRepository.saveRegData(FakeSaveStringRegInputEntity())
 
         assertEquals(fakeSharedPreferences.addedValuesList.size, 1)
         assertEquals(fakeSharedPreferences.addedValuesList.last(), "test")
@@ -50,7 +52,7 @@ class TestRegistrationRepository {
     fun `test save exception data`() {
         registrationRepository = setupRegistrationRepository(IllegalStateException())
 
-        registrationRepository.saveRegData(FakeStringRegInputEntity())
+        registrationRepository.saveRegData(FakeSaveStringRegInputEntity())
 
         assertEquals(fakeSharedPreferences.addedValuesList.size, 1)
     }
@@ -60,7 +62,7 @@ class TestRegistrationRepository {
         fakeSharedPreferences = FakeSharedPreferences(mutableListOf("test"))
         registrationRepository = setupRegistrationRepository()
 
-        val actual = registrationRepository.readRegData(FakeStringRegInputEntity())
+        val actual = registrationRepository.readRegData(FakeReadStringRegInputEntity())
 
         assertEquals(fakeSharedPreferences.addedValuesList.size, 1)
         assertEquals(actual, "test")
@@ -70,7 +72,7 @@ class TestRegistrationRepository {
     fun `test read empty data exception`() {
         registrationRepository = setupRegistrationRepository(IllegalStateException())
 
-        registrationRepository.saveRegData(FakeStringRegInputEntity())
+        registrationRepository.saveRegData(FakeSaveStringRegInputEntity())
 
         assertEquals(fakeSharedPreferences.addedValuesList.size, 1)
     }
@@ -79,9 +81,9 @@ class TestRegistrationRepository {
     fun `test save and read data`() {
         registrationRepository = setupRegistrationRepository()
 
-        registrationRepository.saveRegData(FakeStringRegInputEntity())
+        registrationRepository.saveRegData(FakeSaveStringRegInputEntity())
 
-        val actual = registrationRepository.readRegData(FakeStringRegInputEntity())
+        val actual = registrationRepository.readRegData(FakeReadStringRegInputEntity())
 
         assertEquals(fakeSharedPreferences.addedValuesList.size, 1)
         assertEquals(actual, "test")
@@ -90,7 +92,8 @@ class TestRegistrationRepository {
 
 
 // Fake realization
-class FakeStringRegInputEntity : RegInputEntity<String>
+class FakeReadStringRegInputEntity : ReadRegInputEntity<String>
+class FakeSaveStringRegInputEntity : SaveRegInputEntity<String>
 class FakeCacheWriteModel : CacheModel.Write<String> {
 
     override fun getKey(): String = "test"
@@ -108,11 +111,11 @@ class FakeCacheReadModel : CacheModel.Read<String> {
         sharedPreferences.getString(getKey(), null) ?: throw IllegalStateException()
 }
 
-class FakeBaseRegEntityToWriteRegModel : BaseRegEntityToWriteRegModel {
+class FakeBaseRegEntityToSaveRegModel : BaseRegEntityToWriteRegModel {
 
-    override fun map(inputModel: RegInputEntity<*>): CacheModel.Write<*> {
+    override fun map(inputModel: SaveRegInputEntity<*>): CacheModel.Write<*> {
         return when (inputModel) {
-            is FakeStringRegInputEntity -> FakeCacheWriteModel()
+            is FakeSaveStringRegInputEntity -> FakeCacheWriteModel()
             else -> throw MappingException()
         }
     }
@@ -120,9 +123,9 @@ class FakeBaseRegEntityToWriteRegModel : BaseRegEntityToWriteRegModel {
 
 class FakeRegEntityToReadRegModel : BaseRegEntityToReadRegModel {
 
-    override fun map(inputModel: RegInputEntity<*>): CacheModel.Read<*> {
+    override fun map(inputModel: ReadRegInputEntity<*>): CacheModel.Read<*> {
         return when (inputModel) {
-            is FakeStringRegInputEntity -> FakeCacheReadModel()
+            is FakeReadStringRegInputEntity -> FakeCacheReadModel()
             else -> throw MappingException()
         }
     }

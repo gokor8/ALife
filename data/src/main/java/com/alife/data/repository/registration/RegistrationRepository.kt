@@ -28,7 +28,7 @@ class RegistrationRepository @Inject constructor(
         ) as M
     }
 
-    override fun sendRegData(regDataEntity: RegDataEntity): UseCaseResult<Nothing> {
-        return UseCaseResult.EmptySuccess()
+    override fun sendRegData(regDataEntity: RegDataEntity) {
+        // throw Exception if was error in bek response
     }
 }
