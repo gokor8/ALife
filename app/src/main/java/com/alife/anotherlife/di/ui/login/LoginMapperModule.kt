@@ -12,9 +12,11 @@ import com.alife.anotherlife.ui.screen.login.mapper.container.MockUIAuthToColumn
 import com.alife.core.mapper.ListMapper
 import com.alife.core.mapper.Mapper
 import com.alife.domain.core.mapper.ThrowableMapper
+import com.alife.domain.core.mapper.ThrowableUCMapper
 import com.alife.domain.login.content.entity.AuthTypeEntity
 import com.alife.domain.login.registration_stage.ThrowToRegStageEntity
 import com.alife.domain.registration.core.entity.BoxRegEntity
+import com.alife.domain.registration.usecase.base.entity.ReadBoxRegEntity
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -43,8 +45,7 @@ interface LoginMapperModule {
     fun mockAuthTypeToUIAuth(mapper: MockAuthTypeToUIAuth): BaseMockAuthTypeToUIAuth
 
     @Binds
-    fun bindThrowToRegStageEntity(mapper: ThrowToRegStageEntity): ThrowableMapper<BoxRegEntity>
-
-    @Binds
-    fun bindBoxRegEntityToNavigator(mapper: BoxRegEntityToNavigator): Mapper<BoxRegEntity, BaseNavigator>
+    fun bindBoxRegEntityToNavigator(
+        mapper: BoxRegEntityToNavigator
+    ): Mapper<ReadBoxRegEntity<*>, BaseNavigator>
 }

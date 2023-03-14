@@ -11,6 +11,7 @@ import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffec
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.domain.registration.core.entity.DefaultRegEntity
 import com.alife.domain.registration.usecase.birthday.BaseBirthdayUseCase
+import com.alife.domain.registration.usecase.birthday.entity.BirthdayRegEntity
 import javax.inject.Inject
 
 class BirthdayRegReducer @Inject constructor(
@@ -21,7 +22,7 @@ class BirthdayRegReducer @Inject constructor(
     @BirthdayAnnotation.BirthdayValidation
     validationNameRegReducer: BaseValidationRegReducer,
     birthdayReadRegUseCase: BaseBirthdayUseCase.Read
-) : BaseRegistrationReducer.Abstract(
+) : BaseRegistrationReducer.Abstract<BirthdayRegEntity>(
     uiStore,
     nameChainValidator,
     validationNameRegReducer,

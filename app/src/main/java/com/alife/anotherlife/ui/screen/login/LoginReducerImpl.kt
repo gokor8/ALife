@@ -14,6 +14,7 @@ import com.alife.domain.login.content.base.ListAuthType
 import com.alife.domain.login.content.base.LoginAuthType
 import com.alife.domain.login.registration_stage.BaseUserRegStageUseCase
 import com.alife.domain.registration.core.entity.BoxRegEntity
+import com.alife.domain.registration.usecase.base.entity.ReadBoxRegEntity
 import javax.inject.Inject
 
 class LoginReducerImpl @Inject constructor(
@@ -25,7 +26,7 @@ class LoginReducerImpl @Inject constructor(
     private val loginAuthTypeToUIAuth: BaseLoginAuthTypeToUIAuth,
     private val uiAuthToColumnUIAuth: BaseUIAuthToColumnUIAuth,
     private val userRegStageUseCase: BaseUserRegStageUseCase,
-    private val regStageToNavigator: Mapper<BoxRegEntity, BaseNavigator>
+    private val regStageToNavigator: Mapper<ReadBoxRegEntity<*>, BaseNavigator>
 ) : BaseVMReducer<LoginState, LoginEffect>(), BaseLoginReducer {
 
     override fun onInit() {

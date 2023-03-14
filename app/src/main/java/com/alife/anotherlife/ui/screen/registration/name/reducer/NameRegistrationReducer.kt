@@ -9,6 +9,7 @@ import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffec
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.name.chain.InputRegTextChain
 import com.alife.domain.registration.usecase.name.BaseNameUseCase
+import com.alife.domain.registration.usecase.name.addons.NameRegEntity
 import javax.inject.Inject
 
 class NameRegistrationReducer @Inject constructor(
@@ -20,7 +21,7 @@ class NameRegistrationReducer @Inject constructor(
     validationNameRegReducer: BaseValidationRegReducer,
     textInputChainValidator: InputRegTextChain,
     readNameUseCase: BaseNameUseCase.Read,
-) : BaseRegistrationReducer.WithInputChain(
+) : BaseRegistrationReducer.WithInputChain<NameRegEntity>(
     uiStore,
     nameChainValidator,
     validationNameRegReducer,
