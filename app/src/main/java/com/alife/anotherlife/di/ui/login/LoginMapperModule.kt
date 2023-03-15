@@ -11,11 +11,7 @@ import com.alife.anotherlife.ui.screen.login.mapper.container.LoginAuthTypeToCon
 import com.alife.anotherlife.ui.screen.login.mapper.container.MockUIAuthToColumnContainer
 import com.alife.core.mapper.ListMapper
 import com.alife.core.mapper.Mapper
-import com.alife.domain.core.mapper.ThrowableMapper
-import com.alife.domain.core.mapper.ThrowableUCMapper
 import com.alife.domain.login.content.entity.AuthTypeEntity
-import com.alife.domain.login.registration_stage.ThrowToRegStageEntity
-import com.alife.domain.registration.core.entity.BoxRegEntity
 import com.alife.domain.registration.usecase.base.entity.ReadBoxRegEntity
 import dagger.Binds
 import dagger.Module

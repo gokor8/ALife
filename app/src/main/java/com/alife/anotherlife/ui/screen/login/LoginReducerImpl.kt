@@ -13,7 +13,6 @@ import com.alife.core.mapper.Mapper
 import com.alife.domain.login.content.base.ListAuthType
 import com.alife.domain.login.content.base.LoginAuthType
 import com.alife.domain.login.registration_stage.BaseUserRegStageUseCase
-import com.alife.domain.registration.core.entity.BoxRegEntity
 import com.alife.domain.registration.usecase.base.entity.ReadBoxRegEntity
 import javax.inject.Inject
 

@@ -4,9 +4,9 @@ import com.alife.core.usecase.UseCase
 import com.alife.domain.core.usecase.UseCaseResult
 import com.alife.domain.registration.usecase.base.entity.ReadBoxRegEntity
 
-sealed interface BaseRegStageUseCase<M> : UseCase {
+sealed interface BaseRegStageUseCase<out M> : UseCase {
 
-    interface Read<M> : BaseRegStageUseCase<M> {
+    interface Read<out M> : BaseRegStageUseCase<M> {
         suspend fun readData(): UseCaseResult<M>
     }
 

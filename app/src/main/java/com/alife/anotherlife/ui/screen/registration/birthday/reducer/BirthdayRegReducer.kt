@@ -22,7 +22,7 @@ class BirthdayRegReducer @Inject constructor(
     @BirthdayAnnotation.BirthdayValidation
     validationNameRegReducer: BaseValidationRegReducer,
     birthdayReadRegUseCase: BaseBirthdayUseCase.Read
-) : BaseRegistrationReducer.Abstract<BirthdayRegEntity>(
+) : BaseRegistrationReducer.Abstract(
     uiStore,
     nameChainValidator,
     validationNameRegReducer,

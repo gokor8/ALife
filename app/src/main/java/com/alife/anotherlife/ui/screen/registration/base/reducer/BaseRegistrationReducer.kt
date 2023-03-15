@@ -21,11 +21,11 @@ interface BaseRegistrationReducer {
     suspend fun onNextClick()
 
 
-    abstract class Abstract<M : BaseRegEntity>(
+    abstract class Abstract(
         uiStore: UIStore<RegistrationState, RegistrationEffect>,
         private val chainValidator: BaseRegTextChain,
         private val validationRegReducer: BaseValidationRegReducer,
-        private val readUseCase: BaseRegStageUseCase.Read<M>,
+        private val readUseCase: BaseRegStageUseCase.Read<BaseRegEntity>,
     ) : RegistrationReducer(uiStore), BaseRegistrationReducer {
 
         override suspend fun onNextClick() {
@@ -51,13 +51,13 @@ interface BaseRegistrationReducer {
 
     }
 
-    abstract class WithInputChain<M : BaseRegEntity>(
+    abstract class WithInputChain(
         uiStore: UIStore<RegistrationState, RegistrationEffect>,
         ChainValidator: BaseRegTextChain,
         validationRegReducer: BaseValidationRegReducer,
-        readUseCase: BaseRegStageUseCase.Read<M>,
+        readUseCase: BaseRegStageUseCase.Read<BaseRegEntity>,
         private val inputTextChain: ChainHandler.Base<String, Boolean>,
-    ) : Abstract<M>(uiStore, ChainValidator, validationRegReducer, readUseCase) {
+    ) : Abstract(uiStore, ChainValidator, validationRegReducer, readUseCase) {
 
         override fun onTextInput(textFieldValue: TextFieldValue) {
             if (inputTextChain.handle(textFieldValue.text)) {

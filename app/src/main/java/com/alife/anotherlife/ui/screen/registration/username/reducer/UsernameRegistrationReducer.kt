@@ -24,7 +24,7 @@ class UsernameRegistrationReducer @Inject constructor(
     validationNameRegReducer: BaseValidationRegReducer,
     usernameRegTextChain: UsernameRegTextChain,
     readUsernameUseCase: BaseUsernameUseCase.Read,
-) : BaseRegistrationReducer.WithInputChain<UsernameRegEntity>(
+) : BaseRegistrationReducer.WithInputChain(
     uiStore,
     nameChainValidator,
     validationNameRegReducer,

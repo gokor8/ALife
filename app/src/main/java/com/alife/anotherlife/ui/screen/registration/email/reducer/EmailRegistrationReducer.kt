@@ -22,7 +22,7 @@ class EmailRegistrationReducer @Inject constructor(
     @EmailAnnotation.EmailTextInputChain
     onInputChain: RegChainValidator.BooleanValidator,
     readUseCase: BaseEmailUseCase.Read
-) : BaseRegistrationReducer.WithInputChain<EmailRegEntity>(
+) : BaseRegistrationReducer.WithInputChain(
     reducer,
     chain,
     validationNameRegReducer,
