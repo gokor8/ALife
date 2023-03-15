@@ -1,4 +1,4 @@
-package com.alife.anotherlife.core.composable.a_life_card
+package com.alife.anotherlife.core.composable.alife_card
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedCard
@@ -14,6 +14,6 @@ fun ALifeImage(size: Size, modifier: Modifier = Modifier) {
     OutlinedCard(onClick = { 
         
     }) {
-        ImageBase(resId = R.drawable.)
+        //ImageBase(resId = R.drawable.)
     }
 }
