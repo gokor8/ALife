@@ -10,5 +10,5 @@ interface BaseRegistrationRepository {
 
     fun<M : Any> readRegData(regEntity: ReadRegInputEntity<M>): M
 
-    fun sendRegData(regDataEntity: RegDataEntity): Unit
+    fun sendRegData(regDataEntity: RegDataEntity)
 }
