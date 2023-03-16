@@ -18,15 +18,16 @@ import com.alife.anotherlife.theme.Shapes
 
 @Composable
 fun Button18(
-    onClick: () -> Unit,
     @StringRes textResId: Int,
-    shape: Shape = Shapes.medium
+    shape: Shape = Shapes.medium,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
     ButtonBase(
         onClick = onClick,
         shape = shape,
         contentPadding = PaddingValues(vertical = 16.dp),
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     ) {
         TextBase(
             textResId = textResId,

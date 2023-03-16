@@ -1,5 +1,6 @@
 package com.alife.anotherlife.core.composable.alife_card
 
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.height
@@ -16,26 +17,36 @@ import androidx.compose.ui.unit.dp
 fun Modifier.draggableALifeModifier(
     offsetX: MutableState<OffsetModel>,
     offsetY: MutableState<OffsetModel>,
+    maxWidthDp: Dp,
 ) = composed {
+
+    val offsetXAnimation by animateDpAsState(targetValue = offsetX.value.calculateDp())
+    val offsetYAnimation by animateDpAsState(targetValue = offsetY.value.calculateDp())
+
+    val maxWidth = with(LocalDensity.current) { maxWidthDp.toPx() }
+
     offset(
-        x = offsetX.value.calculateDp(),
-        y = offsetY.value.calculateDp()
+        x = offsetXAnimation,
+        y = offsetYAnimation
     ).pointerInput(Unit) {
         detectDragGestures(
             onDragEnd = {
-                val resultX = if((extendedTouchPadding.width/2f) > offsetX.value.offset)
-                    extendedTouchPadding.width
+                val resultX = if ((maxWidth / 2f) < offsetX.value.offset)
+                    maxWidth - size.width.toFloat()
                 else
                     0f
 
-                animateFloatAsState(targetValue = resultX)
+                offsetX.value = offsetX.value.copy(resultX)
 
                 offsetY.value = offsetY.value.copy(0f)
             }
         ) { change, dragAmount ->
             change.consume()
+
             offsetX.value = offsetX.value.incrementCopy(dragAmount.x)
-            offsetY.value = offsetY.value.incrementCopy(dragAmount.y)
+
+            if(dragAmount.y > 0f)
+                offsetY.value = offsetY.value.incrementCopy(dragAmount.y)
         }
     }
 }
