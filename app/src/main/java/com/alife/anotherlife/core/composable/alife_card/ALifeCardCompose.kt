@@ -17,11 +17,11 @@ fun ALifeCardCompose(modifier: Modifier = Modifier) {
     val offsetY = remember { mutableStateOf(OffsetModel()) }
 
     BoxWithConstraints(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
     ) {
         ImageBase(
             R.drawable.img_tutor_back,
-            contentScale = ContentScale.None,
+            contentScale = ContentScale.FillBounds,
             modifier = Modifier.fillMaxSize()
         )
 
@@ -29,7 +29,7 @@ fun ALifeCardCompose(modifier: Modifier = Modifier) {
             R.drawable.img_tutor_front,
             modifier = Modifier
                 .size(100.dp, 150.dp)
-                .draggableALifeModifier(offsetX, offsetY, maxWidth)
+                .draggableALifeModifier(offsetX, offsetY, maxWidth, maxHeight)
         )
     }
 }

@@ -1,9 +1,6 @@
 package com.alife.anotherlife.ui.screen.registration.tutorial
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,11 +21,15 @@ class FirstTutorialScreen : DefaultScreen() {
     @Composable
     override fun Content(modifier: Modifier) = Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier.fillMaxSize()
     ) {
         TextBase(textResId = R.string.horizontal_short_logo, style = Title28Style().style())
 
-        ALifeCardCompose(modifier = Modifier.padding(horizontal = 44.dp, vertical = 28.dp))
+        ALifeCardCompose(
+            modifier = Modifier
+                .size(272.dp, 368.dp)
+                .padding(horizontal = 44.dp, vertical = 28.dp)
+        )
 
         TextBase(
             textResId = R.string.tutorial_first_description,

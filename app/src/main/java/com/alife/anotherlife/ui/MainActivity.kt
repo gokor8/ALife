@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navHostController = rememberNavController()
-                    //DevNavigationGraph().SetupNavigation(navHostController = navHostController)
+ //                   DevNavigationGraph().SetupNavigation(navHostController = navHostController)
                     MainNavigationGraph(
                         LoginNavRoute()
                     ).SetupNavigation(navHostController = navHostController)

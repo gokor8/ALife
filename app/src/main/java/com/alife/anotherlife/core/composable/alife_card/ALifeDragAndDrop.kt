@@ -18,12 +18,14 @@ fun Modifier.draggableALifeModifier(
     offsetX: MutableState<OffsetModel>,
     offsetY: MutableState<OffsetModel>,
     maxWidthDp: Dp,
+    maxHeightDp: Dp
 ) = composed {
 
     val offsetXAnimation by animateDpAsState(targetValue = offsetX.value.calculateDp())
     val offsetYAnimation by animateDpAsState(targetValue = offsetY.value.calculateDp())
 
     val maxWidth = with(LocalDensity.current) { maxWidthDp.toPx() }
+    val maxHeight = with(LocalDensity.current) { maxHeightDp.toPx() }
 
     offset(
         x = offsetXAnimation,
@@ -35,7 +37,6 @@ fun Modifier.draggableALifeModifier(
                     maxWidth - size.width.toFloat()
                 else
                     0f
-
                 offsetX.value = offsetX.value.copy(resultX)
 
                 offsetY.value = offsetY.value.copy(0f)
