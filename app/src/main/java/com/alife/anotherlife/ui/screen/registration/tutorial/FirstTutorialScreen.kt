@@ -27,8 +27,9 @@ class FirstTutorialScreen : DefaultScreen() {
 
         ALifeCardCompose(
             modifier = Modifier
-                .size(272.dp, 368.dp)
                 .padding(horizontal = 44.dp, vertical = 28.dp)
+                .height(400.dp)
+                .fillMaxWidth()
         )
 
         TextBase(
@@ -38,6 +39,7 @@ class FirstTutorialScreen : DefaultScreen() {
             modifier = Modifier.padding(horizontal = 35.dp)
         )
         Spacer(modifier = Modifier.padding(bottom = 50.dp))
+        Spacer(modifier = Modifier.weight(1f))
 
         // TabBar menu
 
