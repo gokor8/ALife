@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.alife.anotherlife.core.composable.alife_card.chain.DragChainValidator
 import com.alife.anotherlife.core.composable.alife_card.model.DpToPxSize
 import com.alife.anotherlife.core.composable.alife_card.model.DragModel
+import com.alife.anotherlife.core.composable.alife_card.model.OffsetContainerModel
 import com.alife.anotherlife.core.ui.ComposableMapper
 
 @Composable
@@ -36,14 +37,16 @@ fun Modifier.draggableALifeModifier(
     ).pointerInput(Unit) {
         detectDragGestures(
             onDragEnd = {
-                dragChainValidator.handle(
+                val offsetContainer = dragChainValidator.handle(
                     DragModel(
-                        offsetX,
-                        offsetY,
+                        OffsetContainerModel(offsetX.value, offsetY.value),
                         mainImageSize,
                         Size(size.width.toFloat(), size.height.toFloat())
                     )
                 )
+
+                offsetX.value = offsetContainer.offsetX
+                offsetY.value = offsetContainer.offsetY
             }
         ) { change, dragAmount ->
             change.consume()
