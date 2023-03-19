@@ -42,6 +42,9 @@
 
     // Tutorial
     <string name="tutorial_first_description">В течение 1 минуты сделай видео или фото и покажи, чем ты занимаешься</string>
+    <string name="tutorial_second_title">Время показать всем чем вы занимаетесь!</string>
+    <string name="tutorial_second_description">В течение 1 минуты сделай видео или фото и покажи, чем ты занимаешься</string>
+    <string name="tutorial_third_description">Все люди публикуют фото в одно и то же время</string>
 
 
 </resources>

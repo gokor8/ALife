@@ -1,8 +1,8 @@
 package com.alife.anotherlife.core.composable.alife_card.chain
 
-import com.alife.anotherlife.core.composable.alife_card.OffsetModel
 import com.alife.anotherlife.core.composable.alife_card.model.DragModel
 import com.alife.anotherlife.core.composable.alife_card.model.OffsetContainerModel
+import com.alife.anotherlife.core.composable.alife_card.model.OffsetModel
 import com.alife.core.chain.ChainHandler
 
 class DefaultDragXChain : ChainHandler.Base<DragModel, OffsetContainerModel> {

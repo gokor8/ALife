@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -13,13 +11,15 @@ import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.alife_card.chain.DefaultDragXChain
 import com.alife.anotherlife.core.composable.alife_card.chain.DragChainValidator
 import com.alife.anotherlife.core.composable.alife_card.chain.LeftDragXYChain
+import com.alife.anotherlife.core.composable.alife_card.start_strategy.PocketStrategy
+import com.alife.anotherlife.core.composable.alife_card.start_strategy.StartStrategy
 import com.alife.anotherlife.core.composable.image.ImageBase
 
 @Composable
-fun ALifeCardCompose(modifier: Modifier = Modifier) {
-    val offsetX = remember { mutableStateOf(OffsetModel()) }
-    val offsetY = remember { mutableStateOf(OffsetModel()) }
-
+fun ALifeCardCompose(
+    offsetsStartStrategy: StartStrategy,
+    modifier: Modifier = Modifier,
+) {
     BoxWithConstraints(
         modifier = modifier
     ) {
@@ -34,9 +34,9 @@ fun ALifeCardCompose(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .size(100.dp, 150.dp)
                 .draggableALifeModifier(
-                    offsetX,
-                    offsetY,
+                    offsetsStartStrategy,
                     DpSize(maxWidth, maxHeight),
+                    DpSize(100.dp, 150.dp),
                     DragChainValidator(
                         LeftDragXYChain(),
                         DefaultDragXChain()
@@ -49,5 +49,5 @@ fun ALifeCardCompose(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun ALifeCardComposePreview() {
-    ALifeCardCompose()
+    ALifeCardCompose(PocketStrategy())
 }

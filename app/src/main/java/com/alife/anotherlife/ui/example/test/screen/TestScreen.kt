@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.alife.anotherlife.core.composable.alife_card.ALifeCardCompose
+import com.alife.anotherlife.core.composable.alife_card.start_strategy.PocketStrategy
 import com.alife.anotherlife.ui.example.test.custom_composable.CustomCompose
 import com.alife.anotherlife.ui.example.test.screen.boxer.TestScreenBoxer
 import com.alife.anotherlife.ui.example.test.screen.state.TestScreenAction
@@ -43,6 +44,6 @@ class TestScreen {
             Text(text = viewModel.getUIState().testScreenText)
         }
 
-        ALifeCardCompose()
+        ALifeCardCompose(PocketStrategy())
     }
 }
