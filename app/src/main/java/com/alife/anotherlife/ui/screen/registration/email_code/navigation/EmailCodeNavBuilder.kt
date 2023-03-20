@@ -7,8 +7,8 @@ import com.alife.anotherlife.core.navigation.nav_builder.NewDefaultNavBuilder
 import com.alife.anotherlife.ui.screen.registration.email_code.EmailCodeRegistrationScreen
 
 class EmailCodeNavBuilder(
-    private val navController: NavController,
-) : NewDefaultNavBuilder(EmailCodeNavRoute()) {
+    navController: NavController,
+) : NewDefaultNavBuilder(navController, EmailCodeNavRoute()) {
 
     @Composable
     override fun content(navBackStackEntry: NavBackStackEntry) =

@@ -1,7 +1,6 @@
 package com.alife.anotherlife.ui.screen.registration.tutorial
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -49,6 +48,14 @@ class TutorialScreen(
                 state.screenTutorsList[index].SetupContent()
             }
 
+            LaunchedEffect(pagerState.currentPage) {
+                viewModel.reduce(
+                    TutorialAction.OnScreenChangeAction(pagerState.currentPage)
+                )
+            }
+
+            state.buttonHeightState.BottomButton(viewModel = viewModel)
+
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
@@ -72,14 +79,6 @@ class TutorialScreen(
                     )
                 }
             }
-
-            LaunchedEffect(pagerState.currentPage) {
-                viewModel.reduce(
-                    TutorialAction.OnScreenChangeAction(pagerState.currentPage)
-                )
-            }
-
-            state.buttonHeightState.BottomButton(viewModel = viewModel)
         }
     }
 }

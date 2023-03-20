@@ -10,40 +10,27 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import com.alife.anotherlife.core.composable.alife_card.ALifeCardCompose
 import com.alife.anotherlife.core.composable.alife_card.start_strategy.PocketStrategy
+import com.alife.anotherlife.core.composable.button.ButtonBase
+import com.alife.anotherlife.core.composable.text.style.Button18
+import com.alife.anotherlife.core.navigation.NavigationWrapper
+import com.alife.anotherlife.core.ui.screen.DefaultScreen
 import com.alife.anotherlife.ui.example.test.custom_composable.CustomCompose
 import com.alife.anotherlife.ui.example.test.screen.boxer.TestScreenBoxer
 import com.alife.anotherlife.ui.example.test.screen.state.TestScreenAction
+import com.alife.anotherlife.ui.screen.registration.tutorial.TutorialScreen
+import com.alife.anotherlife.ui.screen.registration.tutorial.navigation.TutorialNavigator
 
-class TestScreen {
+class TestScreen(val navController: NavController) : DefaultScreen() {
 
     @Composable
-    fun savable(save: () -> Unit): () -> Unit = remember { save }
-
-    @OptIn(ExperimentalMaterial3Api::class)
-    @Composable
-    fun Content(viewModel: TestViewModel) = Column {
-
-        CustomCompose(viewModel, TestScreenBoxer(), viewModel.getUIState().textsModel)
-
-        Spacer(modifier = Modifier.weight(1f))
-        
-        TextField(
-            value = viewModel.getUIState().testScreenText,
-            onValueChange = { text: String ->
-                viewModel.reduce(TestScreenAction.TestTextAction(text))
-                Log.e("Aboba", text)
-            }
-        )
-
-        Button(onClick = savable {
-            viewModel.reduce(TestScreenAction.TestContinueClick())
-            Log.e("Aboba", "Clicked")
+    override fun Content(modifier: Modifier)  = Column(modifier) {
+        ButtonBase(onClick = {
+            navController.navigate(TutorialNavigator().toString())
         }) {
-            Text(text = viewModel.getUIState().testScreenText)
+            Text(text = TutorialScreen::class.simpleName ?: ":c")
         }
-
-        ALifeCardCompose(PocketStrategy())
     }
 }

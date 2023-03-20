@@ -8,6 +8,7 @@ import com.alife.anotherlife.ui.example.test.navigation.TestNavBuilder
 import com.alife.anotherlife.ui.example.test.navigation.TestNavRoute
 import com.alife.anotherlife.ui.example.test.screen.TestScreen
 import com.alife.anotherlife.ui.example.test.screen.TestViewModel
+import com.alife.anotherlife.ui.screen.registration.tutorial.navigation.TutorialNavBuilder
 
 class DevNavigationGraph : NavigationGraph {
 
@@ -19,8 +20,9 @@ class DevNavigationGraph : NavigationGraph {
         ) {
             listOf(
                 TestNavBuilder {
-                    TestScreen().Content(viewModel = TestViewModel())
-                }
+                    TestScreen(navHostController).SetupContent()
+                },
+                TutorialNavBuilder(navHostController)
             ).forEach { it.navComposable(this) }
         }
     }

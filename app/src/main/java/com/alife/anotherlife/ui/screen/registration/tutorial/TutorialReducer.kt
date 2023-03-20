@@ -14,7 +14,7 @@ class TutorialReducer @Inject constructor(
     override fun onScreenChanged(index: Int) {
         setState {
             copy(
-                buttonHeightState = if (index == screenTutorsList.size)
+                buttonHeightState = if (index + 1 == screenTutorsList.size)
                     ButtonHeightState.Button()
                 else
                     ButtonHeightState.Hide()

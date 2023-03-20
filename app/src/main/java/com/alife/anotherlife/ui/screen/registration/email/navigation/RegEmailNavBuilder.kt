@@ -10,8 +10,8 @@ import com.alife.anotherlife.ui.screen.registration.name.NameRegistrationScreen
 import com.alife.anotherlife.ui.screen.registration.name.navigation.RegNameNavRoute
 
 class RegEmailNavBuilder(
-    private val navController: NavController
-) : NewDefaultNavBuilder(RegEmailNavRoute()) {
+    navController: NavController
+) : NewDefaultNavBuilder(navController, RegEmailNavRoute()) {
 
     @Composable
     override fun content(navBackStackEntry: NavBackStackEntry): Screen {

@@ -6,13 +6,13 @@ import com.alife.anotherlife.ui.screen.registration.tutorial.BaseTutorialReducer
 interface TutorialAction : BaseMVIAction<BaseTutorialReducer> {
 
     class OnScreenChangeAction(private val index: Int) : TutorialAction {
-        override fun onAction(reducer: BaseTutorialReducer) {
+        override suspend fun onAction(reducer: BaseTutorialReducer) {
             reducer.onScreenChanged(index)
         }
     }
 
     class OnContinueClick() : TutorialAction {
-        override fun onAction(reducer: BaseTutorialReducer) {
+        override suspend fun onAction(reducer: BaseTutorialReducer) {
             reducer.onContinue()
         }
     }

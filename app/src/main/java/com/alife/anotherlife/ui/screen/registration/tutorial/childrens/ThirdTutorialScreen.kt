@@ -34,13 +34,6 @@ class ThirdTutorialScreen : BaseTutorialScreen(R.string.tutorial_third_descripti
                 easing = LinearEasing
             )
         )
-
-        Button18(
-            textResId = R.string.continue_next,
-            modifier = Modifier.height(height.value)
-        ) {
-
-        }
     }
 }
 
