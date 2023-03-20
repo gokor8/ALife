@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.screen.registration.tutorial
+package com.alife.anotherlife.ui.screen.registration.tutorial.childrens
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable

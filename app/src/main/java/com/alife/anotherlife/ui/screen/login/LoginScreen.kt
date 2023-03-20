@@ -34,7 +34,7 @@ class LoginScreen(override val navController: NavController) :
 
     @Composable
     override fun Content(modifier: Modifier) {
-        Column {
+        Column(modifier) {
 
             LaunchedEffect(true) {
                 viewModel.reduce(LoginAction.InitAction())

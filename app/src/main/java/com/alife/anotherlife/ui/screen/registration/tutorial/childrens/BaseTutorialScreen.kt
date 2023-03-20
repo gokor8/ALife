@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.screen.registration.tutorial
+package com.alife.anotherlife.ui.screen.registration.tutorial.childrens
 
 import androidx.annotation.StringRes
 import androidx.compose.animation.core.LinearEasing

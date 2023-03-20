@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.screen.registration.tutorial
+package com.alife.anotherlife.ui.screen.registration.tutorial.childrens
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState

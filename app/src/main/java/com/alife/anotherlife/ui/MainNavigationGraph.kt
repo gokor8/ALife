@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import com.alife.anotherlife.core.navigation.NavigationGraph
 import com.alife.anotherlife.core.navigation.routes.NavigationRoute
 import com.alife.anotherlife.ui.screen.login.navigation.LoginNavBuilder
+import com.alife.anotherlife.ui.screen.main.main_screen.navigation.MainScreenNavBuilder
 import com.alife.anotherlife.ui.screen.registration.birthday.navigation.RegBirthdayNavBuilder
 import com.alife.anotherlife.ui.screen.registration.birthday.navigation.RegBirthdayNavRoute
 import com.alife.anotherlife.ui.screen.registration.email.navigation.RegEmailNavBuilder
@@ -28,7 +29,8 @@ class MainNavigationGraph(private val startNavigationRoute: NavigationRoute) : N
                 UsernameRegNavBuilder(navHostController),
                 RegBirthdayNavBuilder(navHostController),
                 RegEmailNavBuilder(navHostController),
-                EmailCodeNavBuilder(navHostController)
+                EmailCodeNavBuilder(navHostController),
+                MainScreenNavBuilder(navHostController)
             ).forEach { it.navComposable(this) }
         }
     }
