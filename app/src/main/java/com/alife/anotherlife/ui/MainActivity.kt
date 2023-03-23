@@ -12,14 +12,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
+import com.alife.anotherlife.core.navigation.NavigationGraph
 import com.alife.anotherlife.theme.AnotherLifeTheme
 import com.alife.anotherlife.ui.example.ExampleNavigationGraph
 import com.alife.anotherlife.ui.example.test.TestNavGraph
 import com.alife.anotherlife.ui.screen.login.navigation.LoginNavRoute
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var navigationGraph: NavigationGraph
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -31,7 +37,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navHostController = rememberNavController()
-                    DevNavigationGraph().SetupNavigation(navHostController = navHostController)
+                    navigationGraph.SetupNavigation(navHostController = navHostController)
+                    //DevNavigationGraph().SetupNavigation(navHostController = navHostController)
 //                    MainNavigationGraph(
 //                        LoginNavRoute()
 //                    ).SetupNavigation(navHostController = navHostController)

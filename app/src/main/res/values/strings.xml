@@ -46,5 +46,9 @@
     <string name="tutorial_second_description">В течение 1 минуты сделай видео или фото и покажи, чем ты занимаешься</string>
     <string name="tutorial_third_description">Все люди публикуют фото в одно и то же время</string>
 
+    // Main
+    <string name="bottom_bar_map">Карта</string>
+    <string name="bottom_bar_home">ALife</string>
+    <string name="bottom_bar_profile">Профиль</string>
 
 </resources>
