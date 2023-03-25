@@ -4,6 +4,8 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemColors
+import androidx.compose.material3.NavigationBarItemDefaults.colors
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -28,8 +30,6 @@ interface NavigationBarItemComposable {
         private val navRoute: NavigationRoute
     ) : NavigationBarItemComposable {
 
-        // Запихивается в кастомный лист, где оборачивается в обертки модели(лсита Node),
-        // которые содержат в себе позицию, и д такую же функцию(rowScope, positon), выдают ответ проверки
         @Composable
         override fun Content(
             rowScope: RowScope,
@@ -40,6 +40,7 @@ interface NavigationBarItemComposable {
                 icon = { IconBase(icon) },
                 label = { TextBase(labelText) },
                 selected = navRepeat.any { it.route == navRoute.routeTag },
+                //colors = colors(),
                 onClick = {
                     navController.navigate(navRoute.routeTag) {
                         // Pop up to the start destination of the graph to

@@ -6,7 +6,7 @@ import com.alife.core.mvi.MVI
 
 interface NavigationOnEffectCollect<EFFECT : MVI.Effect> : OnEffectCollect<EFFECT> {
 
-    override fun onEffect(navController: NavController, effect: EFFECT) {
+    override suspend fun onEffect(navController: NavController, effect: EFFECT) {
         when(effect) {
             is NavigationWrapper -> effect.navigate(navController)
         }

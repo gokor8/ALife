@@ -11,5 +11,5 @@ class HomeNavBuilder(
 ) : NewDefaultNavBuilder(navController, HomeNavigationRoute()) {
 
     @Composable
-    override fun content(navBackStackEntry: NavBackStackEntry) = HomeScreen()
+    override fun content(navBackStackEntry: NavBackStackEntry) = HomeScreen(navController)
 }
