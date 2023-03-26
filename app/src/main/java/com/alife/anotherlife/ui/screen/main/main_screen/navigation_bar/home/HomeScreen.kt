@@ -48,6 +48,7 @@ class HomeScreen(
             Spacer(modifier = Modifier.padding(bottom = 16.dp))
 
             val state = viewModel.getUIState()
+            val pagerScreens = state.pagerScreens
             val pagerState = state.pagerState
 
             TabRow(
@@ -56,7 +57,7 @@ class HomeScreen(
                 indicator = {},
                 modifier = Modifier.width(156.dp)
             ) {
-                state.pagerScreens.forEach {
+                pagerScreens.forEach {
                     it.TabContent(pagerState.currentPage) { index ->
                         viewModel.reduce(HomeAction.ChangePagerItemAction(index))
                     }
@@ -64,10 +65,10 @@ class HomeScreen(
             }
 
             HorizontalPager(
-                count = state.pagerScreens.size,
+                count = pagerScreens.size,
                 state = pagerState
             ) {
-                state.pagerScreens[it].model.Screen()
+                pagerScreens[it].model.Screen()
             }
         }
     }

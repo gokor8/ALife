@@ -56,4 +56,8 @@
     <string name="home_pager_friends">Friends</string>
     <string name="home_pager_world">World</string>
 
+    // Home_Friends
+    <string name="home_friends_be_first">Ваши друзья еще не выкладывали Alife, будьте первыми.</string>
+    <string name="home_friends_create_alife">Создайте свой Alife</string>
+
 </resources>

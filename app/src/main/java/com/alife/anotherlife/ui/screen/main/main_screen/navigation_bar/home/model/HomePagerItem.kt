@@ -34,7 +34,7 @@ abstract class HomePagerItem(
                 Color.Unspecified
             else
                 Color.Unspecified.copy(alpha = 0.5f),
-            modifier = Modifier.clickableNoRipple(onClick = onClick)
+            modifier = Modifier.padding(4.dp).clickableNoRipple(onClick = onClick)
         )
     }
 }
