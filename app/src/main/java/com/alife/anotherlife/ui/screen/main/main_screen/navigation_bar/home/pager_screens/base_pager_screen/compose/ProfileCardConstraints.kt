@@ -4,7 +4,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintSetScope
 import com.alife.anotherlife.core.composable.view_group.constraint_layout.ConstraintSetMarkup
 
-class  ProfileCardConstraints : ConstraintSetMarkup<ProfileCardModel, ProfileCardReferenceModel> {
+class ProfileCardConstraints : ConstraintSetMarkup<ProfileCardModel, ProfileCardReferenceModel> {
 
     override fun safeMarkup(scope: ConstraintSetScope, refsModel: ProfileCardReferenceModel) {
         with(scope) {

@@ -16,12 +16,14 @@ import com.alife.anotherlife.core.composable.alife_card.ALifeCardCompose
 import com.alife.anotherlife.core.composable.alife_card.start_strategy.DefaultStrategy
 import com.alife.anotherlife.core.composable.icon.MockProfileIcon
 import com.alife.anotherlife.core.composable.image.ImageBase
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 
 @Composable
 fun ProfileCardCompose(
     profileName: String,
-    profileSmallPhoto: Int? = null,
     timestamp: String,
+    avatar: String? = null,
 ) {
     val profileCardModel = ProfileCardModel()
 
@@ -29,13 +31,15 @@ fun ProfileCardCompose(
         ProfileCardConstraints().markup(profileCardModel),
         modifier = Modifier.padding(16.dp)
     ) {
-        val profileIconModifier = Modifier.layoutId(profileCardModel.profileIcon)
+        val profileIconModifier = Modifier
+            .layoutId(profileCardModel.profileIcon)
             .size(28.dp)
             .clip(CircleShape)
 
-        profileSmallPhoto?.apply {
-            ImageBase(
-                resId = profileSmallPhoto,
+        avatar?.apply {
+            GlideImage(
+                model = avatar,
+                contentDescription = null,
                 modifier = profileIconModifier
             )
         } ?: MockProfileIcon(profileIconModifier)
@@ -45,11 +49,14 @@ fun ProfileCardCompose(
 
         ALifeCardCompose(
             offsetsStartStrategy = DefaultStrategy(),
-            modifier = Modifier.layoutId(profileCardModel.alife).height(486.dp)
+            modifier = Modifier
+                .layoutId(profileCardModel.alife)
+                .height(486.dp)
         )
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Preview
 @Composable
 fun ProfileCardPreview() {

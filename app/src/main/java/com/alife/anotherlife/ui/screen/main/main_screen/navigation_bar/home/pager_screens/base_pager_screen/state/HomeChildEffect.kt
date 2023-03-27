@@ -2,6 +2,7 @@ package com.alife.anotherlife.ui.screen.main.main_screen.navigation_bar.home.pag
 
 import com.alife.core.mvi.MVI
 
-data class HomePagerState(
-    val
-) : MVI.State
+interface HomeChildEffect : MVI.Effect {
+
+    class NavigateToTakeALife : HomeChildEffect
+}
