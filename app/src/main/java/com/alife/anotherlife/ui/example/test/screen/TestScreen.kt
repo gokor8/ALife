@@ -10,9 +10,8 @@ import androidx.navigation.NavController
 import com.alife.anotherlife.core.composable.button.ButtonBase
 import com.alife.anotherlife.core.composable.modifier.ImeModifier
 import com.alife.anotherlife.core.ui.screen.DefaultScreen
-import com.alife.anotherlife.ui.screen.main.main_screen.navigation.MainScreenNavigator
-import com.alife.anotherlife.ui.screen.main.main_screen.navigation_bar.home.HomeScreen
-import com.alife.anotherlife.ui.screen.main.main_screen.navigation_bar.home.navigation.HomeNavigator
+import com.alife.anotherlife.ui.screen.main.navigation.MainScreenNavigator
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.navigation.HomeNavigator
 import com.alife.anotherlife.ui.screen.registration.tutorial.navigation.TutorialNavigator
 
 class TestScreen(val navController: NavController) : DefaultScreen(ImeModifier()) {

@@ -5,7 +5,7 @@ import com.alife.domain.core.usecase.AbstractSafeUseCaseResult
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
-abstract class ProfileCardUseCase @Inject constructor(
+abstract class ProfileCardUseCase(
     dispatcher: CoroutineDispatcher,
     throwableMapper: ThrowableUCMapper<ProfileUseCaseEntity>
 ) : AbstractSafeUseCaseResult<ProfileUseCaseEntity>(
