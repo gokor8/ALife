@@ -7,6 +7,7 @@ import com.alife.anotherlife.ui.screen.registration.name.chain.MinNameTextChain
 import com.alife.anotherlife.ui.screen.registration.reg_test.model.FakeChainNamRegReducer
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 class TestNameOnNextClickChain {
@@ -24,7 +25,7 @@ class TestNameOnNextClickChain {
     }
 
     @Test
-    fun `test name chain less 4`() {
+    suspend fun `test name chain less 4`() {
         val testString = "Ole"
 
         val chainState = chainValidator.handle(testString)
@@ -39,7 +40,7 @@ class TestNameOnNextClickChain {
     }
 
     @Test
-    fun `test name chain more 25`() {
+    fun `test name chain more 25`() = runTest {
         val testString = "CCCCCCCCCCCCCCCCCCCCCCCCaliy Oleg"
 
         val chainState = chainValidator.handle(testString)

@@ -34,7 +34,7 @@ class WorldReducer @Inject constructor(
         }
 
         (profileCardsEntity as? UseCaseResult.Success)?.model?.let { entity ->
-            val uiCardModels = if (entity.profileCards.isEmpty())
+            val uiCardModels = if (entity.profileCards.isNotEmpty())
                 entity.profileCards.map { mapper.map(it) }
             else
                 listOf<UICardModel>(UIPlzCreateAlifeCardModel())

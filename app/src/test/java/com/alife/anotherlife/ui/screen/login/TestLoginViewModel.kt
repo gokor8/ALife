@@ -64,7 +64,10 @@ class TestLoginViewModel : ViewModelTest() {
 
 // Test Realizations
 class DidntValidAction : LoginAction {
-    override fun onAction(reducer: LoginReducer) {}
+
+    override suspend fun onAction(reducer: LoginReducer) {
+
+    }
 }
 
 enum class LoginReduce {
@@ -86,7 +89,7 @@ class FakeLoginReducer(
         reduceCollector.add(LoginReduce.LOGIN_IN)
     }
 
-    override fun onRegistration() {
+    override suspend fun onRegistration() {
         reduceCollector.add(LoginReduce.REGISTRATION)
     }
 

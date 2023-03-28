@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.BaseHomeChildViewModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.ProfileCardCompose
 
-class UIProfileCardModel(
+data class UIProfileCardModel(
     val username: String,
     val frontAlife: String,
     val backAlife: String,

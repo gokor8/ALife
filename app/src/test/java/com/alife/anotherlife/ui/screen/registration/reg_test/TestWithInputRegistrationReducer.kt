@@ -8,7 +8,6 @@ import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseRegistratio
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.name.*
-import com.alife.anotherlife.ui.screen.registration.reg_test.model.FakeWithInputRegistrationReducer
 import junit.framework.TestCase
 import org.junit.Before
 import org.junit.Test
@@ -28,12 +27,12 @@ class TestWithInputRegistrationReducer {
         onNextClickRegChainState: RegChainState,
         isValid: Boolean,
     ) {
-        nameReducer = FakeWithInputRegistrationReducer(
-            uiStore,
-            FakeNameChainValidator(onNextClickRegChainState),
-            FakeNameValidationNameRegReducer(),
-            FakeInputRegTextChain(isValid)
-        )
+//        nameReducer = FakeWithInputRegistrationReducer(
+//            uiStore,
+//            FakeNameChainValidator(onNextClickRegChainState),
+//            FakeNameValidationNameRegReducer(),
+//            FakeInputRegTextChain(isValid)
+//        )
     }
 
     @Test

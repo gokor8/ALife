@@ -19,7 +19,7 @@ class TestEmailCodeRegReducer {
 
     private fun setupReducer(emailCodeState: EmailCodeState) {
         fakeUIStore = FakeUIStore(emailCodeState)
-        emailCodeRegReducer = EmailCodeRegReducer(fakeUIStore, 4)
+        emailCodeRegReducer = EmailCodeRegReducer(fakeUIStore)
     }
 
     @Test

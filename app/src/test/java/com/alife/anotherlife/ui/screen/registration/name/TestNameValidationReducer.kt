@@ -8,6 +8,7 @@ import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.name.reducer.NameValidationRegReducer
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
@@ -20,11 +21,12 @@ class TestNameValidationReducer {
     @Before
     fun before() {
         uiStore = FakeUIStore(RegistrationState(RegistrationModel(0, 0)))
-        nameReducer = NameValidationRegReducer(uiStore)
+        // TODO Need fix
+        //nameReducer = NameValidationRegReducer(uiStore)
     }
 
     @Test
-    fun `test onContinue`() {
+    fun `test onContinue`() = runTest {
         nameReducer.onContinue()
 
         val expected = TextErrorModel()
@@ -34,7 +36,7 @@ class TestNameValidationReducer {
     }
 
     @Test
-    fun `test onValidationError`() {
+    fun `test onValidationError`() = runTest {
         nameReducer.onValidationError(0)
 
         val expected = TextErrorModel(errorResId = 0)

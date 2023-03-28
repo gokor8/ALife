@@ -1,7 +1,7 @@
-package com.alife.anotherlife.ui.screen.main.home.child.friends
+package com.alife.anotherlife.ui.screen.main.home.child.world
 
 import com.alife.anotherlife.core.FakeUIStore
-import com.alife.anotherlife.ui.screen.main.home.child.world.testUIProfileCardModel
+import com.alife.anotherlife.ui.screen.main.home.child.friends.FakeProfileCardUseCase
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.ProfileCardEntityToUICard
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UICardModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPlzCreateAlifeCardModel
@@ -9,22 +9,22 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.ba
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.friends.FriendsReducer
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.world.WorldReducer
 import com.alife.domain.core.usecase.UseCaseResult
-import com.alife.domain.main.home.child.BaseProfileCardUseCase
 import com.alife.domain.main.home.child.ProfileCardEntity
 import com.alife.domain.main.home.child.ProfileUseCaseEntity
+import junit.framework.TestCase
 import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import java.util.*
 
-class TestFriendsReducer {
+class TestWorldReducer {
 
     private lateinit var uiStore: FakeUIStore<HomeChildState, HomeChildEffect>
-    private lateinit var reducer: FriendsReducer
+    private lateinit var reducer: WorldReducer
 
     @Before
     fun before() {
@@ -38,7 +38,7 @@ class TestFriendsReducer {
         listUICardModel?.also {
             uiStore = FakeUIStore(HomeChildState(listUICardModel))
         }
-        reducer = FriendsReducer(
+        reducer = WorldReducer(
             uiStore,
             ProfileCardEntityToUICard(),
             FakeProfileCardUseCase(useCaseResult)
@@ -58,10 +58,9 @@ class TestFriendsReducer {
 
         val actual = uiStore.stateCollector.last()
 
-        assertEquals(2, uiStore.stateCollector.size)
-        assertTrue(actual.profileList.last() is UIPlzCreateAlifeCardModel)
+        assertEquals(1, uiStore.stateCollector.size)
+        assertEquals(uiProfileCardModel, actual.profileList.last())
     }
-
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
@@ -73,37 +72,28 @@ class TestFriendsReducer {
 
         val actual = uiStore.stateCollector.last()
 
-        assertEquals(2, uiStore.stateCollector.size)
-        assertTrue(actual.profileList.last() is UIPlzCreateAlifeCardModel)
+        TestCase.assertEquals(2, uiStore.stateCollector.size)
+        TestCase.assertTrue(actual.profileList.last() is UIPlzCreateAlifeCardModel)
         //assertEquals(expected, actual)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `test init usecase result success not empty`() = runTest {
-        val profileUseCaseEntity = ProfileUseCaseEntity(
-            listOf(
-                ProfileCardEntity(
-                    "avatar",
-                    "frontAlife",
-                    "backAlife",
-                    Date(),
-                    "avatar"
-                )
-            )
-        )
+        val profileUseCaseEntity = ProfileUseCaseEntity(testListProfileCardEntity())
 
         setupReducer(useCaseResult = UseCaseResult.Success(profileUseCaseEntity))
         reducer.onInit()
 
-        val expected = UIProfileCardModel("avatar", "frontAlife", "backAlife", Date().toString(), "avatar")
+        val expected =
+            UIProfileCardModel("avatar", "frontAlife", "backAlife", Date().toString(), "avatar")
 
         val actual = uiStore.stateCollector.last()
 
-        assertEquals(2, uiStore.stateCollector.size)
-        assertEquals(1, actual.profileList.size)
-        assertTrue(actual.profileList.last() is UIProfileCardModel)
-        assertEquals(expected, actual.profileList.last())
+        TestCase.assertEquals(2, uiStore.stateCollector.size)
+        TestCase.assertEquals(1, actual.profileList.size)
+        TestCase.assertTrue(actual.profileList.last() is UIProfileCardModel)
+        TestCase.assertEquals(expected, actual.profileList.last())
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -116,12 +106,21 @@ class TestFriendsReducer {
 }
 
 
-// Fake Realization
-class FakeProfileCardUseCase(
-    private val useCaseResult: UseCaseResult<ProfileUseCaseEntity>,
-) : BaseProfileCardUseCase {
+// Test Realizations
+fun testListProfileCardEntity() = listOf(
+    ProfileCardEntity(
+        "avatar",
+        "frontAlife",
+        "backAlife",
+        Date(),
+        "avatar"
+    )
+)
 
-    override suspend fun getProfileCards(): UseCaseResult<ProfileUseCaseEntity> {
-        return useCaseResult
-    }
-}
+fun testUIProfileCardModel() = UIProfileCardModel(
+    "avatar",
+    "frontAlife",
+    "backAlife",
+    Date().toString(),
+    "avatar"
+)
