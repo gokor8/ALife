@@ -20,7 +20,7 @@ class UsernameRegTextModel : RegistrationTextModel {
         }
 
         columnScope.HintErrorTextOutlined(
-            textWithErrorModel = viewModel.getUIState().textWithErrorModel,
+            textErrorModel = viewModel.getUIState().textErrorModel,
             onValueChange = maskVTDelegate::onValue,
             placeholderTextRes = viewModel.getUIState().registrationModel.helpText,
             visualTransformation = maskVTDelegate.createVisualTransformation(),

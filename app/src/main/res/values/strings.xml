@@ -2,6 +2,8 @@
     // Addons
     <string name="app_name">AnotherLife</string>
     <string name="vertical_logo">A Life</string>
+    <string name="horizontal_short_logo">ALife</string>
+    <string name="horizontal_short_small_logo">Alife</string>
     <string name="horizontal_logo">Another Life</string>
     <string name="continue_next">Continue</string>
 
@@ -38,5 +40,24 @@
 
     // Email Code
     <string name="email_code">Code from email sms</string>
+
+    // Tutorial
+    <string name="tutorial_first_description">В течение 1 минуты сделай видео или фото и покажи, чем ты занимаешься</string>
+    <string name="tutorial_second_title">Время показать всем чем вы занимаетесь!</string>
+    <string name="tutorial_second_description">В течение 1 минуты сделай видео или фото и покажи, чем ты занимаешься</string>
+    <string name="tutorial_third_description">Все люди публикуют фото в одно и то же время</string>
+
+    // Main
+    <string name="bottom_bar_map">Карта</string>
+    <string name="bottom_bar_home">ALife</string>
+    <string name="bottom_bar_profile">Профиль</string>
+
+    // Home
+    <string name="home_pager_friends">Friends</string>
+    <string name="home_pager_world">World</string>
+
+    // Home_Friends
+    <string name="home_friends_be_first">Ваши друзья еще не выкладывали Alife, будьте первыми.</string>
+    <string name="home_friends_create_alife">Создайте свой Alife</string>
 
 </resources>

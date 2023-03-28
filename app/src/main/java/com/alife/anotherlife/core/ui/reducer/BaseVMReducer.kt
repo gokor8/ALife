@@ -4,15 +4,40 @@ import com.alife.anotherlife.core.ui.state_collector.EffectCollector
 import com.alife.anotherlife.core.ui.state_collector.StateCollector
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.core.mvi.MVI
+import com.alife.core.mvi.addons.BaseMVIHandlers
 
 abstract class BaseVMReducer<STATE : MVI.State, EFFECT : MVI.Effect> :
-    VMReducer<STATE, EFFECT> {
+    VMReducer<STATE, EFFECT>, BaseMVIHandlers<STATE, EFFECT> {
 
     protected abstract val uiStore: UIStore<STATE, EFFECT>
-
-    protected fun getState() = uiStore.getState()
 
     override fun getStateCollector(): StateCollector<STATE> = uiStore.getStateCollector()
 
     override fun getEffectCollector(): EffectCollector<EFFECT> = uiStore.getEffectCollector()
+
+    override fun setState(state: STATE.() -> STATE) {
+        uiStore.getState {
+            uiStore.setState(state())
+        }
+    }
+
+    override fun setState(state: STATE) {
+        uiStore.setState(state)
+    }
+
+    override suspend fun setStateDebounce(delayLong: Long, state: STATE.() -> STATE) {
+        uiStore.setStateDebounce(delayLong, state)
+    }
+
+    override fun <O> getState(state: STATE.() -> O): O = uiStore.getState(state)
+
+    override fun getState(): STATE = uiStore.getState()
+
+    override fun trySetEffect(effect: EFFECT) {
+        uiStore.trySetEffect(effect)
+    }
+
+    override suspend fun setEffect(effect: EFFECT) {
+        uiStore.setEffect(effect)
+    }
 }

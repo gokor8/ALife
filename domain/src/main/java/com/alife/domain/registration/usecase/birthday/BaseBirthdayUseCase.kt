@@ -8,5 +8,7 @@ sealed interface BaseBirthdayUseCase : UseCase {
 
     interface Read : BaseBirthdayUseCase, BaseRegStageUseCase.Read<BirthdayRegEntity>
 
+    interface ReadBox : BaseBirthdayUseCase, BaseRegStageUseCase.ReadBox<BirthdayRegEntity>
+
     interface Save : BaseBirthdayUseCase, BaseRegStageUseCase.Save<BirthdayRegEntity>
 }

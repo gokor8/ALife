@@ -8,8 +8,8 @@ import com.alife.anotherlife.core.navigation.nav_builder.NewDefaultNavBuilder
 import com.alife.anotherlife.ui.screen.login.LoginScreen
 
 class LoginNavBuilder(
-    private val navController: NavController
-) : NewDefaultNavBuilder(LoginNavRoute()) {
+    navController: NavController
+) : NewDefaultNavBuilder(navController, LoginNavRoute()) {
 
     @Composable
     override fun content(navBackStackEntry: NavBackStackEntry) = LoginScreen(navController)

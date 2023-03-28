@@ -22,7 +22,7 @@ class BirthdayRegTextModel : RegistrationTextModel {
         }
 
         columnScope.HintErrorTextOutlined(
-            textWithErrorModel = viewModel.getUIState().textWithErrorModel,
+            textErrorModel = viewModel.getUIState().textErrorModel,
             onValueChange = maskVTDelegate::onValue,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             placeholderTextRes = viewModel.getUIState().registrationModel.helpText,

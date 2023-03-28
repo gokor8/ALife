@@ -19,7 +19,7 @@ interface RegistrationTextModel {
         @Composable
         override fun TextOutlined(columnScope: ColumnScope, viewModel: RegistrationViewModel) {
             columnScope.HintErrorTextOutlined(
-                textWithErrorModel = viewModel.getUIState().textWithErrorModel,
+                textErrorModel = viewModel.getUIState().textErrorModel,
                 onValueChange = { newTextFieldValue ->
                     viewModel.reduce(RegistrationAction.OnTextInput(newTextFieldValue))
                 },

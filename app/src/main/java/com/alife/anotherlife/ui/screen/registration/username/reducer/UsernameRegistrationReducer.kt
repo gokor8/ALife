@@ -12,6 +12,7 @@ import com.alife.anotherlife.ui.screen.registration.username.chain.UsernameRegTe
 import com.alife.domain.registration.core.entity.DefaultRegEntity
 import com.alife.domain.registration.usecase.name.BaseNameUseCase
 import com.alife.domain.registration.usecase.username.BaseUsernameUseCase
+import com.alife.domain.registration.usecase.username.addons.UsernameRegEntity
 import javax.inject.Inject
 
 class UsernameRegistrationReducer @Inject constructor(

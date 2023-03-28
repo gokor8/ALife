@@ -19,7 +19,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.alife.anotherlife.core.ui.state.error_text.TextWithErrorModel
+import com.alife.anotherlife.core.ui.state.error_text.TextErrorModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -78,7 +78,7 @@ fun HintErrorTextOutlined(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ColumnScope.HintErrorTextOutlined(
-    textWithErrorModel: TextWithErrorModel,
+    textErrorModel: TextErrorModel,
     onValueChange: (TextFieldValue) -> Unit,
     @StringRes placeholderTextRes: Int,
     modifier: Modifier = Modifier,
@@ -99,7 +99,7 @@ fun ColumnScope.HintErrorTextOutlined(
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
 ) {
     OutlinedTextField(
-        textWithErrorModel.textFieldValue,
+        textErrorModel.textFieldValue,
         onValueChange,
         modifier,
         enabled,
@@ -116,7 +116,7 @@ fun ColumnScope.HintErrorTextOutlined(
         leadingIcon,
         trailingIcon,
         supportingText,
-        textWithErrorModel.errorResId?.run { true } ?: false,
+        textErrorModel.errorResId?.run { true } ?: false,
         visualTransformation,
         keyboardOptions,
         keyboardActions,
@@ -127,7 +127,7 @@ fun ColumnScope.HintErrorTextOutlined(
         colors
     )
     Text(
-        text = textWithErrorModel.errorResId?.let { stringResource(it) } ?: "",
+        text = textErrorModel.errorResId?.let { stringResource(it) } ?: "",
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.End,
         color = MaterialTheme.colorScheme.error

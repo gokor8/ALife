@@ -22,9 +22,9 @@ interface BaseValidationRegReducer {
         abstract suspend fun navigateNext()
 
         override suspend fun onContinue() {
-            uiStore.setState { copy(textWithErrorModel = textWithErrorModel.copyEmptyError()) }
+            uiStore.setState { copy(textErrorModel = textErrorModel.copyEmptyError()) }
 
-            saveBirthdayUseCase.saveData(getState().textWithErrorModel.getCurrentText())
+            saveBirthdayUseCase.saveData(getState().textErrorModel.getCurrentText())
 
             navigateNext()
         }
@@ -32,7 +32,7 @@ interface BaseValidationRegReducer {
         override fun onValidationError(errorResId: Int) {
             uiStore.setState {
                 copy(
-                    textWithErrorModel = textWithErrorModel.copy(errorResId = errorResId)
+                    textErrorModel = textErrorModel.copy(errorResId = errorResId)
                 )
             }
         }

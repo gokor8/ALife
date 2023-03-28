@@ -1,7 +1,7 @@
 package com.alife.anotherlife.ui.screen.registration.name
 
 import com.alife.anotherlife.core.FakeUIStore
-import com.alife.anotherlife.core.ui.state.error_text.TextWithErrorModel
+import com.alife.anotherlife.core.ui.state.error_text.TextErrorModel
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
@@ -27,9 +27,9 @@ class TestNameValidationReducer {
     fun `test onContinue`() {
         nameReducer.onContinue()
 
-        val expected = TextWithErrorModel()
+        val expected = TextErrorModel()
 
-        assertEquals(expected, uiStore.getState().textWithErrorModel)
+        assertEquals(expected, uiStore.getState().textErrorModel)
         assertTrue(uiStore.effectCollector.last() is RegistrationEffect.NavigateUsername)
     }
 
@@ -37,9 +37,9 @@ class TestNameValidationReducer {
     fun `test onValidationError`() {
         nameReducer.onValidationError(0)
 
-        val expected = TextWithErrorModel(errorResId = 0)
+        val expected = TextErrorModel(errorResId = 0)
 
         assertEquals(0, uiStore.effectCollector.size)
-        assertEquals(expected, uiStore.getState().textWithErrorModel,)
+        assertEquals(expected, uiStore.getState().textErrorModel,)
     }
 }

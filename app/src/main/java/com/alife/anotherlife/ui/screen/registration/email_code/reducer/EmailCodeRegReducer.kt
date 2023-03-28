@@ -18,6 +18,7 @@ class EmailCodeRegReducer @Inject constructor(
         if (currentCode is CodeModel.Filling && currentCode.isFill(limit)) {
             uiStore.setState { copy(codeModel = CodeModel.Filled(code)) }
             uiStore.setStateDebounce(500L) { copy(codeModel = CodeModel.Init()) }
+            uiStore.setEffect(EmailCodeEffect.NavigateTutorial())
             //navigateNext()
         } else {
             uiStore.setState { copy(codeModel = currentCode) }

@@ -19,8 +19,7 @@ class TestNavGraph : NavigationGraph {
             startDestination = TestNavRoute().routeTag
         ) {
             TestNavBuilder {
-                val viewModel: TestViewModel = viewModel()
-                TestScreen().Content(viewModel)
+                TestScreen(navHostController).SetupContent()
             }.navComposable(this)
         }
     }

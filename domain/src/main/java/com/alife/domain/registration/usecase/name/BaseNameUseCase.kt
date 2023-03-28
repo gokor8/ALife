@@ -8,5 +8,7 @@ sealed interface BaseNameUseCase : UseCase {
 
     interface Read : BaseNameUseCase, BaseRegStageUseCase.Read<NameRegEntity>
 
+    interface ReadBox : BaseNameUseCase, BaseRegStageUseCase.ReadBox<NameRegEntity>
+
     interface Save : BaseNameUseCase, BaseRegStageUseCase.Save<NameRegEntity>
 }

@@ -5,5 +5,5 @@ import com.alife.core.mvi.MVI
 
 interface OnEffectCollect<EFFECT : MVI.Effect> {
 
-    fun onEffect(navController: NavController, effect: EFFECT)
+    suspend fun onEffect(navController: NavController, effect: EFFECT)
 }

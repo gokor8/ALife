@@ -1,10 +1,5 @@
 package com.alife.domain.registration.usecase.name.addons
 
-import com.alife.domain.registration.core.entity.BoxRegEntity
-import com.alife.domain.registration.core.entity.DefaultRegEntity
-import com.alife.domain.registration.core.entity.RegEntity
+import com.alife.domain.registration.usecase.base.entity.BaseRegEntity
 
-class NameRegEntity(regEntity: RegEntity) : BoxRegEntity(regEntity) {
-
-    constructor(name: String) : this(DefaultRegEntity.Success(name))
-}
+class NameRegEntity(val name: String) : BaseRegEntity(name)
