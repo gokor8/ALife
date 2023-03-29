@@ -65,6 +65,14 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
+    // CameraX
+    implementation "androidx.camera:camera-core:$camerax_version"
+    implementation "androidx.camera:camera-camera2:$camerax_version"
+    implementation "androidx.camera:camera-lifecycle:$camerax_version"
+
+    implementation "androidx.camera:camera-view:$camerax_version"
+    implementation "androidx.camera:camera-extensions:$camerax_version"
+
     // UI Addons
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.28.0"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
