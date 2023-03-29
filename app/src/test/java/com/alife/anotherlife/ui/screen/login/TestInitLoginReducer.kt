@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.login
 
 import com.alife.anotherlife.core.FakeUIStore
+import com.alife.anotherlife.ui.screen.login.mapper.BoxRegEntityToNavigator
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseLoginAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseUIAuthToColumnUIAuth
 import com.alife.anotherlife.ui.screen.login.model.FakeUIAuthModel
@@ -19,7 +20,7 @@ import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class TestLoginReducer {
+class TestInitLoginReducer {
 
     private lateinit var uiStore: FakeUIStore<LoginState, LoginEffect>
     private lateinit var reducer: LoginReducer
@@ -34,14 +35,15 @@ class TestLoginReducer {
         secondAuthTypes: List<UIAuthModel>,
         isLoadImagesEmpty: Boolean = false,
     ) {
-        // TODO Fix it
-//        reducer = LoginReducerImpl(
-//            uiStore,
-//            FakeLoginAuthTypeUseCase(),
-//            FakeMockAuthTypeUseCase(isLoadImagesEmpty),
-//            FakeLoginAuthTypeToContainerUIAuth(firstAuthTypes),
-//            FakeUIAuthToColumnUIAuth(secondAuthTypes)
-//        )
+        reducer = LoginReducerImpl(
+            uiStore,
+            FakeLoginAuthTypeUseCase(),
+            FakeMockAuthTypeUseCase(isLoadImagesEmpty),
+            FakeLoginAuthTypeToContainerUIAuth(firstAuthTypes),
+            FakeUIAuthToColumnUIAuth(secondAuthTypes),
+            FakeUserRegStageUseCase(),
+            BoxRegEntityToNavigator()
+        )
     }
 
     @Test
