@@ -1,9 +1,9 @@
-package com.alife.anotherlife.ui.screen.main.create_alife.model.camera_callback
+package com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.callback
 
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 
-class CallbackImageCapture(
+class CallbackOnImageSaved(
     private val actionOnError: (ImageCaptureException) -> Unit,
     private val actionOnSuccess: (ImageCapture.OutputFileResults) -> Unit
 ) : ImageCapture.OnImageSavedCallback {
