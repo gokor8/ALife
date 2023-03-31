@@ -7,7 +7,6 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.DefaultImageCaptu
 class CameraSetupFactory : BaseCameraSetupFactory {
 
     override fun create(cameraSelector: CameraSelector): BaseCameraSetupFacade {
-        CameraSelector.DEFAULT_BACK_CAMERA
         return CameraSetupFacade(
             cameraSelector,
             Preview.Builder(),
