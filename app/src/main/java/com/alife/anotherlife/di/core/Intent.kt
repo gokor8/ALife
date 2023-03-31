@@ -14,9 +14,9 @@ import javax.inject.Qualifier
 @InstallIn(SingletonComponent::class)
 class IntentModule {
 
-    @IntentAnnotation.Settings
+    @IntentModule.IntentAnnotation.Settings
     @Provides
-    fun provideSettingsAppIntent(context: Context) = Intent().apply {
+    fun provideSettingsAppIntent(context: Context): Intent = Intent().apply {
         action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
         data = Uri.fromParts("package", context.packageName, null)
     }

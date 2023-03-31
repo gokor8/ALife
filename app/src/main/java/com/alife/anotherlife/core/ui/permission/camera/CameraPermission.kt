@@ -1,4 +1,4 @@
-package com.alife.anotherlife.core.ui.permission
+package com.alife.anotherlife.core.ui.permission.camera
 
 import android.content.Intent
 import android.net.Uri
@@ -9,10 +9,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import com.alife.anotherlife.core.ui.dialog.AbstractDialogWrapper
+import com.alife.anotherlife.core.ui.permission.AbstractPermission
 import com.alife.anotherlife.di.core.IntentModule
 import com.alife.anotherlife.di.ui.core.Dialog
+import javax.inject.Inject
 
-class CameraPermission(
+class CameraPermission @Inject constructor(
     @IntentModule.IntentAnnotation.Settings
     private val settingsIntent: Intent,
     @Dialog.DialogAnnotation.Camera

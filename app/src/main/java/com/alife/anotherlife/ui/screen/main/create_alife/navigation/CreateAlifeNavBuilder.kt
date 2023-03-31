@@ -11,5 +11,5 @@ class CreateAlifeNavBuilder(
 ) : NewDefaultNavBuilder(navController, CreateAlifeNavRoute()) {
 
     @Composable
-    override fun content(navBackStackEntry: NavBackStackEntry) = CreateAlifeScreen()
+    override fun content(navBackStackEntry: NavBackStackEntry) = CreateAlifeScreen(navController)
 }

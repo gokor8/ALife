@@ -12,6 +12,7 @@ import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.button.TransparentStrokeButton
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title22Style
+import com.alife.anotherlife.core.ui.permission.camera.CameraPermissionBoxer
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraPreviewComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSetupFactory
 
@@ -43,7 +44,7 @@ interface ScreenState {
     class Error : ScreenState {
 
         @Composable
-        override fun Content(viewModel: ) {
+        override fun Content() {
             TextBase(
                 textResId = R.string.camera_blocking_error_camera,
                 style = Title22Style().style()
