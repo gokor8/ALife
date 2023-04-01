@@ -7,4 +7,6 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 interface BaseCreateAlifeReducer : VMReducer<CreateAlifeState, CreateAlifeEffect> {
 
     suspend fun onPermissionGranted()
+    suspend fun onPermissionSelect()
+    suspend fun onPermissionFatal()
 }

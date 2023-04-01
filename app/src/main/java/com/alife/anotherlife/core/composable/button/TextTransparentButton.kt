@@ -23,7 +23,7 @@ fun TextTransparentButton(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     elevation: ButtonElevation? = null,
-    shape: Shape = Shapes.small,
+    shape: Shape = ButtonDefaults.shape,
     border: BorderStroke? = null,
     colors: ButtonColors = ButtonDefaults.buttonColors(
         containerColor = Color.Transparent,

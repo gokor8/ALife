@@ -7,6 +7,7 @@ import android.provider.Settings
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Qualifier
 
@@ -16,7 +17,7 @@ class IntentModule {
 
     @IntentModule.IntentAnnotation.Settings
     @Provides
-    fun provideSettingsAppIntent(context: Context): Intent = Intent().apply {
+    fun provideSettingsAppIntent(@ApplicationContext context: Context): Intent = Intent().apply {
         action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
         data = Uri.fromParts("package", context.packageName, null)
     }

@@ -1,26 +1,23 @@
 package com.alife.anotherlife.di.ui.core
 
-import com.alife.anotherlife.core.ui.dialog.AbstractDialogWrapper
-import com.alife.anotherlife.core.ui.dialog.CameraDialogWrapper
+import com.alife.anotherlife.core.ui.dialog.AbstractAlertDialog
+import com.alife.anotherlife.core.ui.dialog.AbstractDialog
+import com.alife.anotherlife.core.ui.dialog.CameraAlertDialog
+import com.alife.anotherlife.core.ui.dialog.CameraDialog
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import javax.inject.Qualifier
 
 @Module
 @InstallIn(ViewModelComponent::class)
 interface Dialog {
 
-    @DialogAnnotation.Camera
     @Binds
-    fun bindCameraDialogWrapper(dialog: CameraDialogWrapper): AbstractDialogWrapper
+    @DialogAnnotation.Camera
+    fun bindCameraDialogWrapper(dialog: CameraDialog): AbstractDialog
 
-
-    interface DialogAnnotation {
-
-        @Qualifier
-        @Retention(AnnotationRetention.RUNTIME)
-        annotation class Camera
-    }
+    @Binds
+    @DialogAnnotation.Camera
+    fun bindCameraAlertDialogWrapper(dialog: CameraAlertDialog): AbstractAlertDialog
 }

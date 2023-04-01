@@ -4,32 +4,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.alife.anotherlife.core.ui.permission.camera.CameraPermission
-import com.alife.anotherlife.core.ui.permission.PermissionState
+import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
-import dagger.hilt.android.internal.migration.InjectedByHilt
-import javax.inject.Inject
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
-class CreateAlifeScreen @Inject constructor(
+class CreateAlifeScreen(
     override val navController: NavController
 ) : VMScreen<CreateAlifeViewModel>() {
-
-    @Inject
-    lateinit var cameraPermission: CameraPermission
 
     @Composable
     override fun setupViewModel(): CreateAlifeViewModel = hiltViewModel()
 
+    @OptIn(ExperimentalPermissionsApi::class)
     @Composable
     override fun Content(modifier: Modifier) {
-        // TODO hilt inject
-        cameraPermission.RequirePermission { permissionState ->
+        val cameraPermission = viewModel.cameraPermission.requirePermission { permissionState ->
             when(permissionState) {
-                is PermissionState.Success -> {
+                is PermissionStatus.Success -> {
                     viewModel.reduce(CreateAlifeAction.PermissionGrantedAction())
+                }
+                is PermissionStatus.Fatal -> {
+                    viewModel.reduce(CreateAlifeAction.PermissionFatalAction())
                 }
             }
         }
+
+        viewModel.getUIState().screenState.Content(cameraPermission, viewModel, modifier)
     }
 }
