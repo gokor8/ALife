@@ -2,16 +2,17 @@ package com.alife.anotherlife.ui.screen.main.create_alife.composable
 
 import android.content.Context
 import android.view.ViewGroup
+import androidx.camera.core.CameraSelector
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.BaseCameraSetupFacade
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSetupFacade
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -24,7 +25,7 @@ fun CameraPreviewComposable(
     modifier: Modifier = Modifier,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     scaleType: PreviewView.ScaleType = PreviewView.ScaleType.FILL_CENTER,
-    onSetupCamera: (BaseCaptureWrapper) -> Unit
+    onSetupCamera: (BaseCaptureWrapper) -> Unit,
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -41,7 +42,7 @@ fun CameraPreviewComposable(
 
             coroutineScope.launch {
                 onSetupCamera(
-                    cameraSetup.setup(cameraProvider(context), previewView, lifecycleOwner)
+                    cameraSetup.setup(context.cameraProvider(), previewView, lifecycleOwner)
                 )
             }
 
@@ -51,12 +52,12 @@ fun CameraPreviewComposable(
 }
 
 // TODO вынести в hilt
-suspend fun cameraProvider(context: Context): ProcessCameraProvider {
+suspend fun Context.cameraProvider(): ProcessCameraProvider {
     return suspendCoroutine { continuation ->
-        ProcessCameraProvider.getInstance(context).also { future ->
+        ProcessCameraProvider.getInstance(this).also { future ->
             future.addListener({
                 continuation.resume(future.get())
-            }, ContextCompat.getMainExecutor(context))
+            }, ContextCompat.getMainExecutor(this))
         }
     }
 }

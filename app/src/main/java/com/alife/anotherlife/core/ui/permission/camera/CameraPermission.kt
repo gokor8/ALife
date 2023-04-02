@@ -18,8 +18,6 @@ import com.google.accompanist.permissions.shouldShowRationale
 import javax.inject.Inject
 
 class CameraPermission @Inject constructor(
-    @IntentModule.IntentAnnotation.Settings
-    private val settingsIntent: Intent,
     @DialogAnnotation.Camera
     private val alertDialog: AbstractDialog,
 ) : AbstractPermission(android.Manifest.permission.CAMERA) {

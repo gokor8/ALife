@@ -30,6 +30,8 @@ abstract class AbstractPermission(
                 }
                 else -> PermissionStatus.Fatal()
             }
+
+            onPermission(permissionStatus)
         }
 
         LaunchedEffect(Unit) { rememberPermission.launchPermissionRequest() }
@@ -39,8 +41,6 @@ abstract class AbstractPermission(
             onAgree = { rememberPermission.launchPermissionRequest() },
             onPermission = onPermission
         )
-
-        onPermission(permissionStatus)
 
         return rememberPermission
     }

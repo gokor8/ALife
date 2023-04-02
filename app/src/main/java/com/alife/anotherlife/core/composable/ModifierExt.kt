@@ -3,11 +3,13 @@ package com.alife.anotherlife.core.composable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.TabPosition
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -20,17 +22,17 @@ fun Modifier.clickableNoRipple(
     enabled: Boolean = true,
     onClickLabel: String? = null,
     role: Role? = null,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ): Modifier = composed {
     this.clickable(
-        interactionSource = interactionSource,
+        interactionSource = remember { interactionSource },
         indication = null,
         enabled, onClickLabel, role, onClick
     )
 }
 
 fun Modifier.customTabIndicatorOffset(
-    currentTabPosition: TabPosition
+    currentTabPosition: TabPosition,
 ): Modifier = composed(
     inspectorInfo = debugInspectorInfo {
         name = "tabIndicatorOffset"

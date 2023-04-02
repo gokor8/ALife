@@ -1,8 +1,10 @@
 package com.alife.anotherlife.di.ui.main.create_alife
 
+import android.content.Intent
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.ui.store.DefaultUIStore
 import com.alife.anotherlife.core.ui.store.UIStore
+import com.alife.anotherlife.di.core.IntentModule
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
@@ -20,5 +22,10 @@ class CreateAlifeViewModelModuleP {
 
     @Reusable
     @Provides
-    fun birthdayUIStore(): UIStore<CreateAlifeState, CreateAlifeEffect> = DefaultUIStore(CreateAlifeState())
+    fun birthdayUIStore(
+        @IntentModule.IntentAnnotation.Settings
+        settingsIntent: Intent,
+    ): UIStore<CreateAlifeState, CreateAlifeEffect> = DefaultUIStore(
+        CreateAlifeState(settingsIntent = settingsIntent)
+    )
 }
