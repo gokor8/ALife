@@ -11,7 +11,7 @@ import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.suspendCancellableCoroutine
 
 class CameraWrapper(
-    private val cameraId: String,
+    val cameraId: String,
     private val cameraManager: CameraManager
 ) {
 
@@ -28,6 +28,5 @@ class CameraWrapper(
 
     fun getSize() = cameraManager.getCameraCharacteristics(cameraId).get(
         CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP
-    )!!
-        .getOutputSizes(ImageFormat.JPEG).maxByOrNull { it.height * it.width }!!
+    )!!.getOutputSizes(ImageFormat.JPEG).maxByOrNull { it.height * it.width }!!
 }

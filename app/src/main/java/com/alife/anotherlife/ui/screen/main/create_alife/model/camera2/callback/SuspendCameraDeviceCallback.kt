@@ -8,7 +8,7 @@ import kotlin.coroutines.resumeWithException
 
 class SuspendCameraDeviceCallback(
     private val cameraId: String,
-    private val continuation: CancellableContinuation<CameraDevice?>
+    private val continuation: CancellableContinuation<CameraDevice>
 ) : CameraDevice.StateCallback() {
 
     private val logId = "Camera Callback"
@@ -21,8 +21,6 @@ class SuspendCameraDeviceCallback(
     override fun onDisconnected(camera: CameraDevice) {
         Log.d(logId, "disconnect camera  with id:"+camera.id)
         camera.close()
-
-        continuation.resume(null)
     }
 
     override fun onError(camera: CameraDevice, error: Int) {
