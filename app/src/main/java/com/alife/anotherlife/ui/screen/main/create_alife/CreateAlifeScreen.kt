@@ -1,9 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
-import androidx.camera.core.CameraSelector
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
@@ -14,20 +12,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alife.anotherlife.R
+import com.alife.anotherlife.core.composable.clickable
 import com.alife.anotherlife.core.composable.clickableNoRipple
 import com.alife.anotherlife.core.composable.image.ImageBase
 import com.alife.anotherlife.core.composable.modifier.ImeModifier
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.screen.VMScreen
-import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraPreviewComposable
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSetupFactory
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.rotate.Rotate
 import com.alife.anotherlife.ui.screen.main.create_alife.model.rotate.RotateZero
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.CameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -73,8 +71,15 @@ class CreateAlifeScreen(
                     .fillMaxWidth()
                     .padding(bottom = 62.dp)
             ) {
-                HorizontalPager(count = pagerContent.size, modifier = Modifier.width(96.dp)) {
-                    pagerContent[it].Content()
+                HorizontalPager(
+                    count = pagerContent.size,
+                    reverseLayout = true,
+                    modifier = Modifier.width(96.dp)
+                ) {
+                    pagerContent[it].Content(
+                        state.captureWrapper,
+                        viewModel
+                    )
                 }
 
                 var rotationState by remember { mutableStateOf<Rotate>(RotateZero()) }
@@ -100,19 +105,29 @@ class CreateAlifeScreen(
 interface PagerItem {
 
     @Composable
-    fun Content()
+    fun Content(
+        captureWrapper: BaseCaptureWrapper,
+        viewModel: CreateAlifeViewModel
+    )
 }
 
 class CameraPagerItem : PagerItem {
 
     @Composable
-    override fun Content() {
+    override fun Content(
+        captureWrapper: BaseCaptureWrapper,
+        viewModel: CreateAlifeViewModel
+    ) {
         val colorScheme = MaterialTheme.colorScheme
+        val context = LocalContext.current
 
         Canvas(modifier = Modifier
             .size(60.dp)
             .clip(CircleShape)
-            .clickable { }
+            .clickable(rememberCoroutineScope()) {
+                val imageProxy = captureWrapper.takePhoto(context)
+                viewModel.reduce(CreateAlifeAction.TakePhoto(imageProxy))
+            }
         ) {
             drawCircle(color = colorScheme.onPrimary, radius = 60f, style = Stroke(6f))
         }
@@ -122,7 +137,20 @@ class CameraPagerItem : PagerItem {
 class VideoPagerItem : PagerItem {
 
     @Composable
-    override fun Content() {
+    override fun Content(
+        captureWrapper: BaseCaptureWrapper,
+        viewModel: CreateAlifeViewModel
+    ) {
+        val colorScheme = MaterialTheme.colorScheme
 
+        Canvas(modifier = Modifier
+            .size(60.dp)
+            .clip(CircleShape)
+            .clickable(rememberCoroutineScope()) { }
+        ) {
+            drawCircle(color = colorScheme.onPrimary, radius = 60f, style = Stroke(6f))
+            drawCircle(color = colorScheme.onPrimary, radius = 40f)
+            drawCircle(color = colorScheme.primary, 10f)
+        }
     }
 }

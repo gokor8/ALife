@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraPreviewComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSetupFactory
+import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 
@@ -33,8 +34,6 @@ class CameraScreenState(
         CameraPreviewComposable(
             cameraFacade,
             modifier = Modifier.fillMaxSize()
-        ) {
-            // viewModel set captureWrapper
-        }
+        ) { viewModel.reduce(CreateAlifeAction.OnCaptureWrapper(it)) }
     }
 }

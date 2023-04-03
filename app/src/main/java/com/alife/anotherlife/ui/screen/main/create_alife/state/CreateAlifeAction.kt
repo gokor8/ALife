@@ -1,8 +1,9 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.state
 
-import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageProxy
 import com.alife.anotherlife.core.composable.mvi_extensions.BaseMVIAction
 import com.alife.anotherlife.ui.screen.main.create_alife.BaseCreateAlifeReducer
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 
 interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducer> {
 
@@ -12,9 +13,15 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducer> {
         }
     }
 
-    class PermissionSelectAction : CreateAlifeAction {
+    class OnCaptureWrapper(private val captureWrapper: BaseCaptureWrapper) : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducer) {
-            reducer.onPermissionSelect()
+            reducer.onCameraWrapper(captureWrapper)
+        }
+    }
+
+    class TakePhoto(private val imageProxy: ImageProxy) : CreateAlifeAction {
+        override suspend fun onAction(reducer: BaseCreateAlifeReducer) {
+            reducer.onTakePhoto(imageProxy)
         }
     }
 

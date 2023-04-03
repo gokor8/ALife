@@ -1,8 +1,11 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
+import android.util.Log
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageProxy
 import com.alife.anotherlife.core.ui.reducer.BaseVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.CameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ErrorScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
@@ -23,12 +26,16 @@ class CreateAlifeReducer @Inject constructor(
         }
     }
 
-    override suspend fun onPermissionGranted() {
-        setState { copy(screenState = CameraScreenState()) }
+    override suspend fun onCameraWrapper(captureWrapper: BaseCaptureWrapper) {
+        setState { copy( captureWrapper = captureWrapper) }
     }
 
-    override suspend fun onPermissionSelect() {
-        setState { copy(screenState = LoadScreenState()) }
+    override suspend fun onTakePhoto(imageProxy: ImageProxy) {
+        Log.d("OnTakePhoto", "Take Photo")
+    }
+
+    override suspend fun onPermissionGranted() {
+        setState { copy(screenState = CameraScreenState()) }
     }
 
     override suspend fun onPermissionFatal() {

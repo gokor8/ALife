@@ -10,7 +10,7 @@ class DefaultImageCaptureFactory: ImageCaptureFactory {
     override fun create(rotation: Int): ImageCapture {
         return ImageCapture.Builder()
             .setTargetRotation(rotation)
-            .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+            .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
             .setTargetResolution(size)
             .build()
     }

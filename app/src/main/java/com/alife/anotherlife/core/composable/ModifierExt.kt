@@ -16,6 +16,8 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 fun Modifier.clickableNoRipple(
     interactionSource: MutableInteractionSource = MutableInteractionSource(),
@@ -29,6 +31,18 @@ fun Modifier.clickableNoRipple(
         indication = null,
         enabled, onClickLabel, role, onClick
     )
+}
+
+fun Modifier.clickable(
+    coroutineScope: CoroutineScope,
+    enabled: Boolean = true,
+    onClickLabel: String? = null,
+    role: Role? = null,
+    onClick: suspend () -> Unit
+): Modifier = this.clickable(
+    enabled, onClickLabel, role
+) {
+    coroutineScope.launch { onClick() }
 }
 
 fun Modifier.customTabIndicatorOffset(
