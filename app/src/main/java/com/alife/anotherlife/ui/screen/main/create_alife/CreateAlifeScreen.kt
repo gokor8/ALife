@@ -56,28 +56,6 @@ class CreateAlifeScreen(
 
         val state = viewModel.getUIState()
 
-        var rememberCameraSelector by remember {
-            mutableStateOf(CameraSelector.DEFAULT_FRONT_CAMERA)
-        }
-
-        val screenState = state.screenState
-
-        // Одно и тоже состояние тригеррится 2 раза
-        if (screenState is CameraScreenState) {
-
-            // Одно и тоже состояние тригеррится 2 раза
-            key(screenState) {
-                val cameraFacade = CameraSetupFactory().create(screenState.cameraSelector)
-
-                CameraPreviewComposable(
-                    cameraFacade,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    // viewModel set captureWrapper
-                }
-            }
-        }
-
         state.screenState.Content(cameraPermission, viewModel, modifier)
 
         Column(
@@ -111,7 +89,6 @@ class CreateAlifeScreen(
                         .rotate(rotationAnim)
                         .clickableNoRipple {
                             rotationState = rotationState.nextRotate()
-                            rememberCameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
                             viewModel.reduce(CreateAlifeAction.ChangeCameraSelection())
                         }
                 )

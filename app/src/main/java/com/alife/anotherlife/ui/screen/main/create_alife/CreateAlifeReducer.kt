@@ -6,7 +6,6 @@ import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.CameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ErrorScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 import javax.inject.Inject

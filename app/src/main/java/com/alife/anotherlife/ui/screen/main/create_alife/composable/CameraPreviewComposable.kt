@@ -32,21 +32,24 @@ fun CameraPreviewComposable(
     AndroidView(
         modifier = modifier,
         factory = { context ->
-            val previewView = PreviewView(context).apply {
+            PreviewView(context).apply {
                 this.scaleType = scaleType
                 layoutParams = ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
                 )
             }
-
+        },
+        update = { previewView ->
             coroutineScope.launch {
                 onSetupCamera(
-                    cameraSetup.setup(context.cameraProvider(), previewView, lifecycleOwner)
+                    cameraSetup.setup(
+                        previewView.context.cameraProvider(),
+                        previewView,
+                        lifecycleOwner
+                    )
                 )
             }
-
-            previewView
         }
     )
 }

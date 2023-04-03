@@ -3,6 +3,7 @@ package com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state
 import androidx.camera.core.CameraSelector
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
@@ -12,7 +13,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 
 class CameraScreenState(
-    val cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
+    private val cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
 ) : ScreenState.AbstractScreenState() {
 
     fun inverseCameraSelector() = if (cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA) {
@@ -27,10 +28,13 @@ class CameraScreenState(
         permissionState: PermissionState,
         viewModel: CreateAlifeViewModel,
     ) {
-//        val cameraFacade = CameraSetupFactory().create(cameraSelector)
-//
-//        CameraPreviewComposable(cameraFacade, modifier = Modifier.fillMaxSize()) {
-//            // viewModel set captureWrapper
-//        }
+        val cameraFacade = CameraSetupFactory().create(cameraSelector)
+
+        CameraPreviewComposable(
+            cameraFacade,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            // viewModel set captureWrapper
+        }
     }
 }

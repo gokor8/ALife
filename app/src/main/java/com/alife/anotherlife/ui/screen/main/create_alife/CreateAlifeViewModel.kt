@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
+import androidx.compose.runtime.Stable
 import com.alife.anotherlife.core.composable.mvi_extensions.DefaultViewModel
 import com.alife.anotherlife.core.ui.permission.camera.CameraPermission
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
