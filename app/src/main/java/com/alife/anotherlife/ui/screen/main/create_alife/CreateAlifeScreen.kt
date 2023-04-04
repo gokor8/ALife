@@ -1,7 +1,10 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
+import android.graphics.ColorFilter
+import android.graphics.ColorMatrixColorFilter
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
@@ -24,6 +27,7 @@ import com.alife.anotherlife.core.composable.modifier.ImeModifier
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.UselessCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.rotate.Rotate
 import com.alife.anotherlife.ui.screen.main.create_alife.model.rotate.RotateZero
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
@@ -46,6 +50,7 @@ class CreateAlifeScreen(
                 is PermissionStatus.Success -> {
                     viewModel.reduce(CreateAlifeAction.PermissionGrantedAction())
                 }
+
                 is PermissionStatus.Fatal -> {
                     viewModel.reduce(CreateAlifeAction.PermissionFatalAction())
                 }
@@ -91,8 +96,11 @@ class CreateAlifeScreen(
                     modifier = Modifier
                         .size(32.dp)
                         .padding(4.dp)
+                        .background(MaterialTheme.colorScheme.primary)
                         .rotate(rotationAnim)
-                        .clickableNoRipple {
+                        .clickableNoRipple(
+                            enabled = state.captureWrapper !is UselessCaptureWrapper
+                        ) {
                             rotationState = rotationState.nextRotate()
                             viewModel.reduce(CreateAlifeAction.ChangeCameraSelection())
                         }
@@ -129,7 +137,7 @@ class CameraPagerItem : PagerItem {
                 viewModel.reduce(CreateAlifeAction.TakePhoto(imageProxy))
             }
         ) {
-            drawCircle(color = colorScheme.onPrimary, radius = 60f, style = Stroke(6f))
+            drawCircle(color = colorScheme.primary, radius = 60f, style = Stroke(6f))
         }
     }
 }
@@ -148,9 +156,9 @@ class VideoPagerItem : PagerItem {
             .clip(CircleShape)
             .clickable(rememberCoroutineScope()) { }
         ) {
-            drawCircle(color = colorScheme.onPrimary, radius = 60f, style = Stroke(6f))
-            drawCircle(color = colorScheme.onPrimary, radius = 40f)
-            drawCircle(color = colorScheme.primary, 10f)
+            drawCircle(color = colorScheme.primaryContainer, radius = 60f, style = Stroke(6f))
+            drawCircle(color = colorScheme.primaryContainer, radius = 40f)
+            drawCircle(color = colorScheme.onPrimaryContainer, 10f)
         }
     }
 }

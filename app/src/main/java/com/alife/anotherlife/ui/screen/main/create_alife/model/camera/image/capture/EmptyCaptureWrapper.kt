@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.camera.core.ImageProxy
 import kotlin.coroutines.suspendCoroutine
 
-class EmptyCaptureWrapper : BaseCaptureWrapper {
+class EmptyCaptureWrapper : UselessCaptureWrapper {
 
     override suspend fun takePhoto(context: Context): ImageProxy = suspendCoroutine {  }
 }
