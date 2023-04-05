@@ -4,7 +4,7 @@ import com.alife.core.usecase.UseCaseEntity
 import com.alife.domain.core.mapper.ThrowableMapper
 import kotlinx.coroutines.*
 
-abstract class AbstractSafeUseCaseResult<M : UseCaseEntity>(
+abstract class AbstractSafeUseCaseResult<M>(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val exceptionMapper: ThrowableMapper<UseCaseResult<M>>,
 ) {
