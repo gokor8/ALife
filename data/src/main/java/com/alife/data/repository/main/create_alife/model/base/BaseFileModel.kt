@@ -1,32 +1,21 @@
 package com.alife.data.repository.main.create_alife.model.base
 
-import java.io.File
-import java.io.FileOutputStream
+import com.alife.data.repository.main.create_alife.model.base.file_builders.BaseFileExtension
+import com.alife.data.repository.main.create_alife.model.base.file_builders.BaseFileName
+import com.alife.data.repository.main.create_alife.model.base.file_builders.BasePathModel
 
 interface BaseFileModel {
 
     fun getFullFilePath(): String
 
-    fun createFile(): File
 
-    fun writeToFile(fileOutputStream: FileOutputStream)
-
-
-    abstract class Default(
-        private val filePath: BasePathModel,
-        private val fileName: BaseFileName,
-        private val fileExtension: BaseFileExtension
+    abstract class AbstractFileModel(
+        protected val filePath: BasePathModel,
+        protected val fileName: BaseFileName,
+        protected val fileExtension: BaseFileExtension
     ) : BaseFileModel {
-        override fun getFullFilePath(): String = "$filePath$fileName$fileExtension"
-
-        override fun createFile(): File {
-            val myDir = File(filePath.getPath())
-            if (myDir.exists()) myDir.mkdirs()
-
-            val file = File(getFullFilePath())
-            if (file.exists()) file.delete()
-
-            return file
+        override fun getFullFilePath(): String {
+            return "${filePath.getPath()}${fileName.getFileName()}${fileExtension.getFileExtension()}"
         }
     }
 }
