@@ -1,4 +1,4 @@
-package com.alife.data.data_source.model
+package com.alife.data.data_source.cache.shared.model
 
 abstract class AbstractCacheModel<M>(private val key: String) : CacheModel<M> {
 

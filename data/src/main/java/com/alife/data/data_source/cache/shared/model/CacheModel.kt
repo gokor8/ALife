@@ -1,4 +1,4 @@
-package com.alife.data.data_source.model
+package com.alife.data.data_source.cache.shared.model
 
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor

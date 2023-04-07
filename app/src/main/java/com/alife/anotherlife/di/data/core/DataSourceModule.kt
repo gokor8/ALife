@@ -1,7 +1,7 @@
 package com.alife.anotherlife.di.data.core
 
-import com.alife.data.data_source.CacheSharedPrefDataSource
-import com.alife.data.data_source.SharedCacheDataSource
+import com.alife.data.data_source.cache.shared.CacheSharedPrefDataSource
+import com.alife.data.data_source.cache.shared.SharedCacheDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

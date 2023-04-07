@@ -1,9 +1,8 @@
 package com.alife.data.repository.registration
 
-import com.alife.data.data_source.SharedCacheDataSource
+import com.alife.data.data_source.cache.shared.SharedCacheDataSource
 import com.alife.data.repository.registration.mapper.BaseRegEntityToReadRegModel
 import com.alife.data.repository.registration.mapper.BaseRegEntityToWriteRegModel
-import com.alife.domain.core.usecase.UseCaseResult
 import com.alife.domain.registration.repository.BaseRegistrationRepository
 import com.alife.domain.registration.usecase.base.entity.ReadRegInputEntity
 import com.alife.domain.registration.usecase.base.entity.SaveRegInputEntity

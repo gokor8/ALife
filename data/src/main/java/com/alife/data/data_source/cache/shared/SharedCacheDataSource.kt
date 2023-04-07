@@ -1,7 +1,7 @@
-package com.alife.data.data_source
+package com.alife.data.data_source.cache.shared
 
 import android.content.SharedPreferences
-import com.alife.data.data_source.model.CacheModel
+import com.alife.data.data_source.cache.shared.model.CacheModel
 
 interface SharedCacheDataSource {
 

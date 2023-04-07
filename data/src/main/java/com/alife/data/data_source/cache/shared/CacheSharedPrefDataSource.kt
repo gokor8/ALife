@@ -1,4 +1,4 @@
-package com.alife.data.data_source
+package com.alife.data.data_source.cache.shared
 
 import android.content.SharedPreferences
 import javax.inject.Inject

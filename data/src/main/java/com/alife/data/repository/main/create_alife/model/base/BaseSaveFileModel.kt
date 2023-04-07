@@ -1,5 +1,6 @@
 package com.alife.data.repository.main.create_alife.model.base
 
+import com.alife.data.data_source.cache.file.base.FileWrapperFactory
 import com.alife.data.repository.main.create_alife.model.base.file_builders.BaseFileExtension
 import com.alife.data.repository.main.create_alife.model.base.file_builders.BaseFileName
 import com.alife.data.repository.main.create_alife.model.base.file_builders.BasePathModel
@@ -16,17 +17,18 @@ interface BaseSaveFileModel : BaseFileModel {
     abstract class DefaultSave(
         filePath: BasePathModel,
         fileName: BaseFileName,
-        fileExtension: BaseFileExtension
+        fileExtension: BaseFileExtension,
+        private val fileWrapperFactory: FileWrapperFactory
     ) : BaseFileModel.AbstractFileModel(filePath, fileName, fileExtension), BaseSaveFileModel {
 
         override fun createFile(): File {
-            val myDir = File(filePath.getPath())
-            if (myDir.exists()) myDir.mkdirs()
+            val myDir = fileWrapperFactory.create(filePath.getPath())
+            if (!myDir.exists()) myDir.mkdirs()
 
-            val file = File(getFullFilePath())
+            val file = fileWrapperFactory.create(getFullFilePath())
             if (file.exists()) file.delete()
 
-            return file
+            return file.getFile()
         }
     }
 }

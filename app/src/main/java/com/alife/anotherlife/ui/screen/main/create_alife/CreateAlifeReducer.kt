@@ -8,13 +8,15 @@ import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.CameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ErrorScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
+import com.alife.domain.main.create_alife.CreateFirstAlifeUseCase
+import com.alife.domain.main.create_alife.entity.SaveFirstImageEntity
 import javax.inject.Inject
 
 class CreateAlifeReducer @Inject constructor(
     override val uiStore: UIStore<CreateAlifeState, CreateAlifeEffect>,
+    val createFirstAlifeUseCase: CreateFirstAlifeUseCase
 ) : BaseVMReducer<CreateAlifeState, CreateAlifeEffect>(), BaseCreateAlifeReducer {
 
     override suspend fun onChangeCamera() {
@@ -32,6 +34,10 @@ class CreateAlifeReducer @Inject constructor(
 
     override suspend fun onTakePhoto(imageProxy: ImageProxy) {
         Log.d("OnTakePhoto", "Take Photo")
+
+        createFirstAlifeUseCase.saveImage(
+            SaveFirstImageEntity(imageProxy.planes[0].buffer.array())
+        )
     }
 
     override suspend fun onPermissionGranted() {
