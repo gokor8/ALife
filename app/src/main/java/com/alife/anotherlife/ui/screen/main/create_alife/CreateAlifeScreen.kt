@@ -2,6 +2,8 @@ package com.alife.anotherlife.ui.screen.main.create_alife
 
 import android.graphics.ColorFilter
 import android.graphics.ColorMatrixColorFilter
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -42,7 +44,7 @@ class CreateAlifeScreen(
     @Composable
     override fun setupViewModel(): CreateAlifeViewModel = hiltViewModel()
 
-    @OptIn(ExperimentalPermissionsApi::class, ExperimentalPagerApi::class)
+    @OptIn(ExperimentalPermissionsApi::class, ExperimentalPagerApi::class, ExperimentalAnimationApi::class)
     @Composable
     override fun Content(modifier: Modifier) {
         val cameraPermission = viewModel.cameraPermission.requirePermission { permissionState ->
@@ -59,7 +61,9 @@ class CreateAlifeScreen(
 
         val state = viewModel.getUIState()
 
-        state.screenState.Content(cameraPermission, viewModel, modifier)
+        AnimatedContent(targetState = state.screenState) {
+            state.screenState.Content(cameraPermission, viewModel, modifier)
+        }
 
         Column(
             horizontalAlignment = CenterHorizontally,
@@ -98,9 +102,7 @@ class CreateAlifeScreen(
                         .padding(4.dp)
                         .background(MaterialTheme.colorScheme.primary)
                         .rotate(rotationAnim)
-                        .clickableNoRipple(
-                            enabled = state.captureWrapper !is UselessCaptureWrapper
-                        ) {
+                        .clickableNoRipple(enabled = state.isInvertButtonEnable) {
                             rotationState = rotationState.nextRotate()
                             viewModel.reduce(CreateAlifeAction.ChangeCameraSelection())
                         }

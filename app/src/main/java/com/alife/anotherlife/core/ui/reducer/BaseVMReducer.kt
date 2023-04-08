@@ -5,9 +5,10 @@ import com.alife.anotherlife.core.ui.state_collector.StateCollector
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.core.mvi.MVI
 import com.alife.core.mvi.addons.BaseMVIHandlers
+import com.alife.core.mvi.addons.SuspendMVIHandlers
 
 abstract class BaseVMReducer<STATE : MVI.State, EFFECT : MVI.Effect> :
-    VMReducer<STATE, EFFECT>, BaseMVIHandlers<STATE, EFFECT> {
+    VMReducer<STATE, EFFECT>, BaseMVIHandlers<STATE, EFFECT>, SuspendMVIHandlers<STATE, EFFECT> {
 
     protected abstract val uiStore: UIStore<STATE, EFFECT>
 
@@ -30,6 +31,9 @@ abstract class BaseVMReducer<STATE : MVI.State, EFFECT : MVI.Effect> :
     }
 
     override fun <O> getState(state: STATE.() -> O): O = uiStore.getState(state)
+
+    override suspend fun <O> getStateSuspend(state: suspend STATE.() -> O) =
+        uiStore.getStateSuspend(state)
 
     override fun getState(): STATE = uiStore.getState()
 

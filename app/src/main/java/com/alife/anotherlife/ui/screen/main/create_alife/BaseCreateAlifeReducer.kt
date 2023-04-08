@@ -12,7 +12,7 @@ interface BaseCreateAlifeReducer : VMReducer<CreateAlifeState, CreateAlifeEffect
 
     suspend fun onCameraWrapper(captureWrapper: BaseCaptureWrapper)
 
-    suspend fun onTakePhoto(imageProxy: ImageProxy)
+    suspend fun onTakePhoto(imageByteArray: ByteArray)
 
     suspend fun onPermissionGranted()
     suspend fun onPermissionFatal()

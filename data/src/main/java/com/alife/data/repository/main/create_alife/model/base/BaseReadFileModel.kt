@@ -28,7 +28,6 @@ interface BaseReadFileModel : BaseFileModel {
         ): ByteArray {
             val file = fileWrapperFactory.create(getFullFilePath())
 
-            // TODO проверить, может быть файл сам ошибку выкинет
             if(!file.exists()) throw FileNotFoundException()
 
             val imageByteArray = ByteArray(file.length())

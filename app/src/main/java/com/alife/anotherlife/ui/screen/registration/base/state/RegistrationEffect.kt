@@ -11,7 +11,7 @@ import com.alife.core.mvi.MVI
 
 interface RegistrationEffect : MVI.Effect {
 
-    class NavigateLoginBack : NavigationWrapper.Back(LoginNavigator()), RegistrationEffect
+    class NavigateLoginBack : NavigationWrapper.BackTo(LoginNavigator()), RegistrationEffect
 
     class NavigateName : NavigationWrapper.Forward(RegNameNavigator()), RegistrationEffect
 

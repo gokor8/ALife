@@ -16,8 +16,7 @@ abstract class AbstractSafeUseCaseResult<M>(
     protected suspend fun withSafe(block: suspend CoroutineScope.() -> M): UseCaseResult<M> =
         withContext(dispatcher) {
             try {
-                val result = block()
-                onSuccess(result)
+                onSuccess(block())
             } catch (throwable: Throwable) {
                 exceptionMapper.map(throwable)
             }

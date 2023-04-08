@@ -7,13 +7,13 @@ import com.alife.domain.main.create_alife.repository.BaseCreateAlifeRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
-class CreateFirstAlifeUseCase @Inject constructor(
+class SaveAlifeUseCase @Inject constructor(
     private val createAlifeRepository: BaseCreateAlifeRepository,
     dispatcher: CoroutineDispatcher,
     throwableUCMapper: ThrowableUCMapper<Unit>
-) : AbstractSafeUseCaseResult<Unit>(dispatcher, throwableUCMapper) {
+) : AbstractSafeUseCaseResult<Unit>(dispatcher, throwableUCMapper), BaseSaveAlifeUseCase {
 
-    suspend fun saveImage(saveImageEntity: SaveImageEntity) = withSafe {
+    override suspend fun saveImage(saveImageEntity: SaveImageEntity) = withSafe {
         createAlifeRepository.saveToFile(saveImageEntity)
     }
 }

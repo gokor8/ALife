@@ -21,7 +21,8 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducer> {
 
     class TakePhoto(private val imageProxy: ImageProxy) : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducer) {
-            reducer.onTakePhoto(imageProxy)
+            // Fix it, fix change camera
+            reducer.onTakePhoto(imageProxy.planes[0].buffer.array())
         }
     }
 
