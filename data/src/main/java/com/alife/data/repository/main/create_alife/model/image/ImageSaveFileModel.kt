@@ -8,10 +8,11 @@ import java.io.FileOutputStream
 
 class ImageSaveFileModel(
     private val imageByteArray: ByteArray,
+    createAlifePathModel: CreateAlifePathModel,
     fileName: BaseFileName,
     fileWrapperFactory: FileWrapperFactory
 ) : BaseSaveFileModel.DefaultSave(
-    CreateAlifePathModel(),
+    createAlifePathModel,
     fileName,
     JpegExtension(),
     fileWrapperFactory

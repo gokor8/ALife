@@ -2,6 +2,7 @@ package com.alife.anotherlife.ui.example.test.screen
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,7 +20,7 @@ import com.alife.anotherlife.ui.screen.registration.tutorial.navigation.Tutorial
 class TestScreen(val navController: NavController) : DefaultScreen(ImeModifier()) {
 
     @Composable
-    override fun Content(modifier: Modifier) {
+    override fun Content(modifier: Modifier) = Surface {
         val listNavigators = listOf(
             TutorialNavigator(),
             MainScreenNavigator(),

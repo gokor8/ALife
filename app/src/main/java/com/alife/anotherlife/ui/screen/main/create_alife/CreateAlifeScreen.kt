@@ -1,40 +1,30 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
-import android.graphics.ColorFilter
-import android.graphics.ColorMatrixColorFilter
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alife.anotherlife.R
+import com.alife.anotherlife.core.composable.addons.stroke6Draw
 import com.alife.anotherlife.core.composable.clickable
-import com.alife.anotherlife.core.composable.clickableNoRipple
-import com.alife.anotherlife.core.composable.image.ImageBase
 import com.alife.anotherlife.core.composable.modifier.ImeModifier
+import com.alife.anotherlife.core.composable.text.TextBase
+import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.screen.VMScreen
+import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraActionsComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.UselessCaptureWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.model.rotate.Rotate
-import com.alife.anotherlife.ui.screen.main.create_alife.model.rotate.RotateZero
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 class CreateAlifeScreen(
@@ -44,7 +34,7 @@ class CreateAlifeScreen(
     @Composable
     override fun setupViewModel(): CreateAlifeViewModel = hiltViewModel()
 
-    @OptIn(ExperimentalPermissionsApi::class, ExperimentalPagerApi::class, ExperimentalAnimationApi::class)
+    @OptIn(ExperimentalPermissionsApi::class, ExperimentalAnimationApi::class)
     @Composable
     override fun Content(modifier: Modifier) {
         val cameraPermission = viewModel.cameraPermission.requirePermission { permissionState ->
@@ -61,58 +51,34 @@ class CreateAlifeScreen(
 
         val state = viewModel.getUIState()
 
-        AnimatedContent(targetState = state.screenState) {
-            state.screenState.Content(cameraPermission, viewModel, modifier)
+        AnimatedContent(targetState = state.screenState) { screenState ->
+            screenState.Content(cameraPermission, viewModel, modifier)
         }
 
         Column(
             horizontalAlignment = CenterHorizontally,
             modifier = modifier.fillMaxSize()
         ) {
-            val pagerContent = listOf(CameraPagerItem(), VideoPagerItem())
+            val pagerItems = listOf(CameraCameraPagerItem(), VideoCameraPagerItem())
 
+            TextBase(
+                textResId = R.string.horizontal_short_logo,
+                style = Title28Style().style(),
+                modifier = Modifier.padding(top = 22.dp)
+            )
+            
             Spacer(modifier = Modifier.weight(1f))
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 62.dp)
-            ) {
-                HorizontalPager(
-                    count = pagerContent.size,
-                    reverseLayout = true,
-                    modifier = Modifier.width(96.dp)
-                ) {
-                    pagerContent[it].Content(
-                        state.captureWrapper,
-                        viewModel
-                    )
-                }
-
-                var rotationState by remember { mutableStateOf<Rotate>(RotateZero()) }
-
-                val rotationAnim by animateFloatAsState(rotationState.rotation())
-
-                ImageBase(
-                    resId = R.drawable.ic_camera_change,
-                    modifier = Modifier
-                        .size(32.dp)
-                        .padding(4.dp)
-                        .background(MaterialTheme.colorScheme.primary)
-                        .rotate(rotationAnim)
-                        .clickableNoRipple(enabled = state.isInvertButtonEnable) {
-                            rotationState = rotationState.nextRotate()
-                            viewModel.reduce(CreateAlifeAction.ChangeCameraSelection())
-                        }
-                )
-            }
+            CameraActionsComposable(
+                pagerItems = pagerItems,
+                state = state,
+                viewModel = viewModel
+            )
         }
     }
 }
 
-interface PagerItem {
+interface CameraPagerItem {
 
     @Composable
     fun Content(
@@ -121,7 +87,7 @@ interface PagerItem {
     )
 }
 
-class CameraPagerItem : PagerItem {
+class CameraCameraPagerItem : CameraPagerItem {
 
     @Composable
     override fun Content(
@@ -139,12 +105,16 @@ class CameraPagerItem : PagerItem {
                 viewModel.reduce(CreateAlifeAction.TakePhoto(imageProxy))
             }
         ) {
-            drawCircle(color = colorScheme.primary, radius = 60f, style = Stroke(6f))
+            drawCircle(
+                color = colorScheme.onPrimary,
+                radius = 100f,
+                style = stroke6Draw()
+            )
         }
     }
 }
 
-class VideoPagerItem : PagerItem {
+class VideoCameraPagerItem : CameraPagerItem {
 
     @Composable
     override fun Content(
@@ -156,11 +126,17 @@ class VideoPagerItem : PagerItem {
         Canvas(modifier = Modifier
             .size(60.dp)
             .clip(CircleShape)
-            .clickable(rememberCoroutineScope()) { }
+            .clickable(rememberCoroutineScope()) {
+
+            }
         ) {
-            drawCircle(color = colorScheme.primaryContainer, radius = 60f, style = Stroke(6f))
-            drawCircle(color = colorScheme.primaryContainer, radius = 40f)
-            drawCircle(color = colorScheme.onPrimaryContainer, 10f)
+            drawCircle(
+                color = colorScheme.onPrimary,
+                radius = 100f,
+                style = stroke6Draw()
+            )
+            drawCircle(color = colorScheme.onPrimary, radius = 80f)
+            drawCircle(color = colorScheme.primary, 20f)
         }
     }
 }

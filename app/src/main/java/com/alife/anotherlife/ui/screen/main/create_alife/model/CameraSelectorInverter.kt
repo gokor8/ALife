@@ -2,9 +2,9 @@ package com.alife.anotherlife.ui.screen.main.create_alife.model
 
 import androidx.camera.core.CameraSelector
 
-class CameraSelectorInverter {
+class CameraSelectorInverter(private val cameraSelector: CameraSelector) {
 
-    fun invertCameraSelector(cameraSelector: CameraSelector): CameraSelector {
+    fun invertCameraSelector(): CameraSelector {
         return if (cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA) {
             CameraSelector.DEFAULT_BACK_CAMERA
         } else {

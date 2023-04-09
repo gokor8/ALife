@@ -15,7 +15,7 @@ interface BaseFileModel {
         protected val fileExtension: BaseFileExtension
     ) : BaseFileModel {
         override fun getFullFilePath(): String {
-            return "${filePath.getPath()}${fileName.getFileName()}${fileExtension.getFileExtension()}"
+            return "${filePath.getPath()}/${fileName.getFileName()}${fileExtension.getFileExtension()}"
         }
     }
 }

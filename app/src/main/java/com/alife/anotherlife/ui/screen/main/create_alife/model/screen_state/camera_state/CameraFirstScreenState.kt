@@ -6,20 +6,20 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.CameraSelectorInv
 
 class CameraFirstScreenState(
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
-    private val cameraInverter: CameraSelectorInverter = CameraSelectorInverter()
+    private val cameraInverter: CameraSelectorInverter = CameraSelectorInverter(cameraSelector)
 ) : CameraScreenState(cameraSelector), InvertibleCamera {
 
-    override fun copyInvertCamera(): CameraSecondScreenState {
-        val invertCameraSelector = cameraInverter.invertCameraSelector(cameraSelector)
+    override fun copyInvertCamera(): CameraFirstScreenState {
+        val invertCameraSelector = cameraInverter.invertCameraSelector()
 
-        return CameraSecondScreenState(invertCameraSelector)
+        return CameraFirstScreenState(invertCameraSelector)
     }
 
     override suspend fun onImageLoaded(reducer: CreateAlifeReducer) {
         reducer.setState {
             copy(
                 screenState = CameraSecondScreenState(
-                    cameraInverter.invertCameraSelector(cameraSelector)
+                    cameraInverter.invertCameraSelector()
                 )
             )
         }

@@ -1,10 +1,12 @@
 package com.alife.data.repository.main.create_alife
 
+import android.content.Context
 import com.alife.data.repository.main.create_alife.mapper.BaseEntityToReadModel
 import com.alife.data.repository.main.create_alife.mapper.BaseEntityToSaveModel
 import com.alife.domain.main.create_alife.entity.ReadImageEntity
 import com.alife.domain.main.create_alife.entity.SaveImageEntity
 import com.alife.domain.main.create_alife.repository.BaseCreateAlifeRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileInputStream
@@ -13,7 +15,9 @@ import javax.inject.Inject
 
 class CreateAlifeRepository @Inject constructor(
     private val entityToSaveModel: BaseEntityToSaveModel,
-    private val entityToReadModel: BaseEntityToReadModel
+    private val entityToReadModel: BaseEntityToReadModel,
+    @ApplicationContext
+    private val context: Context
 ) : BaseCreateAlifeRepository {
 
     override suspend fun saveToFile(saveImageEntity: SaveImageEntity) {

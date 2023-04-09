@@ -22,7 +22,7 @@ interface BaseSaveFileModel : BaseFileModel {
     ) : BaseFileModel.AbstractFileModel(filePath, fileName, fileExtension), BaseSaveFileModel {
 
         override fun createFile(): File {
-            val myDir = fileWrapperFactory.create(filePath.getPath())
+            val myDir = fileWrapperFactory.create(getFullFilePath())
             if (!myDir.exists()) myDir.mkdirs()
 
             val file = fileWrapperFactory.create(getFullFilePath())

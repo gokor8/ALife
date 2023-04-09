@@ -1,10 +1,13 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
+import android.util.Log
+import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageProxy
 import com.alife.anotherlife.core.ui.reducer.BaseVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseCameraStateToSaveImage
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.CameraStateToSaveImage
+import com.alife.anotherlife.ui.screen.main.create_alife.model.CameraSelectorInverter
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraFirstScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraSecondScreenState
@@ -48,7 +51,10 @@ class CreateAlifeReducer @Inject constructor(
 
             if (saveAlifeUseCase.saveImage(saveImageEntity) is UseCaseResult.Success)
                 screenState.onImageLoaded(this@CreateAlifeReducer)
-            else { /*Show Error*/ }
+            else {
+                Log.d("SaveAlifeUseCase", "Error")
+                /*Show Error*/
+            }
         }
     }
 

@@ -92,7 +92,6 @@ class TestCreateAlifeReducer {
 
         assertEquals(4, uiStore.stateCollector.size)
         assertEquals(1, uiStore.effectCollector.size)
-        val screenState = uiStore.stateCollector.last().screenState
         assertTrue(uiStore.stateCollector.last().screenState is LoadScreenState)
         assertTrue(uiStore.effectCollector.last() is CreateAlifeEffect.CreateAlifeFinish)
         assertTrue(uiStore.effectCollector.last() is CreateAlifeEffect.CreateAlifeFinish)

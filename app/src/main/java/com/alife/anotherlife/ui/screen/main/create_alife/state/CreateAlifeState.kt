@@ -15,6 +15,10 @@ data class CreateAlifeState @Inject constructor(
     val screenState: ScreenState = LoadScreenState(),
     val captureWrapper: BaseCaptureWrapper = EmptyCaptureWrapper(),
     @IntentModule.IntentAnnotation.Settings
-    val settingsIntent: Intent?,
-    val isInvertButtonEnable: Boolean = captureWrapper !is UselessCaptureWrapper && screenState is InvertibleCamera
-) : MVI.State
+    val settingsIntent: Intent?
+) : MVI.State {
+
+    fun canInvert(): Boolean {
+        return captureWrapper !is UselessCaptureWrapper && screenState is InvertibleCamera
+    }
+}

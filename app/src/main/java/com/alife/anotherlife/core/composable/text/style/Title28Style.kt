@@ -5,5 +5,5 @@ import androidx.compose.ui.unit.sp
 
 class Title28Style : TitleTextStyle(
     fontSize = 28.sp,
-    fontWeight = FontWeight.Bold
+    fontWeight = FontWeight.Bold,
 )
