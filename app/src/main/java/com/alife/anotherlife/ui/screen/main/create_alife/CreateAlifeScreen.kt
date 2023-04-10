@@ -66,7 +66,7 @@ class CreateAlifeScreen(
                 style = Title28Style().style(),
                 modifier = Modifier.padding(top = 22.dp)
             )
-            
+
             Spacer(modifier = Modifier.weight(1f))
 
             CameraActionsComposable(
@@ -107,7 +107,6 @@ class CameraCameraPagerItem : CameraPagerItem {
         ) {
             drawCircle(
                 color = colorScheme.onPrimary,
-                radius = 100f,
                 style = stroke6Draw()
             )
         }
@@ -130,12 +129,8 @@ class VideoCameraPagerItem : CameraPagerItem {
 
             }
         ) {
-            drawCircle(
-                color = colorScheme.onPrimary,
-                radius = 100f,
-                style = stroke6Draw()
-            )
-            drawCircle(color = colorScheme.onPrimary, radius = 80f)
+            drawCircle(color = colorScheme.onPrimary, style = stroke6Draw())
+            drawCircle(color = colorScheme.onPrimary, size.maxDimension / 2.5f)
             drawCircle(color = colorScheme.primary, 20f)
         }
     }
