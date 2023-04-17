@@ -38,7 +38,7 @@ class MainScreen : DefaultScreen() {
                 }
             }
         ) { innerPadding ->
-            com.alife.anotherlife.ui.screen.main.BottomBarNavGraph(innerPadding).SetupNavigation(navHostController = navController)
+            BottomBarNavGraph(innerPadding).SetupNavigation(navHostController = navController)
         }
     }
 }

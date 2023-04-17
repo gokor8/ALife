@@ -9,12 +9,16 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
-class ScrollableModifier : ModifierProvider {
+class ScrollableModifier(
+    private val expandableModifier: Modifier? = null
+) : ModifierProvider {
 
     @Composable
     override fun provideModifier(): Modifier {
-        return ImeModifier()
+        val expandModifier = ImeModifier()
             .provideModifier()
             .verticalScroll(rememberScrollState())
+
+        return expandableModifier?.then(expandModifier) ?: expandModifier
     }
 }

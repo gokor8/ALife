@@ -7,7 +7,7 @@ import com.alife.anotherlife.core.ui.screen.Screen
 interface BaseHomePagerItem {
 
     @Composable
-    fun screen(navController: NavController): Screen
+    fun screen(navController: NavController, pagingVisibility: (Boolean) -> Unit): Screen
 
     @Composable
     fun TabContent(selected: Boolean, onClick: () -> Unit)

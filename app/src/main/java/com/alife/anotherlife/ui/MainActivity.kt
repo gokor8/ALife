@@ -39,9 +39,9 @@ class MainActivity : ComponentActivity() {
                     val navHostController = rememberNavController()
                     navigationGraph.SetupNavigation(navHostController = navHostController)
                     //DevNavigationGraph().SetupNavigation(navHostController = navHostController)
-//                    MainNavigationGraph(
-//                        LoginNavRoute()
-//                    ).SetupNavigation(navHostController = navHostController)
+                    //MainNavigationGraph(
+                        //LoginNavRoute()
+                    //).SetupNavigation(navHostController = navHostController)
                 }
             }
         }

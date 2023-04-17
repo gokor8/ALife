@@ -7,19 +7,15 @@ import com.alife.anotherlife.ui.screen.registration.email_code.state.EmailCodeSt
 import javax.inject.Inject
 
 class EmailCodeRegReducer @Inject constructor(
-    override val uiStore: UIStore<EmailCodeState, EmailCodeEffect>,
-    //limit: Int = 6,
-   // maskSymbol: Char = '•'
-) : BaseEmailCodeRegReducer(6, '•') {//limit, maskSymbol) {
+    override val uiStore: UIStore<EmailCodeState, EmailCodeEffect>
+) : BaseEmailCodeRegReducer(6, '•') {
 
     override suspend fun onCode(code: String) {
         val currentCode = uiStore.getState().codeModel.copy(code)
 
         if (currentCode is CodeModel.Filling && currentCode.isFill(limit)) {
             uiStore.setState { copy(codeModel = CodeModel.Filled(code)) }
-            uiStore.setStateDebounce(500L) { copy(codeModel = CodeModel.Init()) }
             uiStore.setEffect(EmailCodeEffect.NavigateTutorial())
-            //navigateNext()
         } else {
             uiStore.setState { copy(codeModel = currentCode) }
         }
