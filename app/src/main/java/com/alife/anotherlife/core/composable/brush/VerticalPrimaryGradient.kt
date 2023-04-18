@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun verticalPrimaryGradient() = Brush.verticalGradient(
     colors = listOf(
-        MaterialTheme.colorScheme.onPrimary.copy(0.95f),
+        MaterialTheme.colorScheme.background.copy(0.95f),
         Color.Transparent
     )
 )

@@ -7,18 +7,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-class ImeModifier(
-    private val modifierProvider: ModifierProvider? = null
-) : ModifierProvider {
+class ImeModifier : ModifierProvider {
 
     @Composable
     override fun provideModifier(): Modifier {
-        val expandModifier = Modifier
+        return Modifier
             .fillMaxSize()
             .imePadding()
             .statusBarsPadding()
             .navigationBarsPadding()
-
-        return modifierProvider?.provideModifier()?.then(expandModifier) ?: expandModifier
     }
 }
