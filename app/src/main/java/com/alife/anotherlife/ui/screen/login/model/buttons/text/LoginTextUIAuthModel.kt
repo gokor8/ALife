@@ -20,7 +20,7 @@ sealed class LoginTextUIAuthModel(@StringRes textId: Int) : TextUIAuthModel(text
     protected abstract val radius: CornerSize
 
 
-    class LoginIn : LoginTextUIAuthModel(R.string.login_in) {
+    class LoginIn : LoginTextUIAuthModel(R.string.test) {
 
         override val authType: AuthType = AuthType.LOGIN_IN
 

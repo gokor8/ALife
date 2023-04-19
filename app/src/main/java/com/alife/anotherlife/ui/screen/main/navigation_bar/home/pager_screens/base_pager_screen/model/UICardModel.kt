@@ -2,12 +2,12 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.b
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.BaseHomeChildViewModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.AbstractHomeChildViewModel
 
 interface UICardModel {
 
     fun itemKey(): String
 
     @Composable
-    fun Card(viewModel: BaseHomeChildViewModel, modifier: Modifier)
+    fun Card(viewModel: AbstractHomeChildViewModel, modifier: Modifier)
 }

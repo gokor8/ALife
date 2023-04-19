@@ -19,7 +19,7 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.ba
 abstract class BaseHomeChildScreen(
     override val navController: NavController,
     private val pagingVisibility: (Boolean) -> Unit
-) : VMScreen<BaseHomeChildViewModel>(ImeModifier()) {
+) : VMScreen<AbstractHomeChildViewModel>(ImeModifier()) {
 
     override suspend fun onInit() {
         viewModel.reduce(HomeChildAction.OnInit())

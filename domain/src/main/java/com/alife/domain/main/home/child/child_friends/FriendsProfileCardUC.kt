@@ -15,22 +15,6 @@ class FriendsProfileCardUC @Inject constructor(
 ) : ProfileCardUseCase(dispatcher, throwableMapper) {
 
     override suspend fun getProfileCards(): UseCaseResult<ProfileUseCaseEntity> {
-        return withSafe {
-            ProfileUseCaseEntity(
-                List(6) {
-                    val username = if(it % 2 == 0) "Vladuka_$it" else "Olegator_777_$it"
-
-                    val avatar = if(it % 2 == 0) "https://random.imagecdn.app/500/150" else null
-
-                    ProfileCardEntity(
-                        username,
-                        "https://random.imagecdn.app/500/150",
-                        "https://random.imagecdn.app/500/150",
-                        Date(1000000L),
-                        avatar
-                    )
-                }
-            )
-        }
+        return withSafe { ProfileUseCaseEntity(emptyList()) }
     }
 }

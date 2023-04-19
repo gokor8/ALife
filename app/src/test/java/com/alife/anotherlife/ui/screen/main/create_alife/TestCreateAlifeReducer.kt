@@ -3,6 +3,7 @@ package com.alife.anotherlife.ui.screen.main.create_alife
 import androidx.camera.core.CameraSelector
 import com.alife.anotherlife.core.FakeUIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.CameraStateToSaveImage
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CameraPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraFirstScreenState
@@ -15,6 +16,8 @@ import com.alife.domain.main.create_alife.BaseSaveAlifeUseCase
 import com.alife.domain.main.create_alife.entity.SaveImageEntity
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -37,15 +40,43 @@ class TestCreateAlifeReducer {
     }
 
     @Test
-    fun `test take photo with none CameraScreenState`() = runTest {
+    fun `photo without CameraScreenState`() = runTest {
         setupReducer(LoadScreenState(), UseCaseResult.Success(Unit))
 
         createAlifeReducer.onTakePhoto(ByteArray(0))
 
         assertEquals(1, uiStore.stateCollector.size)
         assertEquals(0, uiStore.effectCollector.size)
-        val screenState = uiStore.stateCollector.last().screenState
-        assertTrue(screenState is LoadScreenState)
+        val lastState = uiStore.stateCollector.last()
+        assertTrue(lastState.screenState is LoadScreenState)
+        assertTrue(lastState.pagerItems.first() is CameraPagerItem.TakePicture)
+    }
+
+    @Test
+    fun `photo with CameraFirstScreen and OnPictureTaking`() = runTest {
+        setupReducer(CameraFirstScreenState(), UseCaseResult.Success(Unit))
+
+        createAlifeReducer.onStartTakePhoto(CameraPagerItem.OnPictureTaking())
+        createAlifeReducer.onTakePhoto(ByteArray(0))
+
+        assertEquals(3, uiStore.stateCollector.size)
+        assertEquals(0, uiStore.effectCollector.size)
+        val lastState = uiStore.stateCollector.last()
+        assertTrue(lastState.screenState is CameraSecondScreenState)
+        assertTrue(lastState.pagerItems.first() is CameraPagerItem.TakePicture)
+    }
+
+    @Test
+    fun `test start taking photo with none CameraScreenState`() = runTest {
+        setupReducer(LoadScreenState(), UseCaseResult.Success(Unit))
+
+        createAlifeReducer.onStartTakePhoto(CameraPagerItem.OnPictureTaking())
+
+        assertEquals(2, uiStore.stateCollector.size)
+        assertEquals(0, uiStore.effectCollector.size)
+        val lastState = uiStore.stateCollector.last()
+        assertTrue(lastState.screenState is LoadScreenState)
+        assertTrue(lastState.pagerItems.first() is CameraPagerItem.OnPictureTaking)
     }
 
     @Test
@@ -54,12 +85,14 @@ class TestCreateAlifeReducer {
 
         createAlifeReducer.onTakePhoto(ByteArray(0))
 
-        assertEquals(3, uiStore.stateCollector.size)
+        assertEquals(2, uiStore.stateCollector.size)
         assertEquals(0, uiStore.effectCollector.size)
         val screenState = uiStore.stateCollector.last().screenState
         assertTrue(screenState is CameraSecondScreenState)
-        val cameraSecondScreenState = screenState as CameraSecondScreenState
-        assertEquals(CameraSelector.DEFAULT_BACK_CAMERA, cameraSecondScreenState.cameraSelector)
+        assertEquals(
+            CameraSelector.DEFAULT_BACK_CAMERA,
+            (screenState as CameraSecondScreenState).cameraSelector
+        )
     }
 
     @Test
@@ -70,13 +103,15 @@ class TestCreateAlifeReducer {
 
         createAlifeReducer.onTakePhoto(ByteArray(0))
 
-        assertEquals(4, uiStore.stateCollector.size)
+        assertEquals(2, uiStore.stateCollector.size)
         assertEquals(1, uiStore.effectCollector.size)
-        val screenState = uiStore.stateCollector.last().screenState
-        assertTrue(screenState is LoadScreenState)
+        val lastState = uiStore.stateCollector.last()
+        assertTrue(lastState.screenState is CameraSecondScreenState)
         assertTrue(uiStore.effectCollector.last() is CreateAlifeEffect.CreateAlifeFinish)
-        val cameraSecondScreenState = uiStore.stateCollector[2].screenState as CameraScreenState
-        assertEquals(CameraSelector.DEFAULT_BACK_CAMERA, cameraSecondScreenState.cameraSelector)
+        assertEquals(
+            CameraSelector.DEFAULT_BACK_CAMERA,
+            (lastState.screenState as CameraScreenState).cameraSelector
+        )
     }
 
     @Test
@@ -90,13 +125,15 @@ class TestCreateAlifeReducer {
         createAlifeReducer.onTakePhoto(ByteArray(0))
         // return из-за того, что стоит LoadState
 
-        assertEquals(4, uiStore.stateCollector.size)
-        assertEquals(1, uiStore.effectCollector.size)
-        assertTrue(uiStore.stateCollector.last().screenState is LoadScreenState)
+        assertEquals(2, uiStore.stateCollector.size)
+        assertEquals(2, uiStore.effectCollector.size)
+        val lastState = uiStore.stateCollector.last()
+        assertTrue(lastState.screenState is CameraSecondScreenState)
         assertTrue(uiStore.effectCollector.last() is CreateAlifeEffect.CreateAlifeFinish)
-        assertTrue(uiStore.effectCollector.last() is CreateAlifeEffect.CreateAlifeFinish)
-        val cameraSecondScreenState = uiStore.stateCollector[2].screenState as CameraScreenState
-        assertEquals(CameraSelector.DEFAULT_BACK_CAMERA, cameraSecondScreenState.cameraSelector)
+        assertEquals(
+            CameraSelector.DEFAULT_BACK_CAMERA,
+            (lastState.screenState as CameraScreenState).cameraSelector
+        )
     }
 
     // Fake Realization

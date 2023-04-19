@@ -16,6 +16,7 @@ import com.alife.domain.core.usecase.UseCaseResult
 import junit.framework.TestCase
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
+import java.util.concurrent.Executor
 
 class TestCreateAlifeReducerRotation {
 
@@ -81,7 +82,7 @@ class TestCreateAlifeReducerRotation {
 
     // Fake Realization
     class FakeCaptureWrapper : BaseCaptureWrapper {
-        override suspend fun takePhoto(context: Context): ImageProxy {
+        override suspend fun takePhoto(executor: Executor): ImageProxy {
             TODO("Not yet implemented")
         }
     }

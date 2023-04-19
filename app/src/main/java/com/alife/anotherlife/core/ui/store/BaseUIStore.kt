@@ -50,6 +50,10 @@ abstract class BaseUIStore<STATE : MVI.State, EFFECT : MVI.Effect>(
         stateFlow.value = state
     }
 
+    override suspend fun setSuspendState(state: suspend STATE.() -> STATE) {
+        stateFlow.value = getState().state()
+    }
+
     override suspend fun setEffect(effect: EFFECT) {
         effectChannel.send(effect)
     }

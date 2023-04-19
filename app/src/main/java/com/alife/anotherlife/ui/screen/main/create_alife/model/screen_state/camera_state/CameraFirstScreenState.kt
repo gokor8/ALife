@@ -3,6 +3,7 @@ package com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.cam
 import androidx.camera.core.CameraSelector
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.CameraSelectorInverter
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CameraPagerItem
 
 class CameraFirstScreenState(
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
@@ -20,7 +21,8 @@ class CameraFirstScreenState(
             copy(
                 screenState = CameraSecondScreenState(
                     cameraInverter.invertCameraSelector()
-                )
+                ),
+                pagerItems = pagerItems.replaceCamera(CameraPagerItem.TakePicture())
             )
         }
     }

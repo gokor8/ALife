@@ -2,28 +2,22 @@ package com.alife.anotherlife.ui.screen.main.create_alife
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alife.anotherlife.R
-import com.alife.anotherlife.core.composable.addons.stroke6Draw
-import com.alife.anotherlife.core.composable.clickable
 import com.alife.anotherlife.core.composable.modifier.ImeModifier
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraActionsComposable
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CameraPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.VideoCameraPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
@@ -42,7 +36,6 @@ class CreateAlifeScreen(
                 is PermissionStatus.Success -> {
                     viewModel.reduce(CreateAlifeAction.PermissionGrantedAction())
                 }
-
                 is PermissionStatus.Fatal -> {
                     viewModel.reduce(CreateAlifeAction.PermissionFatalAction())
                 }
@@ -59,7 +52,7 @@ class CreateAlifeScreen(
             horizontalAlignment = CenterHorizontally,
             modifier = modifier.fillMaxSize()
         ) {
-            val pagerItems = listOf(CameraCameraPagerItem(), VideoCameraPagerItem())
+            val pagerItems = state.pagerItems
 
             TextBase(
                 textResId = R.string.horizontal_short_logo,
@@ -74,64 +67,6 @@ class CreateAlifeScreen(
                 state = state,
                 viewModel = viewModel
             )
-        }
-    }
-}
-
-interface CameraPagerItem {
-
-    @Composable
-    fun Content(
-        captureWrapper: BaseCaptureWrapper,
-        viewModel: CreateAlifeViewModel
-    )
-}
-
-class CameraCameraPagerItem : CameraPagerItem {
-
-    @Composable
-    override fun Content(
-        captureWrapper: BaseCaptureWrapper,
-        viewModel: CreateAlifeViewModel
-    ) {
-        val colorScheme = MaterialTheme.colorScheme
-        val context = LocalContext.current
-
-        Canvas(modifier = Modifier
-            .size(60.dp)
-            .clip(CircleShape)
-            .clickable(rememberCoroutineScope()) {
-                val imageProxy = captureWrapper.takePhoto(context)
-                viewModel.reduce(CreateAlifeAction.TakePhoto(imageProxy))
-            }
-        ) {
-            drawCircle(
-                color = colorScheme.onPrimary,
-                style = stroke6Draw()
-            )
-        }
-    }
-}
-
-class VideoCameraPagerItem : CameraPagerItem {
-
-    @Composable
-    override fun Content(
-        captureWrapper: BaseCaptureWrapper,
-        viewModel: CreateAlifeViewModel
-    ) {
-        val colorScheme = MaterialTheme.colorScheme
-
-        Canvas(modifier = Modifier
-            .size(60.dp)
-            .clip(CircleShape)
-            .clickable(rememberCoroutineScope()) {
-
-            }
-        ) {
-            drawCircle(color = colorScheme.onPrimary, style = stroke6Draw())
-            drawCircle(color = colorScheme.onPrimary, size.maxDimension / 2.5f)
-            drawCircle(color = colorScheme.primary, 20f)
         }
     }
 }

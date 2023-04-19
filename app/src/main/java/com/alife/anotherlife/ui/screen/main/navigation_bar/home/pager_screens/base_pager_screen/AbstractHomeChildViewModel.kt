@@ -5,6 +5,6 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.ba
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildState
 
-abstract class BaseHomeChildViewModel(
+abstract class AbstractHomeChildViewModel(
     override val reducerVM: AbstractHomeChildReducer
 ) : DefaultViewModel<AbstractHomeChildReducer, HomeChildAction, HomeChildState, HomeChildEffect>(reducerVM)

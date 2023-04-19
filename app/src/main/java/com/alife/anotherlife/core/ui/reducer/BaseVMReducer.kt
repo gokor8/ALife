@@ -7,8 +7,8 @@ import com.alife.core.mvi.MVI
 import com.alife.core.mvi.addons.BaseMVIHandlers
 import com.alife.core.mvi.addons.SuspendMVIHandlers
 
-abstract class BaseVMReducer<STATE : MVI.State, EFFECT : MVI.Effect> :
-    VMReducer<STATE, EFFECT>, BaseMVIHandlers<STATE, EFFECT>, SuspendMVIHandlers<STATE, EFFECT> {
+abstract class BaseVMReducer<STATE : MVI.State, EFFECT : MVI.Effect> : VMReducer<STATE, EFFECT>,
+    BaseMVIHandlers<STATE, EFFECT>, SuspendMVIHandlers<STATE, EFFECT>, HandleLaunch() {
 
     protected abstract val uiStore: UIStore<STATE, EFFECT>
 
@@ -24,6 +24,10 @@ abstract class BaseVMReducer<STATE : MVI.State, EFFECT : MVI.Effect> :
 
     override fun setState(state: STATE) {
         uiStore.setState(state)
+    }
+
+    override suspend fun setSuspendState(state: suspend STATE.() -> STATE) {
+        uiStore.setSuspendState(state)
     }
 
     override suspend fun setStateDebounce(delayLong: Long, state: STATE.() -> STATE) {

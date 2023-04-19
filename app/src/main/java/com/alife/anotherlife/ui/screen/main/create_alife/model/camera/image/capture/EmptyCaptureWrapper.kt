@@ -2,9 +2,10 @@ package com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.cap
 
 import android.content.Context
 import androidx.camera.core.ImageProxy
+import java.util.concurrent.Executor
 import kotlin.coroutines.suspendCoroutine
 
 class EmptyCaptureWrapper : UselessCaptureWrapper {
 
-    override suspend fun takePhoto(context: Context): ImageProxy = suspendCoroutine {  }
+    override suspend fun takePhoto(executor: Executor): ImageProxy = suspendCoroutine {  }
 }

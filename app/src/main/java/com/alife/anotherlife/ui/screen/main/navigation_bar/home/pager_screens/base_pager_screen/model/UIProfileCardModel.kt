@@ -2,7 +2,7 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.b
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.BaseHomeChildViewModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.AbstractHomeChildViewModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.ProfileCardCompose
 
 data class UIProfileCardModel(
@@ -16,7 +16,7 @@ data class UIProfileCardModel(
     override fun itemKey() = username
 
     @Composable
-    override fun Card(viewModel: BaseHomeChildViewModel, modifier: Modifier) {
+    override fun Card(viewModel: AbstractHomeChildViewModel, modifier: Modifier) {
         ProfileCardCompose(
             profileName = username,
             avatar = avatar,

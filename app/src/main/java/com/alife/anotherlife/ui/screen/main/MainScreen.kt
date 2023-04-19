@@ -21,19 +21,23 @@ class MainScreen : DefaultScreen() {
     override fun Content(modifier: Modifier) {
 
         val navController = rememberNavController()
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route ?: ""
+
         val bottomBarItems = listOf(MapNavBarItem(), HomeNavBarItem(), ProfileNavBarItem())
 
         Scaffold(
             bottomBar = {
-                NavigationBar(modifier = Modifier.clip(Shapes.large)) {
-                    val navBackStackEntry by navController.currentBackStackEntryAsState()
-                    val currentDestination = navBackStackEntry?.destination
-                    bottomBarItems.forEach { item ->
-                        item.Content(
-                            rowScope = this,
-                            navRepeat = currentDestination?.hierarchy ?: sequenceOf(),
-                            navController = navController
-                        )
+                if (!currentRoute.contains(BottomBarHideNavRoute().routeTag)) {
+                    NavigationBar(modifier = Modifier.clip(Shapes.large)) {
+                        val currentDestination = navBackStackEntry?.destination
+                        bottomBarItems.forEach { item ->
+                            item.Content(
+                                rowScope = this,
+                                navRepeat = currentDestination?.hierarchy ?: sequenceOf(),
+                                navController = navController
+                            )
+                        }
                     }
                 }
             }
