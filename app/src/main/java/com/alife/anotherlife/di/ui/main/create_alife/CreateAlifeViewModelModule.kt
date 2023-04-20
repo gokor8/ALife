@@ -1,9 +1,12 @@
 package com.alife.anotherlife.di.ui.main.create_alife
 
+import androidx.camera.core.ImageProxy
 import com.alife.anotherlife.ui.screen.main.create_alife.BaseCreateAlifeReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseCameraStateToSaveImage
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.CameraStateToSaveImage
+import com.alife.anotherlife.ui.screen.main.create_alife.mapper.ImageProxySelectMapper
+import com.alife.core.mapper.Mapper
 import com.alife.data.repository.main.create_alife.CreateAlifeRepository
 import com.alife.data.repository.main.create_alife.mapper.BaseEntityToReadModel
 import com.alife.data.repository.main.create_alife.mapper.BaseEntityToSaveModel
@@ -25,6 +28,9 @@ interface CreateAlifeViewModelModule {
 
     @Binds
     fun bindCreateAlifeReducer(reducer: CreateAlifeReducer): BaseCreateAlifeReducer
+
+    @Binds
+    fun bindImageProxySelectMapper(mapper: ImageProxySelectMapper): Mapper<ImageProxy, ByteArray>
 
     @Binds
     fun bindCameraStateToSaveImage(cameraStateToSaveImage: CameraStateToSaveImage): BaseCameraStateToSaveImage

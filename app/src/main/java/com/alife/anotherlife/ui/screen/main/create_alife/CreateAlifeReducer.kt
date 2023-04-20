@@ -2,9 +2,11 @@ package com.alife.anotherlife.ui.screen.main.create_alife
 
 import android.content.ContextWrapper
 import android.util.Log
+import androidx.camera.core.ImageProxy
 import com.alife.anotherlife.core.ui.reducer.BaseVMReducer
 import com.alife.anotherlife.core.ui.reducer.HandlerVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
+import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.ContextMainThreadWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseCameraStateToSaveImage
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.ImageProxyToByteArray
@@ -17,6 +19,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.came
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.InvertibleCamera
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
+import com.alife.core.mapper.Mapper
 import com.alife.domain.core.usecase.UseCaseResult
 import com.alife.domain.main.create_alife.BaseSaveAlifeUseCase
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +29,7 @@ import javax.inject.Inject
 class CreateAlifeReducer @Inject constructor(
     override val uiStore: UIStore<CreateAlifeState, CreateAlifeEffect>,
     private val cameraStateToSaveImage: BaseCameraStateToSaveImage,
+    private val imageProxyToByteArray: Mapper<ImageProxy, ByteArray>,
     private val saveAlifeUseCase: BaseSaveAlifeUseCase
 ) : HandlerVMReducer<CreateAlifeState, CreateAlifeEffect>(), BaseCreateAlifeReducer {
 
@@ -40,44 +44,22 @@ class CreateAlifeReducer @Inject constructor(
         setState { copy(captureWrapper = captureWrapper) }
     }
 
-    override suspend fun onStartTakePhoto(pagerItem: CameraPagerItem) {
-        setState { copy(pagerItems = pagerItems.replaceCamera(pagerItem)) }
-    }
+    override suspend fun onCreatePhoto(contextWrapper: BaseContextMainExecutorWrapper) {
+        val mainExecutor = contextWrapper.getMainExecutor()
+        val screenState = getState().screenState
+        if (screenState !is CameraScreenState || mainExecutor == null) return
 
-    override suspend fun onTakePhoto(imageByteArray: ByteArray) {
-        getStateSuspend {
-            if (screenState !is CameraScreenState) return@getStateSuspend
-
-            val saveImageEntity = cameraStateToSaveImage.map(screenState, imageByteArray)
-
-            if (saveAlifeUseCase.saveImage(saveImageEntity) is UseCaseResult.Success) {
-                screenState.onImageLoaded(this@CreateAlifeReducer)
-            } else {
-                Log.d("SaveAlifeUseCase", "Error")
-                /*Show Error*/
-            }
-        }
-    }
-
-    override suspend fun onCreatePhoto(contextWrapper: ContextMainThreadWrapper) {
         setState { copyReplaceCamera(CameraPagerItem.OnPictureTaking()) }
 
-        execute { exception ->
+        execute {
+            setState { copyReplaceCamera(CameraPagerItem.TakePicture()) }
             setEffect(CreateAlifeEffect.CreateAlifeFinish())
         }.handleThis(uiStore.getState()) {
-            val mainExecutor = contextWrapper.getMainExecutor()
-            if (screenState !is CameraScreenState || mainExecutor == null) return@handleThis
-
             val imageProxy = captureWrapper.takePhoto(mainExecutor)
 
-            val imageByteArray = withContext(Dispatchers.IO) {
-                if (imageProxy.planes.size > 1)
-                    ImageProxyToYuvByteArray().map(imageProxy)
-                else
-                    ImageProxyToByteArray().map(imageProxy)
-            }
+            val imageBytes = withContext(Dispatchers.IO) { imageProxyToByteArray.map(imageProxy) }
 
-            val saveImageEntity = cameraStateToSaveImage.map(screenState, imageByteArray)
+            val saveImageEntity = cameraStateToSaveImage.map(screenState, imageBytes)
 
             saveAlifeUseCase.saveImage(saveImageEntity)
 

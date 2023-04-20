@@ -28,7 +28,8 @@ class TestCreateAlifeReducerChangeCamera {
         createAlifeReducer = CreateAlifeReducer(
             uiStore,
             CameraStateToSaveImage(),
-            TestCreateAlifeReducer.FakeSaveAlifeUseCase(useCaseResult)
+            TestCreateAlifeReducer.FakeImageProxySelectMapper(),
+            TestCreateAlifeReducer.FakeSaveAlifeUseCase()
         )
     }
 

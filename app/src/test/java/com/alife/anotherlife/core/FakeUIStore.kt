@@ -17,7 +17,6 @@ class FakeUIStore<STATE : MVI.State, EFFECT : MVI.Effect>(initState: STATE) : UI
     override fun getStateCollector(): StateCollector<STATE> = fakeStateCollector
     override fun getEffectCollector(): EffectCollector<EFFECT> = fakeEffectCollector
 
-
     override fun getState(): STATE {
         return stateCollector.last()
     }
@@ -50,4 +49,7 @@ class FakeUIStore<STATE : MVI.State, EFFECT : MVI.Effect>(initState: STATE) : UI
         stateCollector.add(getState().state())
     }
 
+    override suspend fun setSuspendState(state: suspend STATE.() -> STATE) {
+        stateCollector.add(getState().state())
+    }
 }

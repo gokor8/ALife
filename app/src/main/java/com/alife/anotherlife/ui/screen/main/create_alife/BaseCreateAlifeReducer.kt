@@ -1,7 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
-import android.content.ContextWrapper
 import com.alife.anotherlife.core.ui.reducer.VMReducer
+import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.ContextMainThreadWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CameraPagerItem
@@ -14,9 +14,7 @@ interface BaseCreateAlifeReducer : VMReducer<CreateAlifeState, CreateAlifeEffect
 
     suspend fun onCameraWrapper(captureWrapper: BaseCaptureWrapper)
 
-    suspend fun onStartTakePhoto(pagerItem: CameraPagerItem)
-    suspend fun onTakePhoto(imageByteArray: ByteArray)
-    suspend fun onCreatePhoto(contextWrapper: ContextMainThreadWrapper)
+    suspend fun onCreatePhoto(contextWrapper: BaseContextMainExecutorWrapper)
 
     suspend fun onPermissionGranted()
     suspend fun onPermissionFatal()

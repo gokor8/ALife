@@ -39,7 +39,8 @@ class TestCreateAlifeReducerRotation {
         createAlifeReducer = CreateAlifeReducer(
             uiStore,
             CameraStateToSaveImage(),
-            TestCreateAlifeReducer.FakeSaveAlifeUseCase(useCaseResult)
+            TestCreateAlifeReducer.FakeImageProxySelectMapper(),
+            TestCreateAlifeReducer.FakeSaveAlifeUseCase()
         )
     }
 

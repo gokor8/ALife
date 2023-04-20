@@ -5,7 +5,11 @@ import androidx.core.content.ContextCompat
 import java.lang.ref.WeakReference
 import java.util.concurrent.Executor
 
-class ContextMainThreadWrapper(private val context: WeakReference<Context>) {
+class ContextMainThreadWrapper(
+    private val context: WeakReference<Context>
+) : BaseContextMainExecutorWrapper {
 
-    fun getMainExecutor(): Executor? = context.get()?.let { ContextCompat.getMainExecutor(it) }
+    override fun getMainExecutor(): Executor? {
+        return context.get()?.let { ContextCompat.getMainExecutor(it) }
+    }
 }

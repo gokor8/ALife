@@ -14,8 +14,10 @@ import androidx.compose.ui.unit.dp
 import com.alife.anotherlife.core.composable.addons.stroke6Draw
 import com.alife.anotherlife.core.composable.clickable
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
+import com.alife.anotherlife.ui.screen.main.create_alife.addons.ContextMainThreadWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
+import java.lang.ref.WeakReference
 
 interface CameraPagerItem : CreateAlifePagerItem {
 
@@ -33,9 +35,11 @@ interface CameraPagerItem : CreateAlifePagerItem {
                 .size(60.dp)
                 .clip(CircleShape)
                 .clickable(rememberCoroutineScope()) {
-                    viewModel.reduce(CreateAlifeAction.ChangeCameraPagerItem(OnPictureTaking()))
-                    val imageProxy = captureWrapper.takePhoto(context)
-                    viewModel.reduce(CreateAlifeAction.TakePhoto(imageProxy))
+                    viewModel.reduce(
+                        CreateAlifeAction.CreatePhoto(
+                            ContextMainThreadWrapper(WeakReference(context))
+                        )
+                    )
                 }
             ) {
                 drawCircle(
@@ -53,7 +57,7 @@ interface CameraPagerItem : CreateAlifePagerItem {
             captureWrapper: BaseCaptureWrapper,
             viewModel: CreateAlifeViewModel
         ) {
-            CircularProgressIndicator(strokeWidth = 2.dp)
+            CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(60.dp))
         }
     }
 }
