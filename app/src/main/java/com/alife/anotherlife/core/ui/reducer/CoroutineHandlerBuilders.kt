@@ -1,8 +1,9 @@
 package com.alife.anotherlife.core.ui.reducer
 
+import com.alife.core.coroutine_handler.CoroutineHandler
 import com.alife.core.coroutine_handler.CoroutineHandlerBuilder
-import com.alife.core.coroutine_handler.base.BaseCoroutineHandler
 import com.alife.core.mapper.Mapper
+import com.alife.core.mvi.MVI
 import kotlin.Exception
 
 interface CoroutineHandlerBuilders {
@@ -11,43 +12,60 @@ interface CoroutineHandlerBuilders {
 
     suspend fun executeUnit(): CoroutineHandlerBuilder<Unit>
 
-    suspend fun <M> execute(onException: (Exception) -> M): BaseCoroutineHandler<M>
+    suspend fun <M> execute(onException: suspend (Exception) -> M): CoroutineHandler<M>
 
-    suspend fun <M> execute(exceptionMapper: Mapper<Exception, M>): BaseCoroutineHandler<M>
+    suspend fun <M> execute(exceptionMapper: Mapper<Exception, M>): CoroutineHandler<M>
 
-    suspend fun <I, M> execute(model: I, onException: (I, Exception) -> M): BaseCoroutineHandler<M>
+    suspend fun <I, M> execute(
+        model: I,
+        onException: suspend (I, Exception) -> M
+    ): CoroutineHandler<M>
 
-    suspend fun <I, M> executeThis(model: I, onException: I.(Exception) -> M): BaseCoroutineHandler<M>
+    suspend fun <I, M> executeThis(
+        model: I,
+        onException: suspend I.(Exception) -> M
+    ): CoroutineHandler<M>
+
+    suspend fun <STATE : MVI.State> executeWithReducer(
+        reducer: BaseVMReducer<STATE, *>,
+        onException: suspend STATE.(Exception) -> STATE,
+    ): ReducerCoroutineHandler<STATE>
+
 
     class Default : CoroutineHandlerBuilders {
         override suspend fun <M> execute(): CoroutineHandlerBuilder<M> {
             return CoroutineHandlerBuilder()
         }
 
-        override suspend fun <M> execute(onException: (Exception) -> M): BaseCoroutineHandler<M> {
-            return CoroutineHandlerBuilder<M>().onException(onException)
-        }
-
-        override suspend fun <M> execute(exceptionMapper: Mapper<Exception, M>): BaseCoroutineHandler<M> {
-            return CoroutineHandlerBuilder<M>().onException(exceptionMapper)
-        }
-
-        override suspend fun <I, M> execute(
-            model: I,
-            onException: (I, Exception) -> M
-        ): BaseCoroutineHandler<M> {
-            return CoroutineHandlerBuilder<M>().onException(model, onException)
-        }
-
         override suspend fun executeUnit(): CoroutineHandlerBuilder<Unit> {
             return CoroutineHandlerBuilder()
         }
 
+        override suspend fun <M> execute(onException: suspend (Exception) -> M): CoroutineHandler<M> {
+            return CoroutineHandlerBuilder<M>().onException(onException)
+        }
+
+        override suspend fun <M> execute(
+            exceptionMapper: Mapper<Exception, M>
+        ) = CoroutineHandlerBuilder<M>().onException { exception ->
+            exceptionMapper.map(exception)
+        }
+
+        override suspend fun <I, M> execute(
+            model: I,
+            onException: suspend (I, Exception) -> M
+        ) = CoroutineHandlerBuilder<M>().onException(model, onException)
+
         override suspend fun <I, M> executeThis(
             model: I,
-            onException: (I, Exception) -> M
-        ): BaseCoroutineHandler<M> {
-            return CoroutineHandlerBuilder<M>().onExceptionThis(model, onException)
+            onException: suspend I.(Exception) -> M
+        ) = CoroutineHandlerBuilder<M>().onException(model, onException)
+
+        override suspend fun <STATE : MVI.State> executeWithReducer(
+            reducer: BaseVMReducer<STATE, *>,
+            onException: suspend STATE.(Exception) -> STATE,
+        ) = ReducerCoroutineHandler(reducer) { exception ->
+            reducer.getState().onException(exception)
         }
     }
 }

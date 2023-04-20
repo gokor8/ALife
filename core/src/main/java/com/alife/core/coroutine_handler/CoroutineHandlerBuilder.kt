@@ -8,21 +8,22 @@ class CoroutineHandlerBuilder<M> : BaseCoroutineHandlerBuilder<M> {
 
     override suspend fun onException(
         action: suspend (Exception) -> M
-    ): BaseCoroutineHandler<M> = CoroutineHandler(action)
+    ): CoroutineHandler<M> = CoroutineHandler(action)
 
-    override suspend fun onException(mapper: Mapper<Exception, M>): BaseCoroutineHandler<M> {
-        return CoroutineHandler { exception -> mapper.map(exception) }
-    }
+//    override suspend fun onException(mapper: Mapper<Exception, M>): BaseCoroutineHandler<M> {
+//        return CoroutineHandler { exception -> mapper.map(exception) }
+//    }
 
     override suspend fun <I> onException(
         model: I,
         action: suspend (I, Exception) -> M
-    ): BaseCoroutineHandler<M> = CoroutineHandler { exception -> action(model, exception) }
+    ): CoroutineHandler<M> = CoroutineHandler { exception -> action(model, exception) }
 
-    override suspend fun <I> onExceptionThis(
-        model: I,
-        action: suspend I.(Exception) -> M
-    ): BaseCoroutineHandler<M> = CoroutineHandler { exception -> action(model, exception) }
+//    override suspend fun onExceptionEmpty(): BaseCoroutineHandler<Unit> = CoroutineHandler {}
 
-    override suspend fun onExceptionEmpty(): BaseCoroutineHandler<Unit> = CoroutineHandler {}
+//    override suspend fun <I> onExceptionThis(
+//        model: I,
+//        action: suspend I.(Exception) -> M
+//    ): BaseCoroutineHandler<M> = CoroutineHandler { exception -> action(model, exception) }
+
 }

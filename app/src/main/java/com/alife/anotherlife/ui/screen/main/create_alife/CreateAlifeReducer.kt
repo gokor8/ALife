@@ -62,7 +62,9 @@ class CreateAlifeReducer @Inject constructor(
     override suspend fun onCreatePhoto(contextWrapper: ContextMainThreadWrapper) {
         setState { copyReplaceCamera(CameraPagerItem.OnPictureTaking()) }
 
-        execute {}.handleThis(uiStore.getState()) {
+        execute { exception ->
+            setEffect(CreateAlifeEffect.CreateAlifeFinish())
+        }.handleThis(uiStore.getState()) {
             val mainExecutor = contextWrapper.getMainExecutor()
             if (screenState !is CameraScreenState || mainExecutor == null) return@handleThis
 
