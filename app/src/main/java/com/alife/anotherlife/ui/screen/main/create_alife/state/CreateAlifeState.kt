@@ -28,4 +28,8 @@ data class CreateAlifeState @Inject constructor(
 
     fun canInvert() = captureWrapper !is UselessCaptureWrapper && screenState is InvertibleCamera
             && pagerItems.getCameraItem() is CameraPagerItem.TakePicture
+
+    fun copyReplaceCamera(cameraPagerItem: CameraPagerItem): CreateAlifeState {
+        return copy(pagerItems = pagerItems.replaceCamera(cameraPagerItem))
+    }
 }

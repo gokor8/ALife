@@ -3,20 +3,15 @@ package com.alife.anotherlife.core.ui.reducer
 import com.alife.anotherlife.core.ui.state_collector.EffectCollector
 import com.alife.anotherlife.core.ui.state_collector.StateCollector
 import com.alife.anotherlife.core.ui.store.UIStore
-import com.alife.core.coroutine_handler.UnitCoroutineHandlerBuilder
+import com.alife.core.coroutine_handler.CoroutineHandlerBuilder
 import com.alife.core.coroutine_handler.base.BaseCoroutineHandler
 import com.alife.core.coroutine_handler.base.BaseCoroutineHandlerBuilder
 import com.alife.core.mvi.MVI
 import com.alife.core.mvi.addons.BaseMVIHandlers
 import com.alife.core.mvi.addons.SuspendMVIHandlers
 
-abstract class BaseVMReducer<STATE : MVI.State, EFFECT : MVI.Effect>() : VMReducer<STATE, EFFECT>,
-    BaseMVIHandlers<STATE, EFFECT>, SuspendMVIHandlers<STATE, EFFECT>, BaseCoroutineHandler {
-
-    protected open val coroutineHandlerBuilder: BaseCoroutineHandlerBuilder =
-        UnitCoroutineHandlerBuilder()
-
-
+abstract class BaseVMReducer<STATE : MVI.State, EFFECT : MVI.Effect> : VMReducer<STATE, EFFECT>,
+    BaseMVIHandlers<STATE, EFFECT>, SuspendMVIHandlers<STATE, EFFECT> {
 
     protected abstract val uiStore: UIStore<STATE, EFFECT>
 

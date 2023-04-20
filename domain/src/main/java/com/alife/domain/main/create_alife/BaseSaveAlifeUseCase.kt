@@ -5,5 +5,5 @@ import com.alife.domain.main.create_alife.entity.SaveImageEntity
 
 interface BaseSaveAlifeUseCase {
 
-    suspend fun saveImage(saveImageEntity: SaveImageEntity): UseCaseResult<Unit>
+    suspend fun saveImage(saveImageEntity: SaveImageEntity)
 }
