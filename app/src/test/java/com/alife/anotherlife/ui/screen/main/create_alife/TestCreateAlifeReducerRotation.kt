@@ -1,11 +1,9 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
-import android.content.Context
 import androidx.camera.core.ImageProxy
 import com.alife.anotherlife.core.FakeUIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.CameraStateToSaveImage
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.EmptyCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
@@ -25,8 +23,7 @@ class TestCreateAlifeReducerRotation {
 
     private fun setupReducer(
         screenState: ScreenState,
-        captureWrapper: BaseCaptureWrapper,
-        useCaseResult: UseCaseResult<Unit>
+        captureWrapper: BaseCaptureWrapper
     ) {
         uiStore = FakeUIStore(
             CreateAlifeState(
@@ -39,14 +36,14 @@ class TestCreateAlifeReducerRotation {
         createAlifeReducer = CreateAlifeReducer(
             uiStore,
             CameraStateToSaveImage(),
-            TestCreateAlifeReducer.FakeImageProxySelectMapper(),
-            TestCreateAlifeReducer.FakeSaveAlifeUseCase()
+            TestCreateAlifeReducerOnTakePhoto.FakeImageProxySelectMapper(),
+            TestCreateAlifeReducerOnTakePhoto.FakeSaveAlifeUseCase()
         )
     }
 
     @Test
     fun `test isInvertButtonEnable state return enabled`() = runTest {
-        setupReducer(CameraFirstScreenState(), FakeCaptureWrapper(), UseCaseResult.Success(Unit))
+        setupReducer(CameraFirstScreenState(), FakeCaptureWrapper())
 
         val expected = true
 
@@ -55,7 +52,7 @@ class TestCreateAlifeReducerRotation {
 
     @Test
     fun `test isInvertButtonEnable return disabled`() = runTest {
-        setupReducer(CameraFirstScreenState(), EmptyCaptureWrapper(), UseCaseResult.Success(Unit))
+        setupReducer(CameraFirstScreenState(), EmptyCaptureWrapper())
 
         val expected = false
 
@@ -64,7 +61,7 @@ class TestCreateAlifeReducerRotation {
 
     @Test
     fun `test isInvertButtonEnable return disabled screen state`() = runTest {
-        setupReducer(LoadScreenState(), FakeCaptureWrapper(), UseCaseResult.Success(Unit))
+        setupReducer(LoadScreenState(), FakeCaptureWrapper())
 
         val expected = false
 
@@ -73,18 +70,10 @@ class TestCreateAlifeReducerRotation {
 
     @Test
     fun `test isInvertButtonEnable return disabled screen state and wrapper`() = runTest {
-        setupReducer(LoadScreenState(), EmptyCaptureWrapper(), UseCaseResult.Success(Unit))
+        setupReducer(LoadScreenState(), EmptyCaptureWrapper())
 
         val expected = false
 
         TestCase.assertEquals(expected, uiStore.stateCollector.first().canInvert())
-    }
-
-
-    // Fake Realization
-    class FakeCaptureWrapper : BaseCaptureWrapper {
-        override suspend fun takePhoto(executor: Executor): ImageProxy {
-            TODO("Not yet implemented")
-        }
     }
 }

@@ -11,4 +11,7 @@ interface CreateAlifePagerItem {
         captureWrapper: BaseCaptureWrapper,
         viewModel: CreateAlifeViewModel
     )
+
+    @Composable
+    fun InactiveContent() = Unit
 }

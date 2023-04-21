@@ -19,52 +19,59 @@ class TestCreateAlifeReducerChangeCamera {
     lateinit var createAlifeReducer: CreateAlifeReducer
     lateinit var uiStore: FakeUIStore<CreateAlifeState, CreateAlifeEffect>
 
-    private fun setupReducer(
-        screenState: ScreenState,
-        useCaseResult: UseCaseResult<Unit>
-    ) {
+    private fun setupReducer(screenState: ScreenState) {
         uiStore = FakeUIStore(CreateAlifeState(screenState = screenState, settingsIntent = null))
 
         createAlifeReducer = CreateAlifeReducer(
             uiStore,
             CameraStateToSaveImage(),
-            TestCreateAlifeReducer.FakeImageProxySelectMapper(),
-            TestCreateAlifeReducer.FakeSaveAlifeUseCase()
+            TestCreateAlifeReducerOnTakePhoto.FakeImageProxySelectMapper(),
+            TestCreateAlifeReducerOnTakePhoto.FakeSaveAlifeUseCase()
         )
     }
 
     @Test
     fun `test once change camera with CameraFirstState`() = runTest {
-        setupReducer(CameraFirstScreenState(), UseCaseResult.Success(Unit))
+        setupReducer(CameraFirstScreenState())
 
         createAlifeReducer.onChangeCamera()
 
+        val firstScreenState = uiStore.stateCollector[0].screenState
+        val secondScreenState = uiStore.stateCollector[1].screenState
+
         assertEquals(2, uiStore.stateCollector.size)
         assertEquals(0, uiStore.effectCollector.size)
-        val screenState = uiStore.stateCollector.last().screenState
-        TestCase.assertTrue(screenState is CameraFirstScreenState)
-        val cameraFirstScreenState = screenState as CameraFirstScreenState
-        assertEquals(CameraSelector.DEFAULT_BACK_CAMERA, cameraFirstScreenState.cameraSelector)
+        (firstScreenState as CameraFirstScreenState).also {
+            assertEquals(CameraSelector.DEFAULT_FRONT_CAMERA, it.cameraSelector)
+        }
+        (secondScreenState as CameraFirstScreenState).also {
+            assertEquals(CameraSelector.DEFAULT_BACK_CAMERA, it.cameraSelector)
+        }
     }
 
     @Test
     fun `test two change camera with CameraFirstState`() = runTest {
-        setupReducer(CameraFirstScreenState(), UseCaseResult.Success(Unit))
+        setupReducer(CameraFirstScreenState())
 
         createAlifeReducer.onChangeCamera()
         createAlifeReducer.onChangeCamera()
+
+        val secondScreenState = uiStore.stateCollector[1].screenState
+        val thirdScreenState = uiStore.stateCollector[2].screenState
 
         assertEquals(3, uiStore.stateCollector.size)
         assertEquals(0, uiStore.effectCollector.size)
-        val screenState = uiStore.stateCollector.last().screenState
-        TestCase.assertTrue(screenState is CameraFirstScreenState)
-        val cameraFirstScreenState = screenState as CameraFirstScreenState
-        assertEquals(CameraSelector.DEFAULT_FRONT_CAMERA, cameraFirstScreenState.cameraSelector)
+        (secondScreenState as CameraFirstScreenState).also {
+            assertEquals(CameraSelector.DEFAULT_BACK_CAMERA, it.cameraSelector)
+        }
+        (thirdScreenState as CameraFirstScreenState).also {
+            assertEquals(CameraSelector.DEFAULT_FRONT_CAMERA, it.cameraSelector)
+        }
     }
 
     @Test
     fun `test once change camera with none InvertibleCamera`() = runTest {
-        setupReducer(LoadScreenState(), UseCaseResult.Success(Unit))
+        setupReducer(LoadScreenState())
 
         createAlifeReducer.onChangeCamera()
 
