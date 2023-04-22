@@ -2,7 +2,6 @@ package com.alife.anotherlife.ui.screen.main.create_alife
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -17,9 +16,10 @@ import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraActionsComposable
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CameraPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.VideoCameraPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
 
 class CreateAlifeScreen(
     override val navController: NavController,
@@ -31,6 +31,17 @@ class CreateAlifeScreen(
     @OptIn(ExperimentalAnimationApi::class, ExperimentalFoundationApi::class)
     @Composable
     override fun Content(modifier: Modifier) {
+        val cameraPermission = viewModel.cameraPermission.requirePermission { permissionState ->
+            when (permissionState) {
+                is PermissionStatus.Success -> {
+                    viewModel.reduce(CreateAlifeAction.PermissionGrantedAction())
+                }
+                is PermissionStatus.Fatal -> {
+                    viewModel.reduce(CreateAlifeAction.PermissionFatalAction())
+                }
+            }
+        }
+
         val state = viewModel.getUIState()
 
         AnimatedContent(targetState = state.currentScreenState()) { screenState ->
@@ -41,6 +52,8 @@ class CreateAlifeScreen(
             horizontalAlignment = CenterHorizontally,
             modifier = modifier.fillMaxSize()
         ) {
+            val pagerItems = state.pagerItems
+
             TextBase(
                 textResId = R.string.horizontal_short_logo,
                 style = Title28Style().style(),

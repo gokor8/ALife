@@ -1,54 +1,69 @@
 package com.alife.anotherlife.core.ui.permission
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
+import com.alife.anotherlife.core.ui.dialog.AbstractDialog
 import com.google.accompanist.permissions.*
 
 abstract class AbstractPermission(
     private val permission: String,
+    private val permissionStrategy: PermissionStrategy,
+    protected val alertDialog: AbstractDialog,
 ) : BasePermission {
 
     @OptIn(ExperimentalPermissionsApi::class)
     @Composable
-    override fun requirePermission(onPermission: (PermissionStatus) -> Unit): PermissionState {
-        val context = LocalContext.current
+    override fun requirePermission(permissionBoxer: PermissionBoxer): PermissionState {
+        return requirePermission(permissionBoxer::reduceBox)
+    }
 
+    @OptIn(ExperimentalPermissionsApi::class)
+    @Composable
+    override fun requirePermission(onPermission: (PermissionStatus) -> Unit): PermissionState {
         var permissionStatus by remember {
             mutableStateOf<PermissionStatus>(PermissionStatus.Init())
         }
 
-        val rememberPermission = rememberPermissionState(permission) { isGranted ->
-            Log.d("Permission status ${this.javaClass.simpleName}", "$isGranted")
-            val activity = context as? Activity
-
-            permissionStatus = when {
-                isGranted -> PermissionStatus.Success()
-                activity?.shouldShowRequestPermissionRationale(permission) == true -> {
-                    PermissionStatus.Fail()
-                }
-                else -> PermissionStatus.Fatal()
-            }
-
-            onPermission(permissionStatus)
+        val permission = permissionStrategy.rememberPermission(permission = permission) { status ->
+            permissionStatus = status
+            onPermission(status)
         }
 
-        LaunchedEffect(Unit) { rememberPermission.launchPermissionRequest() }
+        OnPermissionStateSetup(permission, onPermission)
+        //LaunchedEffect(Unit) { permission.launchPermissionRequest() }
 
-        OnFail(
-            permissionStatus = permissionStatus,
-            onAgree = { rememberPermission.launchPermissionRequest() },
-            onPermission = onPermission
-        )
+        OnAllPermissionSetup(permission, permissionStatus, onPermission)
+//        OnFail(
+//            permissionStatus = permissionStatus,
+//            onAgree = { permission.launchPermissionRequest() },
+//            onPermission = onPermission
+//        )
 
-        return rememberPermission
+        return permission
     }
 
+    @OptIn(ExperimentalPermissionsApi::class)
     @Composable
-    protected abstract fun OnFail(
+    protected open fun OnPermissionStateSetup(
+        permissionState: PermissionState,
+        onPermission: (PermissionStatus) -> Unit
+    ) = Unit
+
+    @OptIn(ExperimentalPermissionsApi::class)
+    @Composable
+    protected open fun OnAllPermissionSetup(
+        permissionState: PermissionState,
         permissionStatus: PermissionStatus,
-        onAgree: () -> Unit,
-        onPermission: (PermissionStatus) -> Unit,
-    )
+        onPermission: (PermissionStatus) -> Unit
+    ) {
+        alertDialog.ShowDialog(
+            permissionStatus is PermissionStatus.Fail,
+            onAgree = { permissionState.launchPermissionRequest() },
+            onDismiss = { onPermission(PermissionStatus.Fatal()) }
+        )
+    }
 }

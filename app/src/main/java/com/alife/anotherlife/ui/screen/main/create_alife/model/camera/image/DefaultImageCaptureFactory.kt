@@ -1,7 +1,8 @@
-package com.alife.anotherlife.ui.screen.main.create_alife.model
+package com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image
 
 import android.util.Size
 import androidx.camera.core.ImageCapture
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.base.ImageCaptureFactory
 
 class DefaultImageCaptureFactory: ImageCaptureFactory {
 

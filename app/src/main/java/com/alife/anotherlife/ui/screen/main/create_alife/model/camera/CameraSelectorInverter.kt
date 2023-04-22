@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.screen.main.create_alife.model
+package com.alife.anotherlife.ui.screen.main.create_alife.model.camera
 
 import androidx.camera.core.CameraSelector
 

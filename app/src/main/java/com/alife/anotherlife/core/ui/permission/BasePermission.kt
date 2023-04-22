@@ -8,5 +8,9 @@ interface BasePermission {
 
     @OptIn(ExperimentalPermissionsApi::class)
     @Composable
+    fun requirePermission(permissionBoxer: PermissionBoxer): PermissionState
+
+    @OptIn(ExperimentalPermissionsApi::class)
+    @Composable
     fun requirePermission(onPermission: (PermissionStatus) -> Unit): PermissionState
 }

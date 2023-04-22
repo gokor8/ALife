@@ -2,17 +2,15 @@ package com.alife.anotherlife.ui.screen.main.create_alife.composable
 
 import android.content.Context
 import android.view.ViewGroup
-import androidx.camera.core.CameraSelector
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.key
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.BaseCameraSetupFacade
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.base.BaseCameraSetupFacade
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
