@@ -11,12 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.alife.anotherlife.core.composable.addons.stable
 import com.alife.anotherlife.core.composable.addons.stroke6Draw
 import com.alife.anotherlife.core.composable.clickable
+import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.ContextMainThreadWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import java.lang.ref.WeakReference
 
 interface PicturePagerItem : CreateAlifePagerItem {
@@ -53,12 +56,26 @@ interface PicturePagerItem : CreateAlifePagerItem {
     }
 
     class InitTakePicture : TakingPicture {
+        @OptIn(ExperimentalPermissionsApi::class)
         @Composable
         override fun Content(
             captureWrapper: BaseCaptureWrapper,
             viewModel: CreateAlifeViewModel
         ) {
+            viewModel.cameraPermission.requirePermission(
+                onPermission = stable { permissionState ->
+                    when (permissionState) {
+                        is PermissionStatus.Success -> {
+                            viewModel.reduce(CreateAlifeAction.PermissionGrantedAction())
+                        }
+                        is PermissionStatus.Fatal -> {
+                            viewModel.reduce(CreateAlifeAction.PermissionFatalAction())
+                        }
+                    }
+                }
+            )
 
+            super.Content(captureWrapper, viewModel)
         }
     }
 

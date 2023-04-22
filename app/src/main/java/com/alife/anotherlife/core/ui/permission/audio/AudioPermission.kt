@@ -10,7 +10,7 @@ class AudioPermission @Inject constructor(
     @DialogAnnotation.Audio
     alertDialog: AbstractDialog,
 ) : AbstractPermission(
-    android.Manifest.permission.CAPTURE_AUDIO_OUTPUT,
+    android.Manifest.permission.RECORD_AUDIO,
     PermissionStrategy.GoogleRecommend(),
     alertDialog
 )

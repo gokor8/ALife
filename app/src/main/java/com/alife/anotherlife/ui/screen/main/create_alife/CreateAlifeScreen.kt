@@ -31,17 +31,6 @@ class CreateAlifeScreen(
     @OptIn(ExperimentalAnimationApi::class, ExperimentalFoundationApi::class)
     @Composable
     override fun Content(modifier: Modifier) {
-        val cameraPermission = viewModel.cameraPermission.requirePermission { permissionState ->
-            when (permissionState) {
-                is PermissionStatus.Success -> {
-                    viewModel.reduce(CreateAlifeAction.PermissionGrantedAction())
-                }
-                is PermissionStatus.Fatal -> {
-                    viewModel.reduce(CreateAlifeAction.PermissionFatalAction())
-                }
-            }
-        }
-
         val state = viewModel.getUIState()
 
         AnimatedContent(targetState = state.currentScreenState()) { screenState ->

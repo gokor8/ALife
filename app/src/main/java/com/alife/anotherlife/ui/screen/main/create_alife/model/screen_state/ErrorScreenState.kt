@@ -19,7 +19,7 @@ import com.google.accompanist.permissions.PermissionState
 class ErrorScreenState : ScreenState.AbstractScreenState(Alignment.Center) {
 
     @Composable
-    override fun SafeContent(viewModel: CreateAlifeViewModel) {
+    override fun SafeContent(viewModel: CreateAlifeViewModel, ) {
         val context = LocalContext.current
         val state = viewModel.getUIState()
 
