@@ -7,4 +7,8 @@ interface DialogAnnotation {
     @Qualifier
     @Retention(AnnotationRetention.RUNTIME)
     annotation class Camera
+
+    @Qualifier
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class Audio
 }

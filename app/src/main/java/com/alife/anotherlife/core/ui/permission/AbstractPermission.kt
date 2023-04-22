@@ -1,11 +1,6 @@
 package com.alife.anotherlife.core.ui.permission
 
-import android.app.Activity
-import android.app.AlertDialog
-import android.util.Log
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.runtime.*
-import androidx.compose.ui.platform.LocalContext
 import com.alife.anotherlife.core.ui.dialog.AbstractDialog
 import com.google.accompanist.permissions.*
 
@@ -34,14 +29,8 @@ abstract class AbstractPermission(
         }
 
         OnPermissionStateSetup(permission, onPermission)
-        //LaunchedEffect(Unit) { permission.launchPermissionRequest() }
 
         OnAllPermissionSetup(permission, permissionStatus, onPermission)
-//        OnFail(
-//            permissionStatus = permissionStatus,
-//            onAgree = { permission.launchPermissionRequest() },
-//            onPermission = onPermission
-//        )
 
         return permission
     }

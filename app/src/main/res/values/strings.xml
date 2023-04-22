@@ -67,6 +67,10 @@
     <string name="dialog_camera_title">Приложению необходим доступ к камере</string>
     <string name="dialog_camera_description">Для создания Alife \n предоставьте доступ к камере</string>
 
+    // Camera Audio
+    <string name="dialog_audio_title">Приложению необходим доступ к микрофону</string>
+    <string name="dialog_audio_description">Для создания Alife \n предоставьте доступ к микрофону</string>
+
     // Camera
     <string name="camera_blocking_error_camera">Предоставьте разрешение на использование Камеры</string>
 </resources>

@@ -7,7 +7,7 @@ import com.alife.anotherlife.di.ui.core.DialogAnnotation
 import javax.inject.Inject
 
 class AudioPermission @Inject constructor(
-    @DialogAnnotation.Camera
+    @DialogAnnotation.Audio
     alertDialog: AbstractDialog,
 ) : AbstractPermission(
     android.Manifest.permission.CAPTURE_AUDIO_OUTPUT,
