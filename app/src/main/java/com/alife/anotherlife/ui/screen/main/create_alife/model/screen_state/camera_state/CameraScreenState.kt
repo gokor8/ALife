@@ -32,5 +32,5 @@ abstract class CameraScreenState(
         ) { viewModel.reduce(CreateAlifeAction.OnCaptureWrapper(it)) }
     }
 
-    abstract suspend fun onImageLoaded(reducer: VMReducer<CreateAlifeState, CreateAlifeEffect>)
+    abstract suspend fun onImageLoaded(reducer: CreateAlifeReducer)
 }

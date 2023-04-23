@@ -52,4 +52,15 @@ class CreateAlifeReducer @Inject constructor(
     override suspend fun onAudioPermissionFatal() {
         createAlifeVideoReducer.onAudioPermissionFatal()
     }
+
+    override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {
+        if(permissionStatus !is PermissionStatus.Success) return
+
+        setState {
+            copy(
+                screenState = VideoCameraScreenState(),
+                isAudioEnabled = permissionStatus is PermissionStatus.Success,
+            )
+        }
+    }
 }

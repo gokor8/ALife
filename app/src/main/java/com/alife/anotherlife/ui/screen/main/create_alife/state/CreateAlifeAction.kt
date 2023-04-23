@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.state
 
 import com.alife.anotherlife.core.composable.mvi_extensions.BaseMVIAction
+import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.BaseCreateAlifeReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
@@ -56,6 +57,12 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducer> {
                 reducer.onAudioPermissionGranted()
             else
                 reducer.onAudioPermissionFatal()
+        }
+    }
+
+    class AudioPermission(private val permissionStatus: PermissionStatus) : CreateAlifeAction {
+        override suspend fun onAction(reducer: BaseCreateAlifeReducer) {
+            reducer.onAudioPermission(permissionStatus)
         }
     }
 }

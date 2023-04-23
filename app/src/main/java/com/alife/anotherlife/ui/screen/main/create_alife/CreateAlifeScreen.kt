@@ -11,6 +11,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.modifier.ImeModifier
+import com.alife.anotherlife.core.composable.modifier.OnlyImeModifier
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
@@ -23,7 +24,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 class CreateAlifeScreen(
     override val navController: NavController,
-) : VMScreen<CreateAlifeViewModel>(ImeModifier()) {
+) : VMScreen<CreateAlifeViewModel>(OnlyImeModifier()) {
 
     @Composable
     override fun setupViewModel(): CreateAlifeViewModel = hiltViewModel()
@@ -41,14 +42,6 @@ class CreateAlifeScreen(
             horizontalAlignment = CenterHorizontally,
             modifier = modifier.fillMaxSize()
         ) {
-            val pagerItems = state.pagerItems
-
-            TextBase(
-                textResId = R.string.horizontal_short_logo,
-                style = Title28Style().style(),
-                modifier = Modifier.padding(top = 22.dp)
-            )
-
             Spacer(modifier = Modifier.weight(1f))
 
             CameraActionsComposable(

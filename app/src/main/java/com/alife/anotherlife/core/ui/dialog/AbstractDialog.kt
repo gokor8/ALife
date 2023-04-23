@@ -62,7 +62,7 @@ abstract class AbstractDialog(
                             textAlign = TextAlign.Center
                         )
 
-                        Line(strokeWidth = 20f, modifier = Modifier.padding(vertical = 10.dp))
+                        Line(strokeWidth = 2f, modifier = Modifier.padding(vertical = 10.dp))
 
                         TextBase(
                             textWrapper = description,

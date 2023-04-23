@@ -19,7 +19,7 @@ interface ScreenState {
     )
 
     abstract class AbstractScreenState(
-        private val contentAlignment: Alignment = Alignment.TopStart,
+        protected val contentAlignment: Alignment = Alignment.TopStart,
     ) : ScreenState {
 
         @Composable
@@ -31,6 +31,7 @@ interface ScreenState {
                 contentAlignment = contentAlignment,
                 modifier = modifier.fillMaxSize()
             ) {
+                TopRowContent(viewModel, modifier)
                 SafeContent(viewModel = viewModel)
             }
         }
@@ -39,5 +40,11 @@ interface ScreenState {
         protected abstract fun SafeContent(
             viewModel: CreateAlifeViewModel,
         )
+
+        @Composable
+        protected open fun TopRowContent(
+            viewModel: CreateAlifeViewModel,
+            modifier: Modifier
+        ) = Unit
     }
 }

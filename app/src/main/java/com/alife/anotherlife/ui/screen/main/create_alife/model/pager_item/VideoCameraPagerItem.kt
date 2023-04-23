@@ -46,11 +46,9 @@ interface VideoCameraPagerItem : CreateAlifePagerItem {
         @OptIn(ExperimentalPermissionsApi::class)
         @Composable
         override fun Content(captureWrapper: BaseCaptureWrapper, viewModel: CreateAlifeViewModel) {
-            val audioPermission = viewModel.audioPermission.requirePermission {
-                Log.d("Audio permission", "$it")
-            }
+            val audioPermission = viewModel.audioPermission.requirePermission(viewModel)
 
-            // TODO проверять в листе, если тстатус Granted, либо Fatal, запускать второй пермишн
+            // TODO проверять в листе(цепочке), если тстатус Granted, либо Fatal, запускать второй пермишн
 
             viewModel.cameraPermission.requirePermission { status ->
                 if(status is PermissionStatus.Success)

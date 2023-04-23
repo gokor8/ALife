@@ -23,6 +23,7 @@ data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) @Inject con
         VideoPagerItem.Sizable()
     ),
     val captureWrapper: BaseCaptureWrapper = EmptyCaptureWrapper(),
+    val isAudioEnabled: Boolean = true,
     @IntentModule.IntentAnnotation.Settings
     val settingsIntent: Intent?
 ) : MVI.State {
