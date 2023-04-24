@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
@@ -11,7 +12,8 @@ interface CreateAlifePagerItem {
     fun Content(
         size: Dp,
         captureWrapper: BaseCaptureWrapper,
-        viewModel: CreateAlifeViewModel
+        viewModel: CreateAlifeViewModel,
+        modifier: Modifier
     )
 
     @Composable

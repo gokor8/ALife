@@ -25,14 +25,15 @@ class VideoCameraPagerItem : CreateAlifePagerItem {
     override fun Content(
         size: Dp,
         captureWrapper: BaseCaptureWrapper,
-        viewModel: CreateAlifeViewModel
+        viewModel: CreateAlifeViewModel,
+        modifier: Modifier
     ) {
         MaterialTheme.colorScheme.apply {
             VideoCircle(
                 onPrimary,
                 onPrimary,
                 primary,
-                modifier = Modifier
+                modifier = modifier
                     .size(size)
                     .clip(CircleShape)
                     .clickable(rememberCoroutineScope()) {

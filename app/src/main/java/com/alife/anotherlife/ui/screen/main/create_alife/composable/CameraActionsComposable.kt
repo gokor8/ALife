@@ -3,6 +3,8 @@ package com.alife.anotherlife.ui.screen.main.create_alife.composable
 import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -14,6 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.alife.anotherlife.R
@@ -45,30 +48,27 @@ fun CameraActionsComposable(
         HorizontalPager(
             pageCount = pagerItems.size + 1,
             state = currentPage,
-
+            pageSpacing = 18.dp,
             reverseLayout = true,
             pageSize = PageSize.Fixed(60.dp),
-            pageSpacing = 32.dp,
-            modifier = Modifier
-                .layoutId(cameraActionModel.cameraActionsPager)
-                .width(152.dp)
+            modifier = Modifier.layoutId(cameraActionModel.cameraActionsPager)
         ) { page ->
-            val localPage = if (page == pagerItems.size) page - 2 else page
-
             Log.d("Aboba", "currentoffsetFraction ${currentPage.currentPageOffsetFraction}")
             Log.d("Aboba", "currentPage ${currentPage.currentPage}")
             Log.d("Aboba", "targetPage ${currentPage.targetPage}")
             Log.d("Aboba", "settledPage ${currentPage.settledPage}")
             Log.d("Aboba", "sum ${currentPage.currentPageOffsetFraction + currentPage.currentPage}")
 
-            val sizeMultipler = currentPage.currentPageOffsetFraction + currentPage.currentPage
+            val sizeMultiplier = currentPage.currentPageOffsetFraction + currentPage.currentPage
 
-            val size = if(60 * sizeMultipler < 20) 20.dp else (60 * sizeMultipler).dp
+            Log.d("Aboba", "answer ${(28f * sizeMultiplier + 32f).dp}")
 
-            pagerItems[localPage].Content(
-                size,
+            if(page == pagerItems.size) Spacer(modifier = Modifier.padding(60.dp)) else
+            pagerItems[page].Content(
+                (28f * sizeMultiplier + 32f).dp,
                 state.captureWrapper,
                 viewModel,
+                Modifier
             )
         }
 

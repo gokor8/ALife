@@ -1,7 +1,9 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -28,12 +30,13 @@ interface CameraPagerItem : CreateAlifePagerItem {
         override fun Content(
             size: Dp,
             captureWrapper: BaseCaptureWrapper,
-            viewModel: CreateAlifeViewModel
+            viewModel: CreateAlifeViewModel,
+            modifier: Modifier
         ) {
             val colorScheme = MaterialTheme.colorScheme
             val context = LocalContext.current
 
-            Canvas(modifier = Modifier
+            Canvas(modifier = modifier
                 .size(60.dp)
                 .clip(CircleShape)
                 .clickable(rememberCoroutineScope()) {
@@ -58,9 +61,10 @@ interface CameraPagerItem : CreateAlifePagerItem {
         override fun Content(
             size: Dp,
             captureWrapper: BaseCaptureWrapper,
-            viewModel: CreateAlifeViewModel
+            viewModel: CreateAlifeViewModel,
+            modifier: Modifier
         ) {
-            CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(60.dp))
+            CircularProgressIndicator(strokeWidth = 2.dp, modifier = modifier.size(60.dp))
         }
     }
 }
