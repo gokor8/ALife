@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.alife.anotherlife.core.composable.addons.stroke6Draw
@@ -22,6 +23,7 @@ class VideoCameraPagerItem : CreateAlifePagerItem {
 
     @Composable
     override fun Content(
+        size: Dp,
         captureWrapper: BaseCaptureWrapper,
         viewModel: CreateAlifeViewModel
     ) {
@@ -31,7 +33,7 @@ class VideoCameraPagerItem : CreateAlifePagerItem {
                 onPrimary,
                 primary,
                 modifier = Modifier
-                    .size(60.dp)
+                    .size(size)
                     .clip(CircleShape)
                     .clickable(rememberCoroutineScope()) {
 
@@ -41,7 +43,7 @@ class VideoCameraPagerItem : CreateAlifePagerItem {
     }
 
     @Composable
-    override fun InactiveContent() {
+    override fun InactiveContent(size: Dp) {
         MaterialTheme.colorScheme.apply {
             VideoCircle(
                 onPrimary,

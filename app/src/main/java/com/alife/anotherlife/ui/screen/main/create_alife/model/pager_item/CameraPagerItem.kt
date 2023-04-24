@@ -10,6 +10,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.alife.anotherlife.core.composable.addons.stroke6Draw
 import com.alife.anotherlife.core.composable.clickable
@@ -25,6 +26,7 @@ interface CameraPagerItem : CreateAlifePagerItem {
 
         @Composable
         override fun Content(
+            size: Dp,
             captureWrapper: BaseCaptureWrapper,
             viewModel: CreateAlifeViewModel
         ) {
@@ -54,6 +56,7 @@ interface CameraPagerItem : CreateAlifePagerItem {
 
         @Composable
         override fun Content(
+            size: Dp,
             captureWrapper: BaseCaptureWrapper,
             viewModel: CreateAlifeViewModel
         ) {

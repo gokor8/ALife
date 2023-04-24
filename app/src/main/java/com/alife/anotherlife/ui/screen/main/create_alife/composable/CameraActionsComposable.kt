@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.composable
 
+import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
@@ -39,12 +40,12 @@ fun CameraActionsComposable(
         CameraActionsConstraints().markup(cameraActionModel),
         modifier = Modifier.padding(16.dp)
     ) {
-        val pagerSize = pagerItems.size + 1
         val currentPage = rememberPagerState(0)
 
         HorizontalPager(
-            pageCount = pagerSize,
+            pageCount = pagerItems.size + 1,
             state = currentPage,
+
             reverseLayout = true,
             pageSize = PageSize.Fixed(60.dp),
             pageSpacing = 32.dp,
@@ -52,15 +53,23 @@ fun CameraActionsComposable(
                 .layoutId(cameraActionModel.cameraActionsPager)
                 .width(152.dp)
         ) { page ->
-            val localPage = if(page == pagerSize - 1) page - 2 else page
+            val localPage = if (page == pagerItems.size) page - 2 else page
 
-            if (currentPage.currentPage != localPage)
-                pagerItems[localPage].InactiveContent()
-            else
-                pagerItems[localPage].Content(
-                    state.captureWrapper,
-                    viewModel,
-                )
+            Log.d("Aboba", "currentoffsetFraction ${currentPage.currentPageOffsetFraction}")
+            Log.d("Aboba", "currentPage ${currentPage.currentPage}")
+            Log.d("Aboba", "targetPage ${currentPage.targetPage}")
+            Log.d("Aboba", "settledPage ${currentPage.settledPage}")
+            Log.d("Aboba", "sum ${currentPage.currentPageOffsetFraction + currentPage.currentPage}")
+
+            val sizeMultipler = currentPage.currentPageOffsetFraction + currentPage.currentPage
+
+            val size = if(60 * sizeMultipler < 20) 20.dp else (60 * sizeMultipler).dp
+
+            pagerItems[localPage].Content(
+                size,
+                state.captureWrapper,
+                viewModel,
+            )
         }
 
         var rotationState by remember { mutableStateOf<Rotate>(RotateZero()) }
