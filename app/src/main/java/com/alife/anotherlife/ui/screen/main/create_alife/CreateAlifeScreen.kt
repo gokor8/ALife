@@ -2,6 +2,7 @@ package com.alife.anotherlife.ui.screen.main.create_alife
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -16,8 +17,6 @@ import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraActionsComposable
-import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CameraPagerItem
-import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.VideoCameraPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
@@ -28,7 +27,11 @@ class CreateAlifeScreen(
     @Composable
     override fun setupViewModel(): CreateAlifeViewModel = hiltViewModel()
 
-    @OptIn(ExperimentalPermissionsApi::class, ExperimentalAnimationApi::class)
+    @OptIn(
+        ExperimentalPermissionsApi::class,
+        ExperimentalAnimationApi::class,
+        ExperimentalFoundationApi::class
+    )
     @Composable
     override fun Content(modifier: Modifier) {
         val cameraPermission = viewModel.cameraPermission.requirePermission { permissionState ->
@@ -52,8 +55,6 @@ class CreateAlifeScreen(
             horizontalAlignment = CenterHorizontally,
             modifier = modifier.fillMaxSize()
         ) {
-            val pagerItems = state.pagerItems
-
             TextBase(
                 textResId = R.string.horizontal_short_logo,
                 style = Title28Style().style(),
@@ -63,7 +64,8 @@ class CreateAlifeScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             CameraActionsComposable(
-                pagerItems = pagerItems,
+                pagerState = state.pagerState,
+                pagerItems = state.pagerItems,
                 state = state,
                 viewModel = viewModel
             )

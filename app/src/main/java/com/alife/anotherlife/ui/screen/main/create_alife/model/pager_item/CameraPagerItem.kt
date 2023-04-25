@@ -24,20 +24,19 @@ import java.lang.ref.WeakReference
 
 interface CameraPagerItem : CreateAlifePagerItem {
 
-    class TakePicture : CameraPagerItem {
+    class TakePicture : CameraPagerItem, CreateAlifePagerItem.Abstract() {
 
         @Composable
         override fun Content(
             size: Dp,
             captureWrapper: BaseCaptureWrapper,
-            viewModel: CreateAlifeViewModel,
-            modifier: Modifier
+            viewModel: CreateAlifeViewModel
         ) {
             val colorScheme = MaterialTheme.colorScheme
             val context = LocalContext.current
 
-            Canvas(modifier = modifier
-                .size(60.dp)
+            Canvas(modifier = Modifier
+                .size(pagerItemSize.sizeDp())
                 .clip(CircleShape)
                 .clickable(rememberCoroutineScope()) {
                     viewModel.reduce(
@@ -55,16 +54,18 @@ interface CameraPagerItem : CreateAlifePagerItem {
         }
     }
 
-    class OnPictureTaking : CameraPagerItem {
+    class OnPictureTaking : CameraPagerItem, CreateAlifePagerItem.Abstract() {
 
         @Composable
         override fun Content(
             size: Dp,
             captureWrapper: BaseCaptureWrapper,
-            viewModel: CreateAlifeViewModel,
-            modifier: Modifier
+            viewModel: CreateAlifeViewModel
         ) {
-            CircularProgressIndicator(strokeWidth = 2.dp, modifier = modifier.size(60.dp))
+            CircularProgressIndicator(
+                strokeWidth = 2.dp,
+                modifier = Modifier.size(pagerItemSize.sizeDp())
+            )
         }
     }
 }

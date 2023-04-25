@@ -32,6 +32,12 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducer> {
         }
     }
 
+    class ClickSmallVideo : CreateAlifeAction {
+        override suspend fun onAction(reducer: BaseCreateAlifeReducer) {
+            reducer.onClickSmallVideo()
+        }
+    }
+
     class PermissionGrantedAction : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducer) {
             reducer.onPermissionGranted()

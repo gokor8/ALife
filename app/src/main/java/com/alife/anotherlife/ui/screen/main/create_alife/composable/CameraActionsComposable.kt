@@ -3,20 +3,17 @@ package com.alife.anotherlife.ui.screen.main.create_alife.composable
 import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
-import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.alife.anotherlife.R
@@ -35,6 +32,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 fun CameraActionsComposable(
     state: CreateAlifeState,
     viewModel: CreateAlifeViewModel,
+    pagerState: PagerState,
     pagerItems: List<CreateAlifePagerItem>
 ) {
     val cameraActionModel = CameraActionModel()
@@ -43,32 +41,35 @@ fun CameraActionsComposable(
         CameraActionsConstraints().markup(cameraActionModel),
         modifier = Modifier.padding(16.dp)
     ) {
-        val currentPage = rememberPagerState(0)
+        val pageSpacing = 18.dp
+        val pageSize = 60.dp
+        val fullPageSize = pageSize + pageSpacing
 
         HorizontalPager(
-            pageCount = pagerItems.size + 1,
-            state = currentPage,
-            pageSpacing = 18.dp,
+            pageCount = pagerItems.size,
+            state = pagerState,
             reverseLayout = true,
-            pageSize = PageSize.Fixed(60.dp),
-            modifier = Modifier.layoutId(cameraActionModel.cameraActionsPager)
+            pageSpacing = pageSpacing,
+            pageSize = PageSize.Fixed(pageSize),
+            modifier = Modifier
+                .layoutId(cameraActionModel.cameraActionsPager)
+                .width(pageSize + fullPageSize)
         ) { page ->
-            Log.d("Aboba", "currentoffsetFraction ${currentPage.currentPageOffsetFraction}")
-            Log.d("Aboba", "currentPage ${currentPage.currentPage}")
-            Log.d("Aboba", "targetPage ${currentPage.targetPage}")
-            Log.d("Aboba", "settledPage ${currentPage.settledPage}")
-            Log.d("Aboba", "sum ${currentPage.currentPageOffsetFraction + currentPage.currentPage}")
+            Log.d("Aboba", "currentoffsetFraction ${pagerState.currentPageOffsetFraction}")
+            Log.d("Aboba", "currentPage ${pagerState.currentPage}")
+            Log.d("Aboba", "targetPage ${pagerState.targetPage}")
+            Log.d("Aboba", "settledPage ${pagerState.settledPage}")
+            Log.d("Aboba", "sum ${pagerState.currentPageOffsetFraction + pagerState.currentPage}")
 
-            val sizeMultiplier = currentPage.currentPageOffsetFraction + currentPage.currentPage
+            val minPageSize = 32f
+            val sizeMultiplier = pagerState.currentPageOffsetFraction + pagerState.currentPage
+            val calculatedSize = ((pageSize.value - minPageSize) * sizeMultiplier + minPageSize).dp
 
-            Log.d("Aboba", "answer ${(28f * sizeMultiplier + 32f).dp}")
-
-            if(page == pagerItems.size) Spacer(modifier = Modifier.padding(60.dp)) else
             pagerItems[page].Content(
-                (28f * sizeMultiplier + 32f).dp,
+                // 28f * ... + 32f
+                calculatedSize,
                 state.captureWrapper,
                 viewModel,
-                Modifier
             )
         }
 

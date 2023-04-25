@@ -16,6 +16,8 @@ interface BaseCreateAlifeReducer : VMReducer<CreateAlifeState, CreateAlifeEffect
 
     suspend fun onCreatePhoto(contextWrapper: BaseContextMainExecutorWrapper)
 
+    suspend fun onClickSmallVideo()
+
     suspend fun onPermissionGranted()
     suspend fun onPermissionFatal()
 }

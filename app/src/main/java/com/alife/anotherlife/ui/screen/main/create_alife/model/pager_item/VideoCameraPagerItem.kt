@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item
 
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -17,73 +18,111 @@ import androidx.compose.ui.unit.dp
 import com.alife.anotherlife.core.composable.addons.stroke6Draw
 import com.alife.anotherlife.core.composable.clickable
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
+import com.alife.anotherlife.ui.screen.main.create_alife.composable.VideoCircleComposable
+import com.alife.anotherlife.ui.screen.main.create_alife.model.PagerItemSize
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.PagerState
 
-class VideoCameraPagerItem : CreateAlifePagerItem {
+interface VideoCameraPagerItem : CreateAlifePagerItem {
 
-    @Composable
-    override fun Content(
-        size: Dp,
-        captureWrapper: BaseCaptureWrapper,
-        viewModel: CreateAlifeViewModel,
-        modifier: Modifier
-    ) {
-        MaterialTheme.colorScheme.apply {
-            VideoCircle(
-                onPrimary,
-                onPrimary,
-                primary,
-                modifier = modifier
-                    .size(size)
-                    .clip(CircleShape)
-                    .clickable(rememberCoroutineScope()) {
+    abstract class SizablePagerItem : VideoCameraPagerItem, CreateAlifePagerItem.Abstract() {
+        @Composable
+        override fun Content(
+            size: Dp,
+            captureWrapper: BaseCaptureWrapper,
+            viewModel: CreateAlifeViewModel
+        ) {
+            val defaultSize = pagerItemSize.sizeDp()
 
-                    }
-            )
+            if(size == defaultSize) {
+                FullVideCamera(defaultSize)
+            } else {
+                SizableVideCamera(size)
+            }.Content(captureWrapper, viewModel)
         }
     }
 
-    @Composable
-    override fun InactiveContent(size: Dp) {
-        MaterialTheme.colorScheme.apply {
-            VideoCircle(
-                onPrimary,
-                onPrimary,
-                primary,
-                alpha = 0.5f,
-                modifier = Modifier
-                    .size(30.dp)
-                    .clip(CircleShape)
-                    .clickable(rememberCoroutineScope()) {
+    class DefaultSizable : SizablePagerItem()
 
-                    }
-            )
+    abstract class SizedVideoCamera(private val size: Dp) {
+        @Composable
+        fun Content(
+            captureWrapper: BaseCaptureWrapper,
+            viewModel: CreateAlifeViewModel
+        ) {
+            MaterialTheme.colorScheme.apply {
+                VideoCircleComposable(
+                    onPrimary,
+                    onPrimary,
+                    primary,
+                    modifier = Modifier
+                        .size(size)
+                        .clip(CircleShape)
+                        .clickable(rememberCoroutineScope(), onClick = {
+                            onClick(captureWrapper, viewModel)
+                        })
+                )
+            }
+        }
+
+        abstract suspend fun onClick(
+            captureWrapper: BaseCaptureWrapper,
+            viewModel: CreateAlifeViewModel
+        )
+    }
+
+    class FullVideCamera(size: Dp) : SizedVideoCamera(size) {
+        override suspend fun onClick(
+            captureWrapper: BaseCaptureWrapper,
+            viewModel: CreateAlifeViewModel
+        ) {
+            Log.e("Aboba", "Start recording")
         }
     }
 
-    @Composable
-    fun VideoCircle(
-        colorRing: Color,
-        colorCircle: Color,
-        colorSmallCircle: Color,
-        alpha: Float = 1f,
-        modifier: Modifier
-    ) {
-        Canvas(modifier = modifier) {
-            drawCircle(color = colorRing.copy(alpha), style = stroke6Draw())
-            drawCircle(color = colorCircle.copy(alpha), size.maxDimension / 2.5f)
-            drawCircle(color = colorSmallCircle.copy(alpha), size.maxDimension / 20f)
+    class SizableVideCamera(size: Dp) : SizedVideoCamera(size) {
+        override suspend fun onClick(
+            captureWrapper: BaseCaptureWrapper,
+            viewModel: CreateAlifeViewModel
+        ) {
+            Log.e("Aboba", "Set video to main pager")
+            viewModel.reduce(CreateAlifeAction.ClickSmallVideo())
         }
     }
 }
 
-@Preview
-@Composable
-fun VideoCirclePreview() {
-    VideoCameraPagerItem().VideoCircle(
-        Color.White,
-        Color.White,
-        Color.Black,
-        modifier = Modifier.size(60.dp)
-    )
-}
+//class VideoCameraPagerItem : CreateAlifePagerItem {
+//
+//    @Composable
+//    override fun Content(
+//        size: Dp,
+//        captureWrapper: BaseCaptureWrapper,
+//        viewModel: CreateAlifeViewModel
+//    ) {
+//        MaterialTheme.colorScheme.apply {
+//            VideoCircle(
+//                onPrimary,
+//                onPrimary,
+//                primary,
+//                modifier = Modifier
+//                    .clip(CircleShape)
+//                    .clickable(rememberCoroutineScope()) {
+//
+//                    }
+//            )
+//        }
+//    }
+//}
+//
+//@Preview
+//@Composable
+//fun VideoCirclePreview() {
+//    VideoCameraPagerItem().VideoCircle(
+//        Color.White,
+//        Color.White,
+//        Color.Black,
+//        modifier = Modifier.size(60.dp)
+//    )
+//}
