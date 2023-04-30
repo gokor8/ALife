@@ -1,9 +1,7 @@
-package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item
+package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -19,12 +17,15 @@ import com.alife.anotherlife.core.composable.clickable
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.ContextMainThreadWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CreateAlifePagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.InvertiblePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import java.lang.ref.WeakReference
 
-interface CameraPagerItem : CreateAlifePagerItem {
+interface PicturePagerItem : CreateAlifePagerItem {
 
-    class TakePicture : CameraPagerItem, CreateAlifePagerItem.Abstract() {
+    class TakePicture : PicturePagerItem, InvertiblePagerItem,
+        CreateAlifePagerItem.Abstract() {
 
         @Composable
         override fun Content(
@@ -54,7 +55,7 @@ interface CameraPagerItem : CreateAlifePagerItem {
         }
     }
 
-    class OnPictureTaking : CameraPagerItem, CreateAlifePagerItem.Abstract() {
+    class OnPictureTaking : PicturePagerItem, CreateAlifePagerItem.Abstract() {
 
         @Composable
         override fun Content(

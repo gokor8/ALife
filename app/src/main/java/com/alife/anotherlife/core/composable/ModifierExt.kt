@@ -33,6 +33,21 @@ fun Modifier.clickableNoRipple(
     )
 }
 
+fun Modifier.clickableNoRipple(
+    coroutineScope: CoroutineScope,
+    interactionSource: MutableInteractionSource = MutableInteractionSource(),
+    enabled: Boolean = true,
+    onClickLabel: String? = null,
+    role: Role? = null,
+    onClick: suspend () -> Unit,
+): Modifier = composed {
+    this.clickable(
+        interactionSource = remember { interactionSource },
+        indication = null,
+        enabled, onClickLabel, role
+    ) { coroutineScope.launch { onClick() } }
+}
+
 fun Modifier.clickable(
     coroutineScope: CoroutineScope,
     enabled: Boolean = true,
@@ -41,9 +56,7 @@ fun Modifier.clickable(
     onClick: suspend () -> Unit
 ): Modifier = this.clickable(
     enabled, onClickLabel, role
-) {
-    coroutineScope.launch { onClick() }
-}
+) { coroutineScope.launch { onClick() } }
 
 fun Modifier.customTabIndicatorOffset(
     currentTabPosition: TabPosition,

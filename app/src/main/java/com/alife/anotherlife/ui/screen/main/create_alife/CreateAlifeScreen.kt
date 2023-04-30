@@ -37,10 +37,10 @@ class CreateAlifeScreen(
         val cameraPermission = viewModel.cameraPermission.requirePermission { permissionState ->
             when (permissionState) {
                 is PermissionStatus.Success -> {
-                    viewModel.reduce(CreateAlifeAction.PermissionGrantedAction())
+                    viewModel.reduce(CreateAlifeAction.CameraPermissionGrantedAction())
                 }
                 is PermissionStatus.Fatal -> {
-                    viewModel.reduce(CreateAlifeAction.PermissionFatalAction())
+                    viewModel.reduce(CreateAlifeAction.CameraPermissionFatalAction())
                 }
             }
         }

@@ -2,6 +2,6 @@ package com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.cam
 
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 
-interface InvertibleCamera {
+interface InvertibleScreenState {
     fun copyInvertCamera(): ScreenState
 }

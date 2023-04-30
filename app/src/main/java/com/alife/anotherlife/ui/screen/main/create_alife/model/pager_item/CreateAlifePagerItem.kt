@@ -6,6 +6,7 @@ import androidx.compose.ui.unit.Dp
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.model.PagerItemSize
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 
 interface CreateAlifePagerItem {
 
@@ -15,9 +16,6 @@ interface CreateAlifePagerItem {
         captureWrapper: BaseCaptureWrapper,
         viewModel: CreateAlifeViewModel
     )
-
-    @Composable
-    fun InactiveContent(size: Dp) = Unit
 
 
     abstract class Abstract(

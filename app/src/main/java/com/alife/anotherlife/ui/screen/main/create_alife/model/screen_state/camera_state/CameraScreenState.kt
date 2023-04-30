@@ -4,12 +4,14 @@ import androidx.camera.core.CameraSelector
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeReducer
+import com.alife.anotherlife.core.ui.reducer.VMReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraPreviewComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSetupFactory
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
+import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
+import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 
@@ -32,5 +34,5 @@ abstract class CameraScreenState(
         ) { viewModel.reduce(CreateAlifeAction.OnCaptureWrapper(it)) }
     }
 
-    abstract suspend fun onImageLoaded(reducer: CreateAlifeReducer)
+    abstract suspend fun onImageLoaded(reducer: VMReducer<CreateAlifeState, CreateAlifeEffect>)
 }

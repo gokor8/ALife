@@ -7,10 +7,10 @@ import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainE
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.CameraStateToSaveImage
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.EmptyCaptureWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CameraPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraFirstScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ScreenFirstScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraSecondScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
@@ -62,34 +62,34 @@ class TestCreateAlifeReducerOnTakePhoto {
         assertEquals(0, uiStore.effectCollector.size)
         val lastState = uiStore.stateCollector.last()
         assertTrue(lastState.screenState is LoadScreenState)
-        assertTrue(lastState.pagerItems.first() is CameraPagerItem.TakePicture)
+        assertTrue(lastState.pagerItems.first() is PicturePagerItem.TakePicture)
     }
 
     @Test
     fun `photo with CameraScreenState without Executor`() = runTest {
-        setupReducer(CameraFirstScreenState())
+        setupReducer(ScreenFirstScreenState())
 
         createAlifeReducer.onCreatePhoto(FakeContext(null))
 
         assertEquals(1, uiStore.stateCollector.size)
         assertEquals(0, uiStore.effectCollector.size)
         val lastState = uiStore.stateCollector.last()
-        assertTrue(lastState.screenState is CameraFirstScreenState)
-        assertTrue(lastState.pagerItems.first() is CameraPagerItem.TakePicture)
+        assertTrue(lastState.screenState is ScreenFirstScreenState)
+        assertTrue(lastState.pagerItems.first() is PicturePagerItem.TakePicture)
     }
 
     // TODO throw cusom exc from EmptyCaptureWrapper
     // TODO and handle in reducer
     @Test(expected = Throwable::class)
     fun `photo with CameraScreenState with EmptyCaptureWrapper`() = runTest {
-        setupReducer(CameraFirstScreenState(), captureWrapper = EmptyCaptureWrapper())
+        setupReducer(ScreenFirstScreenState(), captureWrapper = EmptyCaptureWrapper())
 
         createAlifeReducer.onCreatePhoto(FakeContext())
     }
 
     @Test
     fun `photo with ExceptionCaptureWrapper CameraScreenState`() = runTest {
-        setupReducer(CameraFirstScreenState(), captureWrapper = FakeCaptureWrapper(IOException()))
+        setupReducer(ScreenFirstScreenState(), captureWrapper = FakeCaptureWrapper(IOException()))
 
         createAlifeReducer.onCreatePhoto(FakeContext())
 
@@ -97,15 +97,15 @@ class TestCreateAlifeReducerOnTakePhoto {
         val thirdState = uiStore.stateCollector[2].pagerItems.getCameraItem()
 
         assertEquals(3, uiStore.stateCollector.size)
-        assertTrue(secondState is CameraPagerItem.OnPictureTaking)
-        assertTrue(thirdState is CameraPagerItem.TakePicture)
+        assertTrue(secondState is PicturePagerItem.OnPictureTaking)
+        assertTrue(thirdState is PicturePagerItem.TakePicture)
         assertEquals(1, uiStore.effectCollector.size)
         assertTrue(uiStore.effectCollector.last() is CreateAlifeEffect.CreateAlifeFinish)
     }
 
     @Test
     fun `photo with CameraScreenState saveImage throw Exception`() = runTest {
-        setupReducer(CameraFirstScreenState(), IOException(), FakeCaptureWrapper())
+        setupReducer(ScreenFirstScreenState(), IOException(), FakeCaptureWrapper())
 
         createAlifeReducer.onCreatePhoto(FakeContext())
 
@@ -113,15 +113,15 @@ class TestCreateAlifeReducerOnTakePhoto {
         val thirdState = uiStore.stateCollector[2].pagerItems.getCameraItem()
 
         assertEquals(3, uiStore.stateCollector.size)
-        assertTrue(secondState is CameraPagerItem.OnPictureTaking)
-        assertTrue(thirdState is CameraPagerItem.TakePicture)
+        assertTrue(secondState is PicturePagerItem.OnPictureTaking)
+        assertTrue(thirdState is PicturePagerItem.TakePicture)
         assertEquals(1, uiStore.effectCollector.size)
         assertTrue(uiStore.effectCollector.last() is CreateAlifeEffect.CreateAlifeFinish)
     }
 
     @Test
     fun `test one take photo`() = runTest {
-        setupReducer(CameraFirstScreenState())
+        setupReducer(ScreenFirstScreenState())
 
         createAlifeReducer.onCreatePhoto(FakeContext())
 
@@ -137,7 +137,7 @@ class TestCreateAlifeReducerOnTakePhoto {
 
     @Test
     fun `test two take photo`() = runTest {
-        setupReducer(CameraFirstScreenState())
+        setupReducer(ScreenFirstScreenState())
 
         createAlifeReducer.onCreatePhoto(FakeContext())
 
@@ -156,7 +156,7 @@ class TestCreateAlifeReducerOnTakePhoto {
 
     @Test
     fun `test one three photo`() = runTest {
-        setupReducer(CameraFirstScreenState())
+        setupReducer(ScreenFirstScreenState())
 
         createAlifeReducer.onCreatePhoto(FakeContext())
 
