@@ -10,12 +10,8 @@ import com.google.accompanist.permissions.PermissionState
 
 class LoadScreenState : ScreenState.AbstractScreenState(Alignment.Center) {
 
-    @OptIn(ExperimentalPermissionsApi::class)
     @Composable
-    override fun SafeContent(
-        permissionState: PermissionState,
-        viewModel: CreateAlifeViewModel,
-    ) {
+    override fun SafeContent(viewModel: CreateAlifeViewModel) {
         CircularProgressIndicator(strokeWidth = 2.dp)
     }
 }

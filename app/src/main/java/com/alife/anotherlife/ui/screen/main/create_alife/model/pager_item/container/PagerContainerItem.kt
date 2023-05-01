@@ -1,22 +1,25 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container
 
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CreateAlifePagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.EmptyAlifePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.InvertiblePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.InvertibleScreenState
 
 interface BasePagerContainerItem {
+
+    val pagerItem: CreateAlifePagerItem
+    val screenState: ScreenState
+
     fun copyWithInvert(pagerContainer: PagerContainer): PagerContainer
 
     fun canInvert(): Boolean
 }
 
 abstract class PagerContainerItem : BasePagerContainerItem {
-
-    abstract val pagerItem: CreateAlifePagerItem
-    abstract val screenState: ScreenState
 
     override fun canInvert(): Boolean {
         return pagerItem is InvertiblePagerItem && screenState is InvertibleScreenState
@@ -58,6 +61,8 @@ abstract class PagerContainerItem : BasePagerContainerItem {
     }
 
     class Empty : BasePagerContainerItem {
+        override val pagerItem: CreateAlifePagerItem = EmptyAlifePagerItem()
+        override val screenState: ScreenState = LoadScreenState()
         override fun copyWithInvert(pagerContainer: PagerContainer) = pagerContainer
         override fun canInvert(): Boolean = false
     }

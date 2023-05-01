@@ -19,10 +19,8 @@ abstract class CameraScreenState(
     val cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
 ) : ScreenState {
 
-    @OptIn(ExperimentalPermissionsApi::class)
     @Composable
     override fun Content(
-        permissionState: PermissionState,
         viewModel: CreateAlifeViewModel,
         modifier: Modifier
     ) {

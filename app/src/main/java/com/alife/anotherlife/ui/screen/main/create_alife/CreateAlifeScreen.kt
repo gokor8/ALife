@@ -19,6 +19,7 @@ import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraActionsComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionState
 
 class CreateAlifeScreen(
     override val navController: NavController,
@@ -27,23 +28,13 @@ class CreateAlifeScreen(
     @Composable
     override fun setupViewModel(): CreateAlifeViewModel = hiltViewModel()
 
-    @OptIn(
-        ExperimentalPermissionsApi::class,
-        ExperimentalAnimationApi::class,
-        ExperimentalFoundationApi::class
-    )
+    @OptIn(ExperimentalAnimationApi::class, ExperimentalFoundationApi::class)
     @Composable
     override fun Content(modifier: Modifier) {
-        val cameraPermission = viewModel.cameraPermission.requirePermission { permissionState ->
-            viewModel.reduce(
-                CreateAlifeAction.PhotoCameraPermission(permissionState is PermissionStatus.Success)
-            )
-        }
-
         val state = viewModel.getUIState()
 
-        AnimatedContent(targetState = state.pagerItems.) { screenState ->
-            screenState.Content(cameraPermission, viewModel, modifier)
+        AnimatedContent(targetState = state.currentScreenState()) { screenState ->
+            screenState.Content(viewModel, modifier)
         }
 
         Column(
@@ -60,7 +51,7 @@ class CreateAlifeScreen(
 
             CameraActionsComposable(
                 pagerState = state.pagerState,
-                pagerItems = state.pagerItems,
+                pagerItems = state.pagerItems.getPagerItems(),
                 state = state,
                 viewModel = viewModel
             )

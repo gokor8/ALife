@@ -12,10 +12,8 @@ import com.google.accompanist.permissions.PermissionState
 @Stable
 interface ScreenState {
 
-    @OptIn(ExperimentalPermissionsApi::class)
     @Composable
     fun Content(
-        permissionState: PermissionState,
         viewModel: CreateAlifeViewModel,
         modifier: Modifier,
     )
@@ -24,10 +22,8 @@ interface ScreenState {
         private val contentAlignment: Alignment = Alignment.TopStart,
     ) : ScreenState {
 
-        @OptIn(ExperimentalPermissionsApi::class)
         @Composable
         override fun Content(
-            permissionState: PermissionState,
             viewModel: CreateAlifeViewModel,
             modifier: Modifier,
         ) {
@@ -35,15 +31,11 @@ interface ScreenState {
                 contentAlignment = contentAlignment,
                 modifier = modifier.fillMaxSize()
             ) {
-                SafeContent(permissionState, viewModel = viewModel)
+                SafeContent(viewModel = viewModel)
             }
         }
 
-        @OptIn(ExperimentalPermissionsApi::class)
         @Composable
-        protected abstract fun SafeContent(
-            permissionState: PermissionState,
-            viewModel: CreateAlifeViewModel,
-        )
+        protected abstract fun SafeContent(viewModel: CreateAlifeViewModel)
     }
 }

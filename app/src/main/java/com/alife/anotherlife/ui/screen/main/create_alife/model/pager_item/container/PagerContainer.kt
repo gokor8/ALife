@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container
 
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CreateAlifePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
@@ -19,9 +20,9 @@ data class PagerContainer(
     private val adapter: PagerListAdapter = PagerListAdapter.Default(picture, video)
 ) : BasePagerContainer {
 
-    override fun currentScreenState(index: Int): ScreenState {
-        adapter.getItemByIndex(index).
-    }
+    override fun getPagerItems() = adapter.createPagerItemsList()
+
+    override fun currentScreenState(index: Int) = adapter.getItemByIndex(index).screenState
 
     override fun replacePicture(pictureScreenState: ScreenState): PagerContainer {
         return copy(picture = picture.copy(screenState = pictureScreenState))

@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container
 
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CreateAlifePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
@@ -8,6 +9,8 @@ interface BasePagerContainer : VideoIndex {
 
     val picture: BasePagerContainerItem
     val video: BasePagerContainerItem
+
+    fun getPagerItems(): List<CreateAlifePagerItem>
 
     fun currentScreenState(index: Int): ScreenState
 

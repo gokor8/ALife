@@ -12,6 +12,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.contai
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pagerContainerOf
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.core.mvi.MVI
 import javax.inject.Inject
 
@@ -25,6 +26,9 @@ data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) @Inject con
     @IntentModule.IntentAnnotation.Settings
     val settingsIntent: Intent?
 ) : MVI.State {
+
+    @OptIn(ExperimentalFoundationApi::class)
+    fun currentScreenState() = pagerItems.currentScreenState(pagerState.currentPage)
 
     @OptIn(ExperimentalFoundationApi::class)
     fun canInvert() = captureWrapper !is UselessCaptureWrapper
