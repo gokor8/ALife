@@ -37,7 +37,7 @@ class CreateAlifeScreen(
 
             CameraActionsComposable(
                 pagerState = state.pagerState,
-                pagerItems = state.screenPagerContainer.getPagerItems(),
+                pagerItems = state.pagerContainer.getPagerItems(),
                 state = state,
                 viewModel = viewModel
             )

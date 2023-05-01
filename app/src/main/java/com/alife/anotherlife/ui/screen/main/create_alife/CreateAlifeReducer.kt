@@ -21,7 +21,7 @@ class CreateAlifeReducer @Inject constructor(
 
     @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onChangeCamera() {
-        setState { copy(screenPagerContainer = tryCopyWithInvert()) }
+        setState { copy(pagerContainer = tryCopyWithInvert()) }
     }
 
     @OptIn(ExperimentalFoundationApi::class)

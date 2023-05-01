@@ -15,11 +15,12 @@ interface ScreenPagerItem {
         return pagerItem is InvertiblePagerItem && screenState is InvertibleScreenState
     }
 
-    fun invertCamera(): ScreenPagerItem
+    fun invertCamera(screenPagerContainer: ScreenPagerContainer): ScreenPagerContainer
 
 
     interface Picture : ScreenPagerItem {
         fun copy(picturePagerItem: PicturePagerItem): Picture
+        fun copy(screenState: ScreenState): Picture
     }
 
     interface Video : ScreenPagerItem

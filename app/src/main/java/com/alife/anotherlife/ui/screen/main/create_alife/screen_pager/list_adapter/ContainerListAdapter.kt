@@ -10,6 +10,8 @@ interface ContainerListAdapter {
 
     fun getItemByIndex(index: Int): ScreenPagerItem
 
+    fun getVideoIndex(): Int
+
 
     class Default(
         picture: ScreenPagerItem.Picture,
@@ -21,6 +23,8 @@ interface ContainerListAdapter {
         private val emptyWrap = ListAdapterNode(2, AbstractScreenPagerItem.Empty())
 
         private val listWrap = listOf(pictureWrap, videoWrap, emptyWrap)
+
+        override fun getVideoIndex(): Int = videoWrap.index
 
         override fun createPagerItems() = listWrap.map { it.screenPagerItem }
 

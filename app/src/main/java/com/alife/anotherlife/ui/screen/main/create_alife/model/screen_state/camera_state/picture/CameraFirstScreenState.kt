@@ -6,6 +6,7 @@ import com.alife.anotherlife.core.ui.reducer.VMReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSelectorInverter
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraPictureScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.AbstractScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 
@@ -24,8 +25,8 @@ class CameraFirstScreenState(
     override suspend fun onImageLoaded(reducer: VMReducer<CreateAlifeState, CreateAlifeEffect>) {
         reducer.setState {
             copy(
-                pagerItems = pagerItems.copy(
-                    picture = pagerItems.picture.copy(
+                pagerContainer = pagerContainer.changePicture(
+                    AbstractScreenPagerItem.Picture(
                         pagerItem = PicturePagerItem.DefaultTakePicture(),
                         screenState = CameraSecondScreenState(cameraInverter.invertCameraSelector())
                     )

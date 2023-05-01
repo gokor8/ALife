@@ -17,7 +17,7 @@ class CreateAlifeVideoReducer @Inject constructor(
         getStateSuspend {
             setEffect(
                 CreateAlifeEffect.VideoToMainPage(
-                    pagerState, pagerItems.getVideoIndex()
+                    pagerState, pagerContainer.adapter.getVideoIndex()
                 )
             )
         }

@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo
 
 import androidx.camera.core.ImageProxy
+import androidx.compose.foundation.ExperimentalFoundationApi
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseCameraStateToSaveImage
@@ -23,15 +24,22 @@ class CreateAlifePhotoReducer @Inject constructor(
     private val saveAlifeUseCase: BaseSaveAlifeUseCase
 ) : CameraPermissionReducer(uiStore), BaseCreateAlifePhotoReducer {
 
+    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onCreatePhoto(contextWrapper: BaseContextMainExecutorWrapper) {
         val mainExecutor = contextWrapper.getMainExecutor()
-        val screenState = getState().pagerItems.picture.screenState
+        val screenState = getState().pagerContainer.picture.screenState
         if (screenState !is CameraPictureScreenState || mainExecutor == null) return
 
-        setState { copyReplaceCamera(PicturePagerItem.OnPictureTaking()) }
+        setState {
+            copy(pagerContainer = pagerContainer.changePicture(PicturePagerItem.OnPictureTaking()))
+        }
 
         execute {
-            setState { copyReplaceCamera(PicturePagerItem.InitTakePicture()) }
+            setState {
+                copy(
+                    pagerContainer = pagerContainer.changePicture(PicturePagerItem.InitTakePicture())
+                )
+            }
             setEffect(CreateAlifeEffect.CreateAlifeFinish())
         }.handleThis(uiStore.getState()) {
             val imageProxy = captureWrapper.takePhoto(mainExecutor)
