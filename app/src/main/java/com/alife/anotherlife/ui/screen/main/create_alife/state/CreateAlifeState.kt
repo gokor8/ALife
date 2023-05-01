@@ -19,7 +19,7 @@ import javax.inject.Inject
 data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) @Inject constructor(
     val pagerState: PagerState = PagerState(0),
     val pagerItems: PagerContainer = pagerContainerOf(
-        PicturePagerItem.TakePicture(),
+        PicturePagerItem.InitTakePicture(),
         VideoPagerItem.Sizable()
     ),
     val captureWrapper: BaseCaptureWrapper = EmptyCaptureWrapper(),

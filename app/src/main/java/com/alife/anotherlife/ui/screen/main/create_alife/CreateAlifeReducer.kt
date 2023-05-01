@@ -1,11 +1,11 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.reducer.HandlerVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.InvertibleScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.BaseCreateAlifePhotoReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.BaseCreateAlifeVideoReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
@@ -45,22 +45,18 @@ class CreateAlifeReducer @Inject constructor(
         createAlifeVideoReducer.onClickSmallVideo()
     }
 
-    override suspend fun onAudioPermissionGranted() {
-        createAlifeVideoReducer.onAudioPermissionGranted()
-    }
-
-    override suspend fun onAudioPermissionFatal() {
-        createAlifeVideoReducer.onAudioPermissionFatal()
-    }
-
     override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {
-        if(permissionStatus !is PermissionStatus.Success) return
-
-        setState {
-            copy(
-                screenState = VideoCameraScreenState(),
-                isAudioEnabled = permissionStatus is PermissionStatus.Success,
-            )
-        }
+        createAlifeVideoReducer.onAudioPermission(permissionStatus)
     }
+
+//    override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {
+//        if(permissionStatus !is PermissionStatus.Success) return
+//
+//        setState {
+//            copy(
+//                screenState = VideoCameraScreenState(),
+//                isAudioEnabled = permissionStatus is PermissionStatus.Success,
+//            )
+//        }
+//    }
 }

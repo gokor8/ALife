@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item
+package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
@@ -10,6 +10,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.alife.anotherlife.core.composable.addons.stable
 import com.alife.anotherlife.core.composable.addons.stroke6Draw
@@ -18,13 +19,15 @@ import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.ContextMainThreadWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CreateAlifePagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.InvertiblePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import java.lang.ref.WeakReference
 
 interface PicturePagerItem : CreateAlifePagerItem {
 
-    class TakePicture : PicturePagerItem, InvertiblePagerItem,
+    abstract class TakePicture : PicturePagerItem, InvertiblePagerItem,
         CreateAlifePagerItem.Abstract() {
 
         @Composable
@@ -55,31 +58,27 @@ interface PicturePagerItem : CreateAlifePagerItem {
         }
     }
 
-    class InitTakePicture : TakingPicture {
+    class InitTakePicture : TakePicture() {
         @OptIn(ExperimentalPermissionsApi::class)
         @Composable
         override fun Content(
+            size: Dp,
             captureWrapper: BaseCaptureWrapper,
             viewModel: CreateAlifeViewModel
         ) {
             viewModel.cameraPermission.requirePermission(
                 onPermission = stable { permissionState ->
-                    when (permissionState) {
-                        is PermissionStatus.Success -> {
-                            viewModel.reduce(CreateAlifeAction.PermissionGrantedAction())
-                        }
-                        is PermissionStatus.Fatal -> {
-                            viewModel.reduce(CreateAlifeAction.PermissionFatalAction())
-                        }
-                    }
+                    viewModel.reduce(
+                        CreateAlifeAction.PhotoCameraPermission(permissionState is PermissionStatus.Success)
+                    )
                 }
             )
 
-            super.Content(captureWrapper, viewModel)
+            super.Content(size, captureWrapper, viewModel)
         }
     }
 
-    class TakePicture : TakingPicture
+    class DefaultTakePicture : TakePicture()
 
     class OnPictureTaking : PicturePagerItem, CreateAlifePagerItem.Abstract() {
 

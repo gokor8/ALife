@@ -1,29 +1,51 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state
 
 import androidx.camera.core.CameraSelector
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.alife.anotherlife.core.ui.reducer.VMReducer
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
+import com.alife.anotherlife.R
+import com.alife.anotherlife.core.composable.text.TextBase
+import com.alife.anotherlife.core.composable.text.style.Title28Style
+import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraPreviewComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSetupFactory
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
-import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
-import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 
 abstract class CameraScreenState(
-    val cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
-) : ScreenState {
+    val cameraSelector: CameraSelector
+) : ScreenState.AbstractScreenState() {
 
     @Composable
     override fun Content(
         viewModel: CreateAlifeViewModel,
-        modifier: Modifier
+        modifier: Modifier,
     ) {
+        Box(
+            contentAlignment = contentAlignment,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            SafeContent(viewModel = viewModel)
+            TopRowContent(viewModel, modifier)
+        }
+    }
+
+    @Composable
+    override fun SafeContent(viewModel: CreateAlifeViewModel) {
         val cameraFacade = CameraSetupFactory().create(cameraSelector)
 
         CameraPreviewComposable(
@@ -32,5 +54,22 @@ abstract class CameraScreenState(
         ) { viewModel.reduce(CreateAlifeAction.OnCaptureWrapper(it)) }
     }
 
-    abstract suspend fun onImageLoaded(reducer: CreateAlifeReducer)
+    @Composable
+    override fun TopRowContent(
+        viewModel: CreateAlifeViewModel,
+        modifier: Modifier
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = modifier.fillMaxWidth()
+        ) {
+            TextBase(
+                textResId = R.string.horizontal_short_logo,
+                style = Title28Style().style(),
+                modifier = Modifier.padding(top = 22.dp)
+            )
+        }
+    }
 }
+

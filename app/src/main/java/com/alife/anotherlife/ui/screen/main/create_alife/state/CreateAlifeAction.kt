@@ -51,14 +51,14 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducer> {
         }
     }
 
-    class VideoAudioPermission(private val isGranted: Boolean) : CreateAlifeAction {
-        override suspend fun onAction(reducer: BaseCreateAlifeReducer) {
-            if(isGranted)
-                reducer.onAudioPermissionGranted()
-            else
-                reducer.onAudioPermissionFatal()
-        }
-    }
+//    class VideoAudioPermission(private val isGranted: Boolean) : CreateAlifeAction {
+//        override suspend fun onAction(reducer: BaseCreateAlifeReducer) {
+//            if(isGranted)
+//                reducer.onAudioPermissionGranted()
+//            else
+//                reducer.onAudioPermissionFatal()
+//        }
+//    }
 
     class AudioPermission(private val permissionStatus: PermissionStatus) : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducer) {

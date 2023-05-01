@@ -21,7 +21,7 @@ abstract class SizableVideoContent(
 ) {
 
     @Composable
-    fun Content(
+    open fun Content(
         captureWrapper: BaseCaptureWrapper,
         viewModel: CreateAlifeViewModel
     ) {
