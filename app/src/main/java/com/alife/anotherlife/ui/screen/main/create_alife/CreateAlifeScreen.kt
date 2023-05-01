@@ -25,7 +25,7 @@ class CreateAlifeScreen(
     override fun Content(modifier: Modifier) {
         val state = viewModel.getUIState()
 
-        AnimatedContent(targetState = state.currentScreenState()) { screenState ->
+        AnimatedContent(targetState = state.currentContainerState().screenState) { screenState ->
             screenState.Content(viewModel, modifier)
         }
 
@@ -37,7 +37,7 @@ class CreateAlifeScreen(
 
             CameraActionsComposable(
                 pagerState = state.pagerState,
-                pagerItems = state.pagerItems.getPagerItems(),
+                pagerItems = state.screenPagerContainer.getPagerItems(),
                 state = state,
                 viewModel = viewModel
             )

@@ -18,6 +18,12 @@ interface ScreenState {
         modifier: Modifier,
     )
 
+
+    class Empty : ScreenState {
+        @Composable
+        override fun Content(viewModel: CreateAlifeViewModel, modifier: Modifier) {}
+    }
+
     abstract class AbstractScreenState(
         protected val contentAlignment: Alignment = Alignment.TopStart,
     ) : ScreenState {

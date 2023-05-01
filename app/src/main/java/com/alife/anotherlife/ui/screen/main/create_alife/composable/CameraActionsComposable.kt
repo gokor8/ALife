@@ -68,7 +68,9 @@ fun CameraActionsComposable(
 
         var rotationState by remember { mutableStateOf<Rotate>(RotateZero()) }
         val rotationAnim by animateFloatAsState(rotationState.rotation())
-        val tintColor = if (state.canInvert()) ColorWrapper() else ColorWrapper(0.5f)
+
+        val canInvert = state.currentContainerState().canInvert()
+        val tintColor = if (canInvert) ColorWrapper() else ColorWrapper(0.5f)
 
         IconBase(
             icon = R.drawable.ic_camera_change,
@@ -77,7 +79,7 @@ fun CameraActionsComposable(
                 .layoutId(cameraActionModel.invertCameraButton)
                 .size(32.dp)
                 .rotate(rotationAnim)
-                .clickableNoRipple(enabled = state.canInvert()) {
+                .clickableNoRipple(enabled = canInvert) {
                     rotationState = rotationState.nextRotate()
                     viewModel.reduce(CreateAlifeAction.ChangeCameraSelection())
                 }
