@@ -19,10 +19,9 @@ class CreateAlifeReducer @Inject constructor(
     private val createAlifeVideoReducer: BaseCreateAlifeVideoReducer
 ) : HandlerVMReducer<CreateAlifeState, CreateAlifeEffect>(), BaseCreateAlifeReducer {
 
+    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onChangeCamera() {
-        if (getState().canInvert()) {
-            setState { tryCopyWithInvert() }
-        }
+        setState { copy(pagerItems = tryCopyWithInvert()) }
     }
 
     @OptIn(ExperimentalFoundationApi::class)

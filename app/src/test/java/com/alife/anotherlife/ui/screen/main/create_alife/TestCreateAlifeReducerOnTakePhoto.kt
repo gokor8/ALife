@@ -10,7 +10,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ScreenFirstScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraFirstScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraSecondScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
@@ -67,14 +67,14 @@ class TestCreateAlifeReducerOnTakePhoto {
 
     @Test
     fun `photo with CameraScreenState without Executor`() = runTest {
-        setupReducer(ScreenFirstScreenState())
+        setupReducer(CameraFirstScreenState())
 
         createAlifeReducer.onCreatePhoto(FakeContext(null))
 
         assertEquals(1, uiStore.stateCollector.size)
         assertEquals(0, uiStore.effectCollector.size)
         val lastState = uiStore.stateCollector.last()
-        assertTrue(lastState.screenState is ScreenFirstScreenState)
+        assertTrue(lastState.screenState is CameraFirstScreenState)
         assertTrue(lastState.pagerItems.first() is PicturePagerItem.TakePicture)
     }
 
@@ -82,14 +82,14 @@ class TestCreateAlifeReducerOnTakePhoto {
     // TODO and handle in reducer
     @Test(expected = Throwable::class)
     fun `photo with CameraScreenState with EmptyCaptureWrapper`() = runTest {
-        setupReducer(ScreenFirstScreenState(), captureWrapper = EmptyCaptureWrapper())
+        setupReducer(CameraFirstScreenState(), captureWrapper = EmptyCaptureWrapper())
 
         createAlifeReducer.onCreatePhoto(FakeContext())
     }
 
     @Test
     fun `photo with ExceptionCaptureWrapper CameraScreenState`() = runTest {
-        setupReducer(ScreenFirstScreenState(), captureWrapper = FakeCaptureWrapper(IOException()))
+        setupReducer(CameraFirstScreenState(), captureWrapper = FakeCaptureWrapper(IOException()))
 
         createAlifeReducer.onCreatePhoto(FakeContext())
 
@@ -105,7 +105,7 @@ class TestCreateAlifeReducerOnTakePhoto {
 
     @Test
     fun `photo with CameraScreenState saveImage throw Exception`() = runTest {
-        setupReducer(ScreenFirstScreenState(), IOException(), FakeCaptureWrapper())
+        setupReducer(CameraFirstScreenState(), IOException(), FakeCaptureWrapper())
 
         createAlifeReducer.onCreatePhoto(FakeContext())
 
@@ -121,7 +121,7 @@ class TestCreateAlifeReducerOnTakePhoto {
 
     @Test
     fun `test one take photo`() = runTest {
-        setupReducer(ScreenFirstScreenState())
+        setupReducer(CameraFirstScreenState())
 
         createAlifeReducer.onCreatePhoto(FakeContext())
 
@@ -137,7 +137,7 @@ class TestCreateAlifeReducerOnTakePhoto {
 
     @Test
     fun `test two take photo`() = runTest {
-        setupReducer(ScreenFirstScreenState())
+        setupReducer(CameraFirstScreenState())
 
         createAlifeReducer.onCreatePhoto(FakeContext())
 
@@ -156,7 +156,7 @@ class TestCreateAlifeReducerOnTakePhoto {
 
     @Test
     fun `test one three photo`() = runTest {
-        setupReducer(ScreenFirstScreenState())
+        setupReducer(CameraFirstScreenState())
 
         createAlifeReducer.onCreatePhoto(FakeContext())
 

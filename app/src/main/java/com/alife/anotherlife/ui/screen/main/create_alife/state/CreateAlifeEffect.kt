@@ -9,6 +9,8 @@ interface CreateAlifeEffect : MVI.Effect {
 
     class CreateAlifeFinish : CreateAlifeEffect, NavigationWrapper.Back()
 
+    class GoBack : CreateAlifeEffect, NavigationWrapper.Back()
+
     @OptIn(ExperimentalFoundationApi::class)
     class VideoToMainPage(
         private val pagerState: PagerState,

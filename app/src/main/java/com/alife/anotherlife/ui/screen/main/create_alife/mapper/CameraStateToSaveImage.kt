@@ -1,6 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.mapper
 
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ScreenFirstScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraFirstScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraSecondScreenState
 import com.alife.domain.core.MappingException
@@ -14,7 +14,7 @@ class CameraStateToSaveImage @Inject constructor(): BaseCameraStateToSaveImage {
         imageByteArray: ByteArray
     ): SaveImageEntity {
         return when(inputModel) {
-            is ScreenFirstScreenState -> SaveImageEntity.FrontSaveImageEntity(imageByteArray)
+            is CameraFirstScreenState -> SaveImageEntity.FrontSaveImageEntity(imageByteArray)
             is CameraSecondScreenState -> SaveImageEntity.BackSaveImageEntity(imageByteArray)
             else -> throw MappingException()
         }

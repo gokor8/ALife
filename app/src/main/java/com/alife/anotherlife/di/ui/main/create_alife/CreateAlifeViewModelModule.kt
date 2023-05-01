@@ -27,9 +27,6 @@ import dagger.hilt.android.components.ViewModelComponent
 interface CreateAlifeViewModelModule {
 
     @Binds
-    fun bindCreateAlifeReducer(reducer: CreateAlifeReducer): BaseCreateAlifeReducer
-
-    @Binds
     fun bindImageProxySelectMapper(mapper: ImageProxySelectMapper): Mapper<ImageProxy, ByteArray>
 
     @Binds

@@ -3,7 +3,7 @@
 //import com.alife.anotherlife.core.FakeUIStore
 //import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 //import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
-//import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ScreenFirstScreenState
+//import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.FirstScreenState
 //import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.BaseCreateAlifePhotoReducer
 //import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.CreateAlifePhotoReducer
 //import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
@@ -32,7 +32,7 @@
 //
 //        reducer.changePager()
 //
-//        val actual = uiStore.getState().pager.getCameraItem().screenState is ScreenFirstScreenState
+//        val actual = uiStore.getState().pager.getCameraItem().screenState is FirstScreenState
 //    }
 //
 //    @Test
@@ -52,7 +52,7 @@
 //        reducer.changePager()
 //
 //        val actual = uiStore.getState().pager.getCameraItem() is PicturePagerItem.TakePicture
-//        val actual = uiStore.getState().pager.getCameraItem().screenState is ScreenFirstScreenState
+//        val actual = uiStore.getState().pager.getCameraItem().screenState is FirstScreenState
 //    }
 //
 //

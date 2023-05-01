@@ -2,11 +2,9 @@ package com.alife.anotherlife.ui.screen.main.create_alife
 
 import androidx.camera.core.CameraSelector
 import com.alife.anotherlife.core.FakeUIStore
-import com.alife.anotherlife.ui.screen.main.create_alife.mapper.CameraStateToSaveImage
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ScreenFirstScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.CreateAlifePhotoReducer
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraFirstScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 import junit.framework.TestCase
@@ -27,7 +25,7 @@ class TestCreateAlifeReducerChangeCamera {
 
     @Test
     fun `test once change camera with CameraFirstState`() = runTest {
-        setupReducer(ScreenFirstScreenState())
+        setupReducer(CameraFirstScreenState())
 
         createAlifeReducer.onChangeCamera()
 
@@ -36,17 +34,17 @@ class TestCreateAlifeReducerChangeCamera {
 
         assertEquals(2, uiStore.stateCollector.size)
         assertEquals(0, uiStore.effectCollector.size)
-        (firstScreenState as ScreenFirstScreenState).also {
+        (firstScreenState as CameraFirstScreenState).also {
             assertEquals(CameraSelector.DEFAULT_FRONT_CAMERA, it.cameraSelector)
         }
-        (secondScreenState as ScreenFirstScreenState).also {
+        (secondScreenState as CameraFirstScreenState).also {
             assertEquals(CameraSelector.DEFAULT_BACK_CAMERA, it.cameraSelector)
         }
     }
 
     @Test
     fun `test two change camera with CameraFirstState`() = runTest {
-        setupReducer(ScreenFirstScreenState())
+        setupReducer(CameraFirstScreenState())
 
         createAlifeReducer.onChangeCamera()
         createAlifeReducer.onChangeCamera()
@@ -56,10 +54,10 @@ class TestCreateAlifeReducerChangeCamera {
 
         assertEquals(3, uiStore.stateCollector.size)
         assertEquals(0, uiStore.effectCollector.size)
-        (secondScreenState as ScreenFirstScreenState).also {
+        (secondScreenState as CameraFirstScreenState).also {
             assertEquals(CameraSelector.DEFAULT_BACK_CAMERA, it.cameraSelector)
         }
-        (thirdScreenState as ScreenFirstScreenState).also {
+        (thirdScreenState as CameraFirstScreenState).also {
             assertEquals(CameraSelector.DEFAULT_FRONT_CAMERA, it.cameraSelector)
         }
     }

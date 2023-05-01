@@ -6,7 +6,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.EmptyCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ScreenFirstScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraFirstScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 import junit.framework.TestCase
@@ -40,7 +40,7 @@ class TestCreateAlifeReducerRotation {
 
     @Test
     fun `test isInvertButtonEnable state return enabled`() = runTest {
-        setupReducer(ScreenFirstScreenState(), FakeCaptureWrapper())
+        setupReducer(CameraFirstScreenState(), FakeCaptureWrapper())
 
         val expected = true
 
@@ -49,7 +49,7 @@ class TestCreateAlifeReducerRotation {
 
     @Test
     fun `test isInvertButtonEnable return disabled`() = runTest {
-        setupReducer(ScreenFirstScreenState(), EmptyCaptureWrapper())
+        setupReducer(CameraFirstScreenState(), EmptyCaptureWrapper())
 
         val expected = false
 

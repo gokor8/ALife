@@ -35,19 +35,14 @@ class CreateAlifeScreen(
     @Composable
     override fun Content(modifier: Modifier) {
         val cameraPermission = viewModel.cameraPermission.requirePermission { permissionState ->
-            when (permissionState) {
-                is PermissionStatus.Success -> {
-                    viewModel.reduce(CreateAlifeAction.CameraPermissionGrantedAction())
-                }
-                is PermissionStatus.Fatal -> {
-                    viewModel.reduce(CreateAlifeAction.CameraPermissionFatalAction())
-                }
-            }
+            viewModel.reduce(
+                CreateAlifeAction.PhotoCameraPermission(permissionState is PermissionStatus.Success)
+            )
         }
 
         val state = viewModel.getUIState()
 
-        AnimatedContent(targetState = state.screenState) { screenState ->
+        AnimatedContent(targetState = state.pagerItems.) { screenState ->
             screenState.Content(cameraPermission, viewModel, modifier)
         }
 

@@ -16,9 +16,17 @@ class CreateAlifeVideoReducer @Inject constructor(
         getStateSuspend {
             setEffect(
                 CreateAlifeEffect.VideoToMainPage(
-                    pagerState, pagerItems.getVideoItemIndex()
+                    pagerState, pagerItems.getVideoIndex()
                 )
             )
         }
+    }
+
+    override suspend fun onAudioPermissionGranted() {
+
+    }
+
+    override suspend fun onAudioPermissionFatal() {
+
     }
 }

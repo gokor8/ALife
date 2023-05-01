@@ -3,51 +3,47 @@ package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.conta
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
-import com.alife.core.mapper.Mapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 
 fun pagerContainerOf(
     picture: PicturePagerItem,
     video: VideoPagerItem
 ) = PagerContainer(
     PagerContainerItem.Picture(picture, LoadScreenState()),
-    PagerContainerItem.Video(video, LoadScreenState())
+    PagerContainerItem.Video(video, LoadScreenState()),
 )
 
 data class PagerContainer(
-    val picture: PagerContainerItem.Picture,
-    val video: PagerContainerItem.Video
-) {
+    override val picture: PagerContainerItem.Picture,
+    override val video: PagerContainerItem.Video,
+    private val adapter: PagerListAdapter = PagerListAdapter.Default(picture, video)
+) : BasePagerContainer {
 
-    private val pagerList = listOf(picture, video, PagerContainerItem.Empty())
-        .mapIndexed { index, item -> PagerContainerListNode(index, item) }
-
-    fun replacePicture(picturePagerItem: PicturePagerItem): PagerContainer {
-        return PagerContainer(picture.copy(pagerItem = picturePagerItem), video)
+    override fun currentScreenState(index: Int): ScreenState {
+        adapter.getItemByIndex(index).
     }
 
-    fun replaceVideo(videoCameraPagerItem: VideoPagerItem): PagerContainer {
-        return PagerContainer(picture, video.copy(pagerItem = videoCameraPagerItem))
+    override fun replacePicture(pictureScreenState: ScreenState): PagerContainer {
+        return copy(picture = picture.copy(screenState = pictureScreenState))
     }
 
-    fun tryInvertCamera(itemIndex: Int): PagerContainer {
-
-        return copy(pagerList[itemIndex].pagerContainerItem.copyInvert())
+    override fun replacePicture(picturePagerItem: PicturePagerItem): PagerContainer {
+        return copy(picture = picture.copy(pagerItem = picturePagerItem))
     }
 
-    fun canInvertCamera(itemIndex: Int): Boolean {
-        return pagerList.getOrNull(itemIndex)?.pagerContainerItem?.canInvert() ?: false
+    override fun replaceVideo(videoCameraPagerItem: VideoPagerItem): PagerContainer {
+        return copy(video = video.copy(pagerItem = videoCameraPagerItem))
     }
 
-    fun size() = pagerList.size
-}
+    override fun tryInvertCamera(itemIndex: Int): PagerContainer {
+        return adapter.getItemByIndex(itemIndex).copyWithInvert(this)
+    }
 
-class PagerAdapter(
-    val picture: PagerContainerItem.Picture,
-    val video: PagerContainerItem.Video
-) {
+    override fun canInvertCamera(itemIndex: Int): Boolean {
+        return adapter.getItemByIndex(itemIndex).canInvert()
+    }
 
-    val pagerList = listOf(picture, video, PagerContainerItem.Empty())
-        .mapIndexed { index, item -> PagerContainerListNode(index, item) }
+    override fun getVideoIndex(): Int = adapter.getVideoIndex()
 
-
+    override fun size() = adapter.size()
 }

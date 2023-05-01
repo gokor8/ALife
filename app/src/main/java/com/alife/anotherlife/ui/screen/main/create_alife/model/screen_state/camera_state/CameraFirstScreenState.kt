@@ -8,15 +8,15 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 
-class ScreenFirstScreenState(
+class CameraFirstScreenState(
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
     private val cameraInverter: CameraSelectorInverter = CameraSelectorInverter(cameraSelector)
 ) : CameraScreenState(cameraSelector), InvertibleScreenState {
 
-    override fun copyInvertCamera(): ScreenFirstScreenState {
+    override fun copyInvertCamera(): CameraFirstScreenState {
         val invertCameraSelector = cameraInverter.invertCameraSelector()
 
-        return ScreenFirstScreenState(invertCameraSelector)
+        return CameraFirstScreenState(invertCameraSelector)
     }
 
     @OptIn(ExperimentalFoundationApi::class)
