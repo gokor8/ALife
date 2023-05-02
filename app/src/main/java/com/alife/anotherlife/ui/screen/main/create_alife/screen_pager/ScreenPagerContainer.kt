@@ -31,6 +31,10 @@ data class ScreenPagerContainer(
     fun getPagerItems() = adapter.createPagerItems().map { it.pagerItem }
     fun getScreenPagerItem(index: Int) = adapter.getItemByIndex(index)
 
+    fun changeScreenPagerItem(index: Int, screenState: ScreenState): ScreenPagerContainer {
+        return getScreenPagerItem(index).copyContainer(this, screenState)
+    }
+
     fun changePicture(picturePagerItem: ScreenPagerItem.Picture): ScreenPagerContainer {
         return copy(picture = picturePagerItem)
     }

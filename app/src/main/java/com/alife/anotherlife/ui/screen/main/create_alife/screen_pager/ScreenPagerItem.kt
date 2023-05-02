@@ -17,6 +17,10 @@ interface ScreenPagerItem {
 
     fun invertCamera(screenPagerContainer: ScreenPagerContainer): ScreenPagerContainer
 
+    fun copyContainer(
+        container: ScreenPagerContainer,
+        screenState: ScreenState
+    ): ScreenPagerContainer
 
     interface Picture : ScreenPagerItem {
         override val pagerItem: PicturePagerItem
