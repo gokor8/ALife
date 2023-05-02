@@ -6,5 +6,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WorldViewModel @Inject constructor(
-    reducer: WorldReducer
+    reducer: WorldReducerBase
 ) : AbstractHomeChildViewModel(reducer)

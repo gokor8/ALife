@@ -26,7 +26,7 @@ interface BaseRegistrationReducer {
         private val chainValidator: BaseRegTextChain,
         private val validationRegReducer: BaseValidationRegReducer,
         private val readUseCase: BaseRegStageUseCase.Read<BaseRegEntity>,
-    ) : RegistrationReducer(uiStore), BaseRegistrationReducer {
+    ) : RegistrationReducerBase(uiStore), BaseRegistrationReducer {
 
         override suspend fun onNextClick() {
             chainValidator.handle(

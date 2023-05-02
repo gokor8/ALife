@@ -9,5 +9,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TutorialViewModel @Inject constructor(
-    override val reducerVM: BaseTutorialReducer
-) : DefaultViewModel<BaseTutorialReducer, TutorialAction, TutorialState, TutorialEffect>(reducerVM)
+    override val reducerVM: BaseTutorialReducerBase
+) : DefaultViewModel<BaseTutorialReducerBase, TutorialAction, TutorialState, TutorialEffect>(reducerVM)

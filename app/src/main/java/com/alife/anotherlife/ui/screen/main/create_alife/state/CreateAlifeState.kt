@@ -9,6 +9,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.ScreenPagerContainer
+import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.ScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.screenPagerContainerOf
 import com.alife.core.mvi.MVI
 import javax.inject.Inject
@@ -26,7 +27,9 @@ data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) @Inject con
 ) : MVI.State {
 
     @OptIn(ExperimentalFoundationApi::class)
-    fun currentContainerState() = pagerContainer.getScreenPagerItem(pagerState.currentPage)
+    fun currentContainerState(): ScreenPagerItem {
+        return pagerContainer.getScreenPagerItem(pagerState.currentPage)
+    }
 
     fun tryCopyWithInvert() = currentContainerState().invertCamera(pagerContainer)
 }

@@ -14,10 +14,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateAlifeViewModel @Inject constructor(
-    reducer: BaseCreateAlifeReducer,
+    reducer: BaseCreateAlifeReducerBase,
     val cameraPermission: CameraPermission,
     val audioPermission: AudioPermission,
-) : DefaultViewModel<BaseCreateAlifeReducer, CreateAlifeAction, CreateAlifeState, CreateAlifeEffect>(reducer), AudioPermissionContract {
+) : DefaultViewModel<BaseCreateAlifeReducerBase, CreateAlifeAction, CreateAlifeState, CreateAlifeEffect>(reducer), AudioPermissionContract {
 
     override suspend fun onEffect(navController: NavController, effect: CreateAlifeEffect) {
         if(effect is CreateAlifeEffect.VideoToMainPage)

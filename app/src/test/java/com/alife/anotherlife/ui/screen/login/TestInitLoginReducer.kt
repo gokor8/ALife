@@ -35,7 +35,7 @@ class TestInitLoginReducer {
         secondAuthTypes: List<UIAuthModel>,
         isLoadImagesEmpty: Boolean = false,
     ) {
-        reducer = LoginReducerImpl(
+        reducer = LoginReducerImplBase(
             uiStore,
             FakeLoginAuthTypeUseCase(),
             FakeMockAuthTypeUseCase(isLoadImagesEmpty),

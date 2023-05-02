@@ -6,5 +6,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FriendsViewModel @Inject constructor(
-    reducer: FriendsReducer
+    reducer: FriendsReducerBase
 ) : AbstractHomeChildViewModel(reducer)

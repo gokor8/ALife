@@ -1,7 +1,7 @@
 package com.alife.anotherlife.di.ui.main.home
 
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.BaseHomeReducer
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.HomeReducer
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.BaseHomeReducerBase
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.HomeReducerBase
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.ProfileCardEntityToUICard
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UICardModel
 import com.alife.core.mapper.Mapper
@@ -16,7 +16,7 @@ import dagger.hilt.android.components.ViewModelComponent
 interface HomeViewModelModule {
 
     @Binds
-    fun bindHomeReducer(reducer: HomeReducer): BaseHomeReducer
+    fun bindHomeReducer(reducer: HomeReducerBase): BaseHomeReducerBase
 
     @Binds
     fun bindProfileCardEntityToUICard(

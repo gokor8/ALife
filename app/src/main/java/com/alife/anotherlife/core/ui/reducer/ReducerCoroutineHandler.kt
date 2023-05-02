@@ -6,7 +6,7 @@ import com.alife.core.mvi.MVI
 import java.lang.Exception
 
 class ReducerCoroutineHandler<STATE : MVI.State>(
-    private val reducer: BaseVMReducer<STATE, *>,
+    private val reducer: AbstractVMReducer<STATE, *>,
     onException: suspend (Exception) -> STATE
 ) : BaseCoroutineHandler.Abstract<STATE>(onException, TryCatcher()),
     BaseCoroutineHandler<STATE> {

@@ -4,7 +4,6 @@ import com.alife.anotherlife.core.FakeUIStore
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.RegChainState
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseRegistrationReducer
-import com.alife.anotherlife.ui.screen.registration.base.reducer.RegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.name.*

@@ -19,8 +19,11 @@ interface ScreenPagerItem {
 
 
     interface Picture : ScreenPagerItem {
+        override val pagerItem: PicturePagerItem
+
         fun copy(picturePagerItem: PicturePagerItem): Picture
         fun copy(screenState: ScreenState): Picture
+
     }
 
     interface Video : ScreenPagerItem

@@ -11,8 +11,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    override val reducerVM: HomeReducer
-) : DefaultViewModel<BaseHomeReducer, HomeAction, HomeState, HomeEffect>(reducerVM) {
+    override val reducerVM: HomeReducerBase
+) : DefaultViewModel<BaseHomeReducerBase, HomeAction, HomeState, HomeEffect>(reducerVM) {
 
     @OptIn(ExperimentalPagerApi::class)
     override suspend fun onEffect(navController: NavController, effect: HomeEffect) {

@@ -5,20 +5,20 @@
 //import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 //import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.FirstScreenState
 //import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.BaseCreateAlifePhotoReducer
-//import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.CreateAlifePhotoReducer
+//import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.CreateAlifePhotoReducerBase
 //import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 //import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 //import org.junit.Test
 //
 //class TestCreateAlifePager {
 //
-////    lateinit var createAlifeReducer: CreateAlifeReducer
+////    lateinit var createAlifeReducer: CreateAlifeReducerBase
 ////    lateinit var uiStore: FakeUIStore<CreateAlifeState, CreateAlifeEffect>
 ////
 ////    private fun setupReducer(screenState: ScreenState) {
 ////        uiStore = FakeUIStore(CreateAlifeState(screenState = screenState, settingsIntent = null))
 ////
-////        createAlifeReducer = CreateAlifeReducer(
+////        createAlifeReducer = CreateAlifeReducerBase(
 ////            uiStore,
 ////            CameraStateToSaveImage(),
 ////            TestCreateAlifeReducerOnTakePhoto.FakeImageProxySelectMapper(),
@@ -28,7 +28,7 @@
 //
 //    @Test
 //    fun `change pager state with saving screen state`() {
-//         val reducer = CreateAlifePhotoReducer
+//         val reducer = CreateAlifePhotoReducerBase
 //
 //        reducer.changePager()
 //
@@ -37,7 +37,7 @@
 //
 //    @Test
 //    fun `change screen state with saving pager`() {
-//        val reducer = CreateAlifePhotoReducer
+//        val reducer = CreateAlifePhotoReducerBase
 //
 //        reducer.changeCameraState()
 //
@@ -46,7 +46,7 @@
 //
 //    @Test
 //    fun `change pager and screen state`() {
-//        val reducer = CreateAlifePhotoReducer
+//        val reducer = CreateAlifePhotoReducerBase
 //
 //        reducer.changeCameraState()
 //        reducer.changePager()

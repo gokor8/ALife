@@ -1,16 +1,14 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.list_adapter
 
-import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.EmptyAlifePagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.VideoIndex
 import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.AbstractScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.ScreenPagerItem
 
-interface ContainerListAdapter {
+interface ContainerListAdapter : VideoIndex {
 
     fun createPagerItems(): List<ScreenPagerItem>
 
     fun getItemByIndex(index: Int): ScreenPagerItem
-
-    fun getVideoIndex(): Int
 
 
     class Default(

@@ -2,13 +2,11 @@ package com.alife.anotherlife.ui.screen.login
 
 import com.alife.anotherlife.core.FakeEffectCollector
 import com.alife.anotherlife.core.FakeStateCollector
-import com.alife.anotherlife.core.FakeUIStore
 import com.alife.anotherlife.core.ViewModelTest
 import com.alife.anotherlife.core.ui.state_collector.EffectCollector
 import com.alife.anotherlife.core.ui.state_collector.StateCollector
-import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.login.model.AuthType
-import com.alife.anotherlife.ui.screen.login.reducer.BaseLoginReducer
+import com.alife.anotherlife.ui.screen.login.reducer.BaseLoginReducerBase
 import com.alife.anotherlife.ui.screen.login.reducer.LoginReducer
 import com.alife.anotherlife.ui.screen.login.state.LoginAction
 import com.alife.anotherlife.ui.screen.login.state.LoginEffect
@@ -28,7 +26,7 @@ class TestLoginViewModel : ViewModelTest() {
     @Before
     fun before() {
         reduceCollector = mutableListOf()
-        viewModel = LoginViewModel(FakeLoginReducer(reduceCollector))
+        viewModel = LoginViewModel(FakeLoginReducerBase(reduceCollector))
     }
 
     @Test
@@ -74,9 +72,9 @@ enum class LoginReduce {
     INIT, LOGIN_IN, REGISTRATION, AUTH_SERVICE
 }
 
-class FakeLoginReducer(
+class FakeLoginReducerBase(
     private val reduceCollector: MutableList<LoginReduce>,
-) : BaseLoginReducer {
+) : BaseLoginReducerBase {
 
     override fun getStateCollector(): StateCollector<LoginState> = FakeStateCollector(emptyList())
     override fun getEffectCollector(): EffectCollector<LoginEffect> = FakeEffectCollector()

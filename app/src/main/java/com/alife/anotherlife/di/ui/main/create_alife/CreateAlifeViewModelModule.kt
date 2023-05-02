@@ -1,8 +1,6 @@
 package com.alife.anotherlife.di.ui.main.create_alife
 
 import androidx.camera.core.ImageProxy
-import com.alife.anotherlife.ui.screen.main.create_alife.BaseCreateAlifeReducer
-import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseCameraStateToSaveImage
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.CameraStateToSaveImage
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.ImageProxySelectMapper

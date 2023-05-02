@@ -1,7 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state
 
 import androidx.camera.core.CameraSelector
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -11,20 +10,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
-import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraPreviewComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSetupFactory
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
 
 abstract class CameraScreenState(
     val cameraSelector: CameraSelector

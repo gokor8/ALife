@@ -8,8 +8,7 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.ba
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIProfileCardModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildState
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.friends.FriendsReducer
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.world.WorldReducer
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.world.WorldReducerBase
 import com.alife.domain.core.usecase.UseCaseResult
 import com.alife.domain.main.home.child.ProfileCardEntity
 import com.alife.domain.main.home.child.ProfileUseCaseEntity
@@ -24,7 +23,7 @@ import java.util.*
 class TestWorldReducer {
 
     private lateinit var uiStore: FakeUIStore<HomeChildState, HomeChildEffect>
-    private lateinit var reducer: WorldReducer
+    private lateinit var reducer: WorldReducerBase
 
     @Before
     fun before() {
@@ -38,7 +37,7 @@ class TestWorldReducer {
         listUICardModel?.also {
             uiStore = FakeUIStore(HomeChildState(listUICardModel))
         }
-        reducer = WorldReducer(
+        reducer = WorldReducerBase(
             uiStore,
             ProfileCardEntityToUICard(),
             FakeProfileCardUseCase(useCaseResult)

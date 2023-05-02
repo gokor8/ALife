@@ -1,11 +1,11 @@
 package com.alife.anotherlife.di.ui.main.create_alife
 
-import com.alife.anotherlife.ui.screen.main.create_alife.BaseCreateAlifeReducer
-import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeReducer
+import com.alife.anotherlife.ui.screen.main.create_alife.BaseCreateAlifeReducerBase
+import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeReducerBase
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.BaseCreateAlifePhotoReducer
-import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.CreateAlifePhotoReducer
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.CreateAlifePhotoReducerBase
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.BaseCreateAlifeVideoReducer
-import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.CreateAlifeVideoReducer
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.CreateAlifeVideoReducerBase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,11 +16,11 @@ import dagger.hilt.android.components.ViewModelComponent
 interface CreateAlifeReducerModule {
 
     @Binds
-    fun bindCreateAlifeReducer(reducer: CreateAlifeReducer): BaseCreateAlifeReducer
+    fun bindCreateAlifeReducer(reducer: CreateAlifeReducerBase): BaseCreateAlifeReducerBase
 
     @Binds
-    fun bindCreateAlifePhotoReducer(reducer: CreateAlifePhotoReducer): BaseCreateAlifePhotoReducer
+    fun bindCreateAlifePhotoReducer(reducer: CreateAlifePhotoReducerBase): BaseCreateAlifePhotoReducer
 
     @Binds
-    fun bindCreateAlifeVideoReducer(reducer: CreateAlifeVideoReducer): BaseCreateAlifeVideoReducer
+    fun bindCreateAlifeVideoReducer(reducer: CreateAlifeVideoReducerBase): BaseCreateAlifeVideoReducer
 }

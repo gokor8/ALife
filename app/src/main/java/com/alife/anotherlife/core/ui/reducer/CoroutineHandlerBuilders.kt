@@ -27,7 +27,7 @@ interface CoroutineHandlerBuilders {
     ): CoroutineHandler<M>
 
     suspend fun <STATE : MVI.State> executeWithReducer(
-        reducer: BaseVMReducer<STATE, *>,
+        reducer: AbstractVMReducer<STATE, *>,
         onException: suspend STATE.(Exception) -> STATE,
     ): ReducerCoroutineHandler<STATE>
 
@@ -62,7 +62,7 @@ interface CoroutineHandlerBuilders {
         ) = CoroutineHandlerBuilder<M>().onException(model, onException)
 
         override suspend fun <STATE : MVI.State> executeWithReducer(
-            reducer: BaseVMReducer<STATE, *>,
+            reducer: AbstractVMReducer<STATE, *>,
             onException: suspend STATE.(Exception) -> STATE,
         ) = ReducerCoroutineHandler(reducer) { exception ->
             reducer.getState().onException(exception)

@@ -1,10 +1,12 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.screen_pager
 
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.VideoIndex
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.list_adapter.ContainerListAdapter
+import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.list_adapter.ContainerListAdapterFactory
 
 fun screenPagerContainerOf(
     picture: PicturePagerItem,
@@ -19,8 +21,13 @@ fun screenPagerContainerOf(
 data class ScreenPagerContainer(
     val picture: ScreenPagerItem.Picture,
     val video: ScreenPagerItem.Video,
-    val adapter: ContainerListAdapter = ContainerListAdapter.Default(picture, video)
-) {
+    val adapterFactory: ContainerListAdapterFactory = ContainerListAdapterFactory.Default()
+) : VideoIndex {
+
+    private val adapter = adapterFactory.create(picture, video)
+
+    override fun getVideoIndex() = adapter.getVideoIndex()
+
     fun getPagerItems() = adapter.createPagerItems().map { it.pagerItem }
     fun getScreenPagerItem(index: Int) = adapter.getItemByIndex(index)
 

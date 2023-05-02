@@ -15,11 +15,8 @@ import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.icon.IconBase
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
-import com.alife.anotherlife.core.ui.reducer.VMReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
-import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 
 class CameraVideoScreenState(
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA

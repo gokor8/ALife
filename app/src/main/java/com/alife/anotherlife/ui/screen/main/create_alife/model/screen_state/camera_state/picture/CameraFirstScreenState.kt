@@ -2,7 +2,8 @@ package com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.cam
 
 import androidx.camera.core.CameraSelector
 import androidx.compose.foundation.ExperimentalFoundationApi
-import com.alife.anotherlife.core.ui.reducer.VMReducer
+import com.alife.anotherlife.core.ui.reducer.AbstractVMReducer
+import com.alife.anotherlife.core.ui.reducer.BaseVMReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSelectorInverter
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraPictureScreenState
@@ -22,7 +23,7 @@ class CameraFirstScreenState(
     }
 
     @OptIn(ExperimentalFoundationApi::class)
-    override suspend fun onImageLoaded(reducer: VMReducer<CreateAlifeState, CreateAlifeEffect>) {
+    override suspend fun onImageLoaded(reducer: AbstractVMReducer<CreateAlifeState, CreateAlifeEffect>) {
         reducer.setState {
             copy(
                 pagerContainer = pagerContainer.changePicture(
