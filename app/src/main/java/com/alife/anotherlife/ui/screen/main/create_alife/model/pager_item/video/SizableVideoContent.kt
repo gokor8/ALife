@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video
 
+import android.util.Log
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +26,8 @@ abstract class SizableVideoContent(
         captureWrapper: BaseCaptureWrapper,
         viewModel: CreateAlifeViewModel
     ) {
+        Log.d("Aboba Pager Item", "$this")
+
         MaterialTheme.colorScheme.apply {
             VideoCircleComposable(
                 onPrimary,
@@ -46,4 +49,6 @@ abstract class SizableVideoContent(
         captureWrapper: BaseCaptureWrapper,
         viewModel: CreateAlifeViewModel
     )
+
+    override fun hashCode(): Int = 228
 }

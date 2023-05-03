@@ -1,11 +1,13 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo
 
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,6 +27,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import java.lang.ref.WeakReference
 
+@Stable
 interface PicturePagerItem : CreateAlifePagerItem {
 
     abstract class TakePicture : PicturePagerItem, InvertiblePagerItem,
@@ -36,6 +39,8 @@ interface PicturePagerItem : CreateAlifePagerItem {
             captureWrapper: BaseCaptureWrapper,
             viewModel: CreateAlifeViewModel
         ) {
+            Log.d("Aboba Pager Item", "$this")
+
             val colorScheme = MaterialTheme.colorScheme
             val context = LocalContext.current
 
@@ -69,7 +74,7 @@ interface PicturePagerItem : CreateAlifePagerItem {
             viewModel.cameraPermission.requirePermission(
                 onPermission = stable { permissionState ->
                     viewModel.reduce(
-                        CreateAlifeAction.PhotoCameraPermission(permissionState is PermissionStatus.Success)
+                        CreateAlifeAction.PhotoPermission(permissionState is PermissionStatus.Success)
                     )
                 }
             )

@@ -1,13 +1,12 @@
-package com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state
+package com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture
 
 import androidx.camera.core.CameraSelector
 import androidx.compose.foundation.ExperimentalFoundationApi
 import com.alife.anotherlife.core.ui.reducer.AbstractVMReducer
-import com.alife.anotherlife.core.ui.reducer.BaseVMReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSelectorInverter
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraPictureScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.AbstractScreenPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.InvertibleScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.AbstractScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 

@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.composable
 
+import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
@@ -57,6 +58,9 @@ fun CameraActionsComposable(
             val minPageSize = 32f
             val sizeMultiplier = pagerState.currentPageOffsetFraction + pagerState.currentPage
             val calculatedSize = ((pageSize.value - minPageSize) * sizeMultiplier + minPageSize).dp
+
+            Log.e("Aboba", "${pagerState.currentPage}")
+            Log.e("Aboba Page", "${pagerItems[page]}")
 
             pagerItems[page].Content(
                 // 28f * ... + 32f

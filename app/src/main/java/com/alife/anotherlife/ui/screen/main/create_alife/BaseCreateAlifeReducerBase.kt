@@ -15,6 +15,6 @@ interface BaseCreateAlifeReducerBase : BaseVMReducer<CreateAlifeState, CreateAli
 
     suspend fun onCameraWrapper(captureWrapper: BaseCaptureWrapper)
 
-    suspend fun onPictureCameraPermission(photoCameraPermission: CreateAlifeAction.PhotoCameraPermission)
-    suspend fun onVideoCameraPermission(videoCameraPermission: CreateAlifeAction.VideoCameraPermission)
+    suspend fun onPictureCameraPermission(photoPermission: CreateAlifeAction.PhotoPermission)
+    suspend fun onVideoCameraPermission(videoPermission: CreateAlifeAction.VideoPermission)
 }

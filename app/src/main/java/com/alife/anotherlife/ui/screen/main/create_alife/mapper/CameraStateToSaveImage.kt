@@ -1,8 +1,8 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.mapper
 
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraFirstScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraFirstScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraSecondScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraSecondScreenState
 import com.alife.domain.core.MappingException
 import com.alife.domain.main.create_alife.entity.SaveImageEntity
 import javax.inject.Inject

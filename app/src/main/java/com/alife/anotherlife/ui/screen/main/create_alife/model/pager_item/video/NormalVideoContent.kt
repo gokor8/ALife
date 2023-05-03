@@ -18,15 +18,19 @@ class NormalVideoContent(size: Dp) : SizableVideoContent(size, ClickableSuspendW
         captureWrapper: BaseCaptureWrapper,
         viewModel: CreateAlifeViewModel
     ) {
+        Log.d("Aboba Pager Item", "$this")
+
         val audioPermission = viewModel.audioPermission.requirePermission(viewModel)
 
         // TODO проверять в листе(цепочке), если тстатус Granted, либо Fatal, запускать второй пермишн
 
         viewModel.cameraPermission.requirePermission { status ->
 
-            viewModel.reduce(CreateAlifeAction.VideoCameraPermission(status is PermissionStatus.Success))
+            val isGranted = status is PermissionStatus.Success
 
-            if(status is PermissionStatus.Success) audioPermission.launchPermissionRequest()
+            viewModel.reduce(CreateAlifeAction.VideoPermission(isGranted))
+
+            if(isGranted) audioPermission.launchPermissionRequest()
         }
 
         super.Content(captureWrapper, viewModel)

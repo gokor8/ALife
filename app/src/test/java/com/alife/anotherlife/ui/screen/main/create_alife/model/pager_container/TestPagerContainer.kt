@@ -4,11 +4,10 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.FakeContainerList
 import com.alife.anotherlife.ui.screen.main.create_alife.model.FakePicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.FakePictureScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.FakeVideoScreenPagerItem
-import com.alife.anotherlife.ui.screen.main.create_alife.model.FakerContainerListAdapter
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.EmptyAlifePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.ScreenPagerContainer
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.ScreenPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotSame
 import junit.framework.TestCase.assertTrue

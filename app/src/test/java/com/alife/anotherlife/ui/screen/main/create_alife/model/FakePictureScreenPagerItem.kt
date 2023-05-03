@@ -3,8 +3,8 @@ package com.alife.anotherlife.ui.screen.main.create_alife.model
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.ScreenPagerContainer
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.ScreenPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
 
 class FakePictureScreenPagerItem(
     private val copyList: MutableList<ScreenPagerItem>

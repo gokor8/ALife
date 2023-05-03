@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.screen.main.create_alife.screen_pager
+package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container
 
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CreateAlifePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.InvertiblePagerItem

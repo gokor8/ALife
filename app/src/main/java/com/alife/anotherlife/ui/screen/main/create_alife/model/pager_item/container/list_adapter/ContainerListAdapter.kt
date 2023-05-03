@@ -1,8 +1,8 @@
-package com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.list_adapter
+package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.list_adapter
 
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.VideoIndex
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.AbstractScreenPagerItem
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.ScreenPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.AbstractScreenPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
 
 interface ContainerListAdapter : VideoIndex {
 

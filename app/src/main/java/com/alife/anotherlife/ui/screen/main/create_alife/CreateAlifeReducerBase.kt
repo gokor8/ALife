@@ -30,12 +30,16 @@ class CreateAlifeReducerBase @Inject constructor(
     }
 
     override suspend fun onPictureCameraPermission(
-        photoCameraPermission: CreateAlifeAction.PhotoCameraPermission
-    ) { photoCameraPermission.onPermission(createAlifePhotoReducer) }
+        photoPermission: CreateAlifeAction.PhotoPermission
+    ) {
+        photoPermission.onPermission(createAlifePhotoReducer)
+    }
 
     override suspend fun onVideoCameraPermission(
-        videoCameraPermission: CreateAlifeAction.VideoCameraPermission
-    ) { videoCameraPermission.onPermission(createAlifeVideoReducer) }
+        videoPermission: CreateAlifeAction.VideoPermission
+    ) {
+        videoPermission.onPermission(createAlifeVideoReducer)
+    }
 
     override suspend fun onCreatePhoto(contextWrapper: BaseContextMainExecutorWrapper) {
         createAlifePhotoReducer.onCreatePhoto(contextWrapper)
@@ -48,15 +52,4 @@ class CreateAlifeReducerBase @Inject constructor(
     override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {
         createAlifeVideoReducer.onAudioPermission(permissionStatus)
     }
-
-//    override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {
-//        if(permissionStatus !is PermissionStatus.Success) return
-//
-//        setState {
-//            copy(
-//                screenState = VideoCameraScreenState(),
-//                isAudioEnabled = permissionStatus is PermissionStatus.Success,
-//            )
-//        }
-//    }
 }

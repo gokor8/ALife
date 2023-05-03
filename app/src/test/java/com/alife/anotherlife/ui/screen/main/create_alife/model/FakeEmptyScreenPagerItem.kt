@@ -4,8 +4,8 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.Create
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.EmptyAlifePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.ScreenPagerContainer
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.ScreenPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
 
 class FakeEmptyScreenPagerItem : ScreenPagerItem {
 

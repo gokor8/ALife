@@ -6,6 +6,8 @@ import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseCameraStateToSaveImage
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraFirstScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraPictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.CameraPermissionReducerBase
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
@@ -52,4 +54,6 @@ class CreateAlifePhotoReducerBase @Inject constructor(
             screenState.onImageLoaded(this@CreateAlifePhotoReducerBase)
         }
     }
+
+    override fun getPermissionGrantedScreen(): ScreenState = CameraFirstScreenState()
 }

@@ -2,8 +2,8 @@ package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_list_adapt
 
 import com.alife.anotherlife.ui.screen.main.create_alife.model.FakePictureScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.FakeVideoScreenPagerItem
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.AbstractScreenPagerItem
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.list_adapter.ContainerListAdapter
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.AbstractScreenPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.list_adapter.ContainerListAdapter
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Test

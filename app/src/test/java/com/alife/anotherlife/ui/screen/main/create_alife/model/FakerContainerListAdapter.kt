@@ -1,8 +1,8 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model
 
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.ScreenPagerItem
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.list_adapter.ContainerListAdapter
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.list_adapter.ContainerListAdapterFactory
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.list_adapter.ContainerListAdapter
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.list_adapter.ContainerListAdapterFactory
 
 class FakeContainerListAdapterFactory : ContainerListAdapterFactory {
     override fun create(

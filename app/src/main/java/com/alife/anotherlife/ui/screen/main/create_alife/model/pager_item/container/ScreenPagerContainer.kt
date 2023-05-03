@@ -1,12 +1,10 @@
-package com.alife.anotherlife.ui.screen.main.create_alife.screen_pager
+package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container
 
-import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.VideoIndex
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.list_adapter.ContainerListAdapter
-import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.list_adapter.ContainerListAdapterFactory
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.list_adapter.ContainerListAdapterFactory
 
 fun screenPagerContainerOf(
     picture: PicturePagerItem,
