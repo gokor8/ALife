@@ -15,4 +15,9 @@ class FakeVideoScreenPagerItem: ScreenPagerItem.Video {
     override fun invertCamera(screenPagerContainer: ScreenPagerContainer): ScreenPagerContainer {
         return screenPagerContainer
     }
+
+    override fun copyContainer(
+        container: ScreenPagerContainer,
+        screenState: ScreenState
+    ): ScreenPagerContainer = container
 }

@@ -1,6 +1,5 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_list_adapter
 
-import com.alife.anotherlife.ui.screen.main.create_alife.model.FakeEmptyScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.FakePictureScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.FakeVideoScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.screen_pager.AbstractScreenPagerItem
@@ -45,7 +44,7 @@ class TestDefaultContainerListAdapter {
         val index = 2
 
         val actual = containerListAdapter.getItemByIndex(index)
-        assertTrue(actual is FakeEmptyScreenPagerItem)
+        assertTrue(actual is AbstractScreenPagerItem.Empty)
     }
 
     @Test

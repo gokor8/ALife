@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_container
 
+import com.alife.anotherlife.ui.screen.main.create_alife.model.FakeContainerListAdapterFactory
 import com.alife.anotherlife.ui.screen.main.create_alife.model.FakePicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.FakePictureScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.FakeVideoScreenPagerItem
@@ -26,7 +27,7 @@ class TestPagerContainer {
         pagerContainer = ScreenPagerContainer(
             FakePictureScreenPagerItem(pictureCopyActionList),
             FakeVideoScreenPagerItem(),
-            FakerContainerListAdapter()
+            FakeContainerListAdapterFactory()
         )
     }
 
