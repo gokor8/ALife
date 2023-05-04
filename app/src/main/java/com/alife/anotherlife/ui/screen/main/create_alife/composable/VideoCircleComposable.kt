@@ -1,6 +1,5 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.composable
 
-import android.animation.ObjectAnimator
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

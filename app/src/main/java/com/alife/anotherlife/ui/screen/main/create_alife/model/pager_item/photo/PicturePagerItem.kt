@@ -20,6 +20,7 @@ import com.alife.anotherlife.core.composable.clickable
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.ContextMainThreadWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraCircleComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CreateAlifePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.InvertiblePagerItem
@@ -30,40 +31,9 @@ import java.lang.ref.WeakReference
 @Stable
 interface PicturePagerItem : CreateAlifePagerItem {
 
-    abstract class TakePicture : PicturePagerItem, InvertiblePagerItem,
-        CreateAlifePagerItem.Abstract() {
+    abstract class TakePicture(private val isEnabled: Boolean) : CreateAlifePagerItem.Abstract(),
+        PicturePagerItem, InvertiblePagerItem {
 
-        @Composable
-        override fun Content(
-            size: Dp,
-            captureWrapper: BaseCaptureWrapper,
-            viewModel: CreateAlifeViewModel
-        ) {
-            Log.d("Aboba Pager Item", "$this")
-
-            val colorScheme = MaterialTheme.colorScheme
-            val context = LocalContext.current
-
-            Canvas(modifier = Modifier
-                .size(pagerItemSize.sizeDp())
-                .clip(CircleShape)
-                .clickable(rememberCoroutineScope()) {
-                    viewModel.reduce(
-                        CreateAlifeAction.CreatePhoto(
-                            ContextMainThreadWrapper(WeakReference(context))
-                        )
-                    )
-                }
-            ) {
-                drawCircle(
-                    color = colorScheme.onPrimary,
-                    style = stroke6Draw()
-                )
-            }
-        }
-    }
-
-    class InitTakePicture : TakePicture() {
         @OptIn(ExperimentalPermissionsApi::class)
         @Composable
         override fun Content(
@@ -79,11 +49,28 @@ interface PicturePagerItem : CreateAlifePagerItem {
                 }
             )
 
-            super.Content(size, captureWrapper, viewModel)
+            Log.d("Aboba Pager Item", "$this")
+
+            val colorScheme = MaterialTheme.colorScheme
+            val context = LocalContext.current
+
+            CameraCircleComposable(
+                colorScheme.onPrimary,
+                pagerItemSize.sizeDp(),
+                isEnabled
+            ) {
+                viewModel.reduce(
+                    CreateAlifeAction.CreatePhoto(
+                        ContextMainThreadWrapper(WeakReference(context))
+                    )
+                )
+            }
         }
     }
 
-    class DefaultTakePicture : TakePicture()
+    class InitTakePicture : TakePicture(false)
+
+    class DefaultTakePicture : TakePicture(true)
 
     class OnPictureTaking : PicturePagerItem, CreateAlifePagerItem.Abstract() {
 

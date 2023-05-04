@@ -16,6 +16,7 @@ import com.alife.core.mapper.Mapper
 import com.alife.domain.main.create_alife.BaseSaveAlifeUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.concurrent.Executor
 import javax.inject.Inject
 
 class CreateAlifePhotoReducerBase @Inject constructor(
@@ -26,11 +27,10 @@ class CreateAlifePhotoReducerBase @Inject constructor(
 ) : CameraPermissionReducerBase(uiStore), BaseCreateAlifePhotoReducer {
 
     @OptIn(ExperimentalFoundationApi::class)
-    override suspend fun onCreatePhoto(contextWrapper: BaseContextMainExecutorWrapper) {
-        val mainExecutor = contextWrapper.getMainExecutor()
-        val screenState = getState().pagerContainer.picture.screenState
-        if (screenState !is CameraPictureScreenState || mainExecutor == null) return
-
+    override suspend fun onCreatePhoto(
+        screenState: CameraPictureScreenState,
+        mainExecutor: Executor
+    ) {
         setState {
             copy(pagerContainer = pagerContainer.changePicture(PicturePagerItem.OnPictureTaking()))
         }
