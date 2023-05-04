@@ -18,6 +18,8 @@ import com.alife.anotherlife.core.composable.icon.IconBase
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
+import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CameraAudioPermissionWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CameraPermissionWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSelectorInverter
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.InvertibleScreenState
@@ -26,13 +28,14 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.came
 
 class CameraVideoScreenState(
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
-    private val cameraInverter: CameraSelectorInverter = CameraSelectorInverter(cameraSelector)
-) : CameraScreenState(cameraSelector), InvertibleScreenState {
+    permissionWrapper: CameraPermissionWrapper
+) : CameraScreenState(cameraSelector, permissionWrapper), InvertibleScreenState {
 
     override fun copyInvertCamera(): CameraFirstScreenState {
-        val invertCameraSelector = cameraInverter.invertCameraSelector()
-
-        return CameraFirstScreenState(invertCameraSelector)
+        return CameraFirstScreenState(
+            CameraSelectorInverter(cameraSelector).invertCameraSelector(),
+            permissionWrapper
+        )
     }
 
     @Composable

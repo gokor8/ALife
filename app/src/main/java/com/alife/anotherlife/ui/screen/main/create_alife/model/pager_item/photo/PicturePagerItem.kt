@@ -34,23 +34,12 @@ interface PicturePagerItem : CreateAlifePagerItem {
     abstract class TakePicture(private val isEnabled: Boolean) : CreateAlifePagerItem.Abstract(),
         PicturePagerItem {
 
-        @OptIn(ExperimentalPermissionsApi::class)
         @Composable
         override fun Content(
             size: Dp,
             captureWrapper: BaseCaptureWrapper,
             viewModel: CreateAlifeViewModel
         ) {
-            viewModel.cameraPermission.requirePermission(
-                onPermission = stable { permissionState ->
-                    viewModel.reduce(
-                        CreateAlifeAction.PhotoPermission(permissionState is PermissionStatus.Success)
-                    )
-                }
-            )
-
-            Log.d("Aboba Pager Item", "$this")
-
             val colorScheme = MaterialTheme.colorScheme
             val context = LocalContext.current
 

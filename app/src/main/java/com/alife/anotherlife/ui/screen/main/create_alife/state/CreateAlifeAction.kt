@@ -36,7 +36,7 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
     }
 
     abstract class CameraPermission(
-        protected val isGranted: Boolean,
+        private val isGranted: Boolean,
         private val newScreenState: ScreenState
     ) : CreateAlifeAction {
         suspend fun onPermission(reducer: BaseCameraPermissionReducer) {
@@ -47,14 +47,19 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
         }
     }
 
-    class PhotoPermission(isGranted: Boolean, newScreenState: ScreenState) :
-        CameraPermission(isGranted, newScreenState) {
+    class PhotoPermission(
+        isGranted: Boolean,
+        newScreenState: ScreenState
+    ) : CameraPermission(isGranted, newScreenState) {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
             reducer.onPictureCameraPermission(this)
         }
     }
 
-    class VideoPermission(isGranted: Boolean) : CameraPermission(isGranted) {
+    class VideoPermission(
+        isGranted: Boolean,
+        newScreenState: ScreenState
+    ) : CameraPermission(isGranted, newScreenState) {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
             reducer.onVideoCameraPermission(this)
         }

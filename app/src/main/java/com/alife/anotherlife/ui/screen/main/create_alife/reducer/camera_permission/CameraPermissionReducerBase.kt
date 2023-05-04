@@ -19,6 +19,4 @@ abstract class CameraPermissionReducerBase(
     override suspend fun onPermissionFatal() {
         setEffect(CreateAlifeEffect.GoBack())
     }
-
-    protected abstract fun getPermissionGrantedScreen(): ScreenState
 }

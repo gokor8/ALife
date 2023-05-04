@@ -8,7 +8,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 
-class LoadScreenState : ScreenState.AbstractScreenState(Alignment.Center) {
+abstract class LoadScreenState : ScreenState.AbstractScreenState(Alignment.Center) {
 
     @Composable
     override fun SafeContent(viewModel: CreateAlifeViewModel) {

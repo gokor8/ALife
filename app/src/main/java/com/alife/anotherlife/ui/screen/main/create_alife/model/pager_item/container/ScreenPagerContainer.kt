@@ -8,15 +8,15 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.contai
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pager_item.Picture
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pager_item.Video
 
-fun screenPagerContainerOf(
-    picture: PicturePagerItem,
-    video: VideoPagerItem
-): ScreenPagerContainer {
-    return ScreenPagerContainer(
-        Picture(LoadScreenState(), picture),
-        Video(LoadScreenState(), video)
-    )
-}
+//fun screenPagerContainerOf(
+//    picture: PicturePagerItem,
+//    video: VideoPagerItem
+//): ScreenPagerContainer {
+//    return ScreenPagerContainer(
+//        Picture(LoadScreenState(), picture),
+//        Video(LoadScreenState(), video)
+//    )
+//}
 
 data class ScreenPagerContainer(
     val picture: ScreenPagerItem.Picture,

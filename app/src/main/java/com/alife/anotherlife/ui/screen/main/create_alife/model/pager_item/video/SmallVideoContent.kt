@@ -7,9 +7,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 
-class SmallVideoContent(
-    size: Dp
-) : SizableVideoContent(size, ClickableSuspendWrapper.NoRipple()) {
+class SmallVideoContent(size: Dp) : SizableVideoContent(size, ClickableSuspendWrapper.NoRipple()) {
 
     override suspend fun onClick(
         captureWrapper: BaseCaptureWrapper,

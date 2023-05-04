@@ -54,6 +54,4 @@ class CreateAlifePhotoReducerBase @Inject constructor(
             screenState.onImageLoaded(this@CreateAlifePhotoReducerBase)
         }
     }
-
-    override fun getPermissionGrantedScreen(): ScreenState = CameraFirstScreenState()
 }

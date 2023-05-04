@@ -3,6 +3,7 @@ package com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.cam
 import androidx.camera.core.CameraSelector
 import androidx.compose.foundation.ExperimentalFoundationApi
 import com.alife.anotherlife.core.ui.reducer.AbstractVMReducer
+import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CameraPermissionWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSelectorInverter
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.InvertibleScreenState
@@ -13,13 +14,12 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 
 class CameraFirstScreenState(
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
+    cameraPermissionWrapper: CameraPermissionWrapper,
     private val cameraInverter: CameraSelectorInverter = CameraSelectorInverter(cameraSelector)
-) : CameraPictureScreenState(cameraSelector), InvertibleScreenState {
+) : CameraPictureScreenState(cameraSelector, cameraPermissionWrapper), InvertibleScreenState {
 
     override fun copyInvertCamera(): CameraFirstScreenState {
-        val invertCameraSelector = cameraInverter.invertCameraSelector()
-
-        return CameraFirstScreenState(invertCameraSelector)
+        return CameraFirstScreenState(cameraInverter.invertCameraSelector(), permissionWrapper)
     }
 
     @OptIn(ExperimentalFoundationApi::class)
@@ -29,7 +29,7 @@ class CameraFirstScreenState(
                 pagerContainer = pagerContainer.changePicture(
                     Picture(
                         pagerItem = PicturePagerItem.DefaultTakePicture(),
-                        screenState = CameraSecondScreenState(cameraInverter.invertCameraSelector())
+                        screenState = CameraSecondScreenState(cameraInverter.invertCameraSelector(), permissionWrapper)
                     )
                 )
             )

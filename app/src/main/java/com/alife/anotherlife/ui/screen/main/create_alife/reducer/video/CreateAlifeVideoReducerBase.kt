@@ -26,6 +26,4 @@ class CreateAlifeVideoReducerBase @Inject constructor(
     override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {
 
     }
-
-    override fun getPermissionGrantedScreen() = CameraVideoScreenState()
 }

@@ -5,6 +5,8 @@ import com.alife.anotherlife.R
 import com.alife.anotherlife.core.ui.store.DefaultUIStore
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.di.core.IntentModule
+import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CameraAudioPermissionWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CameraPermissionWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
@@ -25,7 +27,13 @@ class CreateAlifeViewModelModuleP {
     fun birthdayUIStore(
         @IntentModule.IntentAnnotation.Settings
         settingsIntent: Intent,
+        cameraPermissionWrapper: CameraPermissionWrapper,
+        cameraAudioPermissionWrapper: CameraAudioPermissionWrapper
     ): UIStore<CreateAlifeState, CreateAlifeEffect> = DefaultUIStore(
-        CreateAlifeState(settingsIntent = settingsIntent)
+        CreateAlifeState(
+            cameraPermissionWrapper = cameraPermissionWrapper,
+            cameraAudioPermissionWrapper = cameraAudioPermissionWrapper,
+            settingsIntent = settingsIntent
+        )
     )
 }

@@ -15,6 +15,8 @@ import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
+import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CameraPermissionWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CreateAlifePermissionWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraPreviewComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSetupFactory
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
@@ -22,14 +24,18 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 
 abstract class CameraScreenState(
     val cameraSelector: CameraSelector,
-    private
+    protected val permissionWrapper: CameraPermissionWrapper
 ) : ScreenState.AbstractScreenState() {
+
+    protected open fun onCameraGrantedScreen(): ScreenState = this
 
     @Composable
     override fun Content(
         viewModel: CreateAlifeViewModel,
         modifier: Modifier,
     ) {
+        permissionWrapper.SetupPermissions(viewModel, onCameraGrantedScreen())
+
         Box(
             contentAlignment = contentAlignment,
             modifier = Modifier.fillMaxSize()
