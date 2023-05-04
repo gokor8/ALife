@@ -7,6 +7,9 @@ import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.ContextMainThreadWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ErrorScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ErrorCameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraPictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.BaseCreateAlifePhotoReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.BaseCreateAlifeVideoReducer
@@ -30,13 +33,10 @@ class CreateAlifeReducerBase @Inject constructor(
     @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onCameraWrapper(captureWrapper: BaseCaptureWrapper) {
         setState {
-            copy(
-                captureWrapper = captureWrapper,
-                pagerContainer = currentContainerState().copy(
-                    pagerContainer,
-                    captureWrapper
-                )
-            )
+            if(captureWrapper is CookedCaptureWrapper)
+                copy(pagerContainer = copyCurrentScreenPage(captureWrapper))
+            else
+                copy(blockingScreen = ErrorCameraScreenState())
         }
     }
 

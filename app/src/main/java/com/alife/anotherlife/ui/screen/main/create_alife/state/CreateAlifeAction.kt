@@ -5,6 +5,7 @@ import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.BaseCreateAlifeReducerBase
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.BaseCameraPermissionReducer
 
 interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
@@ -21,7 +22,8 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
         }
     }
 
-    class CreatePhoto(private val contextWrapper: BaseContextMainExecutorWrapper) : CreateAlifeAction {
+    class CreatePhoto(private val contextWrapper: BaseContextMainExecutorWrapper) :
+        CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
             reducer.onCreatePhoto(contextWrapper)
         }
@@ -33,13 +35,20 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
         }
     }
 
-    abstract class CameraPermission(protected val isGranted: Boolean) : CreateAlifeAction {
+    abstract class CameraPermission(
+        protected val isGranted: Boolean,
+        private val newScreenState: ScreenState
+    ) : CreateAlifeAction {
         suspend fun onPermission(reducer: BaseCameraPermissionReducer) {
-            if(isGranted) reducer.onPermissionGranted() else reducer.onPermissionFatal()
+            if (isGranted)
+                reducer.onPermissionGranted(newScreenState)
+            else
+                reducer.onPermissionFatal()
         }
     }
 
-    class PhotoPermission(isGranted: Boolean) : CameraPermission(isGranted) {
+    class PhotoPermission(isGranted: Boolean, newScreenState: ScreenState) :
+        CameraPermission(isGranted, newScreenState) {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
             reducer.onPictureCameraPermission(this)
         }

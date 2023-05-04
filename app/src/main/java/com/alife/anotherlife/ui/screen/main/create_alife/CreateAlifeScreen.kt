@@ -25,22 +25,24 @@ class CreateAlifeScreen(
     override fun Content(modifier: Modifier) {
         val state = viewModel.getUIState()
 
-        AnimatedContent(targetState = state.currentContainerState().screenState) { screenState ->
-            screenState.Content(viewModel, modifier)
-        }
+        state.blockingScreen?.Content(viewModel, modifier) ?: kotlin.run {
+            AnimatedContent(targetState = state.currentContainerState().screenState) { screenState ->
+                screenState.Content(viewModel, modifier)
+            }
 
-        Column(
-            horizontalAlignment = CenterHorizontally,
-            modifier = modifier.fillMaxSize()
-        ) {
-            Spacer(modifier = Modifier.weight(1f))
+            Column(
+                horizontalAlignment = CenterHorizontally,
+                modifier = modifier.fillMaxSize()
+            ) {
+                Spacer(modifier = Modifier.weight(1f))
 
-            CameraActionsComposable(
-                pagerState = state.pagerState,
-                pagerItems = state.pagerContainer.getPagerItems(),
-                state = state,
-                viewModel = viewModel
-            )
+                CameraActionsComposable(
+                    pagerState = state.pagerState,
+                    pagerItems = state.pagerContainer.getPagerItems(),
+                    state = state,
+                    viewModel = viewModel
+                )
+            }
         }
     }
 }

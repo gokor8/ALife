@@ -5,14 +5,16 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.list_adapter.ContainerListAdapterFactory
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pager_item.Picture
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pager_item.Video
 
 fun screenPagerContainerOf(
     picture: PicturePagerItem,
     video: VideoPagerItem
 ): ScreenPagerContainer {
     return ScreenPagerContainer(
-        AbstractScreenPagerItem.Picture(LoadScreenState(), picture),
-        AbstractScreenPagerItem.Video(LoadScreenState(), video)
+        Picture(LoadScreenState(), picture),
+        Video(LoadScreenState(), video)
     )
 }
 

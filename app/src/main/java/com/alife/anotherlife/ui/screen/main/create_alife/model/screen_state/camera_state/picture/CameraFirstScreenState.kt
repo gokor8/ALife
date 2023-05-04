@@ -7,6 +7,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSele
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.InvertibleScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.AbstractScreenPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pager_item.Picture
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 
@@ -26,7 +27,7 @@ class CameraFirstScreenState(
         reducer.setState {
             copy(
                 pagerContainer = pagerContainer.changePicture(
-                    AbstractScreenPagerItem.Picture(
+                    Picture(
                         pagerItem = PicturePagerItem.DefaultTakePicture(),
                         screenState = CameraSecondScreenState(cameraInverter.invertCameraSelector())
                     )

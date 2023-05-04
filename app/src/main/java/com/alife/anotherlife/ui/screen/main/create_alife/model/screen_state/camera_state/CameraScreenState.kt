@@ -21,7 +21,8 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.Scre
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 
 abstract class CameraScreenState(
-    val cameraSelector: CameraSelector
+    val cameraSelector: CameraSelector,
+    private
 ) : ScreenState.AbstractScreenState() {
 
     @Composable

@@ -26,9 +26,10 @@ class CameraSetupFacade(
         val preview = previewBuilder.build().apply {
             setSurfaceProvider(previewView.surfaceProvider)
         }
-        val imageCapture = captureFactory.create(previewView.display.rotation)
 
         return try {
+            val imageCapture = captureFactory.create(previewView.display.rotation)
+
             // Must unbind the use-cases before rebinding them.
             processCameraProvider.unbindAll()
             processCameraProvider.bindToLifecycle(

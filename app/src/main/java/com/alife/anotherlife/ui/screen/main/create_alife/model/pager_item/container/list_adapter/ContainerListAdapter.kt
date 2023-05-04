@@ -3,6 +3,7 @@ package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.conta
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.VideoIndex
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.AbstractScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pager_item.Empty
 
 interface ContainerListAdapter : VideoIndex {
 
@@ -18,7 +19,7 @@ interface ContainerListAdapter : VideoIndex {
 
         private val pictureWrap = ListAdapterNode(0, picture)
         private val videoWrap = ListAdapterNode(1, video)
-        private val emptyWrap = ListAdapterNode(2, AbstractScreenPagerItem.Empty())
+        private val emptyWrap = ListAdapterNode(2, Empty())
 
         private val listWrap = listOf(pictureWrap, videoWrap, emptyWrap)
 

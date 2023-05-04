@@ -15,13 +15,12 @@ class CreateAlifeVideoReducerBase @Inject constructor(
 
     @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onClickSmallVideo() {
-        getStateSuspend {
-            setEffect(
-                CreateAlifeEffect.VideoToMainPage(
-                    pagerState, pagerContainer.getVideoIndex()
-                )
+        setEffect(
+            CreateAlifeEffect.VideoToMainPage(
+                getState().pagerState,
+                getState().pagerContainer.getVideoIndex()
             )
-        }
+        )
     }
 
     override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {

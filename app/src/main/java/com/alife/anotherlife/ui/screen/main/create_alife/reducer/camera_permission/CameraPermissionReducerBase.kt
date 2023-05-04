@@ -12,8 +12,8 @@ abstract class CameraPermissionReducerBase(
 ) : HandlerBaseVMReducer<CreateAlifeState, CreateAlifeEffect>(), BaseCameraPermissionReducer {
 
     @OptIn(ExperimentalFoundationApi::class)
-    override suspend fun onPermissionGranted() {
-        setState { copy(pagerContainer = changeCurrentScreen(getPermissionGrantedScreen())) }
+    override suspend fun onPermissionGranted(newScreenState: ScreenState) {
+        setState { copy(pagerContainer = changeCurrentScreen(newScreenState)) }
     }
 
     override suspend fun onPermissionFatal() {

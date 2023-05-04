@@ -32,7 +32,7 @@ import java.lang.ref.WeakReference
 interface PicturePagerItem : CreateAlifePagerItem {
 
     abstract class TakePicture(private val isEnabled: Boolean) : CreateAlifePagerItem.Abstract(),
-        PicturePagerItem, InvertiblePagerItem {
+        PicturePagerItem {
 
         @OptIn(ExperimentalPermissionsApi::class)
         @Composable
@@ -70,7 +70,7 @@ interface PicturePagerItem : CreateAlifePagerItem {
 
     class InitTakePicture : TakePicture(false)
 
-    class DefaultTakePicture : TakePicture(true)
+    class DefaultTakePicture : TakePicture(true), InvertiblePagerItem
 
     class OnPictureTaking : PicturePagerItem, CreateAlifePagerItem.Abstract() {
 
