@@ -7,11 +7,11 @@ import androidx.lifecycle.LifecycleOwner
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 
 @Stable
-interface BaseCameraSetupFacade {
+interface BaseCameraSetupFacade<R : Any> {
 
     fun setup(
         processCameraProvider: ProcessCameraProvider,
         previewView: PreviewView,
         lifecycleOwner: LifecycleOwner
-    ): BaseCaptureWrapper
+    ): R
 }
