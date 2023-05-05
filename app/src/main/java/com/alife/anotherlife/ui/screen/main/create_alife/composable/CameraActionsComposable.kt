@@ -49,6 +49,7 @@ fun CameraActionsComposable(
             pageCount = pagerItems.size,
             state = pagerState,
             reverseLayout = true,
+            userScrollEnabled = state.canPagerItemScroll(),
             pageSpacing = pageSpacing,
             pageSize = PageSize.Fixed(pageSize),
             modifier = Modifier

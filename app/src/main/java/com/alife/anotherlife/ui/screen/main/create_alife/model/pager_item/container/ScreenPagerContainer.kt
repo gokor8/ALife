@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container
 
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.NotScrollablePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
@@ -30,6 +31,10 @@ data class ScreenPagerContainer(
 
     override fun getPagerItems() = adapter.createPagerItems().map { it.pagerItem }
     override fun getScreenPagerItem(index: Int) = adapter.getItemByIndex(index)
+
+    override fun canCurrentScroll(index: Int): Boolean {
+        return getScreenPagerItem(index).pagerItem !is NotScrollablePagerItem
+    }
 
     override fun changeScreenPagerItem(index: Int, screenState: ScreenState): ScreenPagerContainer {
         return getScreenPagerItem(index).copyContainer(this, screenState)

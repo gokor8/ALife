@@ -7,6 +7,7 @@ import com.alife.anotherlife.di.core.IntentModule
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.EmptyCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.NotScrollablePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
@@ -19,7 +20,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.came
 import com.alife.core.mvi.MVI
 import javax.inject.Inject
 
-data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class,) @Inject constructor(
+data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) @Inject constructor(
     val blockingScreen: ScreenState? = null,
     val pagerState: PagerState = PagerState(0),
     val captureWrapper: BaseCaptureWrapper = EmptyCaptureWrapper(),
@@ -36,6 +37,9 @@ data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class,) @Inject co
     fun currentContainerState(): ScreenPagerItem {
         return pagerContainer.getScreenPagerItem(pagerState.currentPage)
     }
+
+    @OptIn(ExperimentalFoundationApi::class)
+    fun canPagerItemScroll() = pagerContainer.canCurrentScroll(pagerState.currentPage)
 
     fun tryCopyWithInvert() = currentContainerState().invertCamera(pagerContainer)
 

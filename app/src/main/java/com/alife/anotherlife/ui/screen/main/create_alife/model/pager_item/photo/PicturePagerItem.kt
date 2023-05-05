@@ -24,6 +24,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraCircle
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CreateAlifePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.InvertiblePagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.NotScrollablePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import java.lang.ref.WeakReference
@@ -61,7 +62,8 @@ interface PicturePagerItem : CreateAlifePagerItem {
 
     class DefaultTakePicture : TakePicture(true), InvertiblePagerItem
 
-    class OnPictureTaking : PicturePagerItem, CreateAlifePagerItem.Abstract() {
+    class OnPictureTaking : CreateAlifePagerItem.Abstract(), PicturePagerItem,
+        NotScrollablePagerItem {
 
         @Composable
         override fun Content(

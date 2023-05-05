@@ -62,7 +62,8 @@ class CreateAlifeReducerBase @Inject constructor(
     }
 
     override suspend fun onClickSmallVideo() {
-        createAlifeVideoReducer.onClickSmallVideo()
+        if (getState().canPagerItemScroll())
+            createAlifeVideoReducer.onClickSmallVideo()
     }
 
     override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {

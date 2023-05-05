@@ -10,6 +10,8 @@ interface BaseScreenPagerContainer : VideoIndex {
 
     fun getScreenPagerItem(index: Int) : ScreenPagerItem
 
+    fun canCurrentScroll(index: Int): Boolean
+
     fun changeScreenPagerItem(index: Int, screenState: ScreenState): BaseScreenPagerContainer
 
     fun changePicture(picturePagerItem: ScreenPagerItem.Picture): BaseScreenPagerContainer
