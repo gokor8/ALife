@@ -7,6 +7,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainE
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseCameraStateToSaveImage
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BaseCameraPictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraFirstScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraPictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.CameraPermissionReducerBase
@@ -29,7 +30,7 @@ class CreateAlifePhotoReducerBase @Inject constructor(
 
     @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onCreatePhoto(
-        screenState: CameraPictureScreenState,
+        screenState: BaseCameraPictureScreenState,
         mainExecutor: Executor
     ) {
         setState {

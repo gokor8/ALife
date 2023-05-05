@@ -26,11 +26,6 @@ class CreateAlifeVideoReducerBase @Inject constructor(
         )
     }
 
-    @OptIn(ExperimentalPermissionsApi::class)
-    override suspend fun onVideoAudioGranted(audio: PermissionState) {
-        setEffect(CreateAlifeEffect.RequestAudioPermission(audio))
-    }
-
     override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {
 
     }

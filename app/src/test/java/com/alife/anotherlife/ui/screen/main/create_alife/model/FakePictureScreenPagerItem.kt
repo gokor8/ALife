@@ -8,10 +8,10 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.contai
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.LoadPictureScreenState
 
 class FakePictureScreenPagerItem(
-    copyList: MutableList<ScreenPagerItem.Picture>
+    copyList: MutableList<ScreenPagerItem.Picture>,
+    override val screenState: ScreenState = LoadPictureScreenState()
 ): FakeAbstractScreenPagerItem<ScreenPagerItem.Picture>(copyList), ScreenPagerItem.Picture {
 
-    override val screenState: ScreenState = LoadPictureScreenState()
     override val pagerItem: PicturePagerItem = FakePicturePagerItem()
 
     override fun copy(picturePagerItem: PicturePagerItem) = copy()
@@ -29,5 +29,5 @@ class FakePictureScreenPagerItem(
         screenState: ScreenState
     ) = container.copy(picture = copy())
 
-    override fun copyThis() = FakePictureScreenPagerItem(copyList)
+    override fun copyThis() = this
 }

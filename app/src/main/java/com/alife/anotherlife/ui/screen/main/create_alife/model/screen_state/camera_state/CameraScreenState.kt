@@ -16,8 +16,6 @@ import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
-import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CameraPermissionWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CreateAlifePermissionWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraPreviewComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSetupFactory
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState

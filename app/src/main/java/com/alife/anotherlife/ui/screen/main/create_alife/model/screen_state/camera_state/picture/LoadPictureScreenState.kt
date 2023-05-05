@@ -3,9 +3,7 @@ package com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.cam
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
-import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CameraPermissionWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.CameraVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 

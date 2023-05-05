@@ -8,6 +8,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainE
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ErrorCameraScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BaseCameraPictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraPictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.BaseCreateAlifePhotoReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.BaseCreateAlifeVideoReducer
@@ -39,27 +40,22 @@ class CreateAlifeReducerBase @Inject constructor(
         }
     }
 
+    override suspend fun onCreatePhoto(contextWrapper: BaseContextMainExecutorWrapper) {
+        val mainExecutor = contextWrapper.getMainExecutor()
+        // TODO after me change pagerContainer to list, call getCurrentScreenPager.screenState
+        val screenState = getState().pagerContainer.picture.screenState
+
+        if (screenState is BaseCameraPictureScreenState && mainExecutor != null) {
+            createAlifePhotoReducer.onCreatePhoto(screenState, mainExecutor)
+        }
+    }
+
     override suspend fun onPicturePermission(photoPermission: CreateAlifeAction.PhotoPermission) {
         photoPermission.onPermission(createAlifePhotoReducer)
     }
 
     override suspend fun onVideoPermission(videoPermission: CreateAlifeAction.VideoPermission) {
         videoPermission.onPermission(createAlifeVideoReducer)
-    }
-
-    @OptIn(ExperimentalPermissionsApi::class)
-    override suspend fun onVideoAudioPermission(audio: PermissionState) {
-        createAlifeVideoReducer.onVideoAudioGranted(audio)
-    }
-
-    override suspend fun onCreatePhoto(contextWrapper: BaseContextMainExecutorWrapper) {
-        val mainExecutor = contextWrapper.getMainExecutor()
-        // TODO after me change pagerContainer to list, call getCurrentScreenPager.screenState
-        val screenState = getState().pagerContainer.picture.screenState
-
-        if (screenState is CameraPictureScreenState && mainExecutor != null) {
-            createAlifePhotoReducer.onCreatePhoto(screenState, mainExecutor)
-        }
     }
 
     override suspend fun onClickSmallVideo() {

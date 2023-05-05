@@ -4,6 +4,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.FakePictureScreen
 import com.alife.anotherlife.ui.screen.main.create_alife.model.FakeVideoScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.AbstractScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.list_adapter.ContainerListAdapter
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pager_item.Empty
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
@@ -12,7 +13,7 @@ class TestDefaultContainerListAdapter {
 
     private val containerListAdapter = ContainerListAdapter.Default(
         FakePictureScreenPagerItem(mutableListOf()),
-        FakeVideoScreenPagerItem()
+        FakeVideoScreenPagerItem(mutableListOf())
     )
 
     @Test
@@ -44,7 +45,7 @@ class TestDefaultContainerListAdapter {
         val index = 2
 
         val actual = containerListAdapter.getItemByIndex(index)
-        assertTrue(actual is AbstractScreenPagerItem.Empty)
+        assertTrue(actual is Empty)
     }
 
     @Test
@@ -52,6 +53,6 @@ class TestDefaultContainerListAdapter {
         val index = 3
 
         val actual = containerListAdapter.getItemByIndex(index)
-        assertTrue(actual is AbstractScreenPagerItem.Empty)
+        assertTrue(actual is Empty)
     }
 }

@@ -8,6 +8,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.EmptyA
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.LoadPictureScreenState
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotSame
 import junit.framework.TestCase.assertTrue
@@ -16,8 +17,9 @@ import org.junit.Test
 
 class TestPagerContainer {
 
-    lateinit var pagerContainer: ScreenPagerContainer
-    lateinit var pictureCopyActionList: MutableList<ScreenPagerItem>
+    private lateinit var pagerContainer: ScreenPagerContainer
+    private lateinit var pictureCopyActionList: MutableList<ScreenPagerItem.Picture>
+    private lateinit var videoCopyActionList: MutableList<ScreenPagerItem.Video>
 
     @Before
     fun before() {
@@ -25,7 +27,7 @@ class TestPagerContainer {
 
         pagerContainer = ScreenPagerContainer(
             FakePictureScreenPagerItem(pictureCopyActionList),
-            FakeVideoScreenPagerItem(),
+            FakeVideoScreenPagerItem(videoCopyActionList),
             FakeContainerListAdapterFactory()
         )
     }
@@ -42,7 +44,7 @@ class TestPagerContainer {
 
     @Test
     fun `changePicture screenState`() {
-        val actual = pagerContainer.changePicture(LoadScreenState())
+        val actual = pagerContainer.changePicture(LoadPictureScreenState())
 
         val expectedCount = 1
 

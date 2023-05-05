@@ -13,9 +13,14 @@ class FakeContainerListAdapterFactory : ContainerListAdapterFactory {
 
 class FakerContainerListAdapter : ContainerListAdapter {
 
-    override fun createPagerItems(): List<ScreenPagerItem> = listOf(FakeEmptyScreenPagerItem())
+    override fun createPagerItems(): List<ScreenPagerItem> = listOf(
+        FakeEmptyScreenPagerItem(
+            mutableListOf()
+        )
+    )
 
-    override fun getItemByIndex(index: Int): ScreenPagerItem = FakeEmptyScreenPagerItem()
+    override fun getItemByIndex(index: Int): ScreenPagerItem =
+        FakeEmptyScreenPagerItem(mutableListOf())
 
     override fun getVideoIndex(): Int = 0
 }

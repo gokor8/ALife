@@ -1,16 +1,12 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
-import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CameraAudioPermissionWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CameraPermissionWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
 
 class LoadVideoScreenState : LoadScreenState() {
 

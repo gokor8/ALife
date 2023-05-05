@@ -19,6 +19,4 @@ interface BaseCreateAlifeReducerBase : BaseVMReducer<CreateAlifeState, CreateAli
 
     suspend fun onPicturePermission(photoPermission: CreateAlifeAction.PhotoPermission)
     suspend fun onVideoPermission(videoPermission: CreateAlifeAction.VideoPermission)
-    @OptIn(ExperimentalPermissionsApi::class)
-    suspend fun onVideoAudioPermission(audio: PermissionState)
 }
