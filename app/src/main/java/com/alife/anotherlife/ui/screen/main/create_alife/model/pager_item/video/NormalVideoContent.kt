@@ -7,16 +7,22 @@ import com.alife.anotherlife.core.composable.addons.ClickableSuspendWrapper
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.RecordingAction
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.BaseVideoCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
-class NormalVideoContent(isEnabled: Boolean, size: Dp) :
-    SizableVideoContent(isEnabled, size, ClickableSuspendWrapper.Ripple()) {
+class NormalVideoContent(
+    private val captureState: BaseVideoCaptureState,
+    isEnabled: Boolean,
+    size: Dp
+) : SizableVideoContent(isEnabled, size, ClickableSuspendWrapper.Ripple()) {
 
     override suspend fun onClick(
         captureWrapper: BaseCaptureWrapper,
         viewModel: CreateAlifeViewModel
     ) {
         Log.e("Aboba", "Start recording")
+        viewModel.reduce(CreateAlifeAction.VideoStartRecord(captureState))
     }
 }

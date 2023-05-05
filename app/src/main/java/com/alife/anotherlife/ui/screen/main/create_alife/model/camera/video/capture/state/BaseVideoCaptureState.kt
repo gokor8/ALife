@@ -5,5 +5,5 @@ import androidx.camera.video.VideoCapture
 
 interface BaseVideoCaptureState {
 
-    abstract class Abstract(protected val videoCapture: VideoCapture<Recorder>)
+    abstract class Abstract(protected val videoCapture: VideoCapture<Recorder>): BaseVideoCaptureState
 }
