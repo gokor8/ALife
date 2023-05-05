@@ -22,7 +22,6 @@ class CreateAlifeViewModel @Inject constructor(
     override suspend fun onEffect(navController: NavController, effect: CreateAlifeEffect) {
         when(effect) {
             is CreateAlifeEffect.VideoToMainPage -> effect.scrollToVideoPage()
-            is CreateAlifeEffect.RequestAudioPermission -> effect.requestPermission()
             else -> super.onEffect(navController, effect)
         }
     }

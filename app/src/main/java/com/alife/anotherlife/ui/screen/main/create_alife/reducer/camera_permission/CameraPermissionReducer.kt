@@ -8,11 +8,11 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
-abstract class CameraPermissionReducerBase(
+abstract class CameraPermissionReducer(
     override val uiStore: UIStore<CreateAlifeState, CreateAlifeEffect>
 ) : HandlerBaseVMReducer<CreateAlifeState, CreateAlifeEffect>(), BaseCameraPermissionReducer {
 
-    @OptIn(ExperimentalFoundationApi::class, ExperimentalPermissionsApi::class)
+    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onPermissionGranted(newScreenState: ScreenState) {
         setState { copy(pagerContainer = changeCurrentScreen(newScreenState)) }
     }

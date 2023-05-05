@@ -9,7 +9,6 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.came
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pager_item.Picture
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 class CameraFirstScreenState(
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
@@ -20,7 +19,7 @@ class CameraFirstScreenState(
         return CameraFirstScreenState(cameraInverter.invertCameraSelector())
     }
 
-    @OptIn(ExperimentalFoundationApi::class, ExperimentalPermissionsApi::class)
+    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onImageLoaded(reducer: AbstractVMReducer<CreateAlifeState, CreateAlifeEffect>) {
         reducer.setState {
             copy(

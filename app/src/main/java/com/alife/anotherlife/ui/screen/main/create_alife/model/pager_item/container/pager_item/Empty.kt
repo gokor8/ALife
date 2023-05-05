@@ -12,7 +12,7 @@ class Empty : ScreenPagerItem {
     override val screenState: ScreenState = ScreenState.Empty()
     override val pagerItem: CreateAlifePagerItem = EmptyAlifePagerItem()
 
-    override fun invertCamera(screenPagerContainer: ScreenPagerContainer) = screenPagerContainer
+    override fun invertCamera(container: ScreenPagerContainer) = container
 
     override fun copy(
         container: ScreenPagerContainer,

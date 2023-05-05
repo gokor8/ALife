@@ -33,8 +33,11 @@ class CreateAlifeReducerBase @Inject constructor(
     @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onCameraWrapper(captureWrapper: BaseCaptureWrapper) {
         setState {
-            if(captureWrapper is CookedCaptureWrapper)
-                copy(pagerContainer = copyCurrentScreenPage(captureWrapper))
+            if (captureWrapper is CookedCaptureWrapper)
+                copy(
+                    captureWrapper = captureWrapper,
+                    pagerContainer = copyCurrentScreenPage(captureWrapper)
+                )
             else
                 copy(blockingScreen = ErrorCameraScreenState())
         }
@@ -43,7 +46,7 @@ class CreateAlifeReducerBase @Inject constructor(
     override suspend fun onCreatePhoto(contextWrapper: BaseContextMainExecutorWrapper) {
         val mainExecutor = contextWrapper.getMainExecutor()
         // TODO after me change pagerContainer to list, call getCurrentScreenPager.screenState
-        val screenState = getState().pagerContainer.picture.screenState
+        val screenState = getState().currentContainerState().screenState
 
         if (screenState is BaseCameraPictureScreenState && mainExecutor != null) {
             createAlifePhotoReducer.onCreatePhoto(screenState, mainExecutor)

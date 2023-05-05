@@ -21,29 +21,29 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.contai
 data class ScreenPagerContainer(
     val picture: ScreenPagerItem.Picture,
     val video: ScreenPagerItem.Video,
-    val adapterFactory: ContainerListAdapterFactory = ContainerListAdapterFactory.Default()
-) : VideoIndex {
+    private val adapterFactory: ContainerListAdapterFactory = ContainerListAdapterFactory.Default()
+) : BaseScreenPagerContainer {
 
     private val adapter = adapterFactory.create(picture, video)
 
     override fun getVideoIndex() = adapter.getVideoIndex()
 
-    fun getPagerItems() = adapter.createPagerItems().map { it.pagerItem }
-    fun getScreenPagerItem(index: Int) = adapter.getItemByIndex(index)
+    override fun getPagerItems() = adapter.createPagerItems().map { it.pagerItem }
+    override fun getScreenPagerItem(index: Int) = adapter.getItemByIndex(index)
 
-    fun changeScreenPagerItem(index: Int, screenState: ScreenState): ScreenPagerContainer {
+    override fun changeScreenPagerItem(index: Int, screenState: ScreenState): ScreenPagerContainer {
         return getScreenPagerItem(index).copyContainer(this, screenState)
     }
 
-    fun changePicture(picturePagerItem: ScreenPagerItem.Picture): ScreenPagerContainer {
+    override fun changePicture(picturePagerItem: ScreenPagerItem.Picture): ScreenPagerContainer {
         return copy(picture = picturePagerItem)
     }
 
-    fun changePicture(screenState: ScreenState): ScreenPagerContainer {
+    override fun changePicture(screenState: ScreenState): ScreenPagerContainer {
         return copy(picture = picture.copy(screenState))
     }
 
-    fun changePicture(pagerItem: PicturePagerItem): ScreenPagerContainer {
+    override fun changePicture(pagerItem: PicturePagerItem): ScreenPagerContainer {
         return copy(picture = picture.copy(pagerItem))
     }
 }

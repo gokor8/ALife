@@ -1,32 +1,23 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.reducer_base
 
-import androidx.camera.core.ImageProxy
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import com.alife.anotherlife.core.FakeUIStore
-import com.alife.anotherlife.core.ui.reducer.AbstractVMReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeReducerBase
-import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
-import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.FakePictureScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.FakeVideoScreenPagerItem
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.UselessCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ErrorCameraScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BaseCameraPictureScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraPictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.LoadPictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.LoadVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer_base.test_model.FakeCapturePictureScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer_base.test_model.FakeCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer_base.test_model.FakeExecutor
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer_base.test_model.FakeMainExecutor
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertNotSame
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -107,6 +98,7 @@ class TestCreateAlifeReducerBase {
         val expectedStatesCount = 2
         assertEquals(expectedStatesCount, uiStore.stateCollector.size)
         assertTrue(uiStore.stateCollector.last().blockingScreen is ErrorCameraScreenState)
+        assertNotSame(testCaptureWrapper, uiStore.stateCollector.last().captureWrapper)
     }
 
     @Test
@@ -123,7 +115,7 @@ class TestCreateAlifeReducerBase {
 
         val expectedStatesCount = 2
         assertEquals(expectedStatesCount, uiStore.stateCollector.size)
-        assertEquals(uiStore.stateCollector.first(), uiStore.stateCollector.last())
+        assertEquals(testCaptureWrapper, uiStore.stateCollector.last().captureWrapper)
     }
 
     @Test
@@ -140,6 +132,7 @@ class TestCreateAlifeReducerBase {
         val expectedStatesCount = 2
         assertEquals(expectedStatesCount, uiStore.stateCollector.size)
         assertTrue(uiStore.stateCollector.last().blockingScreen is ErrorCameraScreenState)
+        assertNotSame(testCaptureWrapper, uiStore.stateCollector.last().captureWrapper)
     }
 
     @Test
@@ -191,26 +184,6 @@ class TestCreateAlifeReducerBase {
             assertEquals(expectedState, uiStore.stateCollector.last())
             assertEquals(expectedEffectSize, uiStore.effectCollector.size)
             assertEquals(expectedEffect, uiStore.effectCollector.lastOrNull())
-        }
-    }
-
-    interface FakeCaptureWrapper : BaseCaptureWrapper {
-        class CookedWrapper : CookedCaptureWrapper, FakeCaptureWrapper {
-            override suspend fun takePhoto(executor: Executor): ImageProxy {
-                TODO("Not yet implemented")
-            }
-        }
-
-        class UselessWrapper : UselessCaptureWrapper, FakeCaptureWrapper {
-            override suspend fun takePhoto(executor: Executor): ImageProxy {
-                TODO("Not yet implemented")
-            }
-        }
-
-        class EmptyWrapper : FakeCaptureWrapper {
-            override suspend fun takePhoto(executor: Executor): ImageProxy {
-                TODO("Not yet implemented")
-            }
         }
     }
 }

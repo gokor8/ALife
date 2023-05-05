@@ -5,7 +5,7 @@
 //import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 //import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.FirstScreenState
 //import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.BaseCreateAlifePhotoReducer
-//import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.CreateAlifePhotoReducerBase
+//import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.CreateAlifePhotoReducer
 //import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 //import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 //import org.junit.Test
@@ -28,7 +28,7 @@
 //
 //    @Test
 //    fun `change pager state with saving screen state`() {
-//         val reducer = CreateAlifePhotoReducerBase
+//         val reducer = CreateAlifePhotoReducer
 //
 //        reducer.changePager()
 //
@@ -37,7 +37,7 @@
 //
 //    @Test
 //    fun `change screen state with saving pager`() {
-//        val reducer = CreateAlifePhotoReducerBase
+//        val reducer = CreateAlifePhotoReducer
 //
 //        reducer.changeCameraState()
 //
@@ -46,7 +46,7 @@
 //
 //    @Test
 //    fun `change pager and screen state`() {
-//        val reducer = CreateAlifePhotoReducerBase
+//        val reducer = CreateAlifePhotoReducer
 //
 //        reducer.changeCameraState()
 //        reducer.changePager()

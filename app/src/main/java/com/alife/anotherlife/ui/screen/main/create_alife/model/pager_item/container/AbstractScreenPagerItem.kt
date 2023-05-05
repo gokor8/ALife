@@ -9,10 +9,10 @@ abstract class AbstractScreenPagerItem(
     override val pagerItem: CreateAlifePagerItem
 ) : ScreenPagerItem {
 
-    override fun invertCamera(screenPagerContainer: ScreenPagerContainer): ScreenPagerContainer {
+    override fun invertCamera(container: ScreenPagerContainer): ScreenPagerContainer {
         return if (canInvert())
-            invertScreenState(screenPagerContainer, screenState as InvertibleScreenState)
-        else screenPagerContainer
+            invertScreenState(container, screenState as InvertibleScreenState)
+        else container
     }
 
     abstract fun invertScreenState(

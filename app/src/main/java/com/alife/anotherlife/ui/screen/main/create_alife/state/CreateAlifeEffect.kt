@@ -22,13 +22,4 @@ interface CreateAlifeEffect : MVI.Effect {
             pagerState.animateScrollToPage(videoPageIndex)
         }
     }
-
-    class RequestAudioPermission @OptIn(ExperimentalPermissionsApi::class) constructor(
-        private val audioPermission: PermissionState
-    ) : CreateAlifeEffect {
-        @OptIn(ExperimentalPermissionsApi::class)
-        fun requestPermission() {
-            audioPermission.launchPermissionRequest()
-        }
-    }
 }

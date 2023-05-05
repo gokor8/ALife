@@ -3,9 +3,9 @@ package com.alife.anotherlife.di.ui.main.create_alife
 import com.alife.anotherlife.ui.screen.main.create_alife.BaseCreateAlifeReducerBase
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeReducerBase
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.BaseCreateAlifePhotoReducer
-import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.CreateAlifePhotoReducerBase
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.CreateAlifePhotoReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.BaseCreateAlifeVideoReducer
-import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.CreateAlifeVideoReducerBase
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.CreateAlifeVideoReducer
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -19,8 +19,8 @@ interface CreateAlifeReducerModule {
     fun bindCreateAlifeReducer(reducer: CreateAlifeReducerBase): BaseCreateAlifeReducerBase
 
     @Binds
-    fun bindCreateAlifePhotoReducer(reducer: CreateAlifePhotoReducerBase): BaseCreateAlifePhotoReducer
+    fun bindCreateAlifePhotoReducer(reducer: CreateAlifePhotoReducer): BaseCreateAlifePhotoReducer
 
     @Binds
-    fun bindCreateAlifeVideoReducer(reducer: CreateAlifeVideoReducerBase): BaseCreateAlifeVideoReducer
+    fun bindCreateAlifeVideoReducer(reducer: CreateAlifeVideoReducer): BaseCreateAlifeVideoReducer
 }
