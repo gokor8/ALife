@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.state
 
+import androidx.camera.video.VideoRecordEvent
 import com.alife.anotherlife.core.composable.mvi_extensions.BaseMVIAction
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.BaseCreateAlifeReducerBase
@@ -58,12 +59,20 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
         }
     }
 
-    open class VideoPermission(
+    class VideoPermission(
         status: PermissionStatus,
         newScreenState: ScreenState
     ) : CameraPermission(status, newScreenState) {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
             reducer.onVideoPermission(this)
+        }
+    }
+
+    class VideoRecordEventAction(
+        private val videoRecordEvent: VideoRecordEvent
+    ) : CreateAlifeAction {
+        override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
+
         }
     }
 

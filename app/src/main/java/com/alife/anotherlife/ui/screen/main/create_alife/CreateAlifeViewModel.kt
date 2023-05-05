@@ -6,6 +6,8 @@ import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.permission.audio.AudioPermission
 import com.alife.anotherlife.core.ui.permission.audio.AudioPermissionContract
 import com.alife.anotherlife.core.ui.permission.camera.CameraPermission
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.CameraPictureSetupFacade
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.DefaultPictureCaptureFactory
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
@@ -17,6 +19,7 @@ class CreateAlifeViewModel @Inject constructor(
     reducer: BaseCreateAlifeReducerBase,
     val cameraPermission: CameraPermission,
     val audioPermission: AudioPermission,
+    val pictureCaptureFactory: DefaultPictureCaptureFactory
 ) : DefaultViewModel<BaseCreateAlifeReducerBase, CreateAlifeAction, CreateAlifeState, CreateAlifeEffect>(reducer), AudioPermissionContract {
 
     override suspend fun onEffect(navController: NavController, effect: CreateAlifeEffect) {
