@@ -20,10 +20,11 @@ class CreateAlifeViewModel @Inject constructor(
 ) : DefaultViewModel<BaseCreateAlifeReducerBase, CreateAlifeAction, CreateAlifeState, CreateAlifeEffect>(reducer), AudioPermissionContract {
 
     override suspend fun onEffect(navController: NavController, effect: CreateAlifeEffect) {
-        if(effect is CreateAlifeEffect.VideoToMainPage)
-            effect.scrollToVideoPage()
-        else
-            super.onEffect(navController, effect)
+        when(effect) {
+            is CreateAlifeEffect.VideoToMainPage -> effect.scrollToVideoPage()
+            is CreateAlifeEffect.RequestAudioPermission -> effect.requestPermission()
+            else -> super.onEffect(navController, effect)
+        }
     }
 
     override fun audioBoxReduce(permissionStatus: PermissionStatus) {

@@ -10,7 +10,8 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
-class NormalVideoContent(size: Dp) : SizableVideoContent(size, ClickableSuspendWrapper.Ripple()) {
+class NormalVideoContent(isEnabled: Boolean, size: Dp) :
+    SizableVideoContent(isEnabled, size, ClickableSuspendWrapper.Ripple()) {
 
     override suspend fun onClick(
         captureWrapper: BaseCaptureWrapper,

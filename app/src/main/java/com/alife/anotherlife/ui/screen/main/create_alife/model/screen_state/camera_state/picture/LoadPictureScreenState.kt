@@ -5,14 +5,18 @@ import androidx.compose.ui.Modifier
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CameraPermissionWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.CameraVideoScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
-class LoadPictureScreenState(
-    private val cameraPermissionWrapper: CameraPermissionWrapper
-) : LoadScreenState() {
+class LoadPictureScreenState : LoadScreenState() {
 
+    @OptIn(ExperimentalPermissionsApi::class)
     @Composable
     override fun Content(viewModel: CreateAlifeViewModel, modifier: Modifier) {
-        cameraPermissionWrapper.SetupPermissions(viewModel, CameraFirstScreenState(cameraPermissionWrapper = cameraPermissionWrapper))
+        viewModel.cameraPermission.requirePermission { status ->
+            viewModel.reduce(CreateAlifeAction.PhotoPermission(status, CameraFirstScreenState()))
+        }
 
         super.Content(viewModel, modifier)
     }

@@ -10,21 +10,33 @@ import kotlinx.coroutines.launch
 interface ClickableSuspendWrapper {
 
     @Composable
-    fun Clickable(modifier: Modifier, onClick: suspend () -> Unit): Modifier
+    fun Clickable(modifier: Modifier, isEnabled: Boolean, onClick: suspend () -> Unit): Modifier
 
 
     class Ripple : ClickableSuspendWrapper {
 
         @Composable
-        override fun Clickable(modifier: Modifier, onClick: suspend () -> Unit): Modifier {
-            return modifier.clickable(rememberCoroutineScope(), onClick = onClick)
+        override fun Clickable(
+            modifier: Modifier,
+            isEnabled: Boolean,
+            onClick: suspend () -> Unit
+        ): Modifier {
+            return modifier.clickable(
+                rememberCoroutineScope(),
+                enabled = isEnabled,
+                onClick = onClick
+            )
         }
     }
 
     class NoRipple : ClickableSuspendWrapper {
 
         @Composable
-        override fun Clickable(modifier: Modifier, onClick: suspend () -> Unit): Modifier {
+        override fun Clickable(
+            modifier: Modifier,
+            isEnabled: Boolean,
+            onClick: suspend () -> Unit
+        ): Modifier {
             return modifier.clickableNoRipple(rememberCoroutineScope(), onClick = onClick)
         }
     }

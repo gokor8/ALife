@@ -4,8 +4,6 @@ import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
 import com.alife.anotherlife.di.core.IntentModule
-import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CameraAudioPermissionWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CameraPermissionWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.EmptyCaptureWrapper
@@ -21,16 +19,14 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.came
 import com.alife.core.mvi.MVI
 import javax.inject.Inject
 
-data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) @Inject constructor(
+data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class,) @Inject constructor(
     val blockingScreen: ScreenState? = null,
     val pagerState: PagerState = PagerState(0),
     val captureWrapper: BaseCaptureWrapper = EmptyCaptureWrapper(),
-    val isAudioEnabled: Boolean = true,
-    val cameraPermissionWrapper: CameraPermissionWrapper,
-    val cameraAudioPermissionWrapper: CameraAudioPermissionWrapper,
+    val isAudioEnabled: Boolean = true, // Todo video builder
     val pagerContainer: ScreenPagerContainer = ScreenPagerContainer(
-        Picture(LoadPictureScreenState(cameraPermissionWrapper), PicturePagerItem.InitTakePicture()),
-        Video(LoadVideoScreenState(cameraAudioPermissionWrapper, cameraPermissionWrapper), VideoPagerItem.Sizable())
+        Picture(LoadPictureScreenState(), PicturePagerItem.InitTakePicture()),
+        Video(LoadVideoScreenState(), VideoPagerItem.InitSizable()) // TODO InitSizable
     ),
     @IntentModule.IntentAnnotation.Settings
     val settingsIntent: Intent?

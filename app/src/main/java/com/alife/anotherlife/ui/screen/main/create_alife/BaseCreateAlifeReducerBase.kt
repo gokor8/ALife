@@ -7,6 +7,8 @@ import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.ImplCreat
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionState
 
 interface BaseCreateAlifeReducerBase : BaseVMReducer<CreateAlifeState, CreateAlifeEffect>,
     ImplCreateAlifePhotoReducer, ImplCreateAlifeVideoReducer {
@@ -15,6 +17,8 @@ interface BaseCreateAlifeReducerBase : BaseVMReducer<CreateAlifeState, CreateAli
 
     suspend fun onCameraWrapper(captureWrapper: BaseCaptureWrapper)
 
-    suspend fun onPictureCameraPermission(photoPermission: CreateAlifeAction.PhotoPermission)
-    suspend fun onVideoCameraPermission(videoPermission: CreateAlifeAction.VideoPermission)
+    suspend fun onPicturePermission(photoPermission: CreateAlifeAction.PhotoPermission)
+    suspend fun onVideoPermission(videoPermission: CreateAlifeAction.VideoPermission)
+    @OptIn(ExperimentalPermissionsApi::class)
+    suspend fun onVideoAudioPermission(audio: PermissionState)
 }

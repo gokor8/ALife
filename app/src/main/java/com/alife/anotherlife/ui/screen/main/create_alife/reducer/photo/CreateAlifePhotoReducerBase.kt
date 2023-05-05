@@ -14,6 +14,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 import com.alife.core.mapper.Mapper
 import com.alife.domain.main.create_alife.BaseSaveAlifeUseCase
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Executor
@@ -38,7 +39,9 @@ class CreateAlifePhotoReducerBase @Inject constructor(
         execute {
             setState {
                 copy(
-                    pagerContainer = pagerContainer.changePicture(PicturePagerItem.InitTakePicture())
+                    pagerContainer = pagerContainer.changePicture(
+                        PicturePagerItem.DefaultTakePicture()
+                    )
                 )
             }
             setEffect(CreateAlifeEffect.CreateAlifeFinish())

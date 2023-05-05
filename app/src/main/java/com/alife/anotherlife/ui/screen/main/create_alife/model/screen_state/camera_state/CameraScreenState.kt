@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
+import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CameraPermissionWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.permission_wrapper.CreateAlifePermissionWrapper
@@ -21,20 +22,23 @@ import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraPrevie
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSetupFactory
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 abstract class CameraScreenState(
-    val cameraSelector: CameraSelector,
-    protected val permissionWrapper: CameraPermissionWrapper
+    val cameraSelector: CameraSelector
 ) : ScreenState.AbstractScreenState() {
 
-    protected open fun onCameraGrantedScreen(): ScreenState = this
+    protected abstract fun cameraPermissionAction(status: PermissionStatus): CreateAlifeAction.CameraPermission
 
+    @OptIn(ExperimentalPermissionsApi::class)
     @Composable
     override fun Content(
         viewModel: CreateAlifeViewModel,
         modifier: Modifier,
     ) {
-        permissionWrapper.SetupPermissions(viewModel, onCameraGrantedScreen())
+        viewModel.cameraPermission.requirePermission { status ->
+            viewModel.reduce(cameraPermissionAction(status))
+        }
 
         Box(
             contentAlignment = contentAlignment,

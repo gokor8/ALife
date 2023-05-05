@@ -18,7 +18,8 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.Invert
 @Stable
 interface VideoPagerItem : CreateAlifePagerItem, InvertiblePagerItem {
 
-    class Sizable : VideoPagerItem, CreateAlifePagerItem.Abstract() {
+    abstract class Sizable(private val isEnabled: Boolean) : VideoPagerItem,
+        CreateAlifePagerItem.Abstract() {
         @Composable
         override fun Content(
             size: Dp,
@@ -28,12 +29,15 @@ interface VideoPagerItem : CreateAlifePagerItem, InvertiblePagerItem {
             val defaultSize = pagerItemSize.sizeDp()
 
             if (size == defaultSize) {
-                NormalVideoContent(defaultSize)
+                NormalVideoContent(isEnabled, defaultSize)
             } else {
                 SmallVideoContent(size)
             }.Content(captureWrapper, viewModel)
         }
     }
+
+    class InitSizable : Sizable(false)
+    class DefaultSizable : Sizable(true)
 
     class OnRecording : VideoPagerItem, CreateAlifePagerItem.Abstract() {
         @Composable

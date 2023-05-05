@@ -1,34 +1,33 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model
 
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.LoadPictureScreenState
 
 class FakePictureScreenPagerItem(
-    private val copyList: MutableList<ScreenPagerItem>
-): FakeAbstractScreenPagerItem(copyList), ScreenPagerItem.Picture {
+    copyList: MutableList<ScreenPagerItem.Picture>
+): FakeAbstractScreenPagerItem<ScreenPagerItem.Picture>(copyList), ScreenPagerItem.Picture {
 
-    override val screenState: ScreenState = LoadScreenState()
+    override val screenState: ScreenState = LoadPictureScreenState()
     override val pagerItem: PicturePagerItem = FakePicturePagerItem()
 
     override fun copy(picturePagerItem: PicturePagerItem) = copy()
 
     override fun copy(screenState: ScreenState) = copy()
+    override fun copy(
+        container: ScreenPagerContainer,
+        captureWrapper: CookedCaptureWrapper
+    ): ScreenPagerContainer = container.copy(picture = copy())
 
-    fun copy(): ScreenPagerItem.Picture {
-        val copyValue = FakePictureScreenPagerItem(copyList)
-        copyList.add(copyValue)
-        return copyValue
-    }
-
-    override fun invertCamera(screenPagerContainer: ScreenPagerContainer): ScreenPagerContainer {
-        return screenPagerContainer
-    }
+    override fun invertCamera(container: ScreenPagerContainer) = container.copy(picture = copy())
 
     override fun copyContainer(
         container: ScreenPagerContainer,
         screenState: ScreenState
-    ): ScreenPagerContainer = container
+    ) = container.copy(picture = copy())
+
+    override fun copyThis() = FakePictureScreenPagerItem(copyList)
 }

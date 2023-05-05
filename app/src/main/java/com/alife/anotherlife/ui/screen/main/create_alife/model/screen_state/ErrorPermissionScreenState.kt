@@ -13,10 +13,8 @@ import com.alife.anotherlife.core.composable.button.TransparentStrokeButton
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title22Style
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
 
-class ErrorScreenState : ScreenState.AbstractScreenState(Alignment.Center) {
+class ErrorPermissionScreenState : ScreenState.AbstractScreenState(Alignment.Center) {
 
     @Composable
     override fun SafeContent(viewModel: CreateAlifeViewModel, ) {

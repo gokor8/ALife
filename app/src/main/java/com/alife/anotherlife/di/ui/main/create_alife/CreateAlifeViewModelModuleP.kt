@@ -27,13 +27,7 @@ class CreateAlifeViewModelModuleP {
     fun birthdayUIStore(
         @IntentModule.IntentAnnotation.Settings
         settingsIntent: Intent,
-        cameraPermissionWrapper: CameraPermissionWrapper,
-        cameraAudioPermissionWrapper: CameraAudioPermissionWrapper
     ): UIStore<CreateAlifeState, CreateAlifeEffect> = DefaultUIStore(
-        CreateAlifeState(
-            cameraPermissionWrapper = cameraPermissionWrapper,
-            cameraAudioPermissionWrapper = cameraAudioPermissionWrapper,
-            settingsIntent = settingsIntent
-        )
+        CreateAlifeState(settingsIntent = settingsIntent)
     )
 }

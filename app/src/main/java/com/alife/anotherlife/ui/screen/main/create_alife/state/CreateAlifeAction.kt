@@ -7,6 +7,8 @@ import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainE
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.BaseCameraPermissionReducer
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionState
 
 interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
 
@@ -36,32 +38,32 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
     }
 
     abstract class CameraPermission(
-        private val isGranted: Boolean,
+        protected val status: PermissionStatus,
         private val newScreenState: ScreenState
     ) : CreateAlifeAction {
         suspend fun onPermission(reducer: BaseCameraPermissionReducer) {
-            if (isGranted)
-                reducer.onPermissionGranted(newScreenState)
-            else
-                reducer.onPermissionFatal()
+            when (status) {
+                is PermissionStatus.Success -> reducer.onPermissionGranted(newScreenState)
+                is PermissionStatus.Fatal -> reducer.onPermissionFatal()
+            }
         }
     }
 
     class PhotoPermission(
-        isGranted: Boolean,
+        status: PermissionStatus,
         newScreenState: ScreenState
-    ) : CameraPermission(isGranted, newScreenState) {
+    ) : CameraPermission(status, newScreenState) {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
-            reducer.onPictureCameraPermission(this)
+            reducer.onPicturePermission(this)
         }
     }
 
-    class VideoPermission(
-        isGranted: Boolean,
+    open class VideoPermission(
+        status: PermissionStatus,
         newScreenState: ScreenState
-    ) : CameraPermission(isGranted, newScreenState) {
+    ) : CameraPermission(status, newScreenState) {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
-            reducer.onVideoCameraPermission(this)
+            reducer.onVideoPermission(this)
         }
     }
 

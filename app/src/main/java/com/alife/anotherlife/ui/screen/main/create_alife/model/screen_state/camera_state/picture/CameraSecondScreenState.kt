@@ -10,8 +10,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 
 class CameraSecondScreenState(
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
-    cameraPermissionWrapper: CameraPermissionWrapper
-) : CameraPictureScreenState(cameraSelector,cameraPermissionWrapper) {
+) : CameraPictureScreenState(cameraSelector) {
 
     override suspend fun onImageLoaded(reducer: AbstractVMReducer<CreateAlifeState, CreateAlifeEffect>) {
         reducer.setEffect(CreateAlifeEffect.CreateAlifeFinish())
