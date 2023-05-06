@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
+import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
@@ -7,6 +8,8 @@ import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.BaseStartVideoCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ErrorCameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BaseCameraPictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraPictureScreenState
@@ -17,6 +20,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
+import java.util.concurrent.Executor
 import javax.inject.Inject
 
 class CreateAlifeReducerBase @Inject constructor(
@@ -41,6 +45,20 @@ class CreateAlifeReducerBase @Inject constructor(
             else
                 copy(blockingScreen = ErrorCameraScreenState())
         }
+    }
+
+    override suspend fun onVideoWrapper(captureWrapper: BaseVideoCaptureWrapper) {
+        createAlifeVideoReducer.onVideoPrepare(captureWrapper)
+    }
+
+    override suspend fun onStartVideo(
+        context: Context?,
+        mainExecutor: Executor?,
+        videoCapture: BaseStartVideoCaptureState
+    ) {
+        if(context == null || mainExecutor == null) return
+
+        createAlifeVideoReducer.onStart(context, mainExecutor, videoCapture)
     }
 
     override suspend fun onCreatePhoto(contextWrapper: BaseContextMainExecutorWrapper) {

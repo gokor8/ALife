@@ -12,7 +12,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.came
 class Video(
     screenState: ScreenState,
     override val pagerItem: VideoPagerItem
-) : ScreenPagerItem.Video, AbstractScreenPagerItem(screenState, pagerItem) {
+) : ScreenPagerItem.Video, AbstractScreenPagerItem<VideoPagerItem>(screenState, pagerItem) {
     override fun invertScreenState(
         container: ScreenPagerContainer,
         screenState: InvertibleScreenState
@@ -27,6 +27,11 @@ class Video(
     override fun safeCopyContainer(
         container: ScreenPagerContainer,
         screenState: ScreenState
+    ) = container.copy(video = Video(screenState, pagerItem))
+
+    override fun copyContainer(
+        container: ScreenPagerContainer,
+        pagerItem: VideoPagerItem
     ) = container.copy(video = Video(screenState, pagerItem))
 
     override fun copy(

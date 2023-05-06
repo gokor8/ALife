@@ -18,12 +18,12 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 @Composable
-fun CameraPreviewComposable(
-    cameraSetup: BaseCameraSetupFacade,
+fun<R : Any> CameraPreviewComposable(
+    cameraSetup: BaseCameraSetupFacade<R>,
     modifier: Modifier = Modifier,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     scaleType: PreviewView.ScaleType = PreviewView.ScaleType.FILL_CENTER,
-    onSetupCamera: (BaseCaptureWrapper) -> Unit,
+    onSetupCamera: (R) -> Unit,
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
 

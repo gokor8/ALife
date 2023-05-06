@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pager_item
 
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CreateAlifePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.AbstractScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
@@ -12,7 +13,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.came
 class Picture(
     screenState: ScreenState,
     override val pagerItem: PicturePagerItem
-) : ScreenPagerItem.Picture, AbstractScreenPagerItem(screenState, pagerItem) {
+) : ScreenPagerItem.Picture, AbstractScreenPagerItem<PicturePagerItem>(screenState, pagerItem) {
     override fun invertScreenState(
         container: ScreenPagerContainer,
         screenState: InvertibleScreenState
@@ -33,6 +34,11 @@ class Picture(
         container: ScreenPagerContainer,
         captureWrapper: CookedCaptureWrapper
     ) = container.copy(picture = copy(PicturePagerItem.DefaultTakePicture()))
+
+    override fun copyContainer(
+        container: ScreenPagerContainer,
+        pagerItem: PicturePagerItem
+    ) = container.copy(picture = copy(pagerItem))
 
     override fun copy(picturePagerItem: PicturePagerItem): ScreenPagerItem.Picture {
         return Picture(screenState, picturePagerItem)

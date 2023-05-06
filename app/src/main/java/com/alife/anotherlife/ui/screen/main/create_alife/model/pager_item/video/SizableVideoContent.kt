@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video
 
+import android.content.Context
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
@@ -7,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import com.alife.anotherlife.core.composable.addons.ClickableSuspendWrapper
 import com.alife.anotherlife.core.composable.addons.ColorWrapper
@@ -25,6 +27,7 @@ abstract class SizableVideoContent(
         captureWrapper: BaseCaptureWrapper,
         viewModel: CreateAlifeViewModel
     ) {
+        val context = LocalContext.current
         val color = if (isEnabled) ColorWrapper() else ColorWrapper(0.5f)
 
         MaterialTheme.colorScheme.apply {
@@ -35,7 +38,9 @@ abstract class SizableVideoContent(
                 modifier = Modifier
                     .size(size)
                     .clip(CircleShape)
-                    .clickableWrap(isEnabled) { onClick(captureWrapper, viewModel) }
+                    .clickableWrap(isEnabled) {
+                        onClick(context,captureWrapper, viewModel)
+                    }
             )
         }
     }
@@ -48,6 +53,7 @@ abstract class SizableVideoContent(
     }
 
     protected abstract suspend fun onClick(
+        context: Context,
         captureWrapper: BaseCaptureWrapper,
         viewModel: CreateAlifeViewModel
     )

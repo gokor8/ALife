@@ -43,9 +43,7 @@ interface ScreenState {
         }
 
         @Composable
-        protected abstract fun SafeContent(
-            viewModel: CreateAlifeViewModel,
-        )
+        protected abstract fun SafeContent(viewModel: CreateAlifeViewModel)
 
         @Composable
         protected open fun TopRowContent(

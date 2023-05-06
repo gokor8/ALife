@@ -7,9 +7,9 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.contai
 
 interface ContainerListAdapter : VideoIndex {
 
-    fun createPagerItems(): List<ScreenPagerItem>
+    fun createPagerItems(): List<ScreenPagerItem<*>>
 
-    fun getItemByIndex(index: Int): ScreenPagerItem
+    fun getItemByIndex(index: Int): ScreenPagerItem<*>
 
 
     class Default(
@@ -27,7 +27,7 @@ interface ContainerListAdapter : VideoIndex {
 
         override fun createPagerItems() = listWrap.map { it.screenPagerItem }
 
-        override fun getItemByIndex(index: Int): ScreenPagerItem {
+        override fun getItemByIndex(index: Int): ScreenPagerItem<*> {
             return listWrap.find { it.index == index }?.screenPagerItem ?: emptyWrap.screenPagerItem
         }
     }

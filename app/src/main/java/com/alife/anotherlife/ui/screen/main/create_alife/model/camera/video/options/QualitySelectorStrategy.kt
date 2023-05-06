@@ -12,7 +12,7 @@ interface QualitySelectorStrategy {
     class Default : QualitySelectorStrategy {
 
         override fun buildSelector() = QualitySelector.from(
-            Quality.FHD,
+            Quality.HD,
             FallbackStrategy.higherQualityOrLowerThan(Quality.HD)
         )
     }

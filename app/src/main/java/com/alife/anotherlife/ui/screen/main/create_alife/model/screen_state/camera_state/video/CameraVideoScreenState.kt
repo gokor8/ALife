@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video
 
 import androidx.camera.core.CameraSelector
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Switch
@@ -14,7 +15,10 @@ import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
+import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraPreviewComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSelectorInverter
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.ImageSetupFactory
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.VideoSetupFactory
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.InvertibleScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
@@ -30,6 +34,14 @@ class CameraVideoScreenState(
     override fun copyInvertCamera() = CameraVideoScreenState(
         CameraSelectorInverter(cameraSelector).invertCameraSelector()
     )
+
+    @Composable
+    override fun SafeContent(viewModel: CreateAlifeViewModel) {
+        CameraPreviewComposable(
+            viewModel.videoSetupFactory.create(cameraSelector),
+            modifier = Modifier.fillMaxSize()
+        ) { viewModel.reduce(CreateAlifeAction.OnVideoWrapper(it)) }
+    }
 
     @Composable
     override fun TopRowContent(

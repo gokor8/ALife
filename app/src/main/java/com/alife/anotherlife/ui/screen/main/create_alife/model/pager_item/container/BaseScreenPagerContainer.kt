@@ -8,7 +8,7 @@ interface BaseScreenPagerContainer : VideoIndex {
 
     fun getPagerItems(): List<CreateAlifePagerItem>
 
-    fun getScreenPagerItem(index: Int) : ScreenPagerItem
+    fun getScreenPagerItem(index: Int) : ScreenPagerItem<*>
 
     fun canCurrentScroll(index: Int): Boolean
 

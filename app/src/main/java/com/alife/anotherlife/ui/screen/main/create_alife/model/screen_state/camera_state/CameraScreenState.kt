@@ -17,8 +17,8 @@ import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraPreviewComposable
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSetupFactory
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.CameraPictureSetupFacade
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.base.BaseCameraSetupFactory
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.ImageSetupFactory
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -46,16 +46,6 @@ abstract class CameraScreenState(
             SafeContent(viewModel = viewModel)
             TopRowContent(viewModel, modifier)
         }
-    }
-
-    @Composable
-    override fun SafeContent(viewModel: CreateAlifeViewModel) {
-        val cameraFactory = CameraSetupFactory(viewModel.pictureCaptureFactory)
-
-        CameraPreviewComposable(
-            cameraFactory.create(cameraSelector),
-            modifier = Modifier.fillMaxSize()
-        ) { viewModel.reduce(CreateAlifeAction.OnCaptureWrapper(it)) }
     }
 
     @Composable

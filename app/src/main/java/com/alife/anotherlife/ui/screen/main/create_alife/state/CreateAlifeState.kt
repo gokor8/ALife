@@ -34,7 +34,7 @@ data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) @Inject con
 ) : MVI.State {
 
     @OptIn(ExperimentalFoundationApi::class)
-    fun currentContainerState(): ScreenPagerItem {
+    fun currentContainerState(): ScreenPagerItem<*> {
         return pagerContainer.getScreenPagerItem(pagerState.currentPage)
     }
 

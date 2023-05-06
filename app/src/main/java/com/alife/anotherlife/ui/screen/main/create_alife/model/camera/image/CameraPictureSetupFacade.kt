@@ -19,5 +19,4 @@ class CameraPictureSetupFacade(
     override fun onBind(capture: ImageCapture) = CaptureWrapper(capture)
 
     override fun onException(ex: Exception) = ErrorCaptureWrapper()
-
 }

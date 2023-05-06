@@ -4,10 +4,10 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.Create
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.InvertibleScreenState
 
-abstract class AbstractScreenPagerItem(
+abstract class AbstractScreenPagerItem<P : CreateAlifePagerItem>(
     override val screenState: ScreenState,
-    override val pagerItem: CreateAlifePagerItem
-) : ScreenPagerItem {
+    override val pagerItem: P
+) : ScreenPagerItem<P> {
 
     override fun invertCamera(container: ScreenPagerContainer): ScreenPagerContainer {
         return if (canInvert())

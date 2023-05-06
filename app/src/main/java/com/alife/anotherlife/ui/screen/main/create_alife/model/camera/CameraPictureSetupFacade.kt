@@ -15,6 +15,10 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.base.BaseC
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.ErrorCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.ErrorVideoCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.VideoCaptureWrapper
+import javax.inject.Inject
 
 abstract class CameraSetupFacade<M : UseCase, R : Any>(
     private val cameraSelector: CameraSelector,
@@ -51,17 +55,4 @@ abstract class CameraSetupFacade<M : UseCase, R : Any>(
 
     abstract fun onBind(capture: M): R
     abstract fun onException(ex: Exception): R
-}
-
-class VideoPictureSetupFacade(
-    cameraSelector: CameraSelector,
-    previewBuilder: Preview.Builder,
-    captureFactory: CaptureFactory<VideoCapture<Recorder>>
-) : CameraSetupFacade<VideoCapture<Recorder>, BaseCaptureWrapper>(
-    cameraSelector, previewBuilder, captureFactory
-) {
-    override fun onBind(capture: VideoCapture<Recorder>) = CaptureWrapper(capture)
-
-    override fun onException(ex: Exception) = ErrorCaptureWrapper()
-
 }

@@ -4,13 +4,14 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CreateAlifePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.InvertiblePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.InvertibleScreenState
 
-interface ScreenPagerItem {
+interface ScreenPagerItem<P : CreateAlifePagerItem> {
 
     val screenState: ScreenState
-    val pagerItem: CreateAlifePagerItem
+    val pagerItem: P
 
     fun canInvert(): Boolean {
         return pagerItem is InvertiblePagerItem && screenState is InvertibleScreenState
@@ -28,7 +29,13 @@ interface ScreenPagerItem {
         screenState: ScreenState
     ): ScreenPagerContainer
 
-    interface Picture : ScreenPagerItem {
+    fun copyContainer(
+        container: ScreenPagerContainer,
+        pagerItem: P
+    ): ScreenPagerContainer
+
+
+    interface Picture : ScreenPagerItem<PicturePagerItem> {
         override val pagerItem: PicturePagerItem
 
         fun copy(picturePagerItem: PicturePagerItem): Picture
@@ -36,5 +43,5 @@ interface ScreenPagerItem {
 
     }
 
-    interface Video : ScreenPagerItem
+    interface Video : ScreenPagerItem<VideoPagerItem>
 }

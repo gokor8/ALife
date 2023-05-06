@@ -7,7 +7,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.contai
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 
-class Empty : ScreenPagerItem {
+class Empty : ScreenPagerItem<CreateAlifePagerItem> {
 
     override val screenState: ScreenState = ScreenState.Empty()
     override val pagerItem: CreateAlifePagerItem = EmptyAlifePagerItem()
@@ -23,4 +23,9 @@ class Empty : ScreenPagerItem {
         container: ScreenPagerContainer,
         screenState: ScreenState
     ): ScreenPagerContainer = container
+
+    override fun copyContainer(
+        container: ScreenPagerContainer,
+        pagerItem: CreateAlifePagerItem
+    ) = container
 }

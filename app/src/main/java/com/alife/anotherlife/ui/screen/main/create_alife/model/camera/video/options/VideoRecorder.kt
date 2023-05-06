@@ -7,21 +7,10 @@ interface VideoRecorder {
     fun build(): Recorder
 
 
-    abstract class Abstract(
-        private val qualitySelectorStrategy: QualitySelectorStrategy
-    ) : VideoRecorder {
-        override fun build() = preBuild(Recorder.Builder())
-            .setQualitySelector(qualitySelectorStrategy.buildSelector())
+    class Default : VideoRecorder {
+        override fun build() = Recorder.Builder()
+            .setQualitySelector(QualitySelectorStrategy.Default().buildSelector())
             .build()
 
-        open fun preBuild(builder: Recorder.Builder): Recorder.Builder = builder
     }
-
-    class WithAudio(
-        qualitySelectorStrategy: QualitySelectorStrategy
-    ) : Abstract(qualitySelectorStrategy)
-
-    class WithoutAudio(
-        qualitySelectorStrategy: QualitySelectorStrategy
-    ) : Abstract(qualitySelectorStrategy)
 }

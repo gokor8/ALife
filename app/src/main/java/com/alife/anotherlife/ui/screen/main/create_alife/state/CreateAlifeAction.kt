@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.state
 
+import android.content.Context
 import android.util.Log
 import androidx.camera.video.VideoRecordEvent
 import com.alife.anotherlife.core.composable.mvi_extensions.BaseMVIAction
@@ -8,11 +9,15 @@ import com.alife.anotherlife.ui.screen.main.create_alife.BaseCreateAlifeReducerB
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.RecordingAction
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.BaseStartVideoCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.BaseVideoCaptureState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.RecordingCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.BaseCameraPermissionReducer
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
+import java.lang.ref.WeakReference
 
 interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
 
@@ -25,6 +30,12 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
     class OnCaptureWrapper(private val captureWrapper: BaseCaptureWrapper) : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
             reducer.onCameraWrapper(captureWrapper)
+        }
+    }
+
+    class OnVideoWrapper(private val captureWrapper: BaseVideoCaptureWrapper) : CreateAlifeAction {
+        override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
+            reducer.onVideoWrapper(captureWrapper)
         }
     }
 
@@ -72,16 +83,21 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
     }
 
     class VideoStartRecord(
-        private val captureState: BaseVideoCaptureState
+        private val mainExecutorWrapper: BaseContextMainExecutorWrapper,
+        private val captureState: BaseStartVideoCaptureState
     ) : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
             Log.e("RecordingAction", captureState.toString())
-            // reducer.onStartRecord(captureState)
-            //TODO
+            reducer.onStartVideo(
+                mainExecutorWrapper.getContext(),
+                mainExecutorWrapper.getMainExecutor(),
+                captureState
+            )
         }
     }
 
     class VideoRecordingAction(
+        private val captureState: RecordingCaptureState,
         private val recordingAction: RecordingAction
     ) : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
