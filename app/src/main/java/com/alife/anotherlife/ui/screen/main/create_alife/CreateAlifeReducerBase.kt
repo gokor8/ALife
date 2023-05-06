@@ -52,13 +52,10 @@ class CreateAlifeReducerBase @Inject constructor(
     }
 
     override suspend fun onStartVideo(
-        context: Context?,
-        mainExecutor: Executor?,
+        contextMainExecutorWrapper: BaseContextMainExecutorWrapper,
         videoCapture: BaseStartVideoCaptureState
     ) {
-        if(context == null || mainExecutor == null) return
-
-        createAlifeVideoReducer.onStart(context, mainExecutor, videoCapture)
+        createAlifeVideoReducer.onStart(contextMainExecutorWrapper, videoCapture)
     }
 
     override suspend fun onCreatePhoto(contextWrapper: BaseContextMainExecutorWrapper) {

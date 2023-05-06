@@ -1,15 +1,13 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.reducer.video
 
-import android.content.Context
-import androidx.camera.video.RecordingStats
 import androidx.compose.foundation.ExperimentalFoundationApi
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.store.UIStore
+import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.RecordingAction
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.callback.CallbackVideoEvent
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.VideoCaptureWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.mapper.VideoCaptureWrapperToState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.mapper.BaseVideoCaptureWrapperToState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.BaseStartVideoCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.RecordingCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.recording.RecordingWrapper
@@ -17,12 +15,11 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.CameraPermissionReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
-import java.util.concurrent.Executor
 import javax.inject.Inject
 
 class CreateAlifeVideoReducer @Inject constructor(
     override val uiStore: UIStore<CreateAlifeState, CreateAlifeEffect>,
-    private val videoCaptureWrapperToState: VideoCaptureWrapperToState
+    private val videoCaptureWrapperToState: BaseVideoCaptureWrapperToState
 ) : CameraPermissionReducer(uiStore), BaseCreateAlifeVideoReducer {
 
     override fun onVideoPrepare(captureWrapper: BaseVideoCaptureWrapper) {
@@ -31,11 +28,11 @@ class CreateAlifeVideoReducer @Inject constructor(
 
     @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onStart(
-        context: Context,
-        mainExecutor: Executor,
+        contextWrapper: BaseContextMainExecutorWrapper,
         videoCapture: BaseStartVideoCaptureState
     ) {
-        val recordingWrapper = videoCapture.start(context, mainExecutor)
+        // TODO обернуть в executor и обработать ошибки
+        val recordingWrapper = videoCapture.start(contextWrapper)
 
         setState {
             copy(
@@ -53,6 +50,7 @@ class CreateAlifeVideoReducer @Inject constructor(
         recordingWrapper: RecordingWrapper,
         recordingAction: RecordingAction
     ) {
+        // TODO обернуть в executor и обработать ошибки
         recordingAction.onRecordingAction(recordingWrapper)
     }
 

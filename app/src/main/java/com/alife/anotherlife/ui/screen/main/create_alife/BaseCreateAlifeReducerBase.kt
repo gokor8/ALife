@@ -2,6 +2,7 @@ package com.alife.anotherlife.ui.screen.main.create_alife
 
 import android.content.Context
 import com.alife.anotherlife.core.ui.reducer.BaseVMReducer
+import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.BaseStartVideoCaptureState
@@ -22,8 +23,7 @@ interface BaseCreateAlifeReducerBase : BaseVMReducer<CreateAlifeState, CreateAli
     suspend fun onVideoWrapper(captureWrapper: BaseVideoCaptureWrapper)
 
     suspend fun onStartVideo(
-        context: Context?,
-        mainExecutor: Executor?,
+        contextMainExecutorWrapper: BaseContextMainExecutorWrapper,
         videoCapture: BaseStartVideoCaptureState
     )
 

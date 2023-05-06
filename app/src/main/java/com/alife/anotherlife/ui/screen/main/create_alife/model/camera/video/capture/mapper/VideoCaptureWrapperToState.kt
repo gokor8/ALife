@@ -13,10 +13,10 @@ import javax.inject.Inject
 
 class VideoCaptureWrapperToState @Inject constructor(
     private val fileOutputOptions: BaseFileOutputOptions,
-) {
+) : BaseVideoCaptureWrapperToState {
 
     @OptIn(ExperimentalFoundationApi::class)
-    fun map(
+    override fun map(
         reducer: CreateAlifeVideoReducer,
         callbackVideoEvent: CallbackVideoEvent,
         captureWrapper: BaseVideoCaptureWrapper

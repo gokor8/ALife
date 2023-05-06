@@ -88,11 +88,7 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
     ) : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
             Log.e("RecordingAction", captureState.toString())
-            reducer.onStartVideo(
-                mainExecutorWrapper.getContext(),
-                mainExecutorWrapper.getMainExecutor(),
-                captureState
-            )
+            reducer.onStartVideo(mainExecutorWrapper, captureState)
         }
     }
 

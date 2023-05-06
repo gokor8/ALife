@@ -18,7 +18,9 @@ interface FakeCreateAlifeEffect : CreateAlifeEffect {
 
     interface Video : FakeCreateAlifeEffect {
 
-        class CreateVideo : Video
+        class StartRecording : Video
+        class RecordingAction : Video
+        class VideoPrepare : Video
 
         class ClickSmallVideo : Video
 
