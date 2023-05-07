@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.reducer_base
 
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
+import com.alife.anotherlife.core.ui.reducer.AbstractVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.RecordingAction
@@ -13,8 +14,8 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 
 class FakeCreateAlifeVideoReducer(
-    private val uiStore: UIStore<CreateAlifeState, CreateAlifeEffect>
-) : BaseCreateAlifeVideoReducer {
+    override val uiStore: UIStore<CreateAlifeState, CreateAlifeEffect>
+) : AbstractVMReducer<CreateAlifeState, CreateAlifeEffect>(), BaseCreateAlifeVideoReducer {
     override suspend fun onStart(
         contextWrapper: BaseContextMainExecutorWrapper,
         videoCapture: BaseStartVideoCaptureState

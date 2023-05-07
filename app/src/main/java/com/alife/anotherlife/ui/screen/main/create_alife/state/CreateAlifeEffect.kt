@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.state
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
 import com.alife.anotherlife.core.navigation.NavigationWrapper
@@ -12,6 +13,14 @@ interface CreateAlifeEffect : MVI.Effect {
     class CreateAlifeFinish : CreateAlifeEffect, NavigationWrapper.Back()
 
     class GoBack : CreateAlifeEffect, NavigationWrapper.Back()
+
+    class SnackBarError(
+        @StringRes private val text: Int
+    ) : CreateAlifeEffect {
+        fun showSnackbar() {
+
+        }
+    }
 
     @OptIn(ExperimentalFoundationApi::class)
     class VideoToMainPage(

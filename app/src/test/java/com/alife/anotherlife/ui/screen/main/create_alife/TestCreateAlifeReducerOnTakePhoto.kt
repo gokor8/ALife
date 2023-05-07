@@ -16,8 +16,8 @@
 //import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 //import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 //import com.alife.core.mapper.Mapper
-//import com.alife.domain.main.create_alife.BaseSaveAlifeUseCase
-//import com.alife.domain.main.create_alife.entity.SaveImageEntity
+//import com.alife.domain.main.create_alife.picture.BaseSaveAlifeUseCase
+//import com.alife.domain.main.create_alife.picture.SaveImageEntity
 //import junit.framework.TestCase.assertEquals
 //import junit.framework.TestCase.assertTrue
 //import kotlinx.coroutines.test.runTest

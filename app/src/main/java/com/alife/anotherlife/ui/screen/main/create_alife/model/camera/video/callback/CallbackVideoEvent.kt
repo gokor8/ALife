@@ -11,8 +11,13 @@ import javax.inject.Inject
 class CallbackVideoEvent(
     private val reducer: CreateAlifeVideoReducer
 ) : Consumer<VideoRecordEvent> {
-    override fun accept(t: VideoRecordEvent) {
-        Log.e("Aboba", t.toString())
-        //viewModel.reduce(CreateAlifeAction.VideoRecordEventAction(t))
+    override fun accept(event: VideoRecordEvent) {
+        when(event) {
+            is VideoRecordEvent.Start -> reducer.onStartRecording(event)
+            is VideoRecordEvent.Finalize -> {
+                Log.e("Aboba", "$event ${event.hasError()}")
+                reducer.onFinalizeRecording(event)
+            }
+        }
     }
 }

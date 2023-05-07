@@ -27,6 +27,18 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
         }
     }
 
+    class OnChangedAudio @OptIn(ExperimentalPermissionsApi::class) constructor(
+        private val permissionStatus: com.google.accompanist.permissions.PermissionStatus,
+        private val isAudioEnabled: Boolean
+    ) : CreateAlifeAction {
+        @OptIn(ExperimentalPermissionsApi::class)
+        override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
+            (permissionStatus is com.google.accompanist.permissions.PermissionStatus.Granted).also {
+                reducer.onChangedAudio(it && isAudioEnabled)
+            }
+        }
+    }
+
     class OnCaptureWrapper(private val captureWrapper: BaseCaptureWrapper) : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
             reducer.onCameraWrapper(captureWrapper)
@@ -98,6 +110,7 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
     ) : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
             Log.e("RecordingAction", recordingAction.toString())
+            reducer.onRecordingAction(captureState, recordingAction)
             // reducer.onRecordingActions(recordingAction)
             //TODO
         }

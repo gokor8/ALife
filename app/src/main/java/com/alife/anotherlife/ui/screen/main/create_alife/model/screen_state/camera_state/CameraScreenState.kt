@@ -60,8 +60,7 @@ abstract class CameraScreenState(
         ) {
             TextBase(
                 textResId = R.string.horizontal_short_logo,
-                style = Title28Style().style(),
-                modifier = Modifier.padding(top = 22.dp)
+                style = Title28Style().style()
             )
         }
     }

@@ -1,5 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -10,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.Dp
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
-import com.alife.anotherlife.ui.screen.main.create_alife.composable.VideoCircleComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.VideoOnRecordingComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.RecordingAction
@@ -18,20 +19,27 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.BaseVideoCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.EmptyVideoCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.RecordingCaptureState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.StartVideoCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CreateAlifePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.InvertiblePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.NotScrollablePagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.model.VideoCaptureCallback
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 
 @Stable
 interface VideoPagerItem : CreateAlifePagerItem, InvertiblePagerItem {
 
+    fun onCallback(videoCaptureCallback: VideoCaptureCallback) = Unit
+
+    fun onStopRecording() = Unit
+
+    fun isCookedVideoCapture(): Boolean
+
+
     abstract class Sizable<VC : BaseVideoCaptureState>(
         protected val captureState: VC,
         private val isEnabled: Boolean
-    ) : VideoPagerItem,
-        CreateAlifePagerItem.Abstract() {
+    ) : VideoPagerItem, CreateAlifePagerItem.Abstract() {
+
         @Composable
         override fun Content(
             size: Dp,
@@ -47,6 +55,8 @@ interface VideoPagerItem : CreateAlifePagerItem, InvertiblePagerItem {
             }.Content(captureWrapper, viewModel)
         }
 
+        override fun isCookedVideoCapture() = captureState is BaseStartVideoCaptureState
+
         @Composable
         abstract fun normalVideoContent(isEnabled: Boolean, size: Dp): NormalVideoContent<VC>
     }
@@ -60,42 +70,50 @@ interface VideoPagerItem : CreateAlifePagerItem, InvertiblePagerItem {
     class DefaultSizable(
         captureState: BaseStartVideoCaptureState
     ) : Sizable<BaseStartVideoCaptureState>(captureState, true) {
+        override fun onCallback(videoCaptureCallback: VideoCaptureCallback) {
+            videoCaptureCallback.setupVideoCaptureState(captureState)
+        }
+
         @Composable
         override fun normalVideoContent(isEnabled: Boolean, size: Dp) =
             NormalVideoContent.VideoStartable(captureState, isEnabled, size)
     }
 
-    class OnRecording(
+    class Recording(
         private val captureState: RecordingCaptureState
     ) : CreateAlifePagerItem.Abstract(), VideoPagerItem, NotScrollablePagerItem {
+
         @Composable
         override fun Content(
             size: Dp,
             captureWrapper: BaseCaptureWrapper,
             viewModel: CreateAlifeViewModel
         ) {
-            MaterialTheme.colorScheme.apply {
-                VideoOnRecordingComposable(
-                    onPrimary,
-                    primary,
-                    modifier = Modifier
-                        .size(size)
-                        .clip(CircleShape)
-                        .clickable {
-                            viewModel.reduce(
-                                CreateAlifeAction.VideoRecordingAction(
-                                    captureState,
-                                    RecordingAction.Stop()
-                                )
+            VideoOnRecordingComposable(
+                MaterialTheme.colorScheme.onPrimary,
+                MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .size(size)
+                    .clip(CircleShape)
+                    .clickable {
+                        viewModel.reduce(
+                            CreateAlifeAction.VideoRecordingAction(
+                                captureState,
+                                RecordingAction.Stop()
                             )
-//                            captureState.stop()
-//                            viewModel.reduce(
-//                                CreateAlifeAction.VideoRecordingAction(RecordingAction.STOP)
-//                            )
-                            //viewModel.reduce(CreateAlifeAction.)
-                        }
-                )
-            }
+                        )
+                    }
+            )
+        }
+
+        override fun onStopRecording() {
+            captureState.stop()
+        }
+
+        override fun isCookedVideoCapture() = true
+
+        override fun onCallback(videoCaptureCallback: VideoCaptureCallback) {
+            videoCaptureCallback.setupVideoCaptureState(captureState.videoCapture)
         }
     }
 }

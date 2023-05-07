@@ -1,14 +1,11 @@
 package com.alife.data.repository.main.create_alife
 
 import com.alife.data.data_source.cache.file.base.FileWrapperFactory
-import com.alife.data.repository.main.create_alife.model.base.BaseSaveFileModel
-import com.alife.data.repository.main.create_alife.model.base.file_builders.BaseFileName
-import com.alife.data.repository.main.create_alife.model.file.CreateAlifePathModel
-import com.alife.data.repository.main.create_alife.model.image.JpegExtension
+import com.alife.data.repository.main.create_alife.file_model_base.BaseSaveFileModel
+import com.alife.data.repository.main.create_alife.file_model_base.file_builders.BaseFileName
+import com.alife.data.repository.main.create_alife.picture.model.image.JpegExtension
 import junit.framework.TestCase
 import org.junit.Test
-import java.io.BufferedInputStream
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 
 class TestSaveDefaultModelCreateAlife {

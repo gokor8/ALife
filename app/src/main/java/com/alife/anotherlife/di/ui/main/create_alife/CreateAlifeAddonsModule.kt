@@ -37,9 +37,4 @@ interface CreateAlifeAddonsModule {
     @Binds
     fun bindImageCaptureFactory(captureFactory: DefaultPictureCaptureFactory): CaptureFactory<ImageCapture>
 
-    @Binds
-    fun bindCallbackVideoEvent(callback: CallbackVideoEvent): Consumer<VideoRecordEvent>
-
-    @Binds
-    fun bindDefaultFileOutputOptions(outputOptions: BaseFileOutputOptions.Default): BaseFileOutputOptions
 }

@@ -139,12 +139,11 @@ class TestCreateAlifeReducerBase {
     @OptIn(ExperimentalCoroutinesApi::class)
     fun `test onCreatePhoto`() = runTest {
         val testListData = listOf(
-            CaptureTestModel(LoadPictureScreenState(), null),
-            CaptureTestModel(LoadPictureScreenState(), FakeExecutor()),
-            CaptureTestModel(FakeCapturePictureScreenState(), null),
+            CaptureTestModel(LoadPictureScreenState()),
+            CaptureTestModel(LoadPictureScreenState()),
+            CaptureTestModel(FakeCapturePictureScreenState()),
             CaptureTestModel(
                 screenState = FakeCapturePictureScreenState(),
-                executor = FakeExecutor(),
                 expectedEffect = FakeCreateAlifeEffect.Photo.CreatePhoto(),
                 expectedEffectSize = 1
             ),
@@ -154,9 +153,7 @@ class TestCreateAlifeReducerBase {
             setupUIStore(pictureScreenState = captureTestModel.screenState)
             val initState = uiStore.stateCollector.first()
 
-            val executorWrapper = FakeMainExecutor(captureTestModel.executor)
-
-            createAlifeReducerBase.onCreatePhoto(executorWrapper)
+            createAlifeReducerBase.onCreatePhoto(FakeMainExecutor())
 
             captureTestModel.assert(initState, uiStore, copyListPicture, copyListVideo)
         }
@@ -166,7 +163,6 @@ class TestCreateAlifeReducerBase {
     // Test Realization
     class CaptureTestModel(
         val screenState: ScreenState,
-        val executor: Executor?,
         private val expectedEffect: CreateAlifeEffect? = null,
         private val expectedStateSize: Int = 1,
         private val expectedEffectSize: Int = 0,

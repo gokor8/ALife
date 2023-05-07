@@ -8,6 +8,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.InvertibleScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraPictureScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.model.VideoCaptureCallback
 
 class Video(
     screenState: ScreenState,
@@ -18,6 +19,10 @@ class Video(
         screenState: InvertibleScreenState
     ): ScreenPagerContainer {
         return container.copy(video = Video(screenState.copyInvertCamera(), pagerItem))
+    }
+
+    override fun isCookedVideoCapture(): Boolean {
+        return pagerItem.isCookedVideoCapture()
     }
 
     override fun isScreenStateFit(screenState: ScreenState): Boolean {
@@ -33,6 +38,10 @@ class Video(
         container: ScreenPagerContainer,
         pagerItem: VideoPagerItem
     ) = container.copy(video = Video(screenState, pagerItem))
+
+    override fun onCallback(videoCaptureCallback: VideoCaptureCallback) {
+        pagerItem.onCallback(videoCaptureCallback)
+    }
 
     override fun copy(
         container: ScreenPagerContainer,

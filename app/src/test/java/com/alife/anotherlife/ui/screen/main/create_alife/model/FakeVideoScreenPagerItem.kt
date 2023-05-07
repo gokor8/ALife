@@ -1,5 +1,9 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.Dp
+import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CreateAlifePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.EmptyAlifePagerItem
@@ -7,14 +11,15 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.Load
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.LoadVideoScreenState
 
 class FakeVideoScreenPagerItem(
     copyList: MutableList<ScreenPagerItem.Video>,
     override val screenState: ScreenState = LoadVideoScreenState()
-): FakeAbstractScreenPagerItem<ScreenPagerItem.Video>(copyList), ScreenPagerItem.Video {
+): FakeAbstractScreenPagerItem<ScreenPagerItem.Video, VideoPagerItem>(copyList), ScreenPagerItem.Video {
 
-    override val pagerItem: CreateAlifePagerItem = EmptyAlifePagerItem()
+    override val pagerItem = FakeVideoPagerItem()
 
     override fun invertCamera(container: ScreenPagerContainer) = container.copy(video = copy())
 
@@ -28,5 +33,20 @@ class FakeVideoScreenPagerItem(
         screenState: ScreenState
     ) = container.copy(video = copy())
 
+    override fun copyContainer(
+        container: ScreenPagerContainer,
+        pagerItem: VideoPagerItem
+    ) = container.copy(video = copy())
+
     override fun copyThis() = this
+}
+
+// Fake Realization
+class FakeVideoPagerItem : VideoPagerItem {
+    @Composable
+    override fun Content(
+        size: Dp,
+        captureWrapper: BaseCaptureWrapper,
+        viewModel: CreateAlifeViewModel
+    ) {}
 }

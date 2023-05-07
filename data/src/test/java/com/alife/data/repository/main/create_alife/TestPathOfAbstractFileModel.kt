@@ -1,11 +1,11 @@
 package com.alife.data.repository.main.create_alife
 
-import com.alife.data.repository.main.create_alife.model.base.BaseFileModel
-import com.alife.data.repository.main.create_alife.model.base.file_builders.BaseFileName
-import com.alife.data.repository.main.create_alife.model.base.file_builders.BasePathModel
-import com.alife.data.repository.main.create_alife.model.file.BackAlifeFileName
-import com.alife.data.repository.main.create_alife.model.file.FrontAlifeFileName
-import com.alife.data.repository.main.create_alife.model.image.JpegExtension
+import com.alife.data.repository.main.create_alife.file_model_base.BaseFileModel
+import com.alife.data.repository.main.create_alife.file_model_base.file_builders.BaseFileName
+import com.alife.data.repository.main.create_alife.file_model_base.file_builders.BasePathModel
+import com.alife.data.repository.main.create_alife.picture.model.file.BackAlifeFileName
+import com.alife.data.repository.main.create_alife.picture.model.file.FrontAlifeFileName
+import com.alife.data.repository.main.create_alife.picture.model.image.JpegExtension
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Test

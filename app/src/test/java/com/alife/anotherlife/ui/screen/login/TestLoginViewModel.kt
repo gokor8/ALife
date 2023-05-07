@@ -1,10 +1,14 @@
 package com.alife.anotherlife.ui.screen.login
 
+import com.alife.anotherlife.core.EmptyUIStore
 import com.alife.anotherlife.core.FakeEffectCollector
 import com.alife.anotherlife.core.FakeStateCollector
+import com.alife.anotherlife.core.FakeUIStore
 import com.alife.anotherlife.core.ViewModelTest
+import com.alife.anotherlife.core.ui.reducer.AbstractVMReducer
 import com.alife.anotherlife.core.ui.state_collector.EffectCollector
 import com.alife.anotherlife.core.ui.state_collector.StateCollector
+import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.login.model.AuthType
 import com.alife.anotherlife.ui.screen.login.reducer.BaseLoginReducerBase
 import com.alife.anotherlife.ui.screen.login.reducer.LoginReducer
@@ -74,7 +78,9 @@ enum class LoginReduce {
 
 class FakeLoginReducerBase(
     private val reduceCollector: MutableList<LoginReduce>,
-) : BaseLoginReducerBase {
+) : AbstractVMReducer<LoginState, LoginEffect>(), BaseLoginReducerBase {
+
+    override val uiStore: UIStore<LoginState, LoginEffect> = EmptyUIStore()
 
     override fun getStateCollector(): StateCollector<LoginState> = FakeStateCollector(emptyList())
     override fun getEffectCollector(): EffectCollector<LoginEffect> = FakeEffectCollector()

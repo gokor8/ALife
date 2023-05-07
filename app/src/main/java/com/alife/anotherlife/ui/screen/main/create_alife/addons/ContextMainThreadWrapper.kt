@@ -9,9 +9,10 @@ class ContextMainThreadWrapper(
     private val context: WeakReference<Context>
 ) : BaseContextMainExecutorWrapper {
 
-    override fun getContext() = context.get()
+    override fun getContext() = context.get() ?: throw IllegalStateException()
 
-    override fun getMainExecutor(): Executor? {
+    override fun getMainExecutor(): Executor {
         return context.get()?.let { ContextCompat.getMainExecutor(it) }
+            ?: throw IllegalStateException()
     }
 }

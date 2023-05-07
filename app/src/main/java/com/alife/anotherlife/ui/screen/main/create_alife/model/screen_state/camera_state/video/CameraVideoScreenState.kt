@@ -1,15 +1,27 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video
 
 import androidx.camera.core.CameraSelector
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.with
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchColors
+import androidx.compose.material3.SwitchDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.alife.anotherlife.R
+import com.alife.anotherlife.core.composable.clickableNoRipple
 import com.alife.anotherlife.core.composable.icon.IconBase
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
@@ -22,6 +34,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.Vide
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.InvertibleScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 class CameraVideoScreenState(
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
@@ -43,13 +56,14 @@ class CameraVideoScreenState(
         ) { viewModel.reduce(CreateAlifeAction.OnVideoWrapper(it)) }
     }
 
+    @OptIn(ExperimentalAnimationApi::class, ExperimentalPermissionsApi::class)
     @Composable
     override fun TopRowContent(
         viewModel: CreateAlifeViewModel,
         modifier: Modifier
     ) {
         ConstraintLayout(modifier = modifier.fillMaxWidth()) {
-            val (title, audio) = createRefs()
+            val (title, timer, audio) = createRefs()
 
             TextBase(
                 textResId = R.string.horizontal_short_logo,
@@ -58,23 +72,57 @@ class CameraVideoScreenState(
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
                 }
             )
 
+            val state = viewModel.getUIState()
+
+            AnimatedContent(
+                targetState = state.timerUnit,
+                transitionSpec = { EnterTransition.None.with(ExitTransition.None) },
+                modifier = Modifier.constrainAs(timer) {
+                    top.linkTo(title.bottom, 4.dp)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+            ) { timerUnit ->
+                Text(
+                    text = timerUnit.time(),
+                    style = Title28Style().style(),
+                    modifier = Modifier.animateEnterExit(
+                        enter = scaleIn(),
+                        exit = scaleOut()
+                    )
+                )
+            }
+
+            val audioPermission = viewModel.audioPermission.requirePermission(viewModel)
+
             Switch(
-                checked = false,
-                onCheckedChange = {},
+                checked = state.isAudioEnabled,
+                onCheckedChange = { isChecked ->
+                    audioPermission.launchPermissionRequest()
+
+                    viewModel.reduce(
+                        CreateAlifeAction.OnChangedAudio(audioPermission.status, isChecked)
+                    )
+                },
                 thumbContent = {
                     IconBase(icon = R.drawable.ic_dialog_micro, Modifier.padding(6.dp))
                 },
+                colors = SwitchDefaults.colors(
+                    uncheckedTrackColor = Color.Transparent,
+                    checkedBorderColor = Color.Transparent,
+                    disabledCheckedBorderColor = Color.Transparent,
+                    disabledUncheckedBorderColor = Color.Transparent
+                ),
                 modifier = Modifier
                     .padding(24.dp)
                     .constrainAs(audio) {
                         top.linkTo(parent.top)
                         start.linkTo(title.end)
                         end.linkTo(parent.end)
-                        bottom.linkTo(parent.bottom)
+                        bottom.linkTo(title.bottom)
                     }
             )
         }

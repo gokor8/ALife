@@ -8,8 +8,7 @@ import com.alife.core.mvi.addons.BaseMVIHandlers
 import com.alife.core.mvi.addons.SuspendMVIHandlers
 
 abstract class AbstractVMReducer<STATE : MVI.State, EFFECT : MVI.Effect> :
-    BaseVMReducer<STATE, EFFECT>, BaseMVIHandlers<STATE, EFFECT>,
-    SuspendMVIHandlers<STATE, EFFECT> {
+    BaseVMReducer<STATE, EFFECT> {
 
     protected abstract val uiStore: UIStore<STATE, EFFECT>
 

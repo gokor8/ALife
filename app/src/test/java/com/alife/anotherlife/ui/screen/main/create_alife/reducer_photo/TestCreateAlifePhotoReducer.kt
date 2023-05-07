@@ -17,6 +17,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.reducer_base.TestCreate
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer_base.test_model.FakeCapturePictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer_base.test_model.FakeCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer_base.test_model.FakeExecutor
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer_base.test_model.FakeMainExecutor
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 import junit.framework.TestCase.assertEquals
@@ -61,7 +62,7 @@ class TestCreateAlifePhotoReducer {
 
     @Test
     fun `onCreatePhoto normal create photo`() = runTest {
-        createAlifePhotoReducer.onCreatePhoto(FakeCapturePictureScreenState(), FakeExecutor())
+        createAlifePhotoReducer.onCreatePhoto(FakeCapturePictureScreenState(), FakeMainExecutor())
 
         val lastPagerItem = uiStore.stateCollector.last().currentContainerState().pagerItem
         val lastEffect = uiStore.effectCollector.last()
@@ -77,7 +78,7 @@ class TestCreateAlifePhotoReducer {
     @Test
     fun `onCreatePhoto with UselessCaptureWrapper`() = runTest {
         setupReducer(IllegalStateException())
-        createAlifePhotoReducer.onCreatePhoto(FakeCapturePictureScreenState(), FakeExecutor())
+        createAlifePhotoReducer.onCreatePhoto(FakeCapturePictureScreenState(), FakeMainExecutor())
 
         val lastPagerItem = uiStore.stateCollector.last().currentContainerState().pagerItem
         val lastEffect = uiStore.effectCollector.last()
@@ -93,7 +94,7 @@ class TestCreateAlifePhotoReducer {
     @Test
     fun `onCreatePhoto with exception in process`() = runTest {
         setupReducer(captureWrapper = FakeCaptureWrapper.UselessWrapper())
-        createAlifePhotoReducer.onCreatePhoto(FakeCapturePictureScreenState(), FakeExecutor())
+        createAlifePhotoReducer.onCreatePhoto(FakeCapturePictureScreenState(), FakeMainExecutor())
 
         val lastPagerItem = uiStore.stateCollector.last().currentContainerState().pagerItem
         val lastEffect = uiStore.effectCollector.last()

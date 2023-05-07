@@ -1,6 +1,5 @@
 package com.alife.domain.core.usecase
 
-import com.alife.core.usecase.UseCaseEntity
 import com.alife.domain.core.mapper.ThrowableMapper
 import kotlinx.coroutines.*
 

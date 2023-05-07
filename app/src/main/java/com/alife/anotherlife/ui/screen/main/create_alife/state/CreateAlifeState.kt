@@ -17,6 +17,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.contai
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pager_item.Video
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.LoadPictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.LoadVideoScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.timer.BaseTimerUnit
 import com.alife.core.mvi.MVI
 import javax.inject.Inject
 
@@ -24,7 +25,8 @@ data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) @Inject con
     val blockingScreen: ScreenState? = null,
     val pagerState: PagerState = PagerState(0),
     val captureWrapper: BaseCaptureWrapper = EmptyCaptureWrapper(),
-    val isAudioEnabled: Boolean = true, // Todo video builder
+    val isAudioEnabled: Boolean = false, // Todo video builder
+    val timerUnit: BaseTimerUnit = BaseTimerUnit.Init(),
     val pagerContainer: ScreenPagerContainer = ScreenPagerContainer(
         Picture(LoadPictureScreenState(), PicturePagerItem.InitTakePicture()),
         Video(LoadVideoScreenState(), VideoPagerItem.InitSizable()) // TODO InitSizable

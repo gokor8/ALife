@@ -1,11 +1,15 @@
 package com.alife.data.repository.main.create_alife
 
 import android.content.Context
-import com.alife.data.repository.main.create_alife.mapper.BaseEntityToReadModel
-import com.alife.data.repository.main.create_alife.mapper.BaseEntityToSaveModel
-import com.alife.domain.main.create_alife.entity.ReadImageEntity
-import com.alife.domain.main.create_alife.entity.SaveImageEntity
-import com.alife.domain.main.create_alife.repository.BaseCreateAlifeRepository
+import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToReadModel
+import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToSaveModel
+import com.alife.data.repository.main.create_alife.video.entity.VideoStorageEntity
+import com.alife.data.repository.main.create_alife.video.video.VideoFileModel
+import com.alife.domain.main.create_alife.picture.entity.ReadImageEntity
+import com.alife.domain.main.create_alife.picture.entity.SaveImageEntity
+import com.alife.domain.main.create_alife.picture.repository.BaseCreateAlifeRepository
+import com.alife.domain.main.create_alife.video.entity.BaseVideoStorageEntity
+import com.alife.domain.main.create_alife.video.repository.BaseCreateAlifeVideoRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.BufferedInputStream
 import java.io.File
@@ -18,7 +22,7 @@ class CreateAlifeRepository @Inject constructor(
     private val entityToReadModel: BaseEntityToReadModel,
     @ApplicationContext
     private val context: Context
-) : BaseCreateAlifeRepository {
+) : BaseCreateAlifeRepository, BaseCreateAlifeVideoRepository {
 
     override suspend fun saveToFile(saveImageEntity: SaveImageEntity) {
         val saveModel = entityToSaveModel.map(saveImageEntity)
@@ -42,4 +46,8 @@ class CreateAlifeRepository @Inject constructor(
 
         return imageByteArray
     }
+
+    override fun getVideoStorageModel() = VideoStorageEntity(
+        File(VideoFileModel(context).getFullFilePath())
+    )
 }

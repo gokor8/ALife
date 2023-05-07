@@ -1,20 +1,19 @@
 package com.alife.anotherlife.di.ui.main.create_alife
 
-import androidx.camera.core.ImageProxy
-import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseCameraStateToSaveImage
-import com.alife.anotherlife.ui.screen.main.create_alife.mapper.CameraStateToSaveImage
-import com.alife.anotherlife.ui.screen.main.create_alife.mapper.ImageProxySelectMapper
-import com.alife.core.mapper.Mapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.DefaultVideoCaptureFactory
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.model.BaseVideoCaptureBuilderFactory
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.model.VideoCaptureBuilderFactory
 import com.alife.data.repository.main.create_alife.CreateAlifeRepository
-import com.alife.data.repository.main.create_alife.mapper.BaseEntityToReadModel
-import com.alife.data.repository.main.create_alife.mapper.BaseEntityToSaveModel
-import com.alife.data.repository.main.create_alife.mapper.EntityToReadModel
-import com.alife.data.repository.main.create_alife.mapper.EntityToSaveModel
-import com.alife.domain.core.mapper.ThrowableUCMapper
-import com.alife.domain.main.create_alife.BaseSaveAlifeUseCase
-import com.alife.domain.main.create_alife.SaveAlifeUseCase
-import com.alife.domain.main.create_alife.mapper.AlifeThrowableUCMapper
-import com.alife.domain.main.create_alife.repository.BaseCreateAlifeRepository
+import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToReadModel
+import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToSaveModel
+import com.alife.data.repository.main.create_alife.picture.mapper.EntityToReadModel
+import com.alife.data.repository.main.create_alife.picture.mapper.EntityToSaveModel
+import com.alife.domain.main.create_alife.picture.BaseSaveAlifeUseCase
+import com.alife.domain.main.create_alife.picture.SaveAlifeUseCase
+import com.alife.domain.main.create_alife.picture.repository.BaseCreateAlifeRepository
+import com.alife.domain.main.create_alife.video.BaseVideoStorageAlifeUseCase
+import com.alife.domain.main.create_alife.video.VideoStorageAlifeUseCase
+import com.alife.domain.main.create_alife.video.repository.BaseCreateAlifeVideoRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -25,19 +24,19 @@ import dagger.hilt.android.components.ViewModelComponent
 interface CreateAlifeViewModelModule {
 
     @Binds
-    fun bindImageProxySelectMapper(mapper: ImageProxySelectMapper): Mapper<ImageProxy, ByteArray>
-
-    @Binds
-    fun bindCameraStateToSaveImage(cameraStateToSaveImage: CameraStateToSaveImage): BaseCameraStateToSaveImage
-
-    @Binds
     fun bindSaveAlifeUseCase(saveAlifeUseCase: SaveAlifeUseCase): BaseSaveAlifeUseCase
 
     @Binds
-    fun bindCreateAlifeRepository(createAlifeRepository: CreateAlifeRepository): BaseCreateAlifeRepository
+    fun bindVideoStorageAlifeUseCase(videoAlifeUseCase: VideoStorageAlifeUseCase): BaseVideoStorageAlifeUseCase
 
     @Binds
-    fun bindCreateAlifeThrowableUCMapper(mapper: AlifeThrowableUCMapper): ThrowableUCMapper<Unit>
+    fun bindCreateAlifeRepository(repository: CreateAlifeRepository): BaseCreateAlifeRepository
+
+    @Binds
+    fun bindVideoCaptureBuilderFactory(videoCaptureFactory: VideoCaptureBuilderFactory): BaseVideoCaptureBuilderFactory
+
+    @Binds
+    fun bindCreateAlifeVideoRepository(repository: CreateAlifeRepository): BaseCreateAlifeVideoRepository
 
     @Binds
     fun bindEntityToSaveModel(mapper: EntityToSaveModel): BaseEntityToSaveModel

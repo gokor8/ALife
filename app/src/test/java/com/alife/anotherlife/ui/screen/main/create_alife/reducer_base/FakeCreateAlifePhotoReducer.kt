@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.reducer_base
 
 import com.alife.anotherlife.core.ui.store.UIStore
+import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BaseCameraPictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.BaseCreateAlifePhotoReducer
@@ -14,7 +15,7 @@ class FakeCreateAlifePhotoReducer(
 
     override suspend fun onCreatePhoto(
         screenState: BaseCameraPictureScreenState,
-        mainExecutor: Executor
+        contextWrapper: BaseContextMainExecutorWrapper
     ) {
         uiStore.setEffect(FakeCreateAlifeEffect.Photo.CreatePhoto())
     }

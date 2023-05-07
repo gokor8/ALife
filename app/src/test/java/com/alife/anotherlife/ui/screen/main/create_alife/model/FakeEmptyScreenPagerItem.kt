@@ -9,8 +9,10 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.contai
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
 
 class FakeEmptyScreenPagerItem(
-    copyList: MutableList<ScreenPagerItem>
-): FakeAbstractScreenPagerItem<ScreenPagerItem>(copyList), ScreenPagerItem {
+    copyList: MutableList<ScreenPagerItem<CreateAlifePagerItem>>
+) : FakeAbstractScreenPagerItem<ScreenPagerItem<CreateAlifePagerItem>, CreateAlifePagerItem>(
+    copyList
+), ScreenPagerItem<CreateAlifePagerItem> {
 
     override val screenState: ScreenState = ScreenState.Empty()
     override val pagerItem: CreateAlifePagerItem = EmptyAlifePagerItem()
@@ -27,5 +29,10 @@ class FakeEmptyScreenPagerItem(
     override fun copyContainer(
         container: ScreenPagerContainer,
         screenState: ScreenState
+    ) = container
+
+    override fun copyContainer(
+        container: ScreenPagerContainer,
+        pagerItem: CreateAlifePagerItem
     ) = container
 }
