@@ -29,7 +29,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.rotate.RotateZero
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalAnimationApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CameraActionsComposable(
     state: CreateAlifeState,
@@ -68,7 +68,6 @@ fun CameraActionsComposable(
             pagerItems[page].Content(
                 // 28f * ... + 32f
                 calculatedSize,
-                state.captureWrapper,
                 viewModel,
             )
         }
@@ -76,7 +75,7 @@ fun CameraActionsComposable(
         var rotationState by remember { mutableStateOf<Rotate>(RotateZero()) }
         val rotationAnim by animateFloatAsState(rotationState.rotation())
 
-        val canInvert = state.currentContainerState().canInvert()
+        val canInvert = state.currentScreenPager().canInvert()
         val tintColor = if (canInvert) ColorWrapper() else ColorWrapper(0.5f)
 
         IconBase(

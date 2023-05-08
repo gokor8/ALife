@@ -9,6 +9,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.Scre
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.list_adapter.ContainerListAdapterFactory
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pager_item.Picture
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pager_item.Video
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BasePictureScreenState
 
 //fun screenPagerContainerOf(
 //    picture: PicturePagerItem,
@@ -37,15 +38,11 @@ data class ScreenPagerContainer(
         return getScreenPagerItem(index).pagerItem !is NotScrollablePagerItem
     }
 
-    override fun changeScreenPagerItem(index: Int, screenState: ScreenState): ScreenPagerContainer {
-        return getScreenPagerItem(index).copyContainer(this, screenState)
-    }
-
     override fun changePicture(picturePagerItem: ScreenPagerItem.Picture): ScreenPagerContainer {
         return copy(picture = picturePagerItem)
     }
 
-    override fun changePicture(screenState: ScreenState): ScreenPagerContainer {
+    override fun changePicture(screenState: BasePictureScreenState): ScreenPagerContainer {
         return copy(picture = picture.copy(screenState))
     }
 

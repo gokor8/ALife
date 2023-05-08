@@ -11,11 +11,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 class SmallVideoContent(size: Dp) :
     SizableVideoContent(true, size, ClickableSuspendWrapper.NoRipple()) {
 
-    override suspend fun onClick(
-        context: Context,
-        captureWrapper: BaseCaptureWrapper,
-        viewModel: CreateAlifeViewModel
-    ) {
+    override suspend fun onClick(context: Context, viewModel: CreateAlifeViewModel) {
         Log.e("Aboba", "ClickSmallVideo")
         viewModel.reduce(CreateAlifeAction.ClickSmallVideo())
     }

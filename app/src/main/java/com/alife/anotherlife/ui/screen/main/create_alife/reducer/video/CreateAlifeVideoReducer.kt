@@ -1,6 +1,5 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.reducer.video
 
-import android.media.MediaRecorder
 import androidx.camera.video.VideoRecordEvent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
@@ -12,13 +11,18 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.mapper.BaseVideoCaptureWrapperToState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.BaseStartVideoCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.RecordingCaptureState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.RecordingPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.BaseVideoScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.DefaultVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.timer.BaseTimerUnit
 import com.alife.anotherlife.ui.screen.main.create_alife.model.timer.CreateAlifeCountDownTimer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.timer.CreateAlifeVideoTimer
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.CameraPermissionReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.mapper.BaseVideoStorageToOptions
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.model.BaseVideoCaptureBuilderFactory
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.model.SwitchVideoCameraCallback
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.model.VideoCaptureCallback
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
@@ -31,7 +35,9 @@ class CreateAlifeVideoReducer @Inject constructor(
     private val videoStorageAlifeUseCase: BaseVideoStorageAlifeUseCase,
     private val videoStorageToOptions: BaseVideoStorageToOptions,
     private val videoCaptureBuilderFactory: BaseVideoCaptureBuilderFactory
-) : CameraPermissionReducer(uiStore), BaseCreateAlifeVideoReducer, VideoCaptureCallback {
+) : CameraPermissionReducer<BaseVideoScreenState>(uiStore),
+    BaseCreateAlifeVideoReducer,
+    VideoCaptureCallback {
 
     @OptIn(ExperimentalFoundationApi::class)
     private val countDownTimer = CreateAlifeVideoTimer(
@@ -44,8 +50,8 @@ class CreateAlifeVideoReducer @Inject constructor(
         )
     )
 
-    fun onSwitchCamera() {
-        
+    override fun changeCurrentScreen(screenState: BaseVideoScreenState) = getState {
+        pagerContainer.video.copyContainer(pagerContainer, screenState)
     }
 
     override fun onVideoPrepare(captureWrapper: BaseVideoCaptureWrapper) {
@@ -71,7 +77,7 @@ class CreateAlifeVideoReducer @Inject constructor(
             copy(
                 pagerContainer = pagerContainer.video.copyContainer(
                     pagerContainer,
-                    VideoPagerItem.Recording(RecordingCaptureState(videoCapture, recordingWrapper))
+                    RecordingPagerItem(RecordingCaptureState(videoCapture, recordingWrapper))
                 )
             )
         }

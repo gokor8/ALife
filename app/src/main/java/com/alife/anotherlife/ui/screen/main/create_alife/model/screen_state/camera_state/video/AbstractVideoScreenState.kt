@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchColors
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,39 +20,42 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.alife.anotherlife.R
-import com.alife.anotherlife.core.composable.clickableNoRipple
 import com.alife.anotherlife.core.composable.icon.IconBase
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraPreviewComposable
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSelectorInverter
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.ImageSetupFactory
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.VideoSetupFactory
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.InvertibleScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
-class CameraVideoScreenState(
+interface BaseVideoScreenState : ScreenState
+
+interface BaseInvertVideoScreenState : BaseVideoScreenState,
+    InvertibleScreenState<BaseVideoScreenState>
+
+abstract class AbstractVideoScreenState(
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
-) : CameraScreenState(cameraSelector), InvertibleScreenState {
+) : CameraScreenState(cameraSelector), BaseInvertVideoScreenState {
 
     override fun cameraPermissionAction(status: PermissionStatus) =
         CreateAlifeAction.VideoPermission(status, this)
 
 
-    override fun copyInvertCamera() = CameraVideoScreenState(
-        CameraSelectorInverter(cameraSelector).invertCameraSelector()
-    )
+    abstract fun onVideoWrapper(
+        captureWrapper: BaseVideoCaptureWrapper
+    ): CreateAlifeAction.OnVideoWrapper
 
     @Composable
     override fun SafeContent(viewModel: CreateAlifeViewModel) {
         CameraPreviewComposable(
             viewModel.videoSetupFactory.create(cameraSelector),
             modifier = Modifier.fillMaxSize()
-        ) { viewModel.reduce(CreateAlifeAction.OnVideoWrapper(it)) }
+        ) { viewModel.reduce(CreateAlifeAction.OnVideoWrapper.Default(it)) }
     }
 
     @OptIn(ExperimentalAnimationApi::class, ExperimentalPermissionsApi::class)

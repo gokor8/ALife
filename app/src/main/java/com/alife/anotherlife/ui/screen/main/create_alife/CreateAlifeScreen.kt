@@ -26,7 +26,7 @@ class CreateAlifeScreen(
         val state = viewModel.getUIState()
 
         state.blockingScreen?.Content(viewModel, modifier) ?: kotlin.run {
-            AnimatedContent(targetState = state.currentContainerState().screenState) { screenState ->
+            AnimatedContent(state.currentScreenPager().screenState) { screenState ->
                 screenState.Content(viewModel, modifier)
             }
 

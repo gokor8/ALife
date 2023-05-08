@@ -27,7 +27,9 @@ abstract class CameraScreenState(
     val cameraSelector: CameraSelector
 ) : ScreenState.AbstractScreenState() {
 
-    protected abstract fun cameraPermissionAction(status: PermissionStatus): CreateAlifeAction.CameraPermission
+    protected abstract fun cameraPermissionAction(
+        status: PermissionStatus
+    ): CreateAlifeAction.CameraPermission<*>
 
     @OptIn(ExperimentalPermissionsApi::class)
     @Composable

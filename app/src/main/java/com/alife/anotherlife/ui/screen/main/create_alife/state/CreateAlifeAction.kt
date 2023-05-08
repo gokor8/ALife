@@ -8,12 +8,15 @@ import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.BaseCreateAlifeReducerBase
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.RecordingAction
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.BaseStartVideoCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.BaseVideoCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.RecordingCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BasePictureScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.BaseVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.BaseCameraPermissionReducer
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
@@ -45,16 +48,30 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
         }
     }
 
-    class OnVideoWrapper(private val captureWrapper: BaseVideoCaptureWrapper) : CreateAlifeAction {
-        override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
-            reducer.onVideoWrapper(captureWrapper)
+    abstract class OnVideoWrapper(
+        protected val captureWrapper: BaseVideoCaptureWrapper
+    ) : CreateAlifeAction {
+
+        class Default(captureWrapper: BaseVideoCaptureWrapper) : OnVideoWrapper(captureWrapper) {
+            override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
+                reducer.onVideoWrapper(captureWrapper)
+            }
+        }
+
+        class Switched(captureWrapper: BaseVideoCaptureWrapper) : OnVideoWrapper(captureWrapper) {
+            override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
+                // TODO изменить на нужный метод
+                reducer.onVideoWrapper(captureWrapper)
+            }
         }
     }
 
-    class CreatePhoto(private val contextWrapper: BaseContextMainExecutorWrapper) :
-        CreateAlifeAction {
+    class CreatePhoto(
+        private val contextWrapper: BaseContextMainExecutorWrapper,
+        private val cookedCaptureWrapper: CookedCaptureWrapper
+    ) : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
-            reducer.onCreatePhoto(contextWrapper)
+            reducer.onCreatePhoto(contextWrapper, cookedCaptureWrapper)
         }
     }
 
@@ -64,13 +81,15 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
         }
     }
 
-    abstract class CameraPermission(
+    abstract class CameraPermission<S : ScreenState>(
         protected val status: PermissionStatus,
-        private val newScreenState: ScreenState
     ) : CreateAlifeAction {
-        suspend fun onPermission(reducer: BaseCameraPermissionReducer) {
+        suspend fun onPermission(
+            reducer: BaseCameraPermissionReducer<S>,
+            screenState: S
+        ) {
             when (status) {
-                is PermissionStatus.Success -> reducer.onPermissionGranted(newScreenState)
+                is PermissionStatus.Success -> reducer.onPermissionGranted(screenState)
                 is PermissionStatus.Fatal -> reducer.onPermissionFatal()
             }
         }
@@ -78,19 +97,19 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
 
     class PhotoPermission(
         status: PermissionStatus,
-        newScreenState: ScreenState
-    ) : CameraPermission(status, newScreenState) {
+        private val screenState: BasePictureScreenState
+    ) : CameraPermission<BasePictureScreenState>(status) {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
-            reducer.onPicturePermission(this)
+            reducer.onPicturePermission(this, screenState)
         }
     }
 
     class VideoPermission(
         status: PermissionStatus,
-        newScreenState: ScreenState
-    ) : CameraPermission(status, newScreenState) {
+        private val screenState: BaseVideoScreenState
+    ) : CameraPermission<BaseVideoScreenState>(status) {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
-            reducer.onVideoPermission(this)
+            reducer.onVideoPermission(this, screenState)
         }
     }
 

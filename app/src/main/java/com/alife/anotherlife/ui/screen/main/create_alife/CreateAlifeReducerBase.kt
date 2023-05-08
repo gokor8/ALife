@@ -1,6 +1,5 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
-import androidx.camera.video.VideoRecordEvent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
@@ -12,9 +11,10 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.Reco
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.BaseStartVideoCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.RecordingCaptureState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.recording.RecordingWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ErrorCameraScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BaseCameraPictureScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BasePictureScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.PictureLoadedScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.BaseVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.BaseCreateAlifePhotoReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.BaseCreateAlifeVideoReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
@@ -40,27 +40,25 @@ class CreateAlifeReducerBase @Inject constructor(
 
     @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onCameraWrapper(captureWrapper: BaseCaptureWrapper) {
-        setState {
-            if (captureWrapper is CookedCaptureWrapper)
-                copy(
-                    captureWrapper = captureWrapper,
-                    pagerContainer = copyCurrentScreenPage(captureWrapper)
-                )
-            else
-                copy(blockingScreen = ErrorCameraScreenState())
-        }
+        if (captureWrapper is CookedCaptureWrapper)
+            createAlifePhotoReducer.onCaptureWrapper(captureWrapper)
+        else
+            setState { copy(blockingScreen = ErrorCameraScreenState()) }
     }
 
     override suspend fun onVideoWrapper(captureWrapper: BaseVideoCaptureWrapper) {
         createAlifeVideoReducer.onVideoPrepare(captureWrapper)
     }
 
-    override suspend fun onCreatePhoto(contextWrapper: BaseContextMainExecutorWrapper) {
+    override suspend fun onCreatePhoto(
+        contextWrapper: BaseContextMainExecutorWrapper,
+        captureWrapper: CookedCaptureWrapper
+    ) {
         // TODO сделать так же как и видео
-        val screenState = getState().currentContainerState().screenState
+        val screenState = getState().pagerContainer.picture.screenState
 
-        if (screenState is BaseCameraPictureScreenState) {
-            createAlifePhotoReducer.onCreatePhoto(screenState, contextWrapper)
+        if (screenState is PictureLoadedScreenState) {
+            createAlifePhotoReducer.onCreatePhoto(screenState, captureWrapper, contextWrapper)
         }
     }
 
@@ -78,16 +76,18 @@ class CreateAlifeReducerBase @Inject constructor(
         createAlifeVideoReducer.onRecordingAction(recordingWrapper, recordingAction)
     }
 
-//    override suspend fun onRecordingEvent(recordingAction: VideoRecordEvent) {
-//        createAlifeVideoReducer.onRecordingEvent(recordingAction)
-//    }
-
-    override suspend fun onPicturePermission(photoPermission: CreateAlifeAction.PhotoPermission) {
-        photoPermission.onPermission(createAlifePhotoReducer)
+    override suspend fun onPicturePermission(
+        photoPermission: CreateAlifeAction.PhotoPermission,
+        screenState: BasePictureScreenState
+    ) {
+        photoPermission.onPermission(createAlifePhotoReducer, screenState)
     }
 
-    override suspend fun onVideoPermission(videoPermission: CreateAlifeAction.VideoPermission) {
-        videoPermission.onPermission(createAlifeVideoReducer)
+    override suspend fun onVideoPermission(
+        videoPermission: CreateAlifeAction.VideoPermission,
+        screenState: BaseVideoScreenState
+    ) {
+        videoPermission.onPermission(createAlifeVideoReducer, screenState)
     }
 
     override suspend fun onClickSmallVideo() {

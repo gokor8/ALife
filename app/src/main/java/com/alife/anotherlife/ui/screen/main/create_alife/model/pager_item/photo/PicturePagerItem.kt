@@ -1,44 +1,40 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo
 
-import android.util.Log
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.alife.anotherlife.core.composable.addons.stable
-import com.alife.anotherlife.core.composable.addons.stroke6Draw
-import com.alife.anotherlife.core.composable.clickable
-import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
+import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.ContextMainThreadWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraCircleComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.EmptyCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.CreateAlifePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.InvertiblePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.NotScrollablePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import java.lang.ref.WeakReference
 
 @Stable
 interface PicturePagerItem : CreateAlifePagerItem {
 
-    abstract class TakePicture(private val isEnabled: Boolean) : CreateAlifePagerItem.Abstract(),
+    abstract class TakePicture<C : BaseCaptureWrapper>(
+        protected val captureWrapper: C,
+        private val isEnabled: Boolean
+    ) : CreateAlifePagerItem.Abstract(),
         PicturePagerItem {
 
         @Composable
         override fun Content(
             size: Dp,
-            captureWrapper: BaseCaptureWrapper,
             viewModel: CreateAlifeViewModel
         ) {
             val colorScheme = MaterialTheme.colorScheme
@@ -49,18 +45,36 @@ interface PicturePagerItem : CreateAlifePagerItem {
                 pagerItemSize.sizeDp(),
                 isEnabled
             ) {
-                viewModel.reduce(
-                    CreateAlifeAction.CreatePhoto(
-                        ContextMainThreadWrapper(WeakReference(context))
-                    )
+                onClick(
+                    viewModel,
+                    ContextMainThreadWrapper(WeakReference(context))
                 )
             }
         }
+
+        protected abstract fun onClick(
+            viewModel: CreateAlifeViewModel,
+            context: BaseContextMainExecutorWrapper
+        )
     }
 
-    class InitTakePicture : TakePicture(false)
+    class InitTakePicture : TakePicture<EmptyCaptureWrapper>(EmptyCaptureWrapper(), false) {
+        override fun onClick(
+            viewModel: CreateAlifeViewModel,
+            context: BaseContextMainExecutorWrapper
+        ) = Unit
+    }
 
-    class DefaultTakePicture : TakePicture(true), InvertiblePagerItem
+    class DefaultTakePicture(
+        captureWrapper: CookedCaptureWrapper
+    ) : TakePicture<CookedCaptureWrapper>(captureWrapper, true), InvertiblePagerItem {
+        override fun onClick(
+            viewModel: CreateAlifeViewModel,
+            context: BaseContextMainExecutorWrapper
+        ) {
+            viewModel.reduce(CreateAlifeAction.CreatePhoto(context, captureWrapper))
+        }
+    }
 
     class OnPictureTaking : CreateAlifePagerItem.Abstract(), PicturePagerItem,
         NotScrollablePagerItem {
@@ -68,7 +82,6 @@ interface PicturePagerItem : CreateAlifePagerItem {
         @Composable
         override fun Content(
             size: Dp,
-            captureWrapper: BaseCaptureWrapper,
             viewModel: CreateAlifeViewModel
         ) {
             CircularProgressIndicator(

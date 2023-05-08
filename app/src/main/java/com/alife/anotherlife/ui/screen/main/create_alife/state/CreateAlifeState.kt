@@ -24,7 +24,6 @@ import javax.inject.Inject
 data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) @Inject constructor(
     val blockingScreen: ScreenState? = null,
     val pagerState: PagerState = PagerState(0),
-    val captureWrapper: BaseCaptureWrapper = EmptyCaptureWrapper(),
     val isAudioEnabled: Boolean = false, // Todo video builder
     val timerUnit: BaseTimerUnit = BaseTimerUnit.Init(),
     val pagerContainer: ScreenPagerContainer = ScreenPagerContainer(
@@ -36,21 +35,12 @@ data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) @Inject con
 ) : MVI.State {
 
     @OptIn(ExperimentalFoundationApi::class)
-    fun currentContainerState(): ScreenPagerItem<*> {
+    fun currentScreenPager(): ScreenPagerItem<*, *> {
         return pagerContainer.getScreenPagerItem(pagerState.currentPage)
     }
 
     @OptIn(ExperimentalFoundationApi::class)
     fun canPagerItemScroll() = pagerContainer.canCurrentScroll(pagerState.currentPage)
 
-    fun tryCopyWithInvert() = currentContainerState().invertCamera(pagerContainer)
-
-    @OptIn(ExperimentalFoundationApi::class)
-    fun changeCurrentScreen(screenState: ScreenState): ScreenPagerContainer {
-        return pagerContainer.changeScreenPagerItem(pagerState.currentPage, screenState)
-    }
-
-    fun copyCurrentScreenPage(captureWrapper: CookedCaptureWrapper): ScreenPagerContainer {
-        return currentContainerState().copy(pagerContainer, captureWrapper)
-    }
+    fun tryCopyWithInvert() = currentScreenPager().invertCamera(pagerContainer)
 }

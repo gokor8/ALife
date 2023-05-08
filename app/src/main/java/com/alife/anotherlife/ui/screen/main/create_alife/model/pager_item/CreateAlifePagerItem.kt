@@ -15,7 +15,6 @@ interface CreateAlifePagerItem {
     @Composable
     fun Content(
         size: Dp,
-        captureWrapper: BaseCaptureWrapper,
         viewModel: CreateAlifeViewModel
     )
 

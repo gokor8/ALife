@@ -12,7 +12,7 @@
 //import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 //import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraFirstScreenState
 //import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraScreenState
-//import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraSecondScreenState
+//import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.CameraSecondLoadedScreenState
 //import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 //import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 //import com.alife.core.mapper.Mapper
@@ -128,10 +128,10 @@
 //        assertEquals(3, uiStore.stateCollector.size)
 //        assertEquals(0, uiStore.effectCollector.size)
 //        val screenState = uiStore.stateCollector.last().screenState
-//        assertTrue(screenState is CameraSecondScreenState)
+//        assertTrue(screenState is CameraSecondLoadedScreenState)
 //        assertEquals(
 //            CameraSelector.DEFAULT_BACK_CAMERA,
-//            (screenState as CameraSecondScreenState).cameraSelector
+//            (screenState as CameraSecondLoadedScreenState).cameraSelector
 //        )
 //    }
 //
@@ -146,7 +146,7 @@
 //        assertEquals(4, uiStore.stateCollector.size)
 //        assertEquals(1, uiStore.effectCollector.size)
 //        val lastState = uiStore.stateCollector.last()
-//        assertTrue(lastState.screenState is CameraSecondScreenState)
+//        assertTrue(lastState.screenState is CameraSecondLoadedScreenState)
 //        assertTrue(uiStore.effectCollector.last() is CreateAlifeEffect.CreateAlifeFinish)
 //        assertEquals(
 //            CameraSelector.DEFAULT_BACK_CAMERA,
@@ -168,7 +168,7 @@
 //        assertEquals(5, uiStore.stateCollector.size)
 //        assertEquals(2, uiStore.effectCollector.size)
 //        val lastState = uiStore.stateCollector.last()
-//        assertTrue(lastState.screenState is CameraSecondScreenState)
+//        assertTrue(lastState.screenState is CameraSecondLoadedScreenState)
 //        assertTrue(uiStore.effectCollector.last() is CreateAlifeEffect.CreateAlifeFinish)
 //        assertEquals(
 //            CameraSelector.DEFAULT_BACK_CAMERA,

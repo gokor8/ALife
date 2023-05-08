@@ -23,10 +23,7 @@ abstract class SizableVideoContent(
 ) {
 
     @Composable
-    open fun Content(
-        captureWrapper: BaseCaptureWrapper,
-        viewModel: CreateAlifeViewModel
-    ) {
+    open fun Content(viewModel: CreateAlifeViewModel) {
         val context = LocalContext.current
         val color = if (isEnabled) ColorWrapper() else ColorWrapper(0.5f)
 
@@ -38,7 +35,7 @@ abstract class SizableVideoContent(
                     .size(size)
                     .clip(CircleShape)
                     .clickableWrap(isEnabled) {
-                        onClick(context,captureWrapper, viewModel)
+                        onClick(context, viewModel)
                     }
             )
         }
@@ -53,7 +50,6 @@ abstract class SizableVideoContent(
 
     protected abstract suspend fun onClick(
         context: Context,
-        captureWrapper: BaseCaptureWrapper,
         viewModel: CreateAlifeViewModel
     )
 }

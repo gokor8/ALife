@@ -10,7 +10,6 @@ class EmptyAlifePagerItem : CreateAlifePagerItem, CreateAlifePagerItem.Abstract(
     @Composable
     override fun Content(
         size: Dp,
-        captureWrapper: BaseCaptureWrapper,
         viewModel: CreateAlifeViewModel
     ) {}
 }

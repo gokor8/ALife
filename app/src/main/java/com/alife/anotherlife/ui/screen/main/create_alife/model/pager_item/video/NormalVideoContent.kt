@@ -28,11 +28,7 @@ abstract class NormalVideoContent<VC : BaseVideoCaptureState>(
         isEnabled: Boolean,
         size: Dp
     ) : NormalVideoContent<BaseStartVideoCaptureState>(captureState, isEnabled, size) {
-        override suspend fun onClick(
-            context: Context,
-            captureWrapper: BaseCaptureWrapper,
-            viewModel: CreateAlifeViewModel
-        ) {
+        override suspend fun onClick(context: Context, viewModel: CreateAlifeViewModel) {
             Log.e("Aboba", "Start recording")
             viewModel.reduce(
                 CreateAlifeAction.VideoStartRecord(
@@ -48,11 +44,7 @@ abstract class NormalVideoContent<VC : BaseVideoCaptureState>(
         isEnabled: Boolean,
         size: Dp
     ) : NormalVideoContent<EmptyVideoCaptureState>(captureState, isEnabled, size) {
-        override suspend fun onClick(
-            context: Context,
-            captureWrapper: BaseCaptureWrapper,
-            viewModel: CreateAlifeViewModel
-        ) {
+        override suspend fun onClick(context: Context, viewModel: CreateAlifeViewModel) {
             Log.e("Aboba", "VideoEmpty click")
         }
     }

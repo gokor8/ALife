@@ -8,13 +8,14 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.Reco
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.BaseStartVideoCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.recording.RecordingWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.BaseVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.BaseCameraPermissionReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 
 interface BaseCreateAlifeVideoReducer :
     ImplCreateAlifeVideoReducer,
-    BaseCameraPermissionReducer,
+    BaseCameraPermissionReducer<BaseVideoScreenState>,
     BaseVMReducer<CreateAlifeState, CreateAlifeEffect> {
 
     suspend fun onStart(

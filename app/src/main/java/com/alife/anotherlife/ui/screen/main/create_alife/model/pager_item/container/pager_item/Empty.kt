@@ -7,17 +7,12 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.contai
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 
-class Empty : ScreenPagerItem<CreateAlifePagerItem> {
+class Empty : ScreenPagerItem<ScreenState, CreateAlifePagerItem> {
 
     override val screenState: ScreenState = ScreenState.Empty()
     override val pagerItem: CreateAlifePagerItem = EmptyAlifePagerItem()
 
     override fun invertCamera(container: ScreenPagerContainer) = container
-
-    override fun copy(
-        container: ScreenPagerContainer,
-        captureWrapper: CookedCaptureWrapper
-    ): ScreenPagerContainer = container
 
     override fun copyContainer(
         container: ScreenPagerContainer,
