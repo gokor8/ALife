@@ -33,7 +33,6 @@ abstract class SizableVideoContent(
         MaterialTheme.colorScheme.apply {
             VideoCircleComposable(
                 color.color(onPrimary),
-                color.color(onPrimary),
                 color.color(primary),
                 modifier = Modifier
                     .size(size)

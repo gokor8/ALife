@@ -16,15 +16,13 @@ import com.alife.anotherlife.core.composable.addons.stroke6Draw
 @Composable
 fun VideoCircleComposable(
     colorRing: Color,
-    colorCircle: Color,
     colorSmallCircle: Color,
     alpha: Float = 1f,
     modifier: Modifier
 ) {
     Canvas(modifier = modifier) {
         drawCircle(color = colorRing.copy(alpha), style = stroke6Draw())
-        drawCircle(color = colorCircle.copy(alpha), size.maxDimension / 2.5f)
-        drawCircle(color = colorSmallCircle.copy(alpha), size.maxDimension / 20f)
+        drawCircle(color = colorSmallCircle.copy(alpha), size.maxDimension / 2.5f)
     }
 }
 

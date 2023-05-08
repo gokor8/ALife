@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.reducer.video
 
+import android.media.MediaRecorder
 import androidx.camera.video.VideoRecordEvent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
@@ -35,13 +36,17 @@ class CreateAlifeVideoReducer @Inject constructor(
     @OptIn(ExperimentalFoundationApi::class)
     private val countDownTimer = CreateAlifeVideoTimer(
         CreateAlifeCountDownTimer(
-            onTick = { setState { copy(timerUnit = it) } },
+            onTick = { newTimerUnit -> setState { copy(timerUnit = newTimerUnit) } },
             onEnd = {
                 setState { copy(timerUnit = BaseTimerUnit.Init()) }
                 getState().pagerContainer.video.pagerItem.onStopRecording()
             }
         )
     )
+
+    fun onSwitchCamera() {
+        
+    }
 
     override fun onVideoPrepare(captureWrapper: BaseVideoCaptureWrapper) {
         videoCaptureWrapperToState.map(this, CallbackVideoEvent(this), captureWrapper)
@@ -104,7 +109,11 @@ class CreateAlifeVideoReducer @Inject constructor(
         recordingAction: RecordingAction
     ) {
         // TODO обернуть в executor и обработать ошибки
-        recordingAction.onRecordingAction(recordingWrapper)
+        execute {
+            // TODO обработать ошибки, вызвать snackbar
+        }.handle {
+            recordingAction.onRecordingAction(recordingWrapper)
+        }
     }
 
     @OptIn(ExperimentalFoundationApi::class)
