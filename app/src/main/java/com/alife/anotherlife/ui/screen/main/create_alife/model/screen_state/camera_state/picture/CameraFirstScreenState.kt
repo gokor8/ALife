@@ -13,7 +13,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 class CameraFirstScreenState(
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
     private val cameraInverter: CameraSelectorInverter = CameraSelectorInverter(cameraSelector)
-) : CameraPictureLoadedScreenState(cameraSelector), BaseInvertPictureScreenState {
+) : CameraPictureScreenState(cameraSelector), BaseInvertPictureScreenState {
 
     override fun invertCamera() = cameraInverter.invertCameraSelector()
 
@@ -32,7 +32,7 @@ class CameraFirstScreenState(
                 pagerContainer = pagerContainer.changePicture(
                     Picture(
                         pagerItem = PicturePagerItem.DefaultTakePicture(captureWrapper),
-                        screenState = CameraSecondLoadedScreenState(cameraInverter.invertCameraSelector())
+                        screenState = CameraSecondScreenState(cameraInverter.invertCameraSelector())
                     )
                 )
             )

@@ -35,13 +35,14 @@ fun CameraActionsComposable(
     state: CreateAlifeState,
     viewModel: CreateAlifeViewModel,
     pagerState: PagerState,
-    pagerItems: List<CreateAlifePagerItem>
+    pagerItems: List<CreateAlifePagerItem>,
+    modifier: Modifier = Modifier
 ) {
     val cameraActionModel = CameraActionModel()
 
     ConstraintLayout(
         CameraActionsConstraints().markup(cameraActionModel),
-        modifier = Modifier.padding(16.dp)
+        modifier = modifier.padding(16.dp)
     ) {
         val pageSpacing = 18.dp
         val pageSize = 60.dp

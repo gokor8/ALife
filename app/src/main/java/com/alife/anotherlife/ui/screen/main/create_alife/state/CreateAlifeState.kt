@@ -24,20 +24,18 @@ import javax.inject.Inject
 data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) @Inject constructor(
     val blockingScreen: ScreenState? = null,
     val pagerState: PagerState = PagerState(0),
-    val isAudioEnabled: Boolean = false, // Todo video builder
+    val isAudioEnabled: Boolean = false,
     val timerUnit: BaseTimerUnit = BaseTimerUnit.Init(),
     val pagerContainer: ScreenPagerContainer = ScreenPagerContainer(
         Picture(LoadPictureScreenState(), PicturePagerItem.InitTakePicture()),
-        Video(LoadVideoScreenState(), VideoPagerItem.InitSizable()) // TODO InitSizable
+        Video(LoadVideoScreenState(), VideoPagerItem.InitSizable())
     ),
     @IntentModule.IntentAnnotation.Settings
     val settingsIntent: Intent?
 ) : MVI.State {
 
     @OptIn(ExperimentalFoundationApi::class)
-    fun currentScreenPager(): ScreenPagerItem<*, *> {
-        return pagerContainer.getScreenPagerItem(pagerState.currentPage)
-    }
+    fun currentScreenPager() = pagerContainer.getScreenPagerItem(pagerState.currentPage)
 
     @OptIn(ExperimentalFoundationApi::class)
     fun canPagerItemScroll() = pagerContainer.canCurrentScroll(pagerState.currentPage)

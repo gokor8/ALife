@@ -13,7 +13,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.RecordingCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ErrorCameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BasePictureScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.PictureLoadedScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.PictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.BaseVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.BaseCreateAlifePhotoReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.BaseCreateAlifeVideoReducer
@@ -57,7 +57,7 @@ class CreateAlifeReducerBase @Inject constructor(
         // TODO сделать так же как и видео
         val screenState = getState().pagerContainer.picture.screenState
 
-        if (screenState is PictureLoadedScreenState) {
+        if (screenState is PictureScreenState) {
             createAlifePhotoReducer.onCreatePhoto(screenState, captureWrapper, contextWrapper)
         }
     }

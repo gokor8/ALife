@@ -43,10 +43,7 @@ class CreateAlifeVideoReducer @Inject constructor(
     private val countDownTimer = CreateAlifeVideoTimer(
         CreateAlifeCountDownTimer(
             onTick = { newTimerUnit -> setState { copy(timerUnit = newTimerUnit) } },
-            onEnd = {
-                setState { copy(timerUnit = BaseTimerUnit.Init()) }
-                getState().pagerContainer.video.pagerItem.onStopRecording()
-            }
+            onEnd = { getState().pagerContainer.video.pagerItem.onStopRecording() }
         )
     )
 
@@ -88,8 +85,11 @@ class CreateAlifeVideoReducer @Inject constructor(
         countDownTimer.start()
     }
 
+    @OptIn(ExperimentalFoundationApi::class)
     override fun onFinalizeRecording(event: VideoRecordEvent.Finalize) {
         countDownTimer.stop()
+
+        setState { copy(timerUnit = BaseTimerUnit.Init()) }
 
         if (event.hasError()) {
             //setEffect(CreateAlifeEffect.CreateAlifeFinish)
@@ -132,7 +132,8 @@ class CreateAlifeVideoReducer @Inject constructor(
         )
     }
 
+    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {
-
+        //setState { copy(isAudioEnabled = permissionStatus is PermissionStatus.Success) }
     }
 }

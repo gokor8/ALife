@@ -22,16 +22,16 @@ interface BaseInvertPictureScreenState : BasePictureScreenState,
     InvertibleScreenState<BaseInvertPictureScreenState>
 
 
-interface PictureLoadedScreenState : BasePictureScreenState {
+interface PictureScreenState : BasePictureScreenState {
     suspend fun onImageLoaded(
         reducer: AbstractVMReducer<CreateAlifeState, CreateAlifeEffect>,
         captureWrapper: CookedCaptureWrapper
     )
 }
 
-abstract class CameraPictureLoadedScreenState(
+abstract class CameraPictureScreenState(
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
-) : CameraScreenState(cameraSelector), BasePictureScreenState, PictureLoadedScreenState {
+) : CameraScreenState(cameraSelector), BasePictureScreenState, PictureScreenState {
 
     @Composable
     override fun SafeContent(viewModel: CreateAlifeViewModel) {

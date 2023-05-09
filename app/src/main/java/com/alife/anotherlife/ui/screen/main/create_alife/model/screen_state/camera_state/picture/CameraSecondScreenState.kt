@@ -6,9 +6,9 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 
-class CameraSecondLoadedScreenState(
+class CameraSecondScreenState(
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA,
-) : CameraPictureLoadedScreenState(cameraSelector) {
+) : CameraPictureScreenState(cameraSelector) {
 
     override suspend fun onImageLoaded(
         reducer: AbstractVMReducer<CreateAlifeState, CreateAlifeEffect>,

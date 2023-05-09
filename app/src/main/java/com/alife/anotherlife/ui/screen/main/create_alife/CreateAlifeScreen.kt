@@ -5,7 +5,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -26,21 +26,17 @@ class CreateAlifeScreen(
         val state = viewModel.getUIState()
 
         state.blockingScreen?.Content(viewModel, modifier) ?: kotlin.run {
-            AnimatedContent(state.currentScreenPager().screenState) { screenState ->
-                screenState.Content(viewModel, modifier)
-            }
-
-            Column(
-                horizontalAlignment = CenterHorizontally,
-                modifier = modifier.fillMaxSize()
-            ) {
-                Spacer(modifier = Modifier.weight(1f))
+            Box {
+                AnimatedContent(state.currentScreenPager().screenState) { screenState ->
+                    screenState.Content(viewModel, modifier)
+                }
 
                 CameraActionsComposable(
                     pagerState = state.pagerState,
-                    pagerItems = state.pagerContainer.getPagerItems(),
                     state = state,
-                    viewModel = viewModel
+                    pagerItems = state.pagerContainer.getPagerItems(),
+                    viewModel = viewModel,
+                    modifier = modifier.align(Alignment.BottomCenter)
                 )
             }
         }

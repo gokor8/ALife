@@ -29,7 +29,6 @@ abstract class NormalVideoContent<VC : BaseVideoCaptureState>(
         size: Dp
     ) : NormalVideoContent<BaseStartVideoCaptureState>(captureState, isEnabled, size) {
         override suspend fun onClick(context: Context, viewModel: CreateAlifeViewModel) {
-            Log.e("Aboba", "Start recording")
             viewModel.reduce(
                 CreateAlifeAction.VideoStartRecord(
                     ContextMainThreadWrapper(WeakReference(context)),
