@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.screen.main.create_alife.mapper
+package com.alife.anotherlife.ui.screen.main.create_alife.mapper.image
 
 import android.util.Log
 import androidx.camera.core.ImageProxy

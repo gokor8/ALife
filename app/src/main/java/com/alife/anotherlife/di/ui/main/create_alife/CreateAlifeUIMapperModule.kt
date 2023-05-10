@@ -3,7 +3,14 @@ package com.alife.anotherlife.di.ui.main.create_alife
 import androidx.camera.core.ImageProxy
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseCameraStateToSaveImage
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.CameraStateToSaveImage
-import com.alife.anotherlife.ui.screen.main.create_alife.mapper.ImageProxySelectMapper
+import com.alife.anotherlife.ui.screen.main.create_alife.mapper.image.BaseBitmapRotation
+import com.alife.anotherlife.ui.screen.main.create_alife.mapper.image.BaseBitmapToByteArray
+import com.alife.anotherlife.ui.screen.main.create_alife.mapper.image.BaseImageProxyToBitmap
+import com.alife.anotherlife.ui.screen.main.create_alife.mapper.image.BaseImageProxyToBytes
+import com.alife.anotherlife.ui.screen.main.create_alife.mapper.image.BitmapRotation
+import com.alife.anotherlife.ui.screen.main.create_alife.mapper.image.BitmapToByteArray
+import com.alife.anotherlife.ui.screen.main.create_alife.mapper.image.ImageProxyToBitmap
+import com.alife.anotherlife.ui.screen.main.create_alife.mapper.image.ImageProxyToBytes
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.mapper.BaseVideoCaptureWrapperToState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.mapper.BaseVideoStorageToOptions
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.mapper.VideoCaptureWrapperToState
@@ -25,7 +32,13 @@ interface CreateAlifeUIMapperModule {
     fun bindVideoStorageToOptions(mapper: VideoStorageToOptions): BaseVideoStorageToOptions
 
     @Binds
-    fun bindImageProxySelectMapper(mapper: ImageProxySelectMapper): Mapper<ImageProxy, ByteArray>
+    fun bindImageProxySelectMapper(mapper: ImageProxyToBytes): BaseImageProxyToBytes
+    @Binds
+    fun bindImageProxyToBitmap(mapper: ImageProxyToBitmap): BaseImageProxyToBitmap
+    @Binds
+    fun bindBitmapRotation(mapper: BitmapRotation): BaseBitmapRotation
+    @Binds
+    fun bindBitmapToByteArray(mapper: BitmapToByteArray): BaseBitmapToByteArray
 
     @Binds
     fun bindCameraStateToSaveImage(mapper: CameraStateToSaveImage): BaseCameraStateToSaveImage

@@ -30,7 +30,7 @@ abstract class VMScreen<VM : AbstractViewModel<*, *, *>>(
 
     @Composable
     fun SetupEffect() {
-        LaunchedEffect(true) {
+        LaunchedEffect(Unit) {
             onInit()
             viewModel.collectEffect(navController)
         }

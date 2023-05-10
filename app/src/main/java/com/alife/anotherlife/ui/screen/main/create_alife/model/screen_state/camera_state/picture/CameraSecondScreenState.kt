@@ -3,6 +3,7 @@ package com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.cam
 import androidx.camera.core.CameraSelector
 import com.alife.anotherlife.core.ui.reducer.AbstractVMReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.BaseCreateAlifePhotoReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 
@@ -11,9 +12,9 @@ class CameraSecondScreenState(
 ) : CameraPictureScreenState(cameraSelector) {
 
     override suspend fun onImageLoaded(
-        reducer: AbstractVMReducer<CreateAlifeState, CreateAlifeEffect>,
+        reducer: BaseCreateAlifePhotoReducer,
         captureWrapper: CookedCaptureWrapper
     ) {
-        reducer.setEffect(CreateAlifeEffect.CreateAlifeFinish())
+        reducer.onFinish()
     }
 }

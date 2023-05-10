@@ -7,6 +7,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.CameraSele
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pager_item.Picture
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.BaseCreateAlifePhotoReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 
@@ -23,7 +24,7 @@ class CameraFirstScreenState(
 
     @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onImageLoaded(
-        reducer: AbstractVMReducer<CreateAlifeState, CreateAlifeEffect>,
+        reducer: BaseCreateAlifePhotoReducer,
         captureWrapper: CookedCaptureWrapper
     ) {
         reducer.setState {

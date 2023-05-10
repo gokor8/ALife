@@ -12,6 +12,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.InvertibleScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo.BaseCreateAlifePhotoReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
@@ -24,7 +25,7 @@ interface BaseInvertPictureScreenState : BasePictureScreenState,
 
 interface PictureScreenState : BasePictureScreenState {
     suspend fun onImageLoaded(
-        reducer: AbstractVMReducer<CreateAlifeState, CreateAlifeEffect>,
+        reducer: BaseCreateAlifePhotoReducer,
         captureWrapper: CookedCaptureWrapper
     )
 }
