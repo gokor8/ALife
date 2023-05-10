@@ -11,34 +11,33 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alife.anotherlife.core.composable.modifier.OnlyImeModifier
 import com.alife.anotherlife.core.ui.screen.VMScreen
+import com.alife.anotherlife.core.ui.screen.VMScreenLCE
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraActionsComposable
 
 class CreateAlifeScreen(
     override val navController: NavController,
-) : VMScreen<CreateAlifeViewModel>(OnlyImeModifier()) {
+) : VMScreenLCE<CreateAlifeViewModel>(OnlyImeModifier()) {
 
     @Composable
     override fun setupViewModel(): CreateAlifeViewModel = hiltViewModel()
 
     @OptIn(ExperimentalAnimationApi::class, ExperimentalFoundationApi::class)
     @Composable
-    override fun Content(modifier: Modifier) {
+    override fun SafeContent(modifier: Modifier) {
         val state = viewModel.getUIState()
 
-        state.blockingScreen?.Content(viewModel, modifier) ?: kotlin.run {
-            Box {
-                AnimatedContent(state.currentScreenPager().screenState) { screenState ->
-                    screenState.Content(viewModel, modifier)
-                }
-
-                CameraActionsComposable(
-                    pagerState = state.pagerState,
-                    state = state,
-                    pagerItems = state.pagerContainer.getPagerItems(),
-                    viewModel = viewModel,
-                    modifier = modifier.align(Alignment.BottomCenter)
-                )
+        Box {
+            AnimatedContent(state.currentScreenPager().screenState) { screenState ->
+                screenState.Content(viewModel, modifier)
             }
+
+            CameraActionsComposable(
+                pagerState = state.pagerState,
+                state = state,
+                pagerItems = state.pagerContainer.getPagerItems(),
+                viewModel = viewModel,
+                modifier = modifier.align(Alignment.BottomCenter)
+            )
         }
     }
 }

@@ -9,15 +9,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alife.anotherlife.core.composable.button.ButtonBase
-import com.alife.anotherlife.core.composable.modifier.ImeModifier
+import com.alife.anotherlife.core.composable.modifier.SystemPaddingModifier
 import com.alife.anotherlife.core.ui.screen.DefaultScreen
-import com.alife.anotherlife.ui.screen.main.create_alife.navigation.CreateAlifeNavBuilder
 import com.alife.anotherlife.ui.screen.main.create_alife.navigation.CreateAlifeNavigator
 import com.alife.anotherlife.ui.screen.main.navigation.MainScreenNavigator
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.navigation.HomeNavigator
 import com.alife.anotherlife.ui.screen.registration.tutorial.navigation.TutorialNavigator
 
-class TestScreen(val navController: NavController) : DefaultScreen(ImeModifier()) {
+class TestScreen(val navController: NavController) : DefaultScreen(SystemPaddingModifier) {
 
     @Composable
     override fun Content(modifier: Modifier) = Surface {

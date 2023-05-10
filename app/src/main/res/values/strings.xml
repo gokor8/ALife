@@ -74,4 +74,5 @@
     // Camera
     <string name="camera_blocking_error_camera">Предоставьте разрешение на использование Камеры</string>
     <string name="camera_blocking_error_fatal">Не получилось подключиться к камере</string>
+    <string name="camera_snackbar_video_error">Произошла ошибка во время записи видео</string>
 </resources>

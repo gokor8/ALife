@@ -7,12 +7,11 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.FakeVideoScreenPa
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ErrorCameraScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.LCEErrorCamera
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.LoadPictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.LoadVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer_base.test_model.FakeCapturePictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer_base.test_model.FakeCaptureWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.reducer_base.test_model.FakeExecutor
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer_base.test_model.FakeMainExecutor
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
@@ -23,7 +22,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import java.util.concurrent.Executor
 
 class TestCreateAlifeReducerBase {
 
@@ -97,7 +95,7 @@ class TestCreateAlifeReducerBase {
 
         val expectedStatesCount = 2
         assertEquals(expectedStatesCount, uiStore.stateCollector.size)
-        assertTrue(uiStore.stateCollector.last().blockingScreen is ErrorCameraScreenState)
+        assertTrue(uiStore.stateCollector.last().blockingScreen is LCEErrorCamera)
         assertNotSame(testCaptureWrapper, uiStore.stateCollector.last().captureWrapper)
     }
 
@@ -131,7 +129,7 @@ class TestCreateAlifeReducerBase {
 
         val expectedStatesCount = 2
         assertEquals(expectedStatesCount, uiStore.stateCollector.size)
-        assertTrue(uiStore.stateCollector.last().blockingScreen is ErrorCameraScreenState)
+        assertTrue(uiStore.stateCollector.last().blockingScreen is LCEErrorCamera)
         assertNotSame(testCaptureWrapper, uiStore.stateCollector.last().captureWrapper)
     }
 

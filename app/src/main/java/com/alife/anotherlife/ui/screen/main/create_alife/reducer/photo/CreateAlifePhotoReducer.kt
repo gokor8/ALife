@@ -1,13 +1,14 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.reducer.photo
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import com.alife.anotherlife.core.ui.state.lce.LCEContent
+import com.alife.anotherlife.core.ui.state.lce.LCELoading
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseCameraStateToSaveImage
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.image.BaseImageProxyToBytes
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.LoadBlockingScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BasePictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.PictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.CameraPermissionReducer
@@ -58,7 +59,7 @@ class CreateAlifePhotoReducer @Inject constructor(
 //                copy(pagerContainer = pagerContainer.changePicture(PicturePagerItem.DefaultTakePicture()))
 //            }
             // TODO заменить на попап с ошибкой, и анкомментед выше код
-            setState { copy(blockingScreen = null) }
+            //setState { copy(blockingScreen = null) }
             setEffect(CreateAlifeEffect.CreateAlifeFinish())
         }.handleThis(uiStore.getState()) {
             val imageProxy = captureWrapper.takePhoto(contextWrapper.getMainExecutor())
@@ -78,11 +79,11 @@ class CreateAlifePhotoReducer @Inject constructor(
     @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onFinish() {
         if(!coroutineAwaitList.isComplete()) {
-            setState { copy(blockingScreen = LoadBlockingScreenState()) }
+            setState { copy(lceModel = LCELoading) }
             coroutineAwaitList.joinAll(Dispatchers.IO)
         }
 
         setEffect(CreateAlifeEffect.CreateAlifeFinish())
-        setState { copy(blockingScreen = null) }
+        setState { copy(lceModel = LCEContent) }
     }
 }

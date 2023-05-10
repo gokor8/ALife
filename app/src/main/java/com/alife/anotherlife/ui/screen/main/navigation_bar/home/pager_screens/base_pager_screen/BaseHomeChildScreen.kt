@@ -12,14 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.alife.anotherlife.core.composable.modifier.ImeModifier
+import com.alife.anotherlife.core.composable.modifier.SystemPaddingModifier
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildAction
 
 abstract class BaseHomeChildScreen(
     override val navController: NavController,
     private val pagingVisibility: (Boolean) -> Unit
-) : VMScreen<AbstractHomeChildViewModel>(ImeModifier()) {
+) : VMScreen<AbstractHomeChildViewModel>(SystemPaddingModifier) {
 
     override suspend fun onInit() {
         viewModel.reduce(HomeChildAction.OnInit())

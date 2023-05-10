@@ -7,11 +7,12 @@ import androidx.compose.ui.unit.TextUnit
 
 abstract class TitleTextStyle(
     private val fontSize: TextUnit,
-    private val fontWeight: FontWeight
+    private val fontWeight: FontWeight,
+    private val color: Color = Color.Unspecified,
 ) : BaseTextStyle {
 
     override fun style(): TextStyle = TextStyle(
-        color = Color.Unspecified,
+        color = color,
         fontSize = fontSize,
         fontWeight = fontWeight
     )

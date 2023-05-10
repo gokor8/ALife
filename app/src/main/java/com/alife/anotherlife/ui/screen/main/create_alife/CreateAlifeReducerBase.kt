@@ -11,7 +11,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.Reco
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.BaseStartVideoCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.RecordingCaptureState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ErrorCameraScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.LCEErrorCamera
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BasePictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.PictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.BaseVideoScreenState
@@ -43,7 +43,7 @@ class CreateAlifeReducerBase @Inject constructor(
         if (captureWrapper is CookedCaptureWrapper)
             createAlifePhotoReducer.onCaptureWrapper(captureWrapper)
         else
-            setState { copy(blockingScreen = ErrorCameraScreenState()) }
+            setState { copy(lceModel = LCEErrorCamera()) }
     }
 
     override suspend fun onVideoWrapper(captureWrapper: BaseVideoCaptureWrapper) {
@@ -54,7 +54,6 @@ class CreateAlifeReducerBase @Inject constructor(
         contextWrapper: BaseContextMainExecutorWrapper,
         captureWrapper: CookedCaptureWrapper
     ) {
-        // TODO сделать так же как и видео
         val screenState = getState().pagerContainer.picture.screenState
 
         if (screenState is PictureScreenState) {

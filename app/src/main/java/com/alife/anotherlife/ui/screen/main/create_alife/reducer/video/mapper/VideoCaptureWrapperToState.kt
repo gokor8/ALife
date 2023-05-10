@@ -3,15 +3,12 @@ package com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.mapper
 import androidx.camera.video.VideoRecordEvent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.core.util.Consumer
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.callback.CallbackVideoEvent
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.VideoCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.StartVideoCaptureState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.options.BaseFileOutputOptions
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.ErrorCameraScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.LCEErrorCamera
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.BaseCreateAlifeVideoReducer
-import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.CreateAlifeVideoReducer
 import javax.inject.Inject
 
 class VideoCaptureWrapperToState @Inject constructor() : BaseVideoCaptureWrapperToState {
@@ -33,7 +30,7 @@ class VideoCaptureWrapperToState @Inject constructor() : BaseVideoCaptureWrapper
                     )
                 )
             }
-            else -> reducer.setState { copy(blockingScreen = ErrorCameraScreenState()) }
+            else -> reducer.setState { copy(lceModel = LCEErrorCamera()) }
         }
     }
 }

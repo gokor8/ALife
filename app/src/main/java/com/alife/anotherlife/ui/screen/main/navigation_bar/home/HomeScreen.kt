@@ -2,17 +2,13 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -21,18 +17,17 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.brush.verticalPrimaryGradient
-import com.alife.anotherlife.core.composable.modifier.ImeModifier
+import com.alife.anotherlife.core.composable.modifier.SystemPaddingModifier
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.ui.screen.VMScreen
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.model.HomeGradientModifier
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.state.HomeAction
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 
 class HomeScreen(
     override val navController: NavController,
-) : VMScreen<HomeViewModel>(ImeModifier()) {
+) : VMScreen<HomeViewModel>(SystemPaddingModifier) {
 
     @Composable
     override fun setupViewModel(): HomeViewModel = hiltViewModel()

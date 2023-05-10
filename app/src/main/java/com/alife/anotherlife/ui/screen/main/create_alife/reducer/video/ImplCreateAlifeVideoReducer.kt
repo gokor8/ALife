@@ -7,7 +7,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capt
 interface ImplCreateAlifeVideoReducer {
 
     suspend fun onRecordingAction(
-        recordingWrapper: RecordingCaptureState,
+        captureState: RecordingCaptureState,
         recordingAction: RecordingAction
     )
 

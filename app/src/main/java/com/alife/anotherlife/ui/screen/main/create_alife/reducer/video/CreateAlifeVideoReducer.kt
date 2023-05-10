@@ -2,6 +2,7 @@ package com.alife.anotherlife.ui.screen.main.create_alife.reducer.video
 
 import androidx.camera.video.VideoRecordEvent
 import androidx.compose.foundation.ExperimentalFoundationApi
+import com.alife.anotherlife.R
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
@@ -79,23 +80,32 @@ class CreateAlifeVideoReducer @Inject constructor(
             )
         }
     }
-
-
     override fun onStartRecording(event: VideoRecordEvent.Start) {
         countDownTimer.start()
     }
-
     @OptIn(ExperimentalFoundationApi::class)
     override fun onFinalizeRecording(event: VideoRecordEvent.Finalize) {
         countDownTimer.stop()
 
         setState { copy(timerUnit = BaseTimerUnit.Init()) }
 
-        if (event.hasError()) {
-            //setEffect(CreateAlifeEffect.CreateAlifeFinish)
-            // TODO придумать что выводить на ошибку
-        }
+        if (event.hasError())
+            trySetEffect(CreateAlifeEffect.SnackVideoError())
+        else
+            trySetEffect(CreateAlifeEffect.GoBack())
+
         getState().pagerContainer.video.onCallback(this@CreateAlifeVideoReducer)
+    }
+    override suspend fun onRecordingAction(
+        captureState: RecordingCaptureState,
+        recordingAction: RecordingAction
+    ) {
+        execute {
+            setEffect(CreateAlifeEffect.SnackVideoError())
+            setupVideoCaptureState(captureState.videoCapture)
+        }.handle {
+            recordingAction.onRecordingAction(captureState)
+        }
     }
 
     @OptIn(ExperimentalFoundationApi::class)
@@ -107,18 +117,6 @@ class CreateAlifeVideoReducer @Inject constructor(
                     VideoPagerItem.DefaultSizable(captureState)
                 )
             )
-        }
-    }
-
-    override suspend fun onRecordingAction(
-        recordingWrapper: RecordingCaptureState,
-        recordingAction: RecordingAction
-    ) {
-        // TODO обернуть в executor и обработать ошибки
-        execute {
-            // TODO обработать ошибки, вызвать snackbar
-        }.handle {
-            recordingAction.onRecordingAction(recordingWrapper)
         }
     }
 

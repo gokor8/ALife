@@ -3,6 +3,9 @@ package com.alife.anotherlife.ui.screen.main.create_alife.state
 import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
+import com.alife.anotherlife.core.ui.state.lce.LCEContent
+import com.alife.anotherlife.core.ui.state.lce.LCEModel
+import com.alife.anotherlife.core.ui.state.lce.StateLCE
 import com.alife.anotherlife.di.core.IntentModule
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
@@ -22,7 +25,7 @@ import com.alife.core.mvi.MVI
 import javax.inject.Inject
 
 data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) @Inject constructor(
-    val blockingScreen: ScreenState? = null,
+    override val lceModel: LCEModel = LCEContent,
     val pagerState: PagerState = PagerState(0),
     val isAudioEnabled: Boolean = false,
     val timerUnit: BaseTimerUnit = BaseTimerUnit.Init(),
@@ -31,8 +34,8 @@ data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) @Inject con
         Video(LoadVideoScreenState(), VideoPagerItem.InitSizable())
     ),
     @IntentModule.IntentAnnotation.Settings
-    val settingsIntent: Intent?
-) : MVI.State {
+    val settingsIntent: Intent?,
+) : StateLCE {
 
     @OptIn(ExperimentalFoundationApi::class)
     fun currentScreenPager() = pagerContainer.getScreenPagerItem(pagerState.currentPage)
