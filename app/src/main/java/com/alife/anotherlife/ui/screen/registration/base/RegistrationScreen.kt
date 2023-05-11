@@ -62,7 +62,7 @@ abstract class RegistrationScreen(
 
             Button18(
                 onClick = { viewModel.reduce(RegistrationAction.OnContinueClick()) },
-                textResId = R.string.continue_next
+                text= R.string.continue_next
             )
         }
     }

@@ -2,7 +2,7 @@ package com.alife.anotherlife.ui.screen.registration.email_code
 
 import com.alife.anotherlife.core.FakeUIStore
 import com.alife.anotherlife.core.composable.text.code.model.CodeModel
-import com.alife.anotherlife.ui.screen.registration.email_code.reducer.EmailCodeRegReducer
+import com.alife.anotherlife.ui.screen.registration.email_code.reducer.EmailCodeRegReducerBase
 import com.alife.anotherlife.ui.screen.registration.email_code.state.EmailCodeEffect
 import com.alife.anotherlife.ui.screen.registration.email_code.state.EmailCodeState
 import junit.framework.TestCase.assertEquals
@@ -15,11 +15,11 @@ import org.junit.Test
 class TestEmailCodeRegReducer {
 
     private lateinit var fakeUIStore: FakeUIStore<EmailCodeState, EmailCodeEffect>
-    private lateinit var emailCodeRegReducer: EmailCodeRegReducer
+    private lateinit var emailCodeRegReducer: EmailCodeRegReducerBase
 
     private fun setupReducer(emailCodeState: EmailCodeState) {
         fakeUIStore = FakeUIStore(emailCodeState)
-        emailCodeRegReducer = EmailCodeRegReducer(fakeUIStore, 4)
+        emailCodeRegReducer = EmailCodeRegReducerBase(fakeUIStore)
     }
 
     @Test

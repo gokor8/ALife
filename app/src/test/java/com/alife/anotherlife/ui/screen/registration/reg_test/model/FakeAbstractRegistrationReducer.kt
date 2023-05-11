@@ -7,8 +7,14 @@ import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationR
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 
-class FakeAbstractRegistrationReducer(
-    uiStore: UIStore<RegistrationState, RegistrationEffect>,
-    chainValidator: BaseRegTextChain,
-    validationRegReducer: BaseValidationRegReducer
-) : BaseRegistrationReducer.Abstract(uiStore, chainValidator, validationRegReducer)
+// TODO Fix it
+//class FakeAbstractRegistrationReducer(
+//    uiStore: UIStore<RegistrationState, RegistrationEffect>,
+//    chainValidator: BaseRegTextChain,
+//    validationRegReducer: BaseValidationRegReducer
+//) : BaseRegistrationReducer.Abstract(uiStore, chainValidator, validationRegReducer) {
+//
+//    override suspend fun onBackPress() {
+//        // TODO would watch is need fill it
+//    }
+//}

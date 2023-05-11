@@ -13,21 +13,17 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.alife.anotherlife.core.composable.modifier.ImeModifier
-import com.alife.anotherlife.core.ui.screen.DefaultScreen
+import com.alife.anotherlife.core.composable.modifier.SystemPaddingModifier
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.alife.anotherlife.theme.AnotherLifeTheme
-import com.alife.anotherlife.ui.screen.registration.tutorial.childrens.FirstTutorialScreen
-import com.alife.anotherlife.ui.screen.registration.tutorial.childrens.SecondTutorialScreen
-import com.alife.anotherlife.ui.screen.registration.tutorial.childrens.ThirdTutorialScreen
 import com.alife.anotherlife.ui.screen.registration.tutorial.state.TutorialAction
 
 class TutorialScreen(
     override val navController: NavController
-) : VMScreen<TutorialViewModel>(ImeModifier()) {
+) : VMScreen<TutorialViewModel>(SystemPaddingModifier) {
 
     @Composable
     override fun setupViewModel(): TutorialViewModel = hiltViewModel()

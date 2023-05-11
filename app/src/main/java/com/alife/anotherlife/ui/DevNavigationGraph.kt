@@ -7,10 +7,11 @@ import com.alife.anotherlife.core.navigation.NavigationGraph
 import com.alife.anotherlife.ui.example.test.navigation.TestNavBuilder
 import com.alife.anotherlife.ui.example.test.navigation.TestNavRoute
 import com.alife.anotherlife.ui.example.test.screen.TestScreen
-import com.alife.anotherlife.ui.screen.main.main_screen.navigation.MainScreenNavBuilder
-import com.alife.anotherlife.ui.screen.main.main_screen.navigation_bar.home.navigation.HomeNavBuilder
-import com.alife.anotherlife.ui.screen.main.main_screen.navigation_bar.home.pager_screens.friends.navigation.FriendsNavBuilder
-import com.alife.anotherlife.ui.screen.main.main_screen.navigation_bar.home.pager_screens.world.navigation.WorldNavBuilder
+import com.alife.anotherlife.ui.screen.main.create_alife.navigation.CreateAlifeNavBuilder
+import com.alife.anotherlife.ui.screen.main.navigation.MainScreenNavBuilder
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.navigation.HomeNavBuilder
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.friends.navigation.FriendsNavBuilder
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.world.navigation.WorldNavBuilder
 import com.alife.anotherlife.ui.screen.registration.tutorial.navigation.TutorialNavBuilder
 import javax.inject.Inject
 
@@ -30,7 +31,8 @@ class DevNavigationGraph @Inject constructor() : NavigationGraph {
                 MainScreenNavBuilder(navHostController),
                 HomeNavBuilder(navHostController),
                 FriendsNavBuilder(navHostController),
-                WorldNavBuilder(navHostController)
+                WorldNavBuilder(navHostController),
+                CreateAlifeNavBuilder(navHostController)
             ).forEach { it.navComposable(this) }
         }
     }

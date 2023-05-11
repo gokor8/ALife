@@ -2,7 +2,7 @@ package com.alife.anotherlife.ui.screen.registration.name
 
 import androidx.compose.ui.text.input.TextFieldValue
 import com.alife.anotherlife.core.FakeUIStore
-import com.alife.anotherlife.ui.screen.registration.base.reducer.RegistrationReducer
+import com.alife.anotherlife.ui.screen.registration.base.reducer.RegistrationReducerBase
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.base.chain.base.BaseRegTextChain
@@ -10,16 +10,16 @@ import com.alife.anotherlife.ui.screen.registration.base.chain.base.RegChainStat
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationModel
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.name.chain.InputRegTextChain
-import com.alife.anotherlife.ui.screen.registration.name.reducer.NameRegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.reg_test.model.FakeChainNamRegReducer
 import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
 class TestNameRegistrationReducer {
 
     lateinit var uiStore: FakeUIStore<RegistrationState, RegistrationEffect>
-    lateinit var nameReducer: RegistrationReducer
+    lateinit var nameReducer: RegistrationReducerBase
     private lateinit var fakeChainNamRegReducer: FakeChainNamRegReducer
 
     @Before
@@ -32,16 +32,18 @@ class TestNameRegistrationReducer {
         onNextClickRegChainState: RegChainState,
         isValidOnTextInput: Boolean = true,
     ) {
-        nameReducer = NameRegistrationReducer(
-            uiStore,
-            FakeNameChainValidator(onNextClickRegChainState),
-            fakeChainNamRegReducer,
-            FakeInputRegTextChain(isValidOnTextInput)
-        )
+        // TODO need fix
+//        nameReducer = NameRegistrationReducerBase(
+//            uiStore,
+//            FakeNameChainValidator(onNextClickRegChainState),
+//            fakeChainNamRegReducer,
+//            FakeInputRegTextChain(isValidOnTextInput)
+//
+//        )
     }
 
     @Test
-    fun `test textInput + onClick, expect success`() {
+    fun `test textInput + onClick, expect success`() = runTest {
         setupReducer(FakeSuccessNameRegChain())
         val testText = "test text"
 
@@ -60,7 +62,7 @@ class TestNameRegistrationReducer {
     }
 
     @Test
-    fun `test textInput + onClick, expect fail`() {
+    fun `test textInput + onClick, expect fail`() = runTest {
         setupReducer(FakeFailNameRegChain())
         val testText = "test text"
 
@@ -85,7 +87,7 @@ sealed class FakeRegChainState(
     private val isSuccess: Boolean,
 ) : RegChainState {
 
-    override fun onChainResult(reducer: BaseValidationRegReducer) {
+    override suspend fun onChainResult(reducer: BaseValidationRegReducer) {
         if(isSuccess) reducer.onContinue() else reducer.onValidationError(1)
     }
 }
@@ -105,7 +107,7 @@ class FakeNameChainValidator(private val returnState: RegChainState) : BaseRegTe
 
 class FakeNameValidationNameRegReducer : BaseValidationRegReducer {
 
-    override fun onContinue() {}
+    override suspend fun onContinue() {}
 
     override fun onValidationError(errorResId: Int) {}
 }

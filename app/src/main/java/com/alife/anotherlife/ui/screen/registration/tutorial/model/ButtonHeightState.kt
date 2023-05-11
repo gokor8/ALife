@@ -22,7 +22,7 @@ abstract class ButtonHeightState(private val isVisible: Boolean) {
             exit = fadeOut()
         ) {
             Button18(
-                textResId = R.string.continue_next,
+                text = R.string.continue_next,
                 modifier = Modifier.padding(24.dp)
             ) {
                 viewModel.reduce(

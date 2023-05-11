@@ -18,12 +18,6 @@ interface NavigationGraphModule {
     @Binds
     fun bindDevNavigationGraph(navigationGraph: DevNavigationGraph): NavigationGraph
 
-    //@Binds
-    //fun bindMainNavigationGraph(navigationGraph: MainNavigationGraph): NavigationGraph
-
-//    @AssistedFactory
-//    interface NavigationRouteFactory {
-//
-//        fun navRoute(loginNavRoute: LoginNavRoute): NavigationRoute
-//    }
+//    @Binds
+//    fun bindMainNavigationGraph(navigationGraph: MainNavigationGraph): NavigationGraph
 }

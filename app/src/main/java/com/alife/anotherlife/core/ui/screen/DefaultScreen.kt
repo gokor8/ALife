@@ -10,8 +10,9 @@ import com.alife.anotherlife.core.composable.clickableNoRipple
 import com.alife.anotherlife.core.composable.modifier.ModifierProvider
 import com.alife.anotherlife.core.composable.modifier.ScrollableModifier
 
-abstract class DefaultScreen(private val modifier: ModifierProvider = ScrollableModifier()) :
-    Screen {
+abstract class DefaultScreen(
+    private val modifier: ModifierProvider = ScrollableModifier()
+) : Screen {
 
     protected open val backHandle: (() -> Unit)? = null
 

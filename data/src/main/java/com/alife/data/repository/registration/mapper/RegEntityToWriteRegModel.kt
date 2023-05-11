@@ -1,6 +1,6 @@
 package com.alife.data.repository.registration.mapper
 
-import com.alife.data.data_source.model.CacheModel
+import com.alife.data.data_source.cache.shared.model.CacheModel
 import com.alife.data.repository.registration.model.birthday.BirthdayRegWriteModel
 import com.alife.data.repository.registration.model.email.EmailRegWriteModel
 import com.alife.data.repository.registration.model.name.NameRegWriteModel

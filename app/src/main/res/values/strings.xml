@@ -6,12 +6,15 @@
     <string name="horizontal_short_small_logo">Alife</string>
     <string name="horizontal_logo">Another Life</string>
     <string name="continue_next">Continue</string>
+    <string name="cancel">Отмена</string>
+    <string name="agree">Разрешить</string>
 
     // Login
     <string name="pass_login_in">Hi, pass login in</string>
     <string name="authorization_type">Выберите подходящий способ авторизации</string>
     <string name="login_in">Войти</string>
     <string name="registration">Зарегистрироваться</string>
+    <string name="test">Test</string>
 
     //Registration
     <string name="error_empty">Field is Empty</string>
@@ -60,4 +63,16 @@
     <string name="home_friends_be_first">Ваши друзья еще не выкладывали Alife, будьте первыми.</string>
     <string name="home_friends_create_alife">Создайте свой Alife</string>
 
+    // Camera Dialog
+    <string name="dialog_camera_title">Приложению необходим доступ к камере</string>
+    <string name="dialog_camera_description">Для создания Alife \n предоставьте доступ к камере</string>
+
+    // Camera Audio
+    <string name="dialog_audio_title">Приложению необходим доступ к микрофону</string>
+    <string name="dialog_audio_description">Для создания Alife \n предоставьте доступ к микрофону</string>
+
+    // Camera
+    <string name="camera_blocking_error_camera">Предоставьте разрешение на использование Камеры</string>
+    <string name="camera_blocking_error_fatal">Не получилось подключиться к камере</string>
+    <string name="camera_snackbar_video_error">Произошла ошибка во время записи видео</string>
 </resources>

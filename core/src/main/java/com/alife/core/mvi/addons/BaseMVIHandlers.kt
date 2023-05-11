@@ -6,8 +6,7 @@ interface BaseMVIHandlers<STATE : MVI.State, EFFECT : MVI.Effect> {
 
     fun setState(state: STATE.() -> STATE)
     fun setState(state: STATE)
-
-    suspend fun setStateDebounce(delayLong: Long, state: STATE.() -> STATE)
+    suspend fun setSuspendState(state: suspend STATE.() -> STATE)
 
     fun<O> getState(state: STATE.() -> O): O
 

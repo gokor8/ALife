@@ -1,8 +1,8 @@
 package com.alife.data.repository.registration.model
 
 import android.content.SharedPreferences
-import com.alife.data.data_source.model.AbstractCacheModel
-import com.alife.data.data_source.model.CacheModel
+import com.alife.data.data_source.cache.shared.model.AbstractCacheModel
+import com.alife.data.data_source.cache.shared.model.CacheModel
 
 abstract class StringCacheWrite(
     keyCacheModel: CacheModel<String>,

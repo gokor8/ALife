@@ -39,24 +39,11 @@ class MainActivity : ComponentActivity() {
                     val navHostController = rememberNavController()
                     navigationGraph.SetupNavigation(navHostController = navHostController)
                     //DevNavigationGraph().SetupNavigation(navHostController = navHostController)
-//                    MainNavigationGraph(
-//                        LoginNavRoute()
-//                    ).SetupNavigation(navHostController = navHostController)
+                    //MainNavigationGraph(
+                        //LoginNavRoute()
+                    //).SetupNavigation(navHostController = navHostController)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    AnotherLifeTheme {
-        Greeting("Android")
     }
 }

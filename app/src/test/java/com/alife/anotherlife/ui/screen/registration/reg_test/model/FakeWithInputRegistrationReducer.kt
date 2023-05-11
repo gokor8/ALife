@@ -8,11 +8,17 @@ import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffec
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.name.FakeInputRegTextChain
 
-class FakeWithInputRegistrationReducer(
-    uiStore: UIStore<RegistrationState, RegistrationEffect>,
-    chainValidator: BaseRegTextChain,
-    validationRegReducer: BaseValidationRegReducer,
-    inputRegTextChain: FakeInputRegTextChain
-) : BaseRegistrationReducer.WithInputChain(
-    uiStore, chainValidator, validationRegReducer, inputRegTextChain
-)
+// TODO fix it
+//class FakeWithInputRegistrationReducer(
+//    uiStore: UIStore<RegistrationState, RegistrationEffect>,
+//    chainValidator: BaseRegTextChain,
+//    validationRegReducer: BaseValidationRegReducer,
+//    inputRegTextChain: FakeInputRegTextChain
+//) : BaseRegistrationReducer.WithInputChain(
+//    uiStore, chainValidator, validationRegReducer, inputRegTextChain
+//) {
+//
+//    override suspend fun onBackPress() {
+//        TODO("Not yet implemented")
+//    }
+//}

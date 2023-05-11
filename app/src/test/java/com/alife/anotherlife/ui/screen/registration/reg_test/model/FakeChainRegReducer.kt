@@ -6,7 +6,7 @@ class FakeChainNamRegReducer : BaseValidationRegReducer {
 
     var resultContainer: Int = 0
 
-    override fun onContinue() {
+    override suspend fun onContinue() {
         resultContainer = 0
     }
 

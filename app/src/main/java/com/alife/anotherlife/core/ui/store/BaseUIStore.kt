@@ -33,6 +33,10 @@ abstract class BaseUIStore<STATE : MVI.State, EFFECT : MVI.Effect>(
         return state(getState())
     }
 
+    override suspend fun <O> getStateSuspend(state: suspend STATE.() -> O): O {
+        return state(getState())
+    }
+
     override suspend fun setStateDebounce(delayLong: Long, state: STATE.() -> STATE) {
         delay(delayLong)
         stateFlow.value = getState().state()
@@ -44,6 +48,10 @@ abstract class BaseUIStore<STATE : MVI.State, EFFECT : MVI.Effect>(
 
     override fun setState(state: STATE) {
         stateFlow.value = state
+    }
+
+    override suspend fun setSuspendState(state: suspend STATE.() -> STATE) {
+        stateFlow.value = getState().state()
     }
 
     override suspend fun setEffect(effect: EFFECT) {
