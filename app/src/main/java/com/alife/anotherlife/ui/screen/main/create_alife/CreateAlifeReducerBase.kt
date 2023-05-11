@@ -20,6 +20,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.BaseCreat
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
+import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 
 class CreateAlifeReducerBase @Inject constructor(
@@ -51,15 +52,21 @@ class CreateAlifeReducerBase @Inject constructor(
     }
 
     override suspend fun onCreatePhoto(
+        viewModelScope: CoroutineScope,
         contextWrapper: BaseContextMainExecutorWrapper,
         captureWrapper: CookedCaptureWrapper
     ) {
         val screenState = getState().pagerContainer.picture.screenState
 
-        if (screenState is PictureScreenState) {
-            createAlifePhotoReducer.onCreatePhoto(screenState, captureWrapper, contextWrapper)
-        }
+        if (screenState is PictureScreenState)
+            createAlifePhotoReducer.onCreatePhoto(
+                viewModelScope,
+                screenState,
+                captureWrapper,
+                contextWrapper
+            )
     }
+
 
     override suspend fun onStartVideo(
         contextMainExecutorWrapper: BaseContextMainExecutorWrapper,
@@ -69,10 +76,10 @@ class CreateAlifeReducerBase @Inject constructor(
     }
 
     override suspend fun onRecordingAction(
-        recordingWrapper: RecordingCaptureState,
+        captureState: RecordingCaptureState,
         recordingAction: RecordingAction
     ) {
-        createAlifeVideoReducer.onRecordingAction(recordingWrapper, recordingAction)
+        createAlifeVideoReducer.onRecordingAction(captureState, recordingAction)
     }
 
     override suspend fun onPicturePermission(

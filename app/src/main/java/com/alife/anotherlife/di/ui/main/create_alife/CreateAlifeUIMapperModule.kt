@@ -1,6 +1,8 @@
 package com.alife.anotherlife.di.ui.main.create_alife
 
 import androidx.camera.core.ImageProxy
+import com.alife.anotherlife.ui.screen.main.create_alife.mapper.ActionScopedMapper
+import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseActionScopedMapper
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseCameraStateToSaveImage
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.CameraStateToSaveImage
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.image.BaseBitmapRotation
@@ -15,7 +17,6 @@ import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.mapper.Ba
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.mapper.BaseVideoStorageToOptions
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.mapper.VideoCaptureWrapperToState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.mapper.VideoStorageToOptions
-import com.alife.core.mapper.Mapper
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -24,6 +25,9 @@ import dagger.hilt.android.components.ViewModelComponent
 @Module
 @InstallIn(ViewModelComponent::class)
 interface CreateAlifeUIMapperModule {
+
+    @Binds
+    fun bindActionScopedMapper(mapper: ActionScopedMapper): BaseActionScopedMapper
 
     @Binds
     fun bindVideoCaptureWrapperToState(mapper: VideoCaptureWrapperToState): BaseVideoCaptureWrapperToState

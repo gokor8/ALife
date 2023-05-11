@@ -8,6 +8,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.came
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.BaseCameraPermissionReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
+import kotlinx.coroutines.CoroutineScope
 
 interface BaseCreateAlifePhotoReducer : BaseVMReducer<CreateAlifeState, CreateAlifeEffect>,
     BaseCameraPermissionReducer<BasePictureScreenState> {
@@ -15,6 +16,7 @@ interface BaseCreateAlifePhotoReducer : BaseVMReducer<CreateAlifeState, CreateAl
     fun onCaptureWrapper(captureWrapper: CookedCaptureWrapper)
 
     suspend fun onCreatePhoto(
+        viewModelScope: CoroutineScope,
         screenState: PictureScreenState,
         captureWrapper: CookedCaptureWrapper,
         contextWrapper: BaseContextMainExecutorWrapper

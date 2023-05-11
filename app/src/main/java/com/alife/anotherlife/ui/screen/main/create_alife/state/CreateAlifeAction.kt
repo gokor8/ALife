@@ -17,6 +17,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.came
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.BaseVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.BaseCameraPermissionReducer
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import kotlinx.coroutines.CoroutineScope
 
 interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
 
@@ -63,13 +64,22 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
     }
 
     class CreatePhoto(
+        val contextWrapper: BaseContextMainExecutorWrapper,
+        val cookedCaptureWrapper: CookedCaptureWrapper
+    ) : CreateAlifeAction {
+        override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) = Unit
+    }
+
+    class CreatePhotoScoped(
+        private val coroutineScope: CoroutineScope,
         private val contextWrapper: BaseContextMainExecutorWrapper,
         private val cookedCaptureWrapper: CookedCaptureWrapper
     ) : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
-            reducer.onCreatePhoto(contextWrapper, cookedCaptureWrapper)
+            reducer.onCreatePhoto(coroutineScope, contextWrapper, cookedCaptureWrapper)
         }
     }
+
 
     class ClickSmallVideo : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {

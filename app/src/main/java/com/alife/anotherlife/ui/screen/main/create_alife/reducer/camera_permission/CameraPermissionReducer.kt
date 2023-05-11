@@ -7,7 +7,6 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.contai
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 abstract class CameraPermissionReducer<S : ScreenState>(
     override val uiStore: UIStore<CreateAlifeState, CreateAlifeEffect>

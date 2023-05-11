@@ -2,7 +2,6 @@ package com.alife.anotherlife.di.core
 
 import com.alife.domain.core.coroutine_await_list.BaseCoroutineAwaitList
 import com.alife.domain.core.coroutine_await_list.CoroutineAwaitList
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

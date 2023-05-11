@@ -16,7 +16,9 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 import com.alife.domain.core.coroutine_await_list.BaseCoroutineAwaitList
 import com.alife.domain.main.create_alife.picture.BaseSaveAlifeUseCase
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class CreateAlifePhotoReducer @Inject constructor(
@@ -46,6 +48,7 @@ class CreateAlifePhotoReducer @Inject constructor(
 
     @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onCreatePhoto(
+        viewModelScope: CoroutineScope,
         screenState: PictureScreenState,
         captureWrapper: CookedCaptureWrapper,
         contextWrapper: BaseContextMainExecutorWrapper
@@ -64,7 +67,8 @@ class CreateAlifePhotoReducer @Inject constructor(
         }.handleThis(uiStore.getState()) {
             val imageProxy = captureWrapper.takePhoto(contextWrapper.getMainExecutor())
 
-            coroutineAwaitList.addAndLaunch(Dispatchers.IO) {
+            coroutineAwaitList.addAndLaunch(viewModelScope, Dispatchers.Default) {
+                delay(5000L)
                 val imageBytes = imageProxyToByteArray.map(imageProxy)
 
                 val saveImageEntity = cameraStateToSaveImage.map(screenState, imageBytes)
