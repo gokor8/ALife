@@ -2,17 +2,18 @@ package com.alife.domain.core.coroutine_await_list
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlin.coroutines.CoroutineContext
 
 interface BaseCoroutineAwaitList {
 
     suspend fun addAndLaunch(
         scope: CoroutineScope,
-        dispatcher: CoroutineDispatcher,
+        coroutineContext: CoroutineContext,
         block: suspend CoroutineScope.() -> Unit
     )
 
     suspend fun addAndLaunch(
-        dispatcher: CoroutineDispatcher,
+        coroutineContext: CoroutineContext,
         block: suspend CoroutineScope.() -> Unit
     )
 

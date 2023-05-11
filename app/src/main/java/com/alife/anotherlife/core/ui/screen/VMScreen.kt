@@ -24,12 +24,12 @@ abstract class VMScreen<VM : AbstractViewModel<*, *, *>>(
     @Composable
     override fun SetupContent() {
         viewModel = setupViewModel()
-        SetupEffect()
+        SetupLaunchEffect()
         super.SetupContent()
     }
 
     @Composable
-    fun SetupEffect() {
+    open fun SetupLaunchEffect() {
         LaunchedEffect(Unit) {
             onInit()
             viewModel.collectEffect(navController)

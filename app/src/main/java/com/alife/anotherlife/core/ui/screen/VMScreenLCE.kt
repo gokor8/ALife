@@ -16,7 +16,7 @@ abstract class VMScreenLCE<VM : ViewModelLCE<*, *, *, *>>(
     @Composable
     override fun SetupContent() {
         viewModel = setupViewModel()
-        SetupEffect()
+        SetupLaunchEffect()
         super.SetupContent()
     }
 

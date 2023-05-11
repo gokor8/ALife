@@ -16,6 +16,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 import com.alife.domain.core.coroutine_await_list.BaseCoroutineAwaitList
 import com.alife.domain.main.create_alife.picture.BaseSaveAlifeUseCase
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -57,19 +58,21 @@ class CreateAlifePhotoReducer @Inject constructor(
             copy(pagerContainer = pagerContainer.changePicture(PicturePagerItem.OnPictureTaking()))
         }
 
-        execute {
+        executeExceptionHandler {
 //            setState { TODO нужно ли это мне оставить?
 //                copy(pagerContainer = pagerContainer.changePicture(PicturePagerItem.DefaultTakePicture()))
 //            }
             // TODO заменить на попап с ошибкой, и анкомментед выше код
             //setState { copy(blockingScreen = null) }
-            setEffect(CreateAlifeEffect.CreateAlifeFinish())
-        }.handleThis(uiStore.getState()) {
+            trySetEffect(CreateAlifeEffect.CreateAlifeFinish())
+        }.handleThis(uiStore.getState()) { exHandler ->
             val imageProxy = captureWrapper.takePhoto(contextWrapper.getMainExecutor())
 
-            coroutineAwaitList.addAndLaunch(viewModelScope, Dispatchers.Default) {
-                delay(5000L)
-                val imageBytes = imageProxyToByteArray.map(imageProxy)
+            coroutineAwaitList.addAndLaunch(viewModelScope, exHandler + Dispatchers.Default) {
+                val imageBytes = imageProxyToByteArray.map(
+                    imageProxy.planes[0].buffer,
+                    imageProxy.imageInfo.rotationDegrees.toFloat()
+                )
 
                 val saveImageEntity = cameraStateToSaveImage.map(screenState, imageBytes)
 
@@ -82,7 +85,7 @@ class CreateAlifePhotoReducer @Inject constructor(
 
     @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onFinish() {
-        if(!coroutineAwaitList.isComplete()) {
+        if (!coroutineAwaitList.isComplete()) {
             setState { copy(lceModel = LCELoading) }
             coroutineAwaitList.joinAll(Dispatchers.IO)
         }

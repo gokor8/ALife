@@ -1,10 +1,11 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.mapper.image
 
-import androidx.camera.core.ImageProxy
-import com.alife.core.mapper.Mapper
+import java.nio.ByteBuffer
 import javax.inject.Inject
 
-interface BaseImageProxyToBytes : Mapper<ImageProxy, ByteArray>
+interface BaseImageProxyToBytes {
+    fun map(imageBuffer: ByteBuffer, rotationDegrees: Float): ByteArray
+}
 
 class ImageProxyToBytes @Inject constructor(
     private val imageProxyToBitmap: BaseImageProxyToBitmap,
@@ -12,13 +13,10 @@ class ImageProxyToBytes @Inject constructor(
     private val bitmapToByteArray: BaseBitmapToByteArray
 ) : BaseImageProxyToBytes {
 
-    override fun map(inputModel: ImageProxy): ByteArray {
-        val bitmap = imageProxyToBitmap.map(inputModel.planes[0].buffer)
+    override fun map(imageBuffer: ByteBuffer, rotationDegrees: Float): ByteArray {
+        val bitmap = imageProxyToBitmap.map(imageBuffer)
 
-        val rotatedBitmap = bitmapRotation.rotate(
-            inputModel.imageInfo.rotationDegrees.toFloat(),
-            bitmap
-        )
+        val rotatedBitmap = bitmapRotation.rotate(rotationDegrees, bitmap)
 
         return bitmapToByteArray.map(rotatedBitmap)
     }

@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alife.anotherlife.core.composable.modifier.OnlyImeModifier
-import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.core.ui.screen.VMScreenLCE
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraActionsComposable
 

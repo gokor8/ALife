@@ -7,6 +7,8 @@ import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
 
 class CoroutineAwaitList @Inject constructor(
     vararg job: Job
@@ -14,15 +16,15 @@ class CoroutineAwaitList @Inject constructor(
 
     override suspend fun addAndLaunch(
         scope: CoroutineScope,
-        dispatcher: CoroutineDispatcher,
+        coroutineContext: CoroutineContext,
         block: suspend CoroutineScope.() -> Unit
-    ) { add(scope.launch(block = block)) }
+    ) { add(scope.launch(coroutineContext, block = block)) }
 
     override suspend fun addAndLaunch(
-        dispatcher: CoroutineDispatcher,
+        coroutineContext: CoroutineContext,
         block: suspend CoroutineScope.() -> Unit
     ) {
-        withContext(dispatcher) { add(launch(block = block)) }
+        withContext(coroutineContext) { add(launch(block = block)) }
     }
 
     override fun isComplete(): Boolean = all { it.isCompleted }

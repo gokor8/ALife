@@ -14,6 +14,7 @@ class CoroutineHandlerBuilder<M> : BaseCoroutineHandlerBuilder<M> {
 //        return CoroutineHandler { exception -> mapper.map(exception) }
 //    }
 
+
     override suspend fun <I> onException(
         model: I,
         action: suspend (I, Exception) -> M

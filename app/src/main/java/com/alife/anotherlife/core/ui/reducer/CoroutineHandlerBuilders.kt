@@ -12,6 +12,10 @@ interface CoroutineHandlerBuilders {
 
     suspend fun executeUnit(): CoroutineHandlerBuilder<Unit>
 
+    suspend fun executeExceptionHandler(
+        onException: (Exception) -> Unit
+    ): CoroutineExceptionHandler
+
     suspend fun <M> execute(onException: suspend (Exception) -> M): CoroutineHandler<M>
 
     suspend fun <M> execute(exceptionMapper: Mapper<Exception, M>): CoroutineHandler<M>
@@ -39,6 +43,12 @@ interface CoroutineHandlerBuilders {
 
         override suspend fun executeUnit(): CoroutineHandlerBuilder<Unit> {
             return CoroutineHandlerBuilder()
+        }
+
+        override suspend fun executeExceptionHandler(
+            onException: (Exception) -> Unit
+        ): CoroutineExceptionHandler {
+            return CoroutineExceptionHandler(onException)
         }
 
         override suspend fun <M> execute(onException: suspend (Exception) -> M): CoroutineHandler<M> {

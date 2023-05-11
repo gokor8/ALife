@@ -17,6 +17,12 @@ abstract class HandlerBaseVMReducer<STATE : MVI.State, EFFECT : MVI.Effect>(
         return coroutineHandlerBuilder.executeUnit()
     }
 
+    override suspend fun executeExceptionHandler(
+        onException: (Exception) -> Unit
+    ): CoroutineExceptionHandler {
+        return coroutineHandlerBuilder.executeExceptionHandler(onException)
+    }
+
     override suspend fun <M> execute(onException: suspend (Exception) -> M): CoroutineHandler<M> {
         return coroutineHandlerBuilder.execute(onException)
     }
