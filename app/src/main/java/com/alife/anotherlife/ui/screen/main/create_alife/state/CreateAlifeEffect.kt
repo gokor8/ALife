@@ -3,12 +3,15 @@ package com.alife.anotherlife.ui.screen.main.create_alife.state
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.ui.Modifier
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.navigation.NavigationWrapper
+import com.alife.anotherlife.core.ui.dialog.AbstractAlertDialog
+import com.alife.anotherlife.core.ui.dialog.DefaultDialog
+import com.alife.anotherlife.core.ui.text.TextWrapper
 import com.alife.core.mvi.MVI
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
 
 interface CreateAlifeEffect : MVI.Effect {
 
@@ -16,19 +19,22 @@ interface CreateAlifeEffect : MVI.Effect {
 
     class GoBack : CreateAlifeEffect, NavigationWrapper.Back()
 
-    abstract class SnackBarError(
-        @StringRes private val text: Int
-    ) : CreateAlifeEffect {
-        fun showSnackbar(snackbarHostState: SnackbarHostState) {
-            //snackbarHostState.showSnackbar()
-        }
+    interface BaseSnackBarError : CreateAlifeEffect {
+        suspend fun showSnackBar(snackBarVisibility: MutableState<BaseSnackBarError>) = Unit
+
+        @Composable
+        fun ShowSnackBar(modifier: Modifier) = Unit
     }
 
-    class SnackVideoError : SnackBarError(text = R.string.camera_snackbar_video_error)
+    class PictureDialogErrorEffect : AbstractDialogErrorEffect(
+        R.string.camera_snackbar_photo_error,
+        R.string.camera_snackbar_camera_description_error
+    )
 
-    class DefaultSnackError(
-        @StringRes private val text: Int
-    ) : SnackBarError(text)
+    class VideoDialogErrorEffect : AbstractDialogErrorEffect(
+        R.string.camera_snackbar_video_error,
+        R.string.camera_snackbar_camera_description_error
+    )
 
     @OptIn(ExperimentalFoundationApi::class)
     class VideoToMainPage(

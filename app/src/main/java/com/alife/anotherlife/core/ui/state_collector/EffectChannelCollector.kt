@@ -20,4 +20,8 @@ class EffectChannelCollector<EFFECT : MVI.Effect> @Inject constructor(
             onEffectCollect.onEffect(navController, effect)
         }.collect()
     }
+
+    override suspend fun collect(onEffectCollect: suspend ( EFFECT) -> Unit) {
+        effectChannel.receiveAsFlow().onEach { onEffectCollect(it) }.collect()
+    }
 }

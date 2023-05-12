@@ -12,6 +12,9 @@ import androidx.navigation.NavController
 import com.alife.anotherlife.core.composable.modifier.OnlyImeModifier
 import com.alife.anotherlife.core.ui.screen.VMScreenLCE
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraActionsComposable
+import com.alife.anotherlife.ui.screen.main.create_alife.state.AbstractDialogErrorEffect
+import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
+import com.alife.anotherlife.ui.screen.main.create_alife.state.EmptySnackError
 
 class CreateAlifeScreen(
     override val navController: NavController,
@@ -36,6 +39,25 @@ class CreateAlifeScreen(
                 pagerItems = state.pagerContainer.getPagerItems(),
                 viewModel = viewModel,
                 modifier = modifier.align(Alignment.BottomCenter)
+            )
+
+            val snackBarEffect = remember {
+                mutableStateOf<CreateAlifeEffect.BaseSnackBarError>(EmptySnackError())
+            }
+
+            var dialogError by remember { mutableStateOf<AbstractDialogErrorEffect?>(null) }
+
+            LaunchedEffect(Unit) {
+                viewModel.collectEffect(
+                    onSnackBarEffect = { effect -> effect.showSnackBar(snackBarEffect) },
+                    onDialogError = { effect -> dialogError = effect }
+                )
+            }
+
+            dialogError?.DialogErrorContent()
+
+            snackBarEffect.value.ShowSnackBar(
+                Modifier.navigationBarsPadding().align(Alignment.BottomCenter)
             )
         }
     }

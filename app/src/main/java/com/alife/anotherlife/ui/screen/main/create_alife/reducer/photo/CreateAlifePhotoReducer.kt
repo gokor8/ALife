@@ -59,12 +59,18 @@ class CreateAlifePhotoReducer @Inject constructor(
         }
 
         executeExceptionHandler {
-//            setState { TODO нужно ли это мне оставить?
-//                copy(pagerContainer = pagerContainer.changePicture(PicturePagerItem.DefaultTakePicture()))
+//            setState {
+//                copy(
+//                    pagerContainer = pagerContainer.changePicture(
+//                        PicturePagerItem.DefaultTakePicture()
+//                    )
+//                )
 //            }
-            // TODO заменить на попап с ошибкой, и анкомментед выше код
-            //setState { copy(blockingScreen = null) }
-            trySetEffect(CreateAlifeEffect.CreateAlifeFinish())
+            // TODO протестить с delay(5000) и выходом из прилки во время фото
+
+            trySetEffect(CreateAlifeEffect.PictureDialogErrorEffect())
+
+            //trySetEffect(CreateAlifeEffect.CreateAlifeFinish())
         }.handleThis(uiStore.getState()) { exHandler ->
             val imageProxy = captureWrapper.takePhoto(contextWrapper.getMainExecutor())
 

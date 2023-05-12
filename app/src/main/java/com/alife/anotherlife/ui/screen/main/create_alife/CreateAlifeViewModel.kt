@@ -11,6 +11,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseActionScoped
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.base.BaseCameraSetupFactory
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.state.AbstractDialogErrorEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
@@ -42,5 +43,17 @@ class CreateAlifeViewModel @Inject constructor(
 
     override fun audioBoxReduce(permissionStatus: PermissionStatus) {
         reduce(CreateAlifeAction.AudioPermission(permissionStatus))
+    }
+
+    suspend fun collectEffect(
+        onSnackBarEffect: suspend (CreateAlifeEffect.BaseSnackBarError) -> Unit,
+        onDialogError: suspend (AbstractDialogErrorEffect) -> Unit
+    ) {
+        reducerVM.getEffectCollector().collect { effect ->
+            when(effect) {
+                is CreateAlifeEffect.BaseSnackBarError -> onSnackBarEffect(effect)
+                is AbstractDialogErrorEffect -> onDialogError(effect)
+            }
+        }
     }
 }

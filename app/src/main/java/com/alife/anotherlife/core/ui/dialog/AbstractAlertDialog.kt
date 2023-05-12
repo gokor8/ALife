@@ -10,6 +10,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.addons.Line
 import com.alife.anotherlife.core.composable.icon.IconBase
 import com.alife.anotherlife.core.composable.text.TextBase
@@ -25,9 +26,7 @@ abstract class AbstractAlertDialog(
 ) {
 
     @Composable
-    fun ShowDialog(
-        onDismiss: () -> Unit,
-    ) {
+    fun ShowDialog(onDismiss: () -> Unit) {
         Dialog(onDismissRequest = onDismiss) {
             Surface(modifier = Modifier.clip(Shapes.large)) {
                 Column(

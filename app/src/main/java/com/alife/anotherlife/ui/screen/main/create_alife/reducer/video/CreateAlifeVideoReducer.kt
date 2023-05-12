@@ -27,6 +27,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.model.Swi
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.model.VideoCaptureCallback
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
+import com.alife.anotherlife.ui.screen.main.create_alife.state.SnackVideoError
 import com.alife.domain.main.create_alife.video.BaseVideoStorageAlifeUseCase
 import javax.inject.Inject
 
@@ -90,7 +91,7 @@ class CreateAlifeVideoReducer @Inject constructor(
         setState { copy(timerUnit = BaseTimerUnit.Init()) }
 
         if (event.hasError())
-            trySetEffect(CreateAlifeEffect.SnackVideoError())
+            trySetEffect(SnackVideoError())
         else
             trySetEffect(CreateAlifeEffect.GoBack())
 
@@ -101,7 +102,8 @@ class CreateAlifeVideoReducer @Inject constructor(
         recordingAction: RecordingAction
     ) {
         execute {
-            setEffect(CreateAlifeEffect.SnackVideoError())
+            // TODO check
+            trySetEffect(CreateAlifeEffect.VideoDialogErrorEffect())
             setupVideoCaptureState(captureState.videoCapture)
         }.handle {
             recordingAction.onRecordingAction(captureState)
