@@ -9,6 +9,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseCameraStateT
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.image.BaseImageProxyToBytes
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ErrorPermissionScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BasePictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.PictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.CameraPermissionReducer
@@ -72,8 +73,10 @@ class CreateAlifePhotoReducer @Inject constructor(
 
             //trySetEffect(CreateAlifeEffect.CreateAlifeFinish())
         }.handleThis(uiStore.getState()) { exHandler ->
+            delay(3000L)
             val imageProxy = captureWrapper.takePhoto(contextWrapper.getMainExecutor())
 
+            delay(3000L)
             coroutineAwaitList.addAndLaunch(viewModelScope, exHandler + Dispatchers.Default) {
                 val imageBytes = imageProxyToByteArray.map(
                     imageProxy.planes[0].buffer,
@@ -98,5 +101,17 @@ class CreateAlifePhotoReducer @Inject constructor(
 
         setEffect(CreateAlifeEffect.CreateAlifeFinish())
         setState { copy(lceModel = LCEContent) }
+    }
+
+    @OptIn(ExperimentalFoundationApi::class)
+    override suspend fun onPermissionFatal() {
+        setState {
+            copy(
+                pagerContainer = pagerContainer.picture.copyContainer(
+                    pagerContainer,
+                    ErrorPermissionScreenState()
+                )
+            )
+        }
     }
 }

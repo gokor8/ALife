@@ -2,12 +2,13 @@ package com.alife.anotherlife.core.ui.permission
 
 import androidx.compose.runtime.*
 import com.alife.anotherlife.core.ui.dialog.AbstractDialog
+import com.alife.anotherlife.core.ui.permission.strategy.PermissionStrategy
 import com.google.accompanist.permissions.*
 
 abstract class AbstractPermission(
     private val permission: String,
     private val permissionStrategy: PermissionStrategy,
-    protected val alertDialog: AbstractDialog,
+    protected val failDialog: AbstractDialog,
 ) : BasePermission {
 
     @OptIn(ExperimentalPermissionsApi::class)
@@ -49,7 +50,7 @@ abstract class AbstractPermission(
         permissionStatus: PermissionStatus,
         onPermission: (PermissionStatus) -> Unit
     ) {
-        alertDialog.ShowDialog(
+        failDialog.ShowDialog(
             permissionStatus is PermissionStatus.Fail,
             onAgree = { permissionState.launchPermissionRequest() },
             onDismiss = { onPermission(PermissionStatus.Fatal()) }

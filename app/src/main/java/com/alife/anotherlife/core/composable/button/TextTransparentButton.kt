@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.ui.text.TextWrapper
 import com.alife.anotherlife.theme.Shapes
@@ -25,6 +26,7 @@ fun TextTransparentButton(
     elevation: ButtonElevation? = null,
     shape: Shape = ButtonDefaults.shape,
     border: BorderStroke? = null,
+    textAlign: TextAlign? = null,
     colors: ButtonColors = ButtonDefaults.buttonColors(
         containerColor = Color.Transparent,
         contentColor = LocalContentColor.current,
@@ -45,7 +47,7 @@ fun TextTransparentButton(
         contentPadding = contentPadding,
         modifier = modifier,
     ) {
-        TextBase(textResId = textResId, style = textStyle)
+        TextBase(textResId = textResId, textAlign = textAlign, style = textStyle)
     }
 }
 

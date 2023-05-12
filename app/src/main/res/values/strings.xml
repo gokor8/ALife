@@ -8,6 +8,11 @@
     <string name="continue_next">Continue</string>
     <string name="cancel">Отмена</string>
     <string name="agree">Разрешить</string>
+    <string name="repeat">Повторить</string>
+
+    // Dialog
+    <string name="permission_dialog_description">Предоставьте ваше разрешние через настройки</string>
+    <string name="permission_dialog_button_error">в Настройки</string>
 
     // Login
     <string name="pass_login_in">Hi, pass login in</string>

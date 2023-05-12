@@ -7,22 +7,24 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.alife.anotherlife.core.composable.text.style.Bold16TextStyle
 
 @Composable
-fun TransparentStrokeButton(
+fun BorderButton(
     @StringRes textResId: Int,
-    onClick: () -> Unit
+    modifier: Modifier = Modifier,
+    textStyle: TextStyle = Bold16TextStyle().style(),
+    contentPadding: PaddingValues = PaddingValues(vertical = 12.dp),
+    onClick: () -> Unit,
 ) {
     TextTransparentButton(
         textResId = textResId,
-        textStyle = Bold16TextStyle().style(),
+        textStyle = textStyle,
         border = BorderStroke(1.dp, Color.Black),
-        contentPadding = PaddingValues(vertical = 12.dp),
-        textAlign = TextAlign.Center,
+        contentPadding = contentPadding,
         onClick = onClick,
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     )
 }

@@ -2,7 +2,6 @@ package com.alife.anotherlife.ui.screen.main.create_alife.reducer.video
 
 import androidx.camera.video.VideoRecordEvent
 import androidx.compose.foundation.ExperimentalFoundationApi
-import com.alife.anotherlife.R
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
@@ -12,22 +11,19 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.mapper.BaseVideoCaptureWrapperToState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.BaseStartVideoCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.RecordingCaptureState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.RecordingPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ErrorPermissionScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.BaseVideoScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.DefaultVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.timer.BaseTimerUnit
 import com.alife.anotherlife.ui.screen.main.create_alife.model.timer.CreateAlifeCountDownTimer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.timer.CreateAlifeVideoTimer
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.CameraPermissionReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.mapper.BaseVideoStorageToOptions
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.model.BaseVideoCaptureBuilderFactory
-import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.model.SwitchVideoCameraCallback
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.model.VideoCaptureCallback
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
-import com.alife.anotherlife.ui.screen.main.create_alife.state.SnackVideoError
 import com.alife.domain.main.create_alife.video.BaseVideoStorageAlifeUseCase
 import javax.inject.Inject
 
@@ -91,7 +87,7 @@ class CreateAlifeVideoReducer @Inject constructor(
         setState { copy(timerUnit = BaseTimerUnit.Init()) }
 
         if (event.hasError())
-            trySetEffect(SnackVideoError())
+            trySetEffect(CreateAlifeEffect.SnackVideoError())
         else
             trySetEffect(CreateAlifeEffect.GoBack())
 
@@ -130,6 +126,18 @@ class CreateAlifeVideoReducer @Inject constructor(
                 getState().pagerContainer.getVideoIndex()
             )
         )
+    }
+
+    @OptIn(ExperimentalFoundationApi::class)
+    override suspend fun onPermissionFatal() {
+        setState {
+            copy(
+                pagerContainer = pagerContainer.picture.copyContainer(
+                    pagerContainer,
+                    ErrorPermissionScreenState()
+                )
+            )
+        }
     }
 
     @OptIn(ExperimentalFoundationApi::class)

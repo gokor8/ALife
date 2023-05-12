@@ -7,11 +7,17 @@ import com.alife.anotherlife.core.ui.text.TextWrapper
 class DefaultDialog(
     title: TextWrapper,
     description: TextWrapper,
+    dialogButtonStrategy: DialogButtonStrategy,
     icon: Int = R.drawable.ic_base_error,
-) : AbstractAlertDialog(icon, title, description) {
+) : AbstractDialog(icon, title, description, dialogButtonStrategy) {
 
     constructor(
         @StringRes title: Int,
-        @StringRes description: Int
-    ) : this(TextWrapper.ResWrapper(title), TextWrapper.ResWrapper(description))
+        @StringRes description: Int,
+        dialogButtonStrategy: DialogButtonStrategy
+    ) : this(
+        TextWrapper.ResWrapper(title),
+        TextWrapper.ResWrapper(description),
+        dialogButtonStrategy
+    )
 }

@@ -19,7 +19,7 @@ class LCEErrorCamera : LCEModel {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 30.dp),
+                .padding(horizontal = 60.dp),
             Alignment.Center
         ) {
             TextBase(

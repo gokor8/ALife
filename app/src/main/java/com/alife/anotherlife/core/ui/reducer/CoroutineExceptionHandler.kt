@@ -11,7 +11,7 @@ class CoroutineExceptionHandler(
 
     suspend fun handle(action: suspend (CoroutineExceptionHandler) -> Unit) {
         TryCatcher<Unit>().tryCatch(onException) {
-            val ceh = CoroutineExceptionHandler { coroutineContext, throwable ->
+            val ceh = CoroutineExceptionHandler { _, throwable ->
                 if (throwable is Exception) {
                     onException(throwable)
                 }

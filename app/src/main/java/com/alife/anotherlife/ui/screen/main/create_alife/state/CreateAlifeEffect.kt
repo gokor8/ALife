@@ -3,14 +3,8 @@ package com.alife.anotherlife.ui.screen.main.create_alife.state
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.ui.Modifier
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.navigation.NavigationWrapper
-import com.alife.anotherlife.core.ui.dialog.AbstractAlertDialog
-import com.alife.anotherlife.core.ui.dialog.DefaultDialog
-import com.alife.anotherlife.core.ui.text.TextWrapper
 import com.alife.core.mvi.MVI
 
 interface CreateAlifeEffect : MVI.Effect {
@@ -19,12 +13,11 @@ interface CreateAlifeEffect : MVI.Effect {
 
     class GoBack : CreateAlifeEffect, NavigationWrapper.Back()
 
-    interface BaseSnackBarError : CreateAlifeEffect {
-        suspend fun showSnackBar(snackBarVisibility: MutableState<BaseSnackBarError>) = Unit
+    class SnackVideoError : BaseSnackBarEffect.Abstract(R.string.camera_snackbar_video_error)
 
-        @Composable
-        fun ShowSnackBar(modifier: Modifier) = Unit
-    }
+    class DefaultSnackError(@StringRes text: Int) : BaseSnackBarEffect.Abstract(text)
+
+    class EmptySnackError : BaseSnackBarEffect
 
     class PictureDialogErrorEffect : AbstractDialogErrorEffect(
         R.string.camera_snackbar_photo_error,

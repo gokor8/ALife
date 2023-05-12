@@ -1,9 +1,10 @@
-package com.alife.anotherlife.core.ui.permission
+package com.alife.anotherlife.core.ui.permission.strategy
 
 import android.app.Activity
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.rememberPermissionState
@@ -15,7 +16,7 @@ interface PermissionStrategy {
     fun rememberPermission(permission: String, onPermission: (PermissionStatus) -> Unit): PermissionState
 
 
-    class GoogleRecommend : PermissionStrategy {
+    class GoogleRecommend(private val strategyMapper: BaseStrategyMapper) : PermissionStrategy {
 
         @ExperimentalPermissionsApi
         @Composable
@@ -27,17 +28,11 @@ interface PermissionStrategy {
 
             return rememberPermissionState(permission) { isGranted ->
                 Log.d("Permission status ${this.javaClass.simpleName}", "$isGranted")
-                val activity = context as? Activity
-
-                val permissionStatus = when {
-                    isGranted -> PermissionStatus.Success()
-                    activity?.shouldShowRequestPermissionRationale(permission) == true -> {
-                        PermissionStatus.Fail()
-                    }
-                    else -> PermissionStatus.Fatal()
+                val shouldFailShow = (context as? Activity)?.run {
+                    shouldShowRequestPermissionRationale(permission)
                 }
 
-                onPermission(permissionStatus)
+                onPermission(strategyMapper.map(isGranted, shouldFailShow == true))
             }
         }
     }

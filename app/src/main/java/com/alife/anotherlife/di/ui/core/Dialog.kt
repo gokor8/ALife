@@ -1,9 +1,8 @@
 package com.alife.anotherlife.di.ui.core
 
-import com.alife.anotherlife.core.ui.dialog.AbstractAlertDialog
 import com.alife.anotherlife.core.ui.dialog.AbstractDialog
+import com.alife.anotherlife.core.ui.dialog.SettingsDialog
 import com.alife.anotherlife.core.ui.dialog.audio.AudioDialog
-import com.alife.anotherlife.core.ui.dialog.camera.CameraAlertDialog
 import com.alife.anotherlife.core.ui.dialog.camera.CameraDialog
 import dagger.Binds
 import dagger.Module
@@ -15,8 +14,8 @@ import dagger.hilt.android.components.ViewModelComponent
 interface Dialog {
 
     @Binds
-    @DialogAnnotation.Camera
-    fun bindCameraDialogWrapper(dialog: CameraDialog): AbstractDialog
+    @DialogAnnotation.SettingsAudio
+    fun bindSettingsAudioDialog(dialog: SettingsDialog.Audio): AbstractDialog
 
     @Binds
     @DialogAnnotation.Audio
@@ -24,5 +23,5 @@ interface Dialog {
 
     @Binds
     @DialogAnnotation.Camera
-    fun bindCameraAlertDialogWrapper(dialog: CameraAlertDialog): AbstractAlertDialog
+    fun bindCameraDialogWrapper(dialog: CameraDialog): AbstractDialog
 }
