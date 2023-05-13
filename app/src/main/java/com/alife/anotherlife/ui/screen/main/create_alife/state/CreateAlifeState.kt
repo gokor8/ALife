@@ -1,10 +1,12 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.state
 
+import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
 import com.alife.anotherlife.core.ui.state.lce.LCEContent
 import com.alife.anotherlife.core.ui.state.lce.LCEModel
 import com.alife.anotherlife.core.ui.state.lce.StateLCE
+import com.alife.anotherlife.di.core.IntentModule
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
@@ -22,7 +24,9 @@ data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) constructor
     val pagerContainer: ScreenPagerContainer = ScreenPagerContainer(
         Picture(LoadPictureScreenState(), PicturePagerItem.InitTakePicture()),
         Video(LoadVideoScreenState(), VideoPagerItem.InitSizable())
-    )
+    ),
+    @IntentModule.IntentAnnotation.Settings
+    val settingsIntent: Intent
 ) : StateLCE {
 
     @OptIn(ExperimentalFoundationApi::class)

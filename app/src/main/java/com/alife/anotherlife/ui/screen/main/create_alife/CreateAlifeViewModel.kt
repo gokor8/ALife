@@ -29,8 +29,6 @@ class CreateAlifeViewModel @Inject constructor(
     val audioPermission: AudioPermission,
     val imageSetupFactory: BaseCameraSetupFactory<BaseCaptureWrapper>,
     val videoSetupFactory: BaseCameraSetupFactory<BaseVideoCaptureWrapper>,
-    @IntentModule.IntentAnnotation.Settings
-    val settingsIntent: Intent
 ) : ViewModelLCE<BaseCreateAlifeReducerBase, CreateAlifeAction, CreateAlifeState, CreateAlifeEffect>(
     reducer
 ), AudioPermissionContract {

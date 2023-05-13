@@ -15,6 +15,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ErrorPermissionScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.BaseVideoScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.VideoErrorPermissionScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.timer.BaseTimerUnit
 import com.alife.anotherlife.ui.screen.main.create_alife.model.timer.CreateAlifeCountDownTimer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.timer.CreateAlifeVideoTimer
@@ -132,9 +133,9 @@ class CreateAlifeVideoReducer @Inject constructor(
     override suspend fun onPermissionFatal() {
         setState {
             copy(
-                pagerContainer = pagerContainer.picture.copyContainer(
+                pagerContainer = pagerContainer.video.copyContainer(
                     pagerContainer,
-                    ErrorPermissionScreenState()
+                    VideoErrorPermissionScreenState()
                 )
             )
         }

@@ -58,7 +58,7 @@ class CreateAlifeScreen(
             }
 
             dialogError?.DialogErrorContent {
-                context.startActivity(viewModel.settingsIntent)
+                context.startActivity(state.settingsIntent)
             }
 
             snackBarEffect.value.ShowSnackBar(

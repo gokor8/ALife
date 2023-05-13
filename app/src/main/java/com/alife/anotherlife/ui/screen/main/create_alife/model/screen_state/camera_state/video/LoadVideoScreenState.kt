@@ -8,7 +8,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.Load
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
-class LoadVideoScreenState : LoadScreenState(), BaseVideoScreenState {
+class LoadVideoScreenState : LoadScreenState, BaseVideoScreenState {
 
     @OptIn(ExperimentalPermissionsApi::class)
     @Composable

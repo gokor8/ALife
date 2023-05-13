@@ -17,12 +17,13 @@ import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BasePictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.BaseVideoScreenState
 
-class ErrorPermissionScreenState : ScreenState.AbstractScreenState(Alignment.Center),
+abstract class ErrorPermissionScreenState : ScreenState.AbstractScreenState(Alignment.Center),
     BasePictureScreenState, BaseVideoScreenState {
 
     @Composable
     override fun SafeContent(viewModel: CreateAlifeViewModel) {
         val context = LocalContext.current
+        val state = viewModel.getUIState()
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -36,7 +37,7 @@ class ErrorPermissionScreenState : ScreenState.AbstractScreenState(Alignment.Cen
             Spacer(modifier = Modifier.padding(bottom = 30.dp))
 
             TransparentStrokeButton(R.string.camera_blocking_error_camera) {
-                context.startActivity(viewModel.settingsIntent)
+                context.startActivity(state.settingsIntent)
             }
         }
     }

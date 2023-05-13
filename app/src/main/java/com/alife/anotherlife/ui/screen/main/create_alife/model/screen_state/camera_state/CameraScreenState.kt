@@ -22,29 +22,6 @@ abstract class CameraScreenState(
     val cameraSelector: CameraSelector
 ) : ScreenState.AbstractScreenState() {
 
-    protected abstract fun cameraPermissionAction(
-        status: PermissionStatus
-    ): CreateAlifeAction.CameraPermission<*>
-
-    @OptIn(ExperimentalPermissionsApi::class)
-    @Composable
-    override fun Content(
-        viewModel: CreateAlifeViewModel,
-        modifier: Modifier,
-    ) {
-        viewModel.cameraPermission.requirePermission { status ->
-            viewModel.reduce(cameraPermissionAction(status))
-        }
-
-        Box(
-            contentAlignment = contentAlignment,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            SafeContent(viewModel = viewModel)
-            TopRowContent(viewModel, modifier)
-        }
-    }
-
     @Composable
     override fun TopRowContent(
         viewModel: CreateAlifeViewModel,

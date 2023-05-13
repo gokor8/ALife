@@ -31,9 +31,8 @@ interface DialogButtonStrategy {
             onAgree: () -> Unit,
             onDismiss: () -> Unit
         ) {
+            Spacer(modifier = Modifier.padding(bottom = 32.dp))
             Row(modifier = Modifier.fillMaxWidth()) {
-                Spacer(modifier = Modifier.padding(bottom = 32.dp))
-
                 TextTransparentButton(
                     textResId = R.string.cancel,
                     contentPadding = PaddingValues(12.dp),
@@ -63,6 +62,7 @@ interface DialogButtonStrategy {
 
     class Empty : DialogButtonStrategy {
         @Composable
-        override fun ButtonsContent(onAgree: () -> Unit, onDismiss: () -> Unit) {}
+        override fun ButtonsContent(onAgree: () -> Unit, onDismiss: () -> Unit) {
+        }
     }
 }

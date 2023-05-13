@@ -7,7 +7,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.Load
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
-class LoadPictureScreenState : LoadScreenState(), BasePictureScreenState {
+class LoadPictureScreenState : LoadScreenState, BasePictureScreenState {
 
     @OptIn(ExperimentalPermissionsApi::class)
     @Composable

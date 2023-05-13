@@ -11,6 +11,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ErrorPermissionScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.BasePictureScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.PictureErrorPermissionScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.PictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission.CameraPermissionReducer
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
@@ -109,7 +110,7 @@ class CreateAlifePhotoReducer @Inject constructor(
             copy(
                 pagerContainer = pagerContainer.picture.copyContainer(
                     pagerContainer,
-                    ErrorPermissionScreenState()
+                    PictureErrorPermissionScreenState()
                 )
             )
         }

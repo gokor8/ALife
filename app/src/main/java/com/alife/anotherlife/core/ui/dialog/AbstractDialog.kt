@@ -49,7 +49,7 @@ abstract class AbstractDialog(
         if (visibility) {
             Dialog(onDismissRequest = wrappedDismiss) {
                 Surface(modifier = Modifier
-                    .padding(20.dp)
+                    .padding(16.dp)
                     .clip(Shapes.large)) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,

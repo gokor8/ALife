@@ -20,7 +20,7 @@ fun TransparentStrokeButton(
         textResId = textResId,
         textStyle = Bold16TextStyle().style(),
         border = BorderStroke(1.dp, Color.Black),
-        contentPadding = PaddingValues(vertical = 12.dp),
+        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 12.dp),
         textAlign = TextAlign.Center,
         onClick = onClick,
         modifier = Modifier.fillMaxWidth()
