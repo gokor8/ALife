@@ -24,6 +24,10 @@ interface BaseCreateAlifeReducerBase : BaseVMReducer<CreateAlifeState, CreateAli
 
     suspend fun onVideoWrapper(captureWrapper: BaseVideoCaptureWrapper)
 
+    suspend fun onPictureLoading()
+
+    suspend fun onVideoLoading()
+
     suspend fun onStartVideo(
         contextMainExecutorWrapper: BaseContextMainExecutorWrapper,
         videoCapture: BaseStartVideoCaptureState

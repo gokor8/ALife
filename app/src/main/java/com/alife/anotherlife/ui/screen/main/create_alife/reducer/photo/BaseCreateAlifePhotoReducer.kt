@@ -22,5 +22,7 @@ interface BaseCreateAlifePhotoReducer : BaseVMReducer<CreateAlifeState, CreateAl
         contextWrapper: BaseContextMainExecutorWrapper
     )
 
+    suspend fun onPictureLoading()
+
     suspend fun onFinish()
 }

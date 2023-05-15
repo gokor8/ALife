@@ -14,7 +14,9 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.RecordingPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ErrorPermissionScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.LoadPictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.BaseVideoScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.LoadVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.VideoErrorPermissionScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.timer.BaseTimerUnit
 import com.alife.anotherlife.ui.screen.main.create_alife.model.timer.CreateAlifeCountDownTimer
@@ -78,9 +80,11 @@ class CreateAlifeVideoReducer @Inject constructor(
             )
         }
     }
+
     override fun onStartRecording(event: VideoRecordEvent.Start) {
         countDownTimer.start()
     }
+
     @OptIn(ExperimentalFoundationApi::class)
     override fun onFinalizeRecording(event: VideoRecordEvent.Finalize) {
         countDownTimer.stop()
@@ -94,6 +98,7 @@ class CreateAlifeVideoReducer @Inject constructor(
 
         getState().pagerContainer.video.onCallback(this@CreateAlifeVideoReducer)
     }
+
     override suspend fun onRecordingAction(
         captureState: RecordingCaptureState,
         recordingAction: RecordingAction
@@ -127,6 +132,18 @@ class CreateAlifeVideoReducer @Inject constructor(
                 getState().pagerContainer.getVideoIndex()
             )
         )
+    }
+
+    @OptIn(ExperimentalFoundationApi::class)
+    override suspend fun onVideoLoading() {
+        setState {
+            copy(
+                pagerContainer = pagerContainer.video.copyContainer(
+                    pagerContainer,
+                    LoadVideoScreenState()
+                )
+            )
+        }
     }
 
     @OptIn(ExperimentalFoundationApi::class)

@@ -42,10 +42,10 @@ interface ScreenState {
 
             Box(
                 contentAlignment = contentAlignment,
-                modifier = modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize()
             ) {
-                TopRowContent(viewModel, modifier)
                 SafeContent(viewModel = viewModel)
+                TopRowContent(viewModel, modifier)
             }
         }
 

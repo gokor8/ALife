@@ -12,7 +12,7 @@ class LoadPictureScreenState : LoadScreenState, BasePictureScreenState {
     @OptIn(ExperimentalPermissionsApi::class)
     @Composable
     override fun Content(viewModel: CreateAlifeViewModel, modifier: Modifier) {
-        viewModel.cameraPermission.requirePermission { status ->
+        viewModel.momentaryCameraPermission.requirePermission { status ->
             viewModel.reduce(
                 CreateAlifeAction.PhotoPermission(status, CameraFirstScreenState())
             )

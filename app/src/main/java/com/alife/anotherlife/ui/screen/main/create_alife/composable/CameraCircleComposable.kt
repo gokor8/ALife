@@ -26,7 +26,7 @@ fun CameraCircleComposable(
         modifier = Modifier
             .size(size)
             .clip(CircleShape)
-            .clickable(rememberCoroutineScope(), onClick = onClick)
+            .clickable(rememberCoroutineScope(), enabled = enabled, onClick = onClick)
     ) {
         drawCircle(
             color = colorWrapper.color(color),

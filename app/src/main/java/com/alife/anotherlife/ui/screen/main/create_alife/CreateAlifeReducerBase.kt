@@ -51,6 +51,14 @@ class CreateAlifeReducerBase @Inject constructor(
         createAlifeVideoReducer.onVideoPrepare(captureWrapper)
     }
 
+    override suspend fun onPictureLoading() {
+        createAlifePhotoReducer.onPictureLoading()
+    }
+
+    override suspend fun onVideoLoading() {
+        createAlifeVideoReducer.onVideoLoading()
+    }
+
     override suspend fun onCreatePhoto(
         viewModelScope: CoroutineScope,
         contextWrapper: BaseContextMainExecutorWrapper,

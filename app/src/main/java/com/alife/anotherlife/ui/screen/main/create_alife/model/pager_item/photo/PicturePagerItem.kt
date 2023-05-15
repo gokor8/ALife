@@ -29,8 +29,7 @@ interface PicturePagerItem : CreateAlifePagerItem {
     abstract class TakePicture<C : BaseCaptureWrapper>(
         protected val captureWrapper: C,
         private val isEnabled: Boolean
-    ) : CreateAlifePagerItem.Abstract(),
-        PicturePagerItem {
+    ) : CreateAlifePagerItem.Abstract(), PicturePagerItem {
 
         @Composable
         override fun Content(

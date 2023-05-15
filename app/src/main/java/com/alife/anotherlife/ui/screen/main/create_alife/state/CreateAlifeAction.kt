@@ -39,6 +39,18 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
         }
     }
 
+    class OnPictureLoading : CreateAlifeAction {
+        override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
+            reducer.onPictureLoading()
+        }
+    }
+
+    class OnVideoLoading : CreateAlifeAction {
+        override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
+            reducer.onVideoLoading()
+        }
+    }
+
     class OnCaptureWrapper(private val captureWrapper: BaseCaptureWrapper) : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
             reducer.onCameraWrapper(captureWrapper)

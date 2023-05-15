@@ -15,7 +15,7 @@ class LoadVideoScreenState : LoadScreenState, BaseVideoScreenState {
     override fun Content(viewModel: CreateAlifeViewModel, modifier: Modifier) {
         val audioPermissionState = viewModel.audioPermission.requirePermission(viewModel)
 
-        viewModel.cameraPermission.requirePermission { status ->
+        viewModel.momentaryCameraPermission.requirePermission { status ->
             viewModel.reduce(CreateAlifeAction.VideoPermission(status, DefaultVideoScreenState()))
 
             if(status is PermissionStatus.Success) audioPermissionState.launchPermissionRequest()

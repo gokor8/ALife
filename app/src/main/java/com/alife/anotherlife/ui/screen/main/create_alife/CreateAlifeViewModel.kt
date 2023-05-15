@@ -1,14 +1,13 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
-import android.content.Intent
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.permission.audio.AudioPermission
 import com.alife.anotherlife.core.ui.permission.audio.AudioPermissionContract
 import com.alife.anotherlife.core.ui.permission.camera.CameraPermission
+import com.alife.anotherlife.core.ui.permission.camera.MomentaryCameraPermission
 import com.alife.anotherlife.core.ui.view_model.ViewModelLCE
-import com.alife.anotherlife.di.core.IntentModule
 import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseActionScopedMapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.base.BaseCameraSetupFactory
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
@@ -26,6 +25,7 @@ class CreateAlifeViewModel @Inject constructor(
     reducer: BaseCreateAlifeReducerBase,
     private val actionMapper: BaseActionScopedMapper,
     val cameraPermission: CameraPermission,
+    val momentaryCameraPermission: MomentaryCameraPermission,
     val audioPermission: AudioPermission,
     val imageSetupFactory: BaseCameraSetupFactory<BaseCaptureWrapper>,
     val videoSetupFactory: BaseCameraSetupFactory<BaseVideoCaptureWrapper>,
