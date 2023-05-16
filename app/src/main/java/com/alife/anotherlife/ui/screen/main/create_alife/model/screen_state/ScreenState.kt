@@ -30,15 +30,12 @@ interface ScreenState {
         private val contentAlignment: Alignment = Alignment.TopStart,
     ) : ScreenState {
 
-        @OptIn(ExperimentalPermissionsApi::class)
         @Composable
         override fun Content(
             viewModel: CreateAlifeViewModel,
             modifier: Modifier,
         ) {
-            viewModel.cameraPermission.requirePermission { status ->
-                viewModel.reduce(cameraPermissionAction(status))
-            }
+            SetupPermission(viewModel = viewModel)
 
             Box(
                 contentAlignment = contentAlignment,
@@ -49,9 +46,8 @@ interface ScreenState {
             }
         }
 
-        protected abstract fun cameraPermissionAction(
-            status: PermissionStatus
-        ): CreateAlifeAction.CameraPermission<*>
+        @Composable
+        protected open fun SetupPermission(viewModel: CreateAlifeViewModel) = Unit
 
         @Composable
         protected abstract fun SafeContent(viewModel: CreateAlifeViewModel)

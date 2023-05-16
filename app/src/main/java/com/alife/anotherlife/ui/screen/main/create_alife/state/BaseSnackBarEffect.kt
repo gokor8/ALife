@@ -7,6 +7,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.alife.anotherlife.core.composable.snackbar.OnlyTextSnackBar
 import com.alife.domain.core.delay.DelayWrapper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 interface BaseSnackBarEffect : CreateAlifeEffect {
 
@@ -21,7 +24,7 @@ interface BaseSnackBarEffect : CreateAlifeEffect {
     ) : BaseSnackBarEffect {
         override suspend fun showSnackBar(snackBarVisibility: MutableState<BaseSnackBarEffect>) {
             snackBarVisibility.value = this
-            DelayWrapper.Short().delay()
+            DelayWrapper.Medium().delay()
             snackBarVisibility.value = CreateAlifeEffect.EmptySnackError()
         }
 

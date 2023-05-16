@@ -24,7 +24,6 @@ import javax.inject.Inject
 class CreateAlifeViewModel @Inject constructor(
     reducer: BaseCreateAlifeReducerBase,
     private val actionMapper: BaseActionScopedMapper,
-    val cameraPermission: CameraPermission,
     val momentaryCameraPermission: MomentaryCameraPermission,
     val audioPermission: AudioPermission,
     val imageSetupFactory: BaseCameraSetupFactory<BaseCaptureWrapper>,

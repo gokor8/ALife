@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.pager_item
 
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.InvertiblePagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.NotScrollablePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.AbstractScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
@@ -35,4 +36,6 @@ class Video(
     override fun onCallback(videoCaptureCallback: VideoCaptureCallback) {
         pagerItem.onCallback(videoCaptureCallback)
     }
+
+    override fun canSwitchAudio(): Boolean = pagerItem !is NotScrollablePagerItem
 }

@@ -67,7 +67,7 @@ class CreateAlifeVideoReducer @Inject constructor(
 
         val recordingWrapper = videoCapture.start(
             contextWrapper,
-            videoCaptureBuilderFactory.getBuilder(getState().isAudioEnabled),
+            videoCaptureBuilderFactory.getBuilder(getState().audioEnabledModel.isChecked()),
             fileOutputOptions
         )
 
@@ -105,7 +105,7 @@ class CreateAlifeVideoReducer @Inject constructor(
     ) {
         execute {
             // TODO check
-            trySetEffect(CreateAlifeEffect.VideoDialogErrorEffect())
+            trySetEffect(CreateAlifeEffect.SnackVideoError())
             setupVideoCaptureState(captureState.videoCapture)
         }.handle {
             recordingAction.onRecordingAction(captureState)

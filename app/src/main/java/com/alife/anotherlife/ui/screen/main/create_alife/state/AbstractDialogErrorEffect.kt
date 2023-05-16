@@ -15,7 +15,7 @@ abstract class AbstractDialogErrorEffect(
         DefaultDialog(
             title,
             description,
-            DialogButtonStrategy.OneButton(R.string.permission_dialog_button_error)
+            DialogButtonStrategy.OneButton(R.string.repeat)
         ).ShowDialog(onAgree = onAgree)
     }
 }

@@ -38,5 +38,17 @@ abstract class CameraScreenState(
             )
         }
     }
+
+    @OptIn(ExperimentalPermissionsApi::class)
+    @Composable
+    override fun SetupPermission(viewModel: CreateAlifeViewModel) {
+        viewModel.momentaryCameraPermission.requirePermission { status ->
+            viewModel.reduce(cameraPermissionAction(status))
+        }
+    }
+
+    protected abstract fun cameraPermissionAction(
+        status: PermissionStatus
+    ): CreateAlifeAction.CameraPermission<*>
 }
 

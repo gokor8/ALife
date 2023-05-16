@@ -15,6 +15,8 @@ interface CreateAlifeEffect : MVI.Effect {
 
     class SnackVideoError : BaseSnackBarEffect.Abstract(R.string.camera_snackbar_video_error)
 
+    class SnackPictureError : BaseSnackBarEffect.Abstract(R.string.camera_snackbar_photo_error)
+
     class DefaultSnackError(@StringRes text: Int) : BaseSnackBarEffect.Abstract(text)
 
     class EmptySnackError : BaseSnackBarEffect

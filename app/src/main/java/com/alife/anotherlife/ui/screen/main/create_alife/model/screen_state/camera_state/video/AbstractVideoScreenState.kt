@@ -15,6 +15,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -26,6 +27,7 @@ import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraPreviewComposable
+import com.alife.anotherlife.ui.screen.main.create_alife.model.audio.BaseAudioActionModel
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.CameraScreenState
@@ -100,13 +102,24 @@ abstract class AbstractVideoScreenState(
 
             val audioPermission = viewModel.audioPermission.requirePermission(viewModel)
 
+            key(audioPermission) {
+                viewModel.reduce(
+                    CreateAlifeAction.OnChangedAudio(
+                        BaseAudioActionModel.Permission(audioPermission.status)
+                    )
+                )
+            }
+
             Switch(
-                checked = state.isAudioEnabled,
+                checked = state.audioEnabledModel.isChecked(),
                 onCheckedChange = { isChecked ->
                     audioPermission.launchPermissionRequest()
 
+                    // TODO maybe change on Checked only
                     viewModel.reduce(
-                        CreateAlifeAction.OnChangedAudio(audioPermission.status, isChecked)
+                        CreateAlifeAction.OnChangedAudio(
+                            BaseAudioActionModel.Full(audioPermission.status, isChecked)
+                        )
                     )
                 },
                 thumbContent = {
@@ -118,6 +131,7 @@ abstract class AbstractVideoScreenState(
                     disabledCheckedBorderColor = Color.Transparent,
                     disabledUncheckedBorderColor = Color.Transparent
                 ),
+                enabled = state.pagerContainer.video.canSwitchAudio(),
                 modifier = Modifier
                     .padding(24.dp)
                     .constrainAs(audio) {

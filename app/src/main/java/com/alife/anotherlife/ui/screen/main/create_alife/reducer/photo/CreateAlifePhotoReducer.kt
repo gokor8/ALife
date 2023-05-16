@@ -60,18 +60,15 @@ class CreateAlifePhotoReducer @Inject constructor(
         }
 
         executeExceptionHandler {
-//            setState {
-//                copy(
-//                    pagerContainer = pagerContainer.changePicture(
-//                        PicturePagerItem.DefaultTakePicture()
-//                    )
-//                )
-//            }
+            setState {
+                copy(
+                    pagerContainer = pagerContainer.changePicture(
+                        PicturePagerItem.DefaultTakePicture(captureWrapper)
+                    )
+                )
+            }
             // TODO протестить с delay(5000) и выходом из прилки во время фото
-
-            trySetEffect(CreateAlifeEffect.PictureDialogErrorEffect())
-
-            //trySetEffect(CreateAlifeEffect.CreateAlifeFinish())
+            trySetEffect(CreateAlifeEffect.SnackPictureError())
         }.handleThis(uiStore.getState()) { exHandler ->
             delay(3000L)
             val imageProxy = captureWrapper.takePhoto(contextWrapper.getMainExecutor())

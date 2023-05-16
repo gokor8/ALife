@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alife.anotherlife.core.composable.modifier.OnlyImeModifier
@@ -16,6 +17,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraAction
 import com.alife.anotherlife.ui.screen.main.create_alife.state.AbstractDialogErrorEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.BaseSnackBarEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
+import kotlinx.coroutines.launch
 
 class CreateAlifeScreen(
     override val navController: NavController,
@@ -49,10 +51,14 @@ class CreateAlifeScreen(
 
             var dialogError by remember { mutableStateOf<AbstractDialogErrorEffect?>(null) }
 
+            val uiCoroutineScope = rememberCoroutineScope()
+
             LaunchedEffect(Unit) {
                 viewModel.collectEffect(
                     navController,
-                    onSnackBarEffect = { effect -> effect.showSnackBar(snackBarEffect) },
+                    onSnackBarEffect = { effect ->
+                        uiCoroutineScope.launch { effect.showSnackBar(snackBarEffect) }
+                    },
                     onDialogError = { effect -> dialogError = effect }
                 )
             }
@@ -62,16 +68,13 @@ class CreateAlifeScreen(
             }
 
             snackBarEffect.value.ShowSnackBar(
-                Modifier.navigationBarsPadding().align(Alignment.BottomCenter)
+                modifier = Modifier
+                    .padding(horizontal = 30.dp)
+                    .navigationBarsPadding()
+                    .align(Alignment.BottomCenter)
             )
         }
     }
 
-    @Composable
-    override fun SetupLaunchEffect() {
-        LaunchedEffect(Unit) {
-            onInit()
-            //viewModel.collectEffect(navController)
-        }
-    }
+    override suspend fun setupEventCollector() = Unit
 }

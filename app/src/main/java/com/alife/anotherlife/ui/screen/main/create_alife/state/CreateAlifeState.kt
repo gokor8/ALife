@@ -7,6 +7,8 @@ import com.alife.anotherlife.core.ui.state.lce.LCEContent
 import com.alife.anotherlife.core.ui.state.lce.LCEModel
 import com.alife.anotherlife.core.ui.state.lce.StateLCE
 import com.alife.anotherlife.di.core.IntentModule
+import com.alife.anotherlife.ui.screen.main.create_alife.model.audio.AudioModel
+import com.alife.anotherlife.ui.screen.main.create_alife.model.audio.BaseAudioModel
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
@@ -19,7 +21,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.timer.BaseTimerUn
 data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) constructor(
     override val lceModel: LCEModel = LCEContent,
     val pagerState: PagerState = PagerState(0),
-    val isAudioEnabled: Boolean = false,
+    val audioEnabledModel: BaseAudioModel = AudioModel(),
     val timerUnit: BaseTimerUnit = BaseTimerUnit.Init(),
     val pagerContainer: ScreenPagerContainer = ScreenPagerContainer(
         Picture(LoadPictureScreenState(), PicturePagerItem.InitTakePicture()),
