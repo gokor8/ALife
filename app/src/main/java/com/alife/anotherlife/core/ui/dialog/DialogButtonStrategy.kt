@@ -56,7 +56,9 @@ interface DialogButtonStrategy {
             onDismiss: () -> Unit
         ) {
             Spacer(modifier = Modifier.padding(bottom = 22.dp))
-            BorderButton(text, onClick = onAgree)
+            BorderButton(text) {
+                onAgree()
+            }
         }
     }
 

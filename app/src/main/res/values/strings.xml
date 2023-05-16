@@ -11,7 +11,7 @@
     <string name="repeat">Повторить</string>
 
     // Dialog
-    <string name="permission_dialog_description">Предоставьте ваше разрешние через настройки</string>
+    <string name="permission_dialog_description">Предоставьте разрешние через настройки</string>
     <string name="permission_dialog_button_error">в Настройки</string>
 
     // Login

@@ -5,6 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.audio.BaseAudioActionModel
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.RecordingAction
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.callback.CallbackVideoEvent
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
@@ -65,6 +66,7 @@ class CreateAlifeVideoReducer @Inject constructor(
             videoStorageAlifeUseCase.getVideoStorageEntity()
         )
 
+        // TODO may be catch this code
         val recordingWrapper = videoCapture.start(
             contextWrapper,
             videoCaptureBuilderFactory.getBuilder(getState().audioEnabledModel.isChecked()),
@@ -160,6 +162,8 @@ class CreateAlifeVideoReducer @Inject constructor(
 
     @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {
+        // TODO придумать как сделать лучше
+        //setEffect(CreateAlifeEffect.PictureDialogErrorEffect())
         //setState { copy(isAudioEnabled = permissionStatus is PermissionStatus.Success) }
     }
 }

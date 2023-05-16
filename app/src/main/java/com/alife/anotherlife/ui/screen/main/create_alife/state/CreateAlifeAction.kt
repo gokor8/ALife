@@ -152,16 +152,6 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
         }
     }
 
-    class VideoRecordEventAction(
-        private val videoRecordEvent: VideoRecordEvent
-    ) : CreateAlifeAction {
-        override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
-            Log.e("VideoRecordEvent", videoRecordEvent.toString())
-            // reducer.onVideoRecordEvent(videoRecordEvent)
-            //TODO
-        }
-    }
-
     class AudioPermission(private val permissionStatus: PermissionStatus) : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
             reducer.onAudioPermission(permissionStatus)

@@ -8,7 +8,6 @@ import com.alife.core.mvi.MVI
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 
 abstract class BaseUIStore<STATE : MVI.State, EFFECT : MVI.Effect>(
     initState: STATE
@@ -16,7 +15,7 @@ abstract class BaseUIStore<STATE : MVI.State, EFFECT : MVI.Effect>(
 
     val stateFlow: MutableStateFlow<STATE> = MutableStateFlow(initState)
 
-    protected val effectChannel: Channel<EFFECT> = Channel()
+    protected val effectChannel: Channel<EFFECT> = Channel(Channel.CONFLATED)
 
 
     override fun getStateCollector(): StateCollector<STATE> {

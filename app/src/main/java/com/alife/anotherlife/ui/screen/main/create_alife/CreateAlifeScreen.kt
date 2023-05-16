@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import com.alife.anotherlife.core.composable.modifier.OnlyImeModifier
 import com.alife.anotherlife.core.ui.screen.VMScreenLCE
@@ -51,25 +52,25 @@ class CreateAlifeScreen(
 
             var dialogError by remember { mutableStateOf<AbstractDialogErrorEffect?>(null) }
 
-            val uiCoroutineScope = rememberCoroutineScope()
+            val lifecycleScope = androidx.compose.ui.platform.LocalLifecycleOwner.current.lifecycle
 
             LaunchedEffect(Unit) {
                 viewModel.collectEffect(
                     navController,
-                    onSnackBarEffect = { effect ->
-                        uiCoroutineScope.launch { effect.showSnackBar(snackBarEffect) }
-                    },
+                    lifecycleScope,
+                    onSnackBarEffect = { effect -> effect.showSnackBar(snackBarEffect) },
                     onDialogError = { effect -> dialogError = effect }
                 )
             }
 
+            // TODO maybe delete?
             dialogError?.DialogErrorContent {
                 context.startActivity(state.settingsIntent)
             }
 
             snackBarEffect.value.ShowSnackBar(
                 modifier = Modifier
-                    .padding(horizontal = 30.dp)
+                    .padding(horizontal = 20.dp, vertical = 10.dp)
                     .navigationBarsPadding()
                     .align(Alignment.BottomCenter)
             )

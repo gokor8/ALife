@@ -111,6 +111,7 @@ class CreateAlifeReducerBase @Inject constructor(
     }
 
     override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {
+        onChangedAudio(BaseAudioActionModel.Permission(permissionStatus))
         createAlifeVideoReducer.onAudioPermission(permissionStatus)
     }
 }

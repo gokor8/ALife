@@ -1,5 +1,7 @@
 package com.alife.anotherlife.core.ui.permission
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import com.alife.anotherlife.core.ui.dialog.AbstractDialog
 import com.alife.anotherlife.core.ui.permission.strategy.PermissionStrategy
@@ -22,9 +24,15 @@ abstract class FullAbstractPermission(
     ) {
         super.OnAllPermissionSetup(permissionState, permissionStatus, onPermission)
 
+        val activityLauncher = rememberLauncherForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            permissionState.launchPermissionRequest()
+        }
+
         fatalDialog.ShowDialog(
             permissionStatus is PermissionStatus.PreFatal,
-            onAgree = { permissionState.launchPermissionRequest() },
+            onAgree = { activityLauncher.launch() },
             onDismiss = { onPermission(PermissionStatus.Fatal()) }
         )
     }
