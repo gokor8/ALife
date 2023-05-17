@@ -2,6 +2,7 @@ package com.alife.anotherlife.core.ui.permission.audio
 
 import androidx.compose.runtime.Composable
 import com.alife.anotherlife.core.ui.dialog.AbstractDialog
+import com.alife.anotherlife.core.ui.permission.AbstractPermission
 import com.alife.anotherlife.core.ui.permission.FullAbstractPermission
 import com.alife.anotherlife.core.ui.permission.strategy.BaseStrategyMapper
 import com.alife.anotherlife.core.ui.permission.strategy.PermissionStrategy
@@ -12,14 +13,11 @@ import javax.inject.Inject
 
 class AudioPermission @Inject constructor(
     @DialogAnnotation.Audio
-    failDialog: AbstractDialog,
-    @DialogAnnotation.SettingsAudio
-    fatalDialog: AbstractDialog,
-) : FullAbstractPermission(
+    failDialog: AbstractDialog
+) : AbstractPermission(
     android.Manifest.permission.RECORD_AUDIO,
-    PermissionStrategy.GoogleRecommend(BaseStrategyMapper.Full()),
-    failDialog,
-    fatalDialog
+    PermissionStrategy.GoogleRecommend(BaseStrategyMapper.Default()),
+    failDialog
 ) {
 
     @OptIn(ExperimentalPermissionsApi::class)

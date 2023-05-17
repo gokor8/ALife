@@ -102,20 +102,11 @@ abstract class AbstractVideoScreenState(
 
             val audioPermission = viewModel.audioPermission.requirePermission(viewModel)
 
-            key(audioPermission) {
-                viewModel.reduce(
-                    CreateAlifeAction.OnChangedAudio(
-                        BaseAudioActionModel.PermissionStatus(audioPermission.status)
-                    )
-                )
-            }
-
             Switch(
                 checked = state.audioEnabledModel.isChecked(),
                 onCheckedChange = { isChecked ->
                     audioPermission.launchPermissionRequest()
 
-                    // TODO maybe change on Checked only
                     viewModel.reduce(
                         CreateAlifeAction.OnChangedAudio(
                             BaseAudioActionModel.Checked(isChecked)

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -32,10 +33,9 @@ abstract class ErrorPermissionScreenState : ScreenState {
             onResult = { onSettingAction(viewModel) }
         )
 
-        // TODO write normal with oop
-        viewModel.momentaryCameraPermission.requirePermission { status ->
+       viewModel.cameraPermission.requirePermission { status ->
             if(status is PermissionStatus.Success) onSettingAction(viewModel)
-        }
+       }
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

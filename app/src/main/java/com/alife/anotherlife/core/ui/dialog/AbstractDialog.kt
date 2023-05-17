@@ -1,10 +1,13 @@
 package com.alife.anotherlife.core.ui.dialog
 
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,7 +42,19 @@ abstract class AbstractDialog(
         onAgree: () -> Unit = {},
         onDismiss: () -> Unit = {},
     ) {
-        var visibility by remember(isVisible) { mutableStateOf(isVisible) }
+        var visibility by remember(isVisible) {
+            mutableStateOf(isVisible)
+        }
+
+        // TODO NEED fix
+        // Update on composition state
+        // https://stackoverflow.com/questions/69085027/difference-between-remember-and-rememberupdatedstate-in-jetpack-compose
+        Log.d("Aboba class", this.javaClass.simpleName)
+        LaunchedEffect(true) {
+            visibility = isVisible
+        }
+
+        Log.d("Aboba Visibility", "isVisible: $isVisible & visibility: $visibility")
 
         val wrappedDismiss = {
             visibility = !visibility
@@ -48,9 +63,11 @@ abstract class AbstractDialog(
 
         if (visibility) {
             Dialog(onDismissRequest = wrappedDismiss) {
-                Surface(modifier = Modifier
-                    .padding(16.dp)
-                    .clip(Shapes.large)) {
+                Surface(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .clip(Shapes.large)
+                ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.padding(20.dp)

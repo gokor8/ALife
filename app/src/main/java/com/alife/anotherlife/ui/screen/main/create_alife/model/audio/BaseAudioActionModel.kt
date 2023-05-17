@@ -7,24 +7,24 @@ interface BaseAudioActionModel {
 
     fun copyAudioModel(audioModel: BaseAudioModel): BaseAudioModel
 
-//    class Permission(
-//        private val permissionStatus: PermissionStatus
-//    ) : BaseAudioActionModel {
-//
-//        override fun copyAudioModel(audioModel: BaseAudioModel): BaseAudioModel {
-//            return audioModel.copyPermission(permissionStatus is PermissionStatus.Success)
-//        }
-//    }
-
-    class PermissionStatus @OptIn(ExperimentalPermissionsApi::class) constructor(
-        private val permissionStatus: com.google.accompanist.permissions.PermissionStatus
+    class Permission(
+        private val permissionStatus: PermissionStatus
     ) : BaseAudioActionModel {
 
-        @OptIn(ExperimentalPermissionsApi::class)
         override fun copyAudioModel(audioModel: BaseAudioModel): BaseAudioModel {
-            return audioModel.copyPermission(permissionStatus is com.google.accompanist.permissions.PermissionStatus.Granted)
+            return audioModel.copyPermission(permissionStatus is PermissionStatus.Success)
         }
     }
+
+//    class PermissionStatus @OptIn(ExperimentalPermissionsApi::class) constructor(
+//        private val permissionStatus: com.google.accompanist.permissions.PermissionStatus
+//    ) : BaseAudioActionModel {
+//
+//        @OptIn(ExperimentalPermissionsApi::class)
+//        override fun copyAudioModel(audioModel: BaseAudioModel): BaseAudioModel {
+//            return audioModel.copyPermission(permissionStatus is com.google.accompanist.permissions.PermissionStatus.Granted)
+//        }
+//    }
 
     class Checked(private val isChecked: Boolean) : BaseAudioActionModel {
         override fun copyAudioModel(audioModel: BaseAudioModel): BaseAudioModel {

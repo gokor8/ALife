@@ -5,7 +5,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.model.audio.BaseAudioActionModel
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.RecordingAction
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.callback.CallbackVideoEvent
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
@@ -14,8 +13,6 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.state.RecordingCaptureState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.RecordingPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.ErrorPermissionScreenState
-import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.picture.LoadPictureScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.BaseVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.LoadVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.VideoErrorPermissionScreenState
@@ -41,7 +38,6 @@ class CreateAlifeVideoReducer @Inject constructor(
     BaseCreateAlifeVideoReducer,
     VideoCaptureCallback {
 
-    @OptIn(ExperimentalFoundationApi::class)
     private val countDownTimer = CreateAlifeVideoTimer(
         CreateAlifeCountDownTimer(
             onTick = { newTimerUnit -> setState { copy(timerUnit = newTimerUnit) } },
@@ -57,7 +53,6 @@ class CreateAlifeVideoReducer @Inject constructor(
         videoCaptureWrapperToState.map(this, CallbackVideoEvent(this), captureWrapper)
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onStart(
         contextWrapper: BaseContextMainExecutorWrapper,
         videoCapture: BaseStartVideoCaptureState
@@ -156,10 +151,12 @@ class CreateAlifeVideoReducer @Inject constructor(
     }
 
     override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {
-        // TODO придумать как сделать лучше
-        if (permissionStatus is PermissionStatus.PreFatal) {
-            setEffect(CreateAlifeEffect.AudioDialogErrorEffect())
+        val effect = when(permissionStatus) {
+            is PermissionStatus.Success -> CreateAlifeEffect.EmptyDialogError()
+            is PermissionStatus.Fatal -> CreateAlifeEffect.AudioDialogError()
+            else -> return
         }
-        //setState { copy(isAudioEnabled = permissionStatus is PermissionStatus.Success) }
+
+        setEffect(effect)
     }
 }

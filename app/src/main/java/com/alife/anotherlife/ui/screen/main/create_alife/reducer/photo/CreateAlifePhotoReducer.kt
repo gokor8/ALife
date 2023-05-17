@@ -111,7 +111,6 @@ class CreateAlifePhotoReducer @Inject constructor(
         setState { copy(lceModel = LCEContent) }
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onPermissionFatal() {
         setState {
             copy(

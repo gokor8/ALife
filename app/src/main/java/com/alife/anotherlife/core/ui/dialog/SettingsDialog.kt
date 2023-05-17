@@ -9,7 +9,7 @@ abstract class SettingsDialog(@StringRes title: Int) : AbstractDialog(
     R.drawable.ic_base_error,
     TextWrapper.ResWrapper(title),
     TextWrapper.ResWrapper(R.string.permission_dialog_description),
-    DialogButtonStrategy.OneButton(R.string.permission_dialog_button_error)
+    DialogButtonStrategy.OneButton(R.string.permission_dialog_settings)
 ) {
 
     class Camera @Inject constructor() : SettingsDialog(R.string.dialog_camera_title)

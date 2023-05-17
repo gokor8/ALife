@@ -16,7 +16,6 @@ abstract class CameraPermissionReducer<S : ScreenState>(
 
     abstract fun changeCurrentScreen(screenState: S): ScreenPagerContainer
 
-    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onPermissionGranted(screenState: S) {
         setState { copy(pagerContainer = changeCurrentScreen(screenState)) }
     }

@@ -15,6 +15,7 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.base.BaseC
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.state.AbstractDialogErrorEffect
+import com.alife.anotherlife.ui.screen.main.create_alife.state.BaseDialogErrorEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.BaseSnackBarEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
@@ -27,6 +28,7 @@ class CreateAlifeViewModel @Inject constructor(
     reducer: BaseCreateAlifeReducerBase,
     private val actionMapper: BaseActionScopedMapper,
     val momentaryCameraPermission: MomentaryCameraPermission,
+    val cameraPermission: CameraPermission,
     val audioPermission: AudioPermission,
     val imageSetupFactory: BaseCameraSetupFactory<BaseCaptureWrapper>,
     val videoSetupFactory: BaseCameraSetupFactory<BaseVideoCaptureWrapper>,
@@ -47,13 +49,13 @@ class CreateAlifeViewModel @Inject constructor(
         navController: NavController,
         pagerState: PagerState,
         onSnackBarEffect: suspend (BaseSnackBarEffect) -> Unit,
-        onDialogError: suspend (AbstractDialogErrorEffect) -> Unit
+        onDialogError: suspend (BaseDialogErrorEffect) -> Unit
     ) {
         reducerVM.getEffectCollector().collect { effect ->
             when(effect) {
                 is CreateAlifeEffect.VideoToMainPage -> effect.scrollToVideoPage(pagerState)
                 is BaseSnackBarEffect -> onSnackBarEffect(effect)
-                is AbstractDialogErrorEffect -> onDialogError(effect)
+                is BaseDialogErrorEffect -> onDialogError(effect)
                 else -> onEffect(navController, effect)
             }
         }

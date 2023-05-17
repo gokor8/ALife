@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
+import android.util.Log
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -16,6 +17,7 @@ import com.alife.anotherlife.core.composable.modifier.OnlyImeModifier
 import com.alife.anotherlife.core.ui.screen.VMScreenLCE
 import com.alife.anotherlife.ui.screen.main.create_alife.composable.CameraActionsComposable
 import com.alife.anotherlife.ui.screen.main.create_alife.state.AbstractDialogErrorEffect
+import com.alife.anotherlife.ui.screen.main.create_alife.state.BaseDialogErrorEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.BaseSnackBarEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
@@ -60,23 +62,22 @@ class CreateAlifeScreen(
                 mutableStateOf<BaseSnackBarEffect>(CreateAlifeEffect.EmptySnackError())
             }
 
-            var dialogError by remember { mutableStateOf<AbstractDialogErrorEffect?>(null) }
-
-            val uiCoroutineScope = rememberCoroutineScope()
+            var dialogError by remember {
+                mutableStateOf<BaseDialogErrorEffect>(CreateAlifeEffect.EmptyDialogError())
+            }
 
             LaunchedEffect(Unit) {
                 viewModel.collectEffect(
                     navController,
                     pagerState,
-                    onSnackBarEffect = { effect ->
-                        uiCoroutineScope.launch { effect.showSnackBar(snackBarEffect) }
-                    },
+                    onSnackBarEffect = { effect -> effect.showSnackBar(snackBarEffect) },
                     onDialogError = { effect -> dialogError = effect }
                 )
             }
 
             // TODO maybe delete?
-            dialogError?.DialogErrorContent {
+            Log.d("Aboba Dialog", "$dialogError")
+            dialogError.DialogErrorContent {
                 context.startActivity(state.settingsIntent)
             }
 

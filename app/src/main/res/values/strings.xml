@@ -12,7 +12,7 @@
 
     // Dialog
     <string name="permission_dialog_description">Предоставьте разрешние через настройки</string>
-    <string name="permission_dialog_button_error">в Настройки</string>
+    <string name="permission_dialog_settings">в Настройки</string>
 
     // Login
     <string name="pass_login_in">Hi, pass login in</string>
@@ -74,7 +74,7 @@
 
     // Camera Audio
     <string name="dialog_audio_title">Приложению необходим доступ к микрофону</string>
-    <string name="dialog_audio_description">Для создания Alife \n предоставьте доступ к микрофону</string>
+    <string name="dialog_audio_description">Для записи видео со звуком \n предоставьте доступ к микрофону</string>
 
     // Camera
     <string name="camera_blocking_error_camera">Предоставьте разрешение на использование Камеры</string>
