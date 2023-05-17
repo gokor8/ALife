@@ -23,6 +23,12 @@ import kotlinx.coroutines.CoroutineScope
 
 interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
 
+    class ChangeCurrentPage(private val currentPage: Int) : CreateAlifeAction {
+        override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
+            reducer.onChangeCurrentPage(currentPage)
+        }
+    }
+
     class ChangeCameraSelection : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
             reducer.onChangeCamera()

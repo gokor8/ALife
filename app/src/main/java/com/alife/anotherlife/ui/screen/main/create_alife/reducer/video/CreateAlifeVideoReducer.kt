@@ -114,7 +114,6 @@ class CreateAlifeVideoReducer @Inject constructor(
         }
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     override fun setupVideoCaptureState(captureState: BaseStartVideoCaptureState) {
         setState {
             copy(
@@ -126,17 +125,14 @@ class CreateAlifeVideoReducer @Inject constructor(
         }
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onClickSmallVideo() {
         setEffect(
             CreateAlifeEffect.VideoToMainPage(
-                getState().pagerState,
                 getState().pagerContainer.getVideoIndex()
             )
         )
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onVideoLoading() {
         setState {
             copy(
@@ -148,7 +144,6 @@ class CreateAlifeVideoReducer @Inject constructor(
         }
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onPermissionFatal() {
         setState {
             copy(
@@ -160,10 +155,11 @@ class CreateAlifeVideoReducer @Inject constructor(
         }
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {
         // TODO придумать как сделать лучше
-        //setEffect(CreateAlifeEffect.PictureDialogErrorEffect())
+        if (permissionStatus is PermissionStatus.PreFatal) {
+            setEffect(CreateAlifeEffect.AudioDialogErrorEffect())
+        }
         //setState { copy(isAudioEnabled = permissionStatus is PermissionStatus.Success) }
     }
 }

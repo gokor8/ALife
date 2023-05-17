@@ -26,17 +26,21 @@ interface CreateAlifeEffect : MVI.Effect {
         R.string.camera_snackbar_camera_description_error
     )
 
+    class AudioDialogErrorEffect : AbstractDialogErrorEffect(
+        R.string.dialog_audio_title,
+        R.string.dialog_audio_description
+    )
+
     class VideoDialogErrorEffect : AbstractDialogErrorEffect(
         R.string.camera_snackbar_video_error,
         R.string.camera_snackbar_camera_description_error
     )
 
-    @OptIn(ExperimentalFoundationApi::class)
     class VideoToMainPage(
-        private val pagerState: PagerState,
         private val videoPageIndex: Int
     ) : CreateAlifeEffect {
-        suspend fun scrollToVideoPage() {
+        @OptIn(ExperimentalFoundationApi::class)
+        suspend fun scrollToVideoPage(pagerState: PagerState) {
             pagerState.animateScrollToPage(videoPageIndex)
         }
     }

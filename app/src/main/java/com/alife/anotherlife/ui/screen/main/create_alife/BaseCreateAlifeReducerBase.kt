@@ -18,6 +18,8 @@ import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeState
 interface BaseCreateAlifeReducerBase : BaseVMReducer<CreateAlifeState, CreateAlifeEffect>,
     ImplCreateAlifePhotoReducer, ImplCreateAlifeVideoReducer {
 
+    fun onChangeCurrentPage(page: Int)
+
     suspend fun onChangeCamera()
 
     fun onChangedAudio(audioActionModel: BaseAudioActionModel)

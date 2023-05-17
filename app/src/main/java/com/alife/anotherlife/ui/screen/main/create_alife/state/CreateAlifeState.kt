@@ -18,9 +18,9 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.came
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.LoadVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.timer.BaseTimerUnit
 
-data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) constructor(
+data class CreateAlifeState(
     override val lceModel: LCEModel = LCEContent,
-    val pagerState: PagerState = PagerState(0),
+    val currentPage: Int = 0,
     val audioEnabledModel: BaseAudioModel = AudioModel(),
     val timerUnit: BaseTimerUnit = BaseTimerUnit.Init(),
     val pagerContainer: ScreenPagerContainer = ScreenPagerContainer(
@@ -31,11 +31,9 @@ data class CreateAlifeState @OptIn(ExperimentalFoundationApi::class) constructor
     val settingsIntent: Intent
 ) : StateLCE {
 
-    @OptIn(ExperimentalFoundationApi::class)
-    fun currentScreenPager() = pagerContainer.getScreenPagerItem(pagerState.currentPage)
+    fun currentScreenPager() = pagerContainer.getScreenPagerItem(currentPage)
 
-    @OptIn(ExperimentalFoundationApi::class)
-    fun canPagerItemScroll() = pagerContainer.canCurrentScroll(pagerState.currentPage)
+    fun canPagerItemScroll() = pagerContainer.canCurrentScroll(currentPage)
 
     fun tryCopyWithInvert() = currentScreenPager().invertCamera(pagerContainer)
 }

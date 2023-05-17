@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
-import androidx.lifecycle.Lifecycle
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.pager.PagerState
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
@@ -37,25 +38,20 @@ class CreateAlifeViewModel @Inject constructor(
         super.onAction(actionMapper.map(action, viewModelScope))
     }
 
-    override suspend fun onEffect(navController: NavController, effect: CreateAlifeEffect) {
-        when (effect) {
-            is CreateAlifeEffect.VideoToMainPage -> effect.scrollToVideoPage()
-            else -> super.onEffect(navController, effect)
-        }
-    }
-
     override fun audioBoxReduce(permissionStatus: PermissionStatus) {
         reduce(CreateAlifeAction.AudioPermission(permissionStatus))
     }
 
+    @OptIn(ExperimentalFoundationApi::class)
     suspend fun collectEffect(
         navController: NavController,
-        lifecycle: Lifecycle,
+        pagerState: PagerState,
         onSnackBarEffect: suspend (BaseSnackBarEffect) -> Unit,
         onDialogError: suspend (AbstractDialogErrorEffect) -> Unit
     ) {
-        reducerVM.getEffectCollector().collect(lifecycle) { effect ->
+        reducerVM.getEffectCollector().collect { effect ->
             when(effect) {
+                is CreateAlifeEffect.VideoToMainPage -> effect.scrollToVideoPage(pagerState)
                 is BaseSnackBarEffect -> onSnackBarEffect(effect)
                 is AbstractDialogErrorEffect -> onDialogError(effect)
                 else -> onEffect(navController, effect)

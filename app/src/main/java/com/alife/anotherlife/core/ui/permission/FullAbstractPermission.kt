@@ -24,16 +24,16 @@ abstract class FullAbstractPermission(
     ) {
         super.OnAllPermissionSetup(permissionState, permissionStatus, onPermission)
 
-        val activityLauncher = rememberLauncherForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-            permissionState.launchPermissionRequest()
-        }
-
-        fatalDialog.ShowDialog(
-            permissionStatus is PermissionStatus.PreFatal,
-            onAgree = { activityLauncher.launch() },
-            onDismiss = { onPermission(PermissionStatus.Fatal()) }
-        )
+//        val activityLauncher = rememberLauncherForActivityResult(
+//            ActivityResultContracts.StartActivityForResult()
+//        ) {
+//            permissionState.launchPermissionRequest()
+//        }
+//
+//        fatalDialog.ShowDialog(
+//            permissionStatus is PermissionStatus.PreFatal,
+//            onAgree = {  },
+//            onDismiss = { onPermission(PermissionStatus.Fatal()) }
+//        )
     }
 }
