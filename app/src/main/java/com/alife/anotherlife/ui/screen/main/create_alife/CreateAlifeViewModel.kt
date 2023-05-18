@@ -2,6 +2,7 @@ package com.alife.anotherlife.ui.screen.main.create_alife
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
@@ -48,10 +49,11 @@ class CreateAlifeViewModel @Inject constructor(
     suspend fun collectEffect(
         navController: NavController,
         pagerState: PagerState,
+        lifecycle: Lifecycle,
         onSnackBarEffect: suspend (BaseSnackBarEffect) -> Unit,
         onDialogError: suspend (BaseDialogErrorEffect) -> Unit
     ) {
-        reducerVM.getEffectCollector().collect { effect ->
+        reducerVM.getEffectCollector().collect(lifecycle) { effect ->
             when(effect) {
                 is CreateAlifeEffect.VideoToMainPage -> effect.scrollToVideoPage(pagerState)
                 is BaseSnackBarEffect -> onSnackBarEffect(effect)

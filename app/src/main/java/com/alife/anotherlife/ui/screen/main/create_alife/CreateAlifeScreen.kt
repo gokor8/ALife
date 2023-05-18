@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -66,10 +67,13 @@ class CreateAlifeScreen(
                 mutableStateOf<BaseDialogErrorEffect>(CreateAlifeEffect.EmptyDialogError())
             }
 
+            val lifecycle = LocalLifecycleOwner.current.lifecycle
+
             LaunchedEffect(Unit) {
                 viewModel.collectEffect(
                     navController,
                     pagerState,
+                    lifecycle,
                     onSnackBarEffect = { effect -> effect.showSnackBar(snackBarEffect) },
                     onDialogError = { effect -> dialogError = effect }
                 )

@@ -35,7 +35,6 @@ class CreateAlifePhotoReducer @Inject constructor(
         pagerContainer.picture.copyContainer(pagerContainer, screenState)
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     override fun onCaptureWrapper(captureWrapper: CookedCaptureWrapper) {
         setState {
             copy(
@@ -48,7 +47,6 @@ class CreateAlifePhotoReducer @Inject constructor(
         }
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onCreatePhoto(
         viewModelScope: CoroutineScope,
         screenState: PictureScreenState,
@@ -88,7 +86,6 @@ class CreateAlifePhotoReducer @Inject constructor(
         }
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onPictureLoading() {
         setState {
             copy(
@@ -100,7 +97,6 @@ class CreateAlifePhotoReducer @Inject constructor(
         }
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onFinish() {
         if (!coroutineAwaitList.isComplete()) {
             setState { copy(lceModel = LCELoading) }
