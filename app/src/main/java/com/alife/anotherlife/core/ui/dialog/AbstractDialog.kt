@@ -42,19 +42,13 @@ abstract class AbstractDialog(
         onAgree: () -> Unit = {},
         onDismiss: () -> Unit = {},
     ) {
-        var visibility by remember(isVisible) {
+        var visibility by remember(isVisible, this) {
             mutableStateOf(isVisible)
         }
 
-        // TODO NEED fix
-        // Update on composition state
-        // https://stackoverflow.com/questions/69085027/difference-between-remember-and-rememberupdatedstate-in-jetpack-compose
-        Log.d("Aboba class", this.javaClass.simpleName)
-        LaunchedEffect(true) {
+        LaunchedEffect(isVisible, this) {
             visibility = isVisible
         }
-
-        Log.d("Aboba Visibility", "isVisible: $isVisible & visibility: $visibility")
 
         val wrappedDismiss = {
             visibility = !visibility

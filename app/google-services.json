@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "366273231973",
+    "project_id": "anotherlife-4f816",
+    "storage_bucket": "anotherlife-4f816.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366273231973:android:f9a2c6e50e396b3ce6da8c",
+        "android_client_info": {
+          "package_name": "com.alife.anotherlife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366273231973-ob83qf7j946tf84otrdl6ju4et8b3boj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk2Gf6wNBFm54wwoLYsP62CA8bJK-4bvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366273231973-ob83qf7j946tf84otrdl6ju4et8b3boj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

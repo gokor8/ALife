@@ -17,9 +17,9 @@ import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.button.TransparentStrokeButton
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title22Style
-import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionStatus
 
 abstract class ErrorPermissionScreenState : ScreenState {
 
@@ -33,9 +33,11 @@ abstract class ErrorPermissionScreenState : ScreenState {
             onResult = { onSettingAction(viewModel) }
         )
 
-       viewModel.cameraPermission.requirePermission { status ->
-            if(status is PermissionStatus.Success) onSettingAction(viewModel)
-       }
+        val permission = viewModel.cameraPermission.requirePermission {}
+
+        key(permission) {
+            if (permission.status is PermissionStatus.Granted) onSettingAction(viewModel)
+        }
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -59,9 +61,4 @@ abstract class ErrorPermissionScreenState : ScreenState {
 
     protected abstract fun onSettingAction(viewModel: CreateAlifeViewModel)
 
-//    override fun hashCode(): Int {
-//        val hashcode = this.javaClass.simpleName.hashCode()
-//        Log.d("Hashcode", "${hashcode}")
-//        return hashcode
-//    }
 }
