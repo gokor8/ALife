@@ -57,24 +57,28 @@ class CreateAlifeVideoReducer @Inject constructor(
         contextWrapper: BaseContextMainExecutorWrapper,
         videoCapture: BaseStartVideoCaptureState
     ) {
-        val fileOutputOptions = videoStorageToOptions.map(
-            videoStorageAlifeUseCase.getVideoStorageEntity()
-        )
-
-        // TODO may be catch this code
-        val recordingWrapper = videoCapture.start(
-            contextWrapper,
-            videoCaptureBuilderFactory.getBuilder(getState().audioEnabledModel.isChecked()),
-            fileOutputOptions
-        )
-
-        setState {
-            copy(
-                pagerContainer = pagerContainer.video.copyContainer(
-                    pagerContainer,
-                    RecordingPagerItem(RecordingCaptureState(videoCapture, recordingWrapper))
-                )
+        execute {
+            trySetEffect(CreateAlifeEffect.SnackVideoError())
+            setupVideoCaptureState(videoCapture)
+        }.handle {
+            val fileOutputOptions = videoStorageToOptions.map(
+                videoStorageAlifeUseCase.getVideoStorageEntity()
             )
+
+            val recordingWrapper = videoCapture.start(
+                contextWrapper,
+                videoCaptureBuilderFactory.getBuilder(getState().audioEnabledModel.isChecked()),
+                fileOutputOptions
+            )
+
+            setState {
+                copy(
+                    pagerContainer = pagerContainer.video.copyContainer(
+                        pagerContainer,
+                        RecordingPagerItem(RecordingCaptureState(videoCapture, recordingWrapper))
+                    )
+                )
+            }
         }
     }
 
@@ -82,7 +86,6 @@ class CreateAlifeVideoReducer @Inject constructor(
         countDownTimer.start()
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     override fun onFinalizeRecording(event: VideoRecordEvent.Finalize) {
         countDownTimer.stop()
 
@@ -101,7 +104,6 @@ class CreateAlifeVideoReducer @Inject constructor(
         recordingAction: RecordingAction
     ) {
         execute {
-            // TODO check
             trySetEffect(CreateAlifeEffect.SnackVideoError())
             setupVideoCaptureState(captureState.videoCapture)
         }.handle {
@@ -151,7 +153,7 @@ class CreateAlifeVideoReducer @Inject constructor(
     }
 
     override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {
-        val effect = when(permissionStatus) {
+        val effect = when (permissionStatus) {
             is PermissionStatus.Success -> CreateAlifeEffect.EmptyDialogError()
             is PermissionStatus.Fatal -> CreateAlifeEffect.AudioDialogError()
             else -> return

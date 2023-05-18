@@ -79,8 +79,7 @@ class CreateAlifeScreen(
                 )
             }
 
-            // TODO maybe delete?
-            Log.d("Aboba Dialog", "$dialogError")
+            Log.d("Aboba dialog", "${dialogError.hashCode()}")
             dialogError.DialogErrorContent {
                 context.startActivity(state.settingsIntent)
             }

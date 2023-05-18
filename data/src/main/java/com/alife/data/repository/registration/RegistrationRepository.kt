@@ -1,33 +1,42 @@
 package com.alife.data.repository.registration
 
-import com.alife.data.data_source.cache.shared.SharedCacheDataSource
-import com.alife.data.repository.registration.mapper.BaseRegEntityToReadRegModel
-import com.alife.data.repository.registration.mapper.BaseRegEntityToWriteRegModel
+import com.alife.data.repository.registration.mapper.BaseRegDataEntityToRequest
+import com.alife.data.repository.registration.model.AuthException
+import com.alife.data.repository.registration.model.CodeException
+import com.alife.data.repository.registration.net_model.RequestCode
+import com.alife.data.repository.registration.net_model.ResponseErrorRegistration
+import com.alife.data.services.RegistrationService
 import com.alife.domain.registration.repository.BaseRegistrationRepository
-import com.alife.domain.registration.usecase.base.entity.ReadRegInputEntity
-import com.alife.domain.registration.usecase.base.entity.SaveRegInputEntity
 import com.alife.domain.registration.usecase.email.send_reg_data.entity.RegDataEntity
+import com.google.gson.Gson
 import javax.inject.Inject
 
 class RegistrationRepository @Inject constructor(
-    private val sharedCacheDataSource: SharedCacheDataSource,
-    private val baseRegEntityToWriteRegModel: BaseRegEntityToWriteRegModel,
-    private val baseRegEntityToReadRegModel: BaseRegEntityToReadRegModel,
+    // TODO change on interface
+    private val gson: Gson,
+    private val registrationService: RegistrationService,
+    private val regDataEntityToRequest: BaseRegDataEntityToRequest
 ) : BaseRegistrationRepository {
 
-    override fun saveRegData(regEntity: SaveRegInputEntity<*>) {
-        sharedCacheDataSource.save(
-            baseRegEntityToWriteRegModel.map(regEntity)
+    // TODO Separate this on CacheRegistrationRepository and RegistrationRepository
+    override suspend fun sendRegData(regDataEntity: RegDataEntity) {
+        val response = registrationService.sendRegData(
+            regDataEntityToRequest.map(regDataEntity)
         )
+
+        if (!response.isSuccessful) {
+            val errorResponse = gson.fromJson(
+                response.message(),
+                ResponseErrorRegistration::class.java
+            )
+
+            throw AuthException(errorResponse.errorMessage)
+        }
     }
 
-    override fun <M : Any> readRegData(regEntity: ReadRegInputEntity<M>): M {
-        return sharedCacheDataSource.read(
-            baseRegEntityToReadRegModel.map(regEntity)
-        ) as M
-    }
+    override suspend fun confirmCode(code: String) {
+        val response = registrationService.sendVerificationCode(RequestCode(code))
 
-    override fun sendRegData(regDataEntity: RegDataEntity) {
-        // throw Exception if was error in bek response
+        if (!response.isSuccessful) throw CodeException()
     }
 }

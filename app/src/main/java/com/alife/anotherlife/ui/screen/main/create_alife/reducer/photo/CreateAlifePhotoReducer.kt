@@ -65,10 +65,8 @@ class CreateAlifePhotoReducer @Inject constructor(
                     )
                 )
             }
-            // TODO протестить с delay(5000) и выходом из прилки во время фото
             trySetEffect(CreateAlifeEffect.SnackPictureError())
         }.handleThis(uiStore.getState()) { exHandler ->
-            delay(3000L)
             val imageProxy = captureWrapper.takePhoto(contextWrapper.getMainExecutor())
 
             coroutineAwaitList.addAndLaunch(viewModelScope, exHandler + Dispatchers.Default) {
