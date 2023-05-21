@@ -2,7 +2,7 @@ package com.alife.domain.registration.usecase.base
 
 import com.alife.domain.core.usecase.AbstractUseCase
 import com.alife.domain.registration.repository.BaseRegistrationRepository
-import com.alife.domain.registration.usecase.base.entity.SaveRegInputEntity
+import com.alife.domain.registration.usecase.base.entity.SaveCacheInputEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
@@ -11,7 +11,7 @@ abstract class RegistrationSaveRegStageUC<M>(
     override val dispatcher: CoroutineDispatcher
 ) : AbstractUseCase(), BaseRegStageUseCase.Save<M> {
 
-    abstract fun getSaveModel(inputData: String): SaveRegInputEntity<*>
+    abstract fun getSaveModel(inputData: String): SaveCacheInputEntity<*>
 
     override suspend fun saveData(inputData: String) = withContext(dispatcher) {
         registrationRepository.saveRegData(

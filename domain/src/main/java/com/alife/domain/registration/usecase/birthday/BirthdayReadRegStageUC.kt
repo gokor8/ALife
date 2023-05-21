@@ -20,7 +20,7 @@ class BirthdayReadRegStageUC @Inject constructor(
 
     override suspend fun readData() = withSafe {
         BirthdayRegEntity(
-            registrationRepository.readRegData(BirthdayReadRegEntity())
+            registrationRepository.readRegData(BirthdayReadCacheEntity())
         )
     }
 

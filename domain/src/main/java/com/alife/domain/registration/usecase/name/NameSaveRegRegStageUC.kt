@@ -12,5 +12,5 @@ class NameSaveRegRegStageUC @Inject constructor(
 ) : RegistrationSaveRegStageUC<NameRegEntity>(registrationRepository, dispatcher),
     BaseNameUseCase.Save {
 
-    override fun getSaveModel(inputData: String) = NameSaveRegEntity(inputData)
+    override fun getSaveModel(inputData: String) = NameSaveCacheEntity(inputData)
 }

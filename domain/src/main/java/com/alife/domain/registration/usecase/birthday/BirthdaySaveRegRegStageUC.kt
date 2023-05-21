@@ -14,6 +14,6 @@ class BirthdaySaveRegRegStageUC @Inject constructor(
     dispatcher
 ), BaseBirthdayUseCase.Save {
 
-    override fun getSaveModel(inputData: String) = BirthdaySaveRegEntity(inputData)
+    override fun getSaveModel(inputData: String) = BirthdaySaveCacheEntity(inputData)
 
 }

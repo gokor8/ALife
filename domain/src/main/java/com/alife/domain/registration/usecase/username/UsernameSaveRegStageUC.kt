@@ -13,7 +13,7 @@ class UsernameSaveRegStageUC @Inject constructor(
 
     override suspend fun saveData(inputData: String) = withContext(dispatcher) {
         registrationRepository.saveRegData(
-            UsernameSaveRegEntity(inputData)
+            UsernameSaveCacheEntity(inputData)
         )
     }
 }

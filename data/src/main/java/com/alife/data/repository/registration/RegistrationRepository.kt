@@ -18,7 +18,7 @@ class RegistrationRepository @Inject constructor(
     private val regDataEntityToRequest: BaseRegDataEntityToRequest
 ) : BaseRegistrationRepository {
 
-    // TODO Separate this on CacheRegistrationRepository and RegistrationRepository
+    // TODO Separate this on CacheRepository and RegistrationRepository
     override suspend fun sendRegData(regDataEntity: RegDataEntity) {
         val response = registrationService.sendRegData(
             regDataEntityToRequest.map(regDataEntity)

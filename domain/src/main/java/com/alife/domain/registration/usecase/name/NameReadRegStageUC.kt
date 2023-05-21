@@ -17,7 +17,7 @@ class NameReadRegStageUC @Inject constructor(
 
     override suspend fun readData() = withSafe {
         NameRegEntity(
-            registrationRepository.readRegData(NameReadRegEntity())
+            registrationRepository.readRegData(NameReadCacheEntity())
         )
     }
 

@@ -1,3 +1,3 @@
 package com.alife.domain.registration.usecase.base.entity
 
-interface ReadRegInputEntity<M> : RegInputEntity<M>
+interface ReadCacheInputEntity<M> : CacheInputEntity<M>

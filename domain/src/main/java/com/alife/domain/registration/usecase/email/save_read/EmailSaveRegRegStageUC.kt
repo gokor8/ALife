@@ -12,6 +12,6 @@ class EmailSaveRegRegStageUC @Inject constructor(
 ) : RegistrationSaveRegStageUC<EmailRegEntity>(registrationRepository, dispatcher),
     BaseEmailUseCase.Save {
 
-    override fun getSaveModel(inputData: String) = EmailSaveRegEntity(inputData)
+    override fun getSaveModel(inputData: String) = EmailSaveCacheEntity(inputData)
 
 }

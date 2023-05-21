@@ -6,21 +6,21 @@ import com.alife.data.repository.registration.model.email.EmailRegReadModel
 import com.alife.data.repository.registration.model.name.NameRegReadModel
 import com.alife.data.repository.registration.model.username.UsernameRegReadModel
 import com.alife.domain.core.MappingException
-import com.alife.domain.registration.usecase.base.entity.ReadRegInputEntity
-import com.alife.domain.registration.usecase.birthday.BirthdayReadRegEntity
-import com.alife.domain.registration.usecase.email.save_read.EmailReadRegEntity
-import com.alife.domain.registration.usecase.name.NameReadRegEntity
-import com.alife.domain.registration.usecase.username.UsernameReadRegEntity
+import com.alife.domain.registration.usecase.base.entity.ReadCacheInputEntity
+import com.alife.domain.registration.usecase.birthday.BirthdayReadCacheEntity
+import com.alife.domain.registration.usecase.email.save_read.EmailReadCacheEntity
+import com.alife.domain.registration.usecase.name.NameReadCacheEntity
+import com.alife.domain.registration.usecase.username.UsernameReadCacheEntity
 import javax.inject.Inject
 
 class RegEntityToReadRegModel @Inject constructor() : BaseRegEntityToReadRegModel {
 
-    override fun map(inputModel: ReadRegInputEntity<*>): CacheModel.Read<*> {
+    override fun map(inputModel: ReadCacheInputEntity<*>): CacheModel.Read<*> {
         return when(inputModel) {
-            is NameReadRegEntity -> NameRegReadModel()
-            is UsernameReadRegEntity -> UsernameRegReadModel()
-            is BirthdayReadRegEntity -> BirthdayRegReadModel()
-            is EmailReadRegEntity -> EmailRegReadModel()
+            is NameReadCacheEntity -> NameRegReadModel()
+            is UsernameReadCacheEntity -> UsernameRegReadModel()
+            is BirthdayReadCacheEntity -> BirthdayRegReadModel()
+            is EmailReadCacheEntity -> EmailRegReadModel()
             else -> throw MappingException()
         }
     }

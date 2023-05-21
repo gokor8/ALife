@@ -17,7 +17,7 @@ class EmailReadRegStageUC @Inject constructor(
 
     override suspend fun readData() = withSafe {
         EmailRegEntity(
-            registrationRepository.readRegData(EmailReadRegEntity())
+            registrationRepository.readRegData(EmailReadCacheEntity())
         )
     }
 

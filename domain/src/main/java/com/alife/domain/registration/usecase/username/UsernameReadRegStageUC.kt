@@ -3,7 +3,6 @@ package com.alife.domain.registration.usecase.username
 import com.alife.domain.core.mapper.ThrowableUCMapper
 import com.alife.domain.registration.repository.BaseRegistrationRepository
 import com.alife.domain.registration.usecase.base.RegistrationReadRegStageUC
-import com.alife.domain.registration.usecase.name.addons.NameReadBoxEntity
 import com.alife.domain.registration.usecase.username.addons.UsernameReadBoxEntity
 import com.alife.domain.registration.usecase.username.addons.UsernameRegEntity
 import kotlinx.coroutines.CoroutineDispatcher
@@ -21,7 +20,7 @@ class UsernameReadRegStageUC @Inject constructor(
 
     override suspend fun readData() = withSafe {
         UsernameRegEntity(
-            registrationRepository.readRegData(UsernameReadRegEntity())
+            registrationRepository.readRegData(UsernameReadCacheEntity())
         )
     }
 

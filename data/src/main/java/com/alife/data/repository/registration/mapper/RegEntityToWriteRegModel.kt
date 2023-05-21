@@ -6,21 +6,21 @@ import com.alife.data.repository.registration.model.email.EmailRegWriteModel
 import com.alife.data.repository.registration.model.name.NameRegWriteModel
 import com.alife.data.repository.registration.model.username.UsernameRegWriteModel
 import com.alife.domain.core.MappingException
-import com.alife.domain.registration.usecase.base.entity.SaveRegInputEntity
-import com.alife.domain.registration.usecase.birthday.BirthdaySaveRegEntity
-import com.alife.domain.registration.usecase.email.save_read.EmailSaveRegEntity
-import com.alife.domain.registration.usecase.name.NameSaveRegEntity
-import com.alife.domain.registration.usecase.username.UsernameSaveRegEntity
+import com.alife.domain.registration.usecase.base.entity.SaveCacheInputEntity
+import com.alife.domain.registration.usecase.birthday.BirthdaySaveCacheEntity
+import com.alife.domain.registration.usecase.email.save_read.EmailSaveCacheEntity
+import com.alife.domain.registration.usecase.name.NameSaveCacheEntity
+import com.alife.domain.registration.usecase.username.UsernameSaveCacheEntity
 import javax.inject.Inject
 
 class RegEntityToWriteRegModel @Inject constructor() : BaseRegEntityToWriteRegModel {
 
-    override fun map(inputModel: SaveRegInputEntity<*>): CacheModel.Write<*> {
+    override fun map(inputModel: SaveCacheInputEntity<*>): CacheModel.Write<*> {
         return when(inputModel) {
-            is NameSaveRegEntity -> NameRegWriteModel(inputModel.name)
-            is UsernameSaveRegEntity -> UsernameRegWriteModel(inputModel.username)
-            is BirthdaySaveRegEntity -> BirthdayRegWriteModel(inputModel.birthday)
-            is EmailSaveRegEntity -> EmailRegWriteModel(inputModel.email)
+            is NameSaveCacheEntity -> NameRegWriteModel(inputModel.name)
+            is UsernameSaveCacheEntity -> UsernameRegWriteModel(inputModel.username)
+            is BirthdaySaveCacheEntity -> BirthdayRegWriteModel(inputModel.birthday)
+            is EmailSaveCacheEntity -> EmailRegWriteModel(inputModel.email)
             else -> throw MappingException()
         }
     }
