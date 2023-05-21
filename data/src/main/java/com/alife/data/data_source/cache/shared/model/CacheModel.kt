@@ -11,6 +11,8 @@ interface CacheModel<M> {
     interface Read<M> : CacheModel<M> {
 
         fun read(sharedPreferences: SharedPreferences): M
+
+        fun delete(editor: Editor) { editor.remove(getKey()) }
     }
 
     interface Write<M> : CacheModel<M> {

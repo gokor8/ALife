@@ -13,12 +13,10 @@ import javax.inject.Inject
 class TokenReAuthInterceptor @Inject constructor(
     globalExceptionHandler: GlobalExceptionHandler,
     tokensUseCase: BaseTokensUseCase,
-    private val tokenErrorChain: BaseTokenErrorChain,
-    private val
-    // TODO add MainActivity uiStore
+    private val tokenErrorChain: BaseTokenErrorChain
 ) : AbstractTokenInterceptor(globalExceptionHandler, tokensUseCase) {
 
-    override fun tokensIntercept(
+    override suspend fun tokensIntercept(
         tokens: TokenStateEntity.Fill,
         chain: Interceptor.Chain
     ): Response {
@@ -30,15 +28,11 @@ class TokenReAuthInterceptor @Inject constructor(
 
         // TODO заменить в будующем на классы, с методом(чтобы было ООП)
         return when(response.code()) {
-            // TODO сохранять в SharedPrefs новые токены
-            403 -> {
-                val tempResponse = tokenErrorChain.handle(
-                    TokenErrorChainModel(tokens.refreshToken, chain)
-                )
-
-
+            403 -> tokenErrorChain.handle(TokenErrorChainModel(tokens.refreshToken, chain))
+            404 -> {
+                tokensUseCase.deleteTokens()
+                throw ServerUnavailable()
             }
-            404 -> throw ServerUnavailable()
             else -> response
         }
     }

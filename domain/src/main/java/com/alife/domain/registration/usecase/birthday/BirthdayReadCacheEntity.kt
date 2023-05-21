@@ -1,5 +1,5 @@
 package com.alife.domain.registration.usecase.birthday
 
-import com.alife.domain.registration.usecase.base.entity.ReadCacheInputEntity
+import com.alife.domain.registration.usecase.base.entity.RegCacheInputEntity
 
-class BirthdayReadCacheEntity : ReadCacheInputEntity<String>
+class BirthdayReadCacheEntity : RegCacheInputEntity.Read<String>

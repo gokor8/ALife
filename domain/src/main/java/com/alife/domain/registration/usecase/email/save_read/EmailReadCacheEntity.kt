@@ -1,5 +1,5 @@
 package com.alife.domain.registration.usecase.email.save_read
 
-import com.alife.domain.registration.usecase.base.entity.ReadCacheInputEntity
+import com.alife.domain.registration.usecase.base.entity.RegCacheInputEntity
 
-class EmailReadCacheEntity : ReadCacheInputEntity<String>
+class EmailReadCacheEntity : RegCacheInputEntity.Read<String>

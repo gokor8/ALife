@@ -10,6 +10,15 @@ interface BaseNavigationWrapper {
 
 sealed class NavigationWrapper(protected val defaultNavigator: BaseNavigator) : BaseNavigationWrapper {
 
+    // TODO fix it
+    abstract class Replace(defaultNavigator: BaseNavigator) : NavigationWrapper(defaultNavigator) {
+
+        override fun navigate(navController: NavController) {
+            // Log.d("Nav Route", defaultNavigator.toString())
+            // navController.navigate(defaultNavigator.toString())
+        }
+    }
+
     abstract class Forward(defaultNavigator: BaseNavigator) : NavigationWrapper(defaultNavigator) {
 
         override fun navigate(navController: NavController) {

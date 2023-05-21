@@ -9,8 +9,10 @@ import okhttp3.Response
 
 abstract class AbstractTokenInterceptor(
     globalExceptionHandler: GlobalExceptionHandler,
-    private val tokensUseCase: BaseTokensUseCase
+    protected val tokensUseCase: BaseTokensUseCase
 ) : AbstractSuspendInterceptor(globalExceptionHandler) {
+
+    private val exceptionsLinks = ("")
 
     override suspend fun suspendIntercept(chain: Interceptor.Chain): Response {
         return when (val tokens = tokensUseCase.getTokens()) {
@@ -19,7 +21,7 @@ abstract class AbstractTokenInterceptor(
         }
     }
 
-    protected abstract fun tokensIntercept(
+    protected abstract suspend fun tokensIntercept(
         tokens: TokenStateEntity.Fill,
         chain: Interceptor.Chain
     ): Response

@@ -3,9 +3,11 @@ package com.alife.domain.registration.repository
 import com.alife.domain.registration.usecase.base.entity.ReadCacheInputEntity
 import com.alife.domain.registration.usecase.base.entity.SaveCacheInputEntity
 
-interface BaseCacheRegistrationRepository {
+interface BaseCacheRepository<S : SaveCacheInputEntity<*>, R : ReadCacheInputEntity<*>> {
 
-    fun saveRegData(regEntity: SaveCacheInputEntity<*>)
+    fun saveData(saveEntity: S)
 
-    fun<M : Any> readRegData(regEntity: ReadCacheInputEntity<M>): M
+    fun<M : Any> readData(readEntity: R): M
+
+    fun deleteData(readEntity: R)
 }

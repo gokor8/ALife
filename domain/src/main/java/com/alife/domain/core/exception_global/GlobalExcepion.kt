@@ -2,8 +2,10 @@ package com.alife.domain.core.exception_global
 
 abstract class GlobalException : Throwable()
 
-class RefreshTokenDied : GlobalException()
+interface GoToLoginException
 
-class LogOut : GlobalException()
+class RefreshTokenDied : GlobalException(), GoToLoginException
+
+class LogOut : GlobalException(), GoToLoginException
 
 class ServerUnavailable : GlobalException()

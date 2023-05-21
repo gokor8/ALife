@@ -13,7 +13,7 @@ class DefaultRequestInterceptor @Inject constructor(
     tokensUseCase: BaseTokensUseCase
 ) : AbstractTokenInterceptor(globalExceptionHandler, tokensUseCase) {
 
-    override fun tokensIntercept(
+    override suspend fun tokensIntercept(
         tokens: TokenStateEntity.Fill,
         chain: Interceptor.Chain
     ): Response {

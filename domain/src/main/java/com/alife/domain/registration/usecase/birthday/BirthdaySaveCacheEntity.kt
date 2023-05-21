@@ -1,5 +1,5 @@
 package com.alife.domain.registration.usecase.birthday
 
-import com.alife.domain.registration.usecase.base.entity.SaveCacheInputEntity
+import com.alife.domain.registration.usecase.base.entity.RegCacheInputEntity
 
-class BirthdaySaveCacheEntity(val birthday: String) : SaveCacheInputEntity<String>
+class BirthdaySaveCacheEntity(val birthday: String) : RegCacheInputEntity.Save<String>
