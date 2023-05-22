@@ -45,7 +45,7 @@ class TestDefaultRequestInterceptor {
     }
 
     @Test
-    fun `intercept with TokenStateEntity Empty`() {
+    fun `intercept with TokenStateEntity Empty return GlobalException`() {
         createRequestInterceptor(TokenStateEntity.Empty())
         val chain = FakeChainInterceptor()
 
@@ -55,13 +55,14 @@ class TestDefaultRequestInterceptor {
     }
 
     @Test
-    fun `intercept Fill with Exception`() {
+    fun `intercept with TokenStateEntity Empty return Exception`() {
         val chain = FakeChainInterceptor()
 
         defaultRequestInterceptor.intercept(chain)
 
-        assertTrue(testModelContainer.getState().assertThirdTest())
+        assertTrue(testModelContainer.getState().assertFourthTest())
     }
+
 
 
     // Test Realization
@@ -75,6 +76,7 @@ class TestDefaultRequestInterceptor {
         fun assertFirstTest() = getTokens
         fun assertSecondTest() = !getTokens
         fun assertThirdTest() = exceptionHandle && !saveTokens && !getTokens && !deleteTokens
+        fun assertFourthTest() = !exceptionHandle && !saveTokens && !getTokens && !deleteTokens
     }
 
     class FakeGlobalExceptionHandler(

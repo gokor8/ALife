@@ -10,4 +10,6 @@ class GsonWrapper @Inject constructor(private val gson: Gson) : JsonWrapper {
     override fun toJson(`object`: Any) = gson.toJson(`object`)
 
     override fun <T> fromJson(json: Reader?, classOfT: Class<T>) = gson.fromJson(json, classOfT)
+
+    override fun <T> fromJson(json: String, classOfT: Class<T>) = gson.fromJson(json, classOfT)
 }

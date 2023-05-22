@@ -1,5 +1,6 @@
 package com.alife.data.repository.registration
 
+import com.alife.core.addons.JsonWrapper
 import com.alife.data.repository.registration.mapper.BaseRegDataEntityToRequest
 import com.alife.data.repository.registration.model.AuthException
 import com.alife.data.repository.registration.model.CodeException
@@ -12,20 +13,18 @@ import com.google.gson.Gson
 import javax.inject.Inject
 
 class RegistrationRepository @Inject constructor(
-    // TODO change on interface
-    private val gson: Gson,
+    private val jsonWrapper: JsonWrapper,
     private val registrationService: RegistrationService,
     private val regDataEntityToRequest: BaseRegDataEntityToRequest
 ) : BaseRegistrationRepository {
 
-    // TODO Separate this on CacheRepository and RegistrationRepository
     override suspend fun sendRegData(regDataEntity: RegDataEntity) {
         val response = registrationService.sendRegData(
             regDataEntityToRequest.map(regDataEntity)
         )
 
         if (!response.isSuccessful) {
-            val errorResponse = gson.fromJson(
+            val errorResponse = jsonWrapper.fromJson(
                 response.message(),
                 ResponseErrorRegistration::class.java
             )

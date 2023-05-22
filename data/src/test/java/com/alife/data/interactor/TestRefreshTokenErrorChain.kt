@@ -69,12 +69,17 @@ class TestRefreshTokenErrorChain {
     ) : JsonWrapper {
 
         override fun toJson(`object`: Any): String {
-            containerModel.setState { copy(toJson = false) }
+            containerModel.setState { copy(toJson = true) }
             return ""
         }
 
         override fun <T> fromJson(json: Reader?, classOfT: Class<T>): T {
-            containerModel.setState { copy(fromJson = false) }
+            containerModel.setState { copy(fromJson = true) }
+            return exception?.let { throw it } ?: TokensModel("", "") as T
+        }
+
+        override fun <T> fromJson(json: String, classOfT: Class<T>): T {
+            containerModel.setState { copy(fromJson = true) }
             return exception?.let { throw it } ?: TokensModel("", "") as T
         }
     }

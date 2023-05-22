@@ -1,17 +1,24 @@
 package com.alife.data.interactor
 
+import com.alife.data.core.TestModelContainer
 import okhttp3.Call
 import okhttp3.Connection
 import okhttp3.Interceptor
+import okhttp3.Protocol
 import okhttp3.Request
 import okhttp3.Response
 import java.util.concurrent.TimeUnit
 
-class FakeChainInterceptor : Interceptor.Chain {
-    override fun request() = Request.Builder().build()
+class FakeChainInterceptor(private val responseCode: Int = 200) : Interceptor.Chain {
+    override fun request() = Request.Builder().url("http:test.com").build()
 
     override fun proceed(request: Request): Response {
-        return Response.Builder().build()
+        return Response.Builder()
+            .request(request)
+            .protocol(Protocol.HTTP_1_0)
+            .code(responseCode)
+            .message("")
+            .build()
     }
 
     override fun connection(): Connection? {

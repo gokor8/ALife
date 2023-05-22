@@ -63,8 +63,11 @@ fun CameraActionsComposable(
             val sizeMultiplier = pagerState.currentPageOffsetFraction + pagerState.currentPage
             val calculatedSize = ((pageSize.value - minPageSize) * sizeMultiplier + minPageSize).dp
 
-            Log.e("Aboba", "${pagerState.currentPage}")
-            Log.e("Aboba Page", "${pagerItems[page]}")
+            Log.d("Aboba page fraction offset", "$pagerState.currentPageOffsetFraction")
+            Log.d("Aboba page calculatedSize offset", "$calculatedSize")
+            Log.d("Aboba page multiplier offset", "$sizeMultiplier")
+            Log.e("Aboba current page", "${pagerState.currentPage}")
+            Log.e("Aboba current index page", "${pagerItems[page]}")
 
             pagerItems[page].Content(
                 // 28f * ... + 32f

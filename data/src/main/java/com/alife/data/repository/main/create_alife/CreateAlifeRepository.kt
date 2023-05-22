@@ -28,7 +28,7 @@ class CreateAlifeRepository @Inject constructor(
         val saveModel = entityToSaveModel.map(saveImageEntity)
 
         val out = FileOutputStream(saveModel.createFile())
-        saveModel.writeToFile(out)//.compress(Bitmap.CompressFormat.JPEG, 90, out)
+        saveModel.writeToFile(out)
         out.flush()
         out.close()
     }
