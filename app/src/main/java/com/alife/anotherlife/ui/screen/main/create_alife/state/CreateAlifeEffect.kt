@@ -5,11 +5,16 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Stable
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.navigation.NavigationWrapper
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.CreationType
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.navigation.FinishCreationNavBuilder
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.navigation.FinishCreationNavigator
 import com.alife.core.mvi.MVI
 
 interface CreateAlifeEffect : MVI.Effect {
 
-    class CreateAlifeFinish : CreateAlifeEffect, NavigationWrapper.Back()
+    class CreateAlifeFinish(
+        creationType: CreationType
+    ) : CreateAlifeEffect, NavigationWrapper.Forward(FinishCreationNavigator())
 
     class GoBack : CreateAlifeEffect, NavigationWrapper.Back()
 
