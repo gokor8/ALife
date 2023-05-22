@@ -2,26 +2,27 @@ package com.alife.anotherlife.di.data.core
 
 import com.alife.data.interceptor.DefaultRequestInterceptor
 import com.alife.data.interceptor.TokenReAuthInterceptor
+import com.alife.data.interceptor.model.RetrofitAnnotation
 import com.alife.data.services.RegistrationService
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Credentials
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 
 @Module
 @InstallIn(SingletonComponent::class)
 class RetrofitModuleP {
+
+    @RetrofitAnnotation.BaseUrl
+    @Provides
+    fun provideBaseUrl(): String = "http://10.0.2.2:8080/"//"http://127.0.0.1:8080/"
 
     @Provides
     fun provideHttpLoginInterceptor() = HttpLoggingInterceptor().apply {
@@ -38,14 +39,20 @@ class RetrofitModuleP {
         tokenReAuthInterceptor: TokenReAuthInterceptor
     ): OkHttpClient = OkHttpClient()
         .newBuilder()
+        .readTimeout(2, TimeUnit.MINUTES)
+        .connectTimeout(1, TimeUnit.MINUTES)
         .addInterceptor(httpLoggingInterceptor)
         .addInterceptor(tokenReAuthInterceptor)
         .addInterceptor(defaultRequestInterceptor)
         .build()
 
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl("http://127.0.0.1:8080/")
+    fun provideRetrofit(
+        @RetrofitAnnotation.BaseUrl
+        baseUrl: String,
+        okHttpClient: OkHttpClient
+    ): Retrofit = Retrofit.Builder()
+        .baseUrl(baseUrl)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

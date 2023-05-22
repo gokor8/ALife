@@ -9,6 +9,7 @@ import com.alife.data.repository.registration.net_model.ResponseErrorRegistratio
 import com.alife.data.services.RegistrationService
 import com.alife.domain.registration.repository.BaseRegistrationRepository
 import com.alife.domain.registration.usecase.email.send_reg_data.entity.RegDataEntity
+import com.alife.domain.registration.usecase.email_code.EmailCodeState
 import com.google.gson.Gson
 import javax.inject.Inject
 

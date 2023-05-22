@@ -12,9 +12,17 @@ abstract class AbstractTokenInterceptor(
     protected val tokensUseCase: BaseTokensUseCase
 ) : AbstractSuspendInterceptor(globalExceptionHandler) {
 
-    private val exceptionsLinks = ("")
+    private val exceptionsLinks = listOf("/reg-log", "/me", "/refresh", "/check-email-code")
 
     override suspend fun suspendIntercept(chain: Interceptor.Chain): Response {
+        val request = chain.request()
+
+        val isFree = exceptionsLinks.any { endPoint ->
+            request.url().toString().contains(endPoint)
+        }
+
+        if (isFree) return chain.proceed(request)
+
         return when (val tokens = tokensUseCase.getTokens()) {
             is TokenStateEntity.Fill -> tokensIntercept(tokens, chain)
             else -> throw LogOut()// TODO to reg

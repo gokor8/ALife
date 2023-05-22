@@ -2,15 +2,17 @@ package com.alife.domain.registration.usecase.email_code
 
 import com.alife.domain.core.mapper.ThrowableUCMapper
 import com.alife.domain.core.usecase.AbstractSafeUseCaseResult
+import com.alife.domain.registration.repository.BaseRegistrationRepository
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class EmailCodeUseCaseResult @Inject constructor(
-    dispatcher: CoroutineDispatcher,
-    exceptionMapper: ThrowableUCMapper<EmailCodeState>
-) : AbstractSafeUseCaseResult<EmailCodeState>(dispatcher, exceptionMapper), BaseEmailCodeUseCase {
+    private val dispatcher: CoroutineDispatcher,
+    private val registrationRepository: BaseRegistrationRepository
+) : BaseEmailCodeUseCase {
 
-    override fun sendCode(code: String): EmailCodeState {
-        return EmailCodeState.Success()
+    override suspend fun sendCode(code: String) = withContext(dispatcher) {
+        registrationRepository.confirmCode(code)
     }
 }

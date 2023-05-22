@@ -16,10 +16,12 @@ interface BaseTokenErrorChain : ChainHandler.BaseSuspend<TokenErrorChainModel, R
 
 class RefreshTokenErrorChain @Inject constructor(
     private val tokensUseCase: BaseTokensUseCase,
-    private val jsonWrapper: JsonWrapper
+    private val jsonWrapper: JsonWrapper,
+    @RetrofitAnnotation.BaseUrl
+    baseUrl: String
 ) : BaseTokenErrorChain {
 
-    private val refreshAuthTokenUrl = "/refresh" // TODO Add baseUrl maybe?
+    private val refreshAuthTokenUrl = "$baseUrl/refresh"
     private val mediaType = "application/json; charset=utf-8"
 
     override suspend fun handle(inputModel: TokenErrorChainModel) = with(inputModel) {
