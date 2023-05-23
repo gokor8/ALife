@@ -4,7 +4,6 @@ import com.alife.core.addons.JsonWrapper
 import com.alife.core.chain.ChainHandler
 import com.alife.domain.core.exception_global.RefreshTokenDied
 import com.alife.domain.registration.usecase.token.BaseTokensUseCase
-import com.google.gson.Gson
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -43,7 +42,7 @@ class RefreshTokenErrorChain @Inject constructor(
         }
 
         jsonWrapper.fromJson(response.body()?.charStream(), TokensModel::class.java).apply {
-            tokensUseCase.saveTokens(authorizationToken, refreshToken)
+            tokensUseCase.saveTokens(accessToken, refreshToken)
         }
 
         return@with chain.proceed(chain.request())

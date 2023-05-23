@@ -10,11 +10,18 @@ class TokensModelToTokenStateEntity @Inject constructor() : Mapper<BaseTokensMod
     override fun map(inputModel: BaseTokensModel): TokenStateEntity {
         return if (inputModel is TokensModel) {
             TokenStateEntity.Fill(
-                inputModel.authorizationToken,
+                inputModel.accessToken,
                 inputModel.refreshToken
             )
         } else {
             TokenStateEntity.Empty()
         }
+    }
+}
+
+class TokensModelToTokensEntity @Inject constructor() : Mapper<TokensModel, TokenStateEntity.Fill> {
+
+    override fun map(inputModel: TokensModel): TokenStateEntity.Fill {
+        return TokenStateEntity.Fill(inputModel.accessToken, inputModel.refreshToken)
     }
 }

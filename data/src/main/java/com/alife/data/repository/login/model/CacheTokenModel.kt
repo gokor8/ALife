@@ -2,10 +2,11 @@ package com.alife.data.repository.login.model
 
 import android.content.SharedPreferences
 import com.alife.data.data_source.cache.shared.model.CacheModel
+import com.alife.data.interceptor.model.TokensModel
 import com.alife.domain.registration.usecase.token.TokenSaveEntity
 import java.io.IOException
 
-interface CacheTokenModel : CacheModel<TokenSaveEntity> {
+interface CacheTokenModel : CacheModel<TokensModel> {
 
     override fun getKey(): String = "tokens"
 
@@ -18,7 +19,7 @@ interface CacheTokenModel : CacheModel<TokenSaveEntity> {
     class Write(
         private val authorizationToken: String,
         private val refreshToken: String
-    ) : CacheModel.Write<TokenSaveEntity>, Abstract() {
+    ) : CacheModel.Write<TokensModel>, Abstract() {
 
         override fun write(editor: SharedPreferences.Editor) {
             editor.putString(keyAuth(), authorizationToken)
@@ -26,15 +27,15 @@ interface CacheTokenModel : CacheModel<TokenSaveEntity> {
         }
     }
 
-    class Read : CacheTokenModel, CacheModel.Read<TokenSaveEntity>, Abstract() {
+    class Read : CacheTokenModel, CacheModel.Read<TokensModel>, Abstract() {
 
-        override fun read(sharedPreferences: SharedPreferences): TokenSaveEntity {
+        override fun read(sharedPreferences: SharedPreferences): TokensModel {
             val exception = IOException("NotFound token")
 
             val auth = sharedPreferences.getString(keyAuth(), null) ?: throw exception
             val refresh = sharedPreferences.getString(keyRefresh(), null) ?: throw exception
 
-            return TokenSaveEntity(auth, refresh)
+            return TokensModel(auth, refresh)
         }
 
         override fun delete(editor: SharedPreferences.Editor) {

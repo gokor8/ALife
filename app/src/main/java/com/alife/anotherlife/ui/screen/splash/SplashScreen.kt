@@ -21,6 +21,7 @@ import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.image.ImageBase
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.ui.screen.splash.state.SplashAction
+import kotlinx.coroutines.delay
 
 class SplashScreen(override val navController: NavController) : VMScreen<SplashViewModel>() {
 
@@ -28,6 +29,7 @@ class SplashScreen(override val navController: NavController) : VMScreen<SplashV
     override fun setupViewModel(): SplashViewModel = hiltViewModel()
 
     override suspend fun onInit() {
+        delay(1000L)
         viewModel.reduce(SplashAction.Init())
     }
 

@@ -6,4 +6,6 @@ import com.alife.core.mvi.MVI
 
 interface EmailCodeEffect : MVI.Effect {
     class NavigateTutorial : EmailCodeEffect, NavigationWrapper.Forward(TutorialNavigator())
+
+    class GoBack : EmailCodeEffect, NavigationWrapper.Back()
 }

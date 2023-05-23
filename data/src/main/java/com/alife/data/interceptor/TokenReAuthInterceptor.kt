@@ -30,7 +30,7 @@ class TokenReAuthInterceptor @Inject constructor(
         return when(response.code()) {
             403 -> tokenErrorChain.handle(TokenErrorChainModel(tokens.refreshToken, chain))
             404 -> {
-                tokensUseCase.deleteTokens()
+                //tokensUseCase.deleteTokens()
                 throw ServerUnavailable()
             }
             else -> response

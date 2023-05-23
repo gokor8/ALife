@@ -26,7 +26,7 @@ class RetrofitModuleP {
 
     @Provides
     fun provideHttpLoginInterceptor() = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.HEADERS
+        level = HttpLoggingInterceptor.Level.BODY
     }
 
     @Provides

@@ -4,7 +4,7 @@ import com.alife.domain.registration.usecase.base.entity.ReadCacheInputEntity
 import com.alife.domain.registration.usecase.base.entity.SaveCacheInputEntity
 
 class TokenSaveEntity(
-    val authorizationToken: String,
+    val accessToken: String,
     val refreshToken: String
 ) : SaveCacheInputEntity<BaseTokensModel>
 

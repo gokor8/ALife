@@ -2,8 +2,10 @@ package com.alife.anotherlife.di.data.login
 
 import com.alife.core.mapper.Mapper
 import com.alife.data.interceptor.mapper.TokensModelToTokenStateEntity
+import com.alife.data.interceptor.mapper.TokensModelToTokensEntity
 import com.alife.data.interceptor.model.BaseTokenErrorChain
 import com.alife.data.interceptor.model.RefreshTokenErrorChain
+import com.alife.data.interceptor.model.TokensModel
 import com.alife.data.repository.login.TokenCacheRepository
 import com.alife.data.repository.login.model.BaseTokenReadEntityToModel
 import com.alife.data.repository.login.model.BaseTokenSaveEntityToModel
@@ -34,4 +36,7 @@ interface LoginDataModule {
     @Binds
     fun bindTokensModelToTokenStateEntity(mapper: TokensModelToTokenStateEntity)
             : Mapper<BaseTokensModel, TokenStateEntity>
+
+    @Binds
+    fun bindTokensModelToTokensEntity(mapper: TokensModelToTokensEntity): Mapper<TokensModel, TokenStateEntity.Fill>
 }

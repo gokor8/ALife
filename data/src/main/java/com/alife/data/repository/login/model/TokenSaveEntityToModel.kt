@@ -7,6 +7,6 @@ import javax.inject.Inject
 class TokenSaveEntityToModel @Inject constructor() : BaseTokenSaveEntityToModel {
 
     override fun map(inputModel: TokenSaveEntity): CacheModel.Write<*> {
-        return CacheTokenModel.Write(inputModel.authorizationToken, inputModel.refreshToken)
+        return CacheTokenModel.Write(inputModel.accessToken, inputModel.refreshToken)
     }
 }

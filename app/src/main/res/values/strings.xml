@@ -14,6 +14,11 @@
     <string name="exception">Ошибка!</string>
     <string name="try_later">Повторите по позже</string>
 
+    // Generic Exception
+    <string name="generic_exception_title">Непредвиденная ошибка</string>
+    <string name="generic_exception_description">Произошла непредвиденная ошибка, повторите попытку</string>
+
+
     // Dialog
     <string name="permission_dialog_description">Предоставьте разрешние через настройки</string>
     <string name="permission_dialog_settings">в Настройки</string>

@@ -3,12 +3,10 @@ package com.alife.data.interceptor
 import com.alife.domain.core.exception_global.GlobalException
 import com.alife.domain.core.exception_global.GlobalExceptionHandler
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
 import okhttp3.Response
-import java.lang.Exception
 
 abstract class AbstractSuspendInterceptor(
     private val globalExceptionHandler: GlobalExceptionHandler
@@ -20,7 +18,7 @@ abstract class AbstractSuspendInterceptor(
         if (exception is GlobalException) globalExceptionHandler.handle(exception)
     }
 
-    override fun intercept(chain: Chain) = runBlocking(exceptionHandler) {
+    override fun intercept(chain: Chain) = runBlocking {
        suspendIntercept(chain)
     }
 

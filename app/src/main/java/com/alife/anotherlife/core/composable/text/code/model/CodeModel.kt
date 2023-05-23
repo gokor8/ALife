@@ -14,8 +14,4 @@ sealed class CodeModel(val code: String) {
 
         override fun copy(code: String) = Filling(code = code)
     }
-
-    class Filled(code: String) : CodeModel(code) {
-        override fun copy(code: String) = this//Filled(code = code)
-    }
 }

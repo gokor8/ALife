@@ -5,7 +5,7 @@ interface TokenStateEntity {
     class Empty : TokenStateEntity
 
     class Fill(
-        val authorizationToken: String,
+        val accessToken: String,
         val refreshToken: String
     ) : TokenStateEntity
 }

@@ -40,7 +40,8 @@ class LCEError(
 @Composable
 fun ErrorScreen(
     title: String,
-    description: String = ""
+    description: String = "",
+    expand: @Composable () -> Unit = {}
 ) = Column(
     modifier = Modifier
         .background(MaterialTheme.colorScheme.background)
@@ -67,12 +68,14 @@ fun ErrorScreen(
 
     if (description.isNotEmpty()) {
         Text(
-            text = title,
+            text = description,
             style = Title18Style(color = MaterialTheme.colorScheme.onBackground).style(),
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.padding(bottom = 20.dp))
     }
+
+    expand()
 }
 
 @Composable
@@ -85,14 +88,14 @@ fun ErrorScreen(
     modifier = Modifier
         .background(MaterialTheme.colorScheme.background)
         .then(SystemPaddingModifier.provideModifier())
-        .padding(horizontal = 40.dp),
+        .padding(horizontal = 20.dp),
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.CenterHorizontally,
 ) {
-    ErrorScreen(title, description)
-
-    if (buttonText.isNotEmpty())
-        Button18(text = buttonText, onClick = onTry, modifier = Modifier.fillMaxWidth())
+    ErrorScreen(title, description) {
+        if (buttonText.isNotEmpty())
+            Button18(text = buttonText, onClick = onTry, modifier = Modifier.fillMaxWidth())
+    }
 }
 
 @Preview

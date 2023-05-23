@@ -24,7 +24,7 @@ class DefaultRequestInterceptor @Inject constructor(
         return chain.request().let { request ->
             chain.proceed(
                 request.newBuilder()
-                    .addHeader("Authorization", tokens.authorizationToken)
+                    .addHeader("Authorization", tokens.accessToken)
                     .addHeader("Accept", "application/json")
                     .build()
             )
