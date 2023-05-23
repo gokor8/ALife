@@ -13,12 +13,13 @@ import com.alife.anotherlife.core.composable.text.style.Button18
 import com.alife.anotherlife.core.composable.text.style.Title22Style
 import com.alife.anotherlife.core.composable.view_group.CustomColumn
 import com.alife.anotherlife.core.ui.screen.VMScreen
+import com.alife.anotherlife.core.ui.screen.VMScreenLCE
 import com.alife.anotherlife.ui.screen.registration.base.model.RegistrationTextModel
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationAction
 
-abstract class RegistrationScreen(
+abstract class RegistrationScreen<VM : RegistrationViewModel>(
     private val customTextOutlined: RegistrationTextModel = RegistrationTextModel.Default()
-) : VMScreen<RegistrationViewModel>() {
+) : VMScreenLCE<VM>() {
 
     override val backHandle = {
         viewModel.reduce(RegistrationAction.OnBackPress())
@@ -29,7 +30,7 @@ abstract class RegistrationScreen(
     }
 
     @Composable
-    override fun Content(modifier: Modifier) = CustomColumn(
+    override fun SafeContent(modifier: Modifier) = CustomColumn(
         modifier = modifier.padding(horizontal = 32.dp, vertical = 35.dp)
     ) {
         Column(

@@ -9,7 +9,9 @@
     <string name="cancel">Отмена</string>
     <string name="agree">Разрешить</string>
     <string name="repeat">Повторить</string>
+    <string name="back">Назад</string>
     <string name="global_exception">Произошла критическая ошибка</string>
+    <string name="exception">Ошибка!</string>
     <string name="try_later">Повторите по позже</string>
 
     // Dialog
@@ -47,9 +49,12 @@
     <string name="your_email">Your Email Plz.</string>
     <string name="email">Email</string>
     <string name="invalid_email">Invalid Email</string>
+    <string name="error_send_email">При отправке ваших данных произошла ошибка</string>
 
     // Email Code
     <string name="email_code">Code from email sms</string>
+    <string name="email_code_error">Вы ввели неверный код подтверждения</string>
+    <string name="email_code_critical_error">Ваш код подтверждения истек, повторите попытку</string>
 
     // Tutorial
     <string name="tutorial_first_description">В течение 1 минуты сделай видео или фото и покажи, чем ты занимаешься</string>

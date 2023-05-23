@@ -9,7 +9,8 @@ import javax.inject.Inject
 
 class EmailCodeRegReducerBase @Inject constructor(
     override val uiStore: UIStore<EmailCodeState, EmailCodeEffect>,
-    private val emailCodeUseCase: BaseEmailCodeUseCase
+    private val emailCodeUseCase: BaseEmailCodeUseCase,
+    private val codeExceptionMapper:
 ) : AbstractEmailCodeRegReducerBase(6, '•') {
 
     override suspend fun onCode(code: String) {
@@ -23,6 +24,7 @@ class EmailCodeRegReducerBase @Inject constructor(
                 /* TODO set error */
             }.handle {
                 emailCodeUseCase.sendCode(code)
+                // TODO save tokens
                 uiStore.setEffect(EmailCodeEffect.NavigateTutorial())
             }
         } else {

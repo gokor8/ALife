@@ -1,12 +1,12 @@
 package com.alife.anotherlife.ui.screen.registration.base.state
 
 import androidx.compose.ui.text.input.TextFieldValue
+import com.alife.anotherlife.core.composable.mvi_extensions.BaseMVIAction
+import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseRegistrationReducer
 import com.alife.anotherlife.ui.screen.registration.base.reducer.RegistrationReducerBase
 import com.alife.core.mvi.MVI
 
-interface RegistrationAction : MVI.Action {
-
-    suspend fun onAction(reducer: RegistrationReducerBase)
+interface RegistrationAction : BaseMVIAction<RegistrationReducerBase> {
 
     class OnBackPress : RegistrationAction {
 

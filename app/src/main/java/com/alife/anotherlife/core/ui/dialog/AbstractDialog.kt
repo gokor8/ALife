@@ -1,13 +1,11 @@
 package com.alife.anotherlife.core.ui.dialog
 
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,10 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.addons.Line
-import com.alife.anotherlife.core.composable.button.DefaultButton
-import com.alife.anotherlife.core.composable.button.TextTransparentButton
 import com.alife.anotherlife.core.composable.icon.IconBase
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Default16TextStyle
@@ -34,7 +29,7 @@ abstract class AbstractDialog(
     private val title: TextWrapper,
     private val description: TextWrapper,
     private val dialogButtonStrategy: DialogButtonStrategy = DialogButtonStrategy.ShouldPermission()
-) {
+)  {
 
     @Composable
     fun ShowDialog(

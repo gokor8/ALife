@@ -7,7 +7,7 @@ import com.alife.anotherlife.ui.screen.registration.base.RegistrationScreen
 
 class BirthdayRegistrationScreen(
     override val navController: NavController,
-) : RegistrationScreen(BirthdayRegTextModel()) {
+) : RegistrationScreen<BirthdayRegistrationVM>(BirthdayRegTextModel()) {
 
     @Composable
     override fun setupViewModel(): BirthdayRegistrationVM = hiltViewModel()

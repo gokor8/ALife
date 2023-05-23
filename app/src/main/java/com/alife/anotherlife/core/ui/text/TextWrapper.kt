@@ -16,7 +16,7 @@ interface TextWrapper {
         override fun getString() = stringResource(id)
     }
 
-    class StringWrapper(private val text: String) : TextWrapper {
+    class StringWrapper(private val text: String = "") : TextWrapper {
         @Composable
         override fun getString() = text
     }

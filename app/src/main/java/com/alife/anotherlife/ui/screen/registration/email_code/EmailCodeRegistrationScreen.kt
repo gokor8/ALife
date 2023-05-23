@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.registration.email_code
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,6 +52,8 @@ class EmailCodeRegistrationScreen @Inject constructor(
                 codeViewModel = viewModel,
                 contentPaddingValues = PaddingValues(horizontal = 10.dp)
             )
+            Spacer(modifier = Modifier.padding(bottom = 8.dp))
+            TextBase(viewModel.getUIState().error, color = MaterialTheme.colorScheme.error)
             Spacer(modifier = Modifier.padding(bottom = 25.dp))
         }
 

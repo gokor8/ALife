@@ -1,3 +1,3 @@
 package com.alife.data.repository.registration.model
 
-class CodeException : Throwable()
+class CodeException : Exception()
