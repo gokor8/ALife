@@ -9,9 +9,7 @@ import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseRegistratio
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
-import com.alife.domain.registration.core.entity.DefaultRegEntity
-import com.alife.domain.registration.usecase.birthday.BaseBirthdayUseCase
-import com.alife.domain.registration.usecase.birthday.entity.BirthdayRegEntity
+import com.alife.domain.registration.usecase.reg_log.birthday.BaseBirthdayUseCase
 import javax.inject.Inject
 
 class BirthdayRegReducerBase @Inject constructor(

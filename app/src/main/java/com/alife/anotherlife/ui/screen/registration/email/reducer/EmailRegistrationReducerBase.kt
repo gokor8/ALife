@@ -8,8 +8,7 @@ import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseRegistratio
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
-import com.alife.domain.registration.usecase.email.save_read.BaseEmailUseCase
-import com.alife.domain.registration.usecase.email.save_read.entity.EmailRegEntity
+import com.alife.domain.registration.usecase.reg_log.email.save_read.BaseEmailUseCase
 import javax.inject.Inject
 
 class EmailRegistrationReducerBase @Inject constructor(

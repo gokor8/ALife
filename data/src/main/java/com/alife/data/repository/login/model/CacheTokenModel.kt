@@ -3,7 +3,6 @@ package com.alife.data.repository.login.model
 import android.content.SharedPreferences
 import com.alife.data.data_source.cache.shared.model.CacheModel
 import com.alife.data.interceptor.model.TokensModel
-import com.alife.domain.registration.usecase.token.TokenSaveEntity
 import java.io.IOException
 
 interface CacheTokenModel : CacheModel<TokensModel> {

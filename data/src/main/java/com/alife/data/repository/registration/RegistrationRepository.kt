@@ -11,8 +11,8 @@ import com.alife.data.repository.registration.net_model.RequestCode
 import com.alife.data.repository.registration.net_model.ResponseErrorRegistration
 import com.alife.data.services.RegistrationService
 import com.alife.domain.registration.repository.BaseRegistrationRepository
-import com.alife.domain.registration.usecase.email.send_reg_data.entity.RegDataEntity
-import com.alife.domain.registration.usecase.token.TokenStateEntity
+import com.alife.domain.registration.usecase.reg_log.email.send_reg_data.entity.RegDataEntity
+import com.alife.domain.registration.usecase.token.cache.TokenStateEntity
 import javax.inject.Inject
 
 class RegistrationRepository @Inject constructor(
@@ -21,6 +21,10 @@ class RegistrationRepository @Inject constructor(
     private val regDataEntityToRequest: BaseRegDataEntityToRequest,
     private val tokensMapper: Mapper<TokensModel, TokenStateEntity.Fill>
 ) : BaseRegistrationRepository {
+
+    override suspend fun checkToken() {
+        registrationService.tokenAlive()
+    }
 
     override suspend fun sendRegData(regDataEntity: RegDataEntity) {
         val response = registrationService.sendRegData(

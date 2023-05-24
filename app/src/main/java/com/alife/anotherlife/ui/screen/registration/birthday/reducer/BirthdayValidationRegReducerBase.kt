@@ -5,8 +5,7 @@ import com.alife.anotherlife.di.ui.registration.birthday.BirthdayAnnotation
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
-import com.alife.domain.registration.usecase.birthday.BaseBirthdayUseCase
-import com.alife.domain.registration.usecase.username.BaseUsernameUseCase
+import com.alife.domain.registration.usecase.reg_log.birthday.BaseBirthdayUseCase
 import javax.inject.Inject
 
 class BirthdayValidationRegReducerBase @Inject constructor(

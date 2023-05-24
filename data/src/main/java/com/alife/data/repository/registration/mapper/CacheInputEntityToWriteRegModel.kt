@@ -8,11 +8,10 @@ import com.alife.data.repository.registration.model.name.NameRegWriteModel
 import com.alife.data.repository.registration.model.username.UsernameRegWriteModel
 import com.alife.domain.core.MappingException
 import com.alife.domain.registration.usecase.base.entity.RegCacheInputEntity
-import com.alife.domain.registration.usecase.base.entity.SaveCacheInputEntity
-import com.alife.domain.registration.usecase.birthday.BirthdaySaveCacheEntity
-import com.alife.domain.registration.usecase.email.save_read.EmailSaveCacheEntity
-import com.alife.domain.registration.usecase.name.NameSaveCacheEntity
-import com.alife.domain.registration.usecase.username.UsernameSaveCacheEntity
+import com.alife.domain.registration.usecase.reg_log.birthday.BirthdaySaveCacheEntity
+import com.alife.domain.registration.usecase.reg_log.email.save_read.EmailSaveCacheEntity
+import com.alife.domain.registration.usecase.reg_log.name.NameSaveCacheEntity
+import com.alife.domain.registration.usecase.reg_log.username.UsernameSaveCacheEntity
 import javax.inject.Inject
 
 class CacheInputEntityToWriteRegModel @Inject constructor() :

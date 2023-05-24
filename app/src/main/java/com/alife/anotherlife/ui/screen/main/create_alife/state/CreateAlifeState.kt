@@ -28,7 +28,7 @@ data class CreateAlifeState(
         Video(LoadVideoScreenState(), VideoPagerItem.InitSizable())
     ),
     @IntentModule.IntentAnnotation.Settings
-    val settingsIntent: Intent
+    val settingsIntent: Intent?
 ) : StateLCE {
 
     fun currentScreenPager() = pagerContainer.getScreenPagerItem(currentPage)

@@ -1,10 +1,11 @@
 package com.alife.domain.registration.repository
 
-import com.alife.domain.registration.usecase.email.send_reg_data.entity.RegDataEntity
-import com.alife.domain.registration.usecase.email_code.EmailCodeState
-import com.alife.domain.registration.usecase.token.TokenStateEntity
+import com.alife.domain.registration.usecase.reg_log.email.send_reg_data.entity.RegDataEntity
+import com.alife.domain.registration.usecase.token.cache.TokenStateEntity
 
 interface BaseRegistrationRepository {
+
+    suspend fun checkToken()
 
     suspend fun sendRegData(regDataEntity: RegDataEntity)
 

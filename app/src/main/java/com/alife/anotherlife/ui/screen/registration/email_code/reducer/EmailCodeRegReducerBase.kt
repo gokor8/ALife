@@ -6,7 +6,7 @@ import com.alife.anotherlife.core.ui.text.TextWrapper
 import com.alife.anotherlife.ui.screen.registration.email_code.mapper.BaseCodeExceptionMapper
 import com.alife.anotherlife.ui.screen.registration.email_code.state.EmailCodeEffect
 import com.alife.anotherlife.ui.screen.registration.email_code.state.EmailCodeState
-import com.alife.domain.registration.usecase.email_code.BaseEmailCodeUseCase
+import com.alife.domain.registration.usecase.reg_log.email_code.BaseEmailCodeUseCase
 import javax.inject.Inject
 
 class EmailCodeRegReducerBase @Inject constructor(
@@ -21,6 +21,8 @@ class EmailCodeRegReducerBase @Inject constructor(
         val currentCode = uiStore.getState().codeModel.copy(code)
 
         if (currentCode is CodeModel.Filling && currentCode.isFill(limit)) {
+            setState { copy(codeModel = CodeModel.Filled(code)) }
+
             executeThis(getState()) { exception ->
                 setState(mapper.map(exception, this@EmailCodeRegReducerBase))
             }.handle {

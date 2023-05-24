@@ -8,8 +8,7 @@ import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationR
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
 import com.alife.anotherlife.ui.screen.registration.name.chain.InputRegTextChain
-import com.alife.domain.registration.usecase.name.BaseNameUseCase
-import com.alife.domain.registration.usecase.name.addons.NameRegEntity
+import com.alife.domain.registration.usecase.reg_log.name.BaseNameUseCase
 import javax.inject.Inject
 
 class NameRegistrationReducerBase @Inject constructor(

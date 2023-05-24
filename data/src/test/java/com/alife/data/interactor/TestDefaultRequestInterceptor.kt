@@ -4,8 +4,8 @@ import com.alife.data.core.TestModelContainer
 import com.alife.data.interceptor.DefaultRequestInterceptor
 import com.alife.domain.core.exception_global.GlobalException
 import com.alife.domain.core.exception_global.GlobalExceptionHandler
-import com.alife.domain.registration.usecase.token.BaseTokensUseCase
-import com.alife.domain.registration.usecase.token.TokenStateEntity
+import com.alife.domain.registration.usecase.token.cache.BaseTokensUseCase
+import com.alife.domain.registration.usecase.token.cache.TokenStateEntity
 import junit.framework.TestCase.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -55,7 +55,7 @@ class TestDefaultRequestInterceptor {
         assertTrue(testModelContainer.getState().assertSecondTest())
     }
 
-    @Test
+    @Test(expected = IllegalStateException::class)
     fun `intercept with TokenStateEntity Fill return Exception`() {
         // TODO Может отлавливать обычные ошибки?
         val chain = FakeChainInterceptor(proceedException = IllegalStateException())

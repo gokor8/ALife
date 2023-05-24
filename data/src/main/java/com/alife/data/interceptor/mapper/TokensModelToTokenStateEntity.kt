@@ -2,8 +2,8 @@ package com.alife.data.interceptor.mapper
 
 import com.alife.core.mapper.Mapper
 import com.alife.data.interceptor.model.TokensModel
-import com.alife.domain.registration.usecase.token.BaseTokensModel
-import com.alife.domain.registration.usecase.token.TokenStateEntity
+import com.alife.domain.registration.usecase.token.cache.BaseTokensModel
+import com.alife.domain.registration.usecase.token.cache.TokenStateEntity
 import javax.inject.Inject
 
 class TokensModelToTokenStateEntity @Inject constructor() : Mapper<BaseTokensModel, TokenStateEntity> {

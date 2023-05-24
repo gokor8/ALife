@@ -7,12 +7,11 @@ import com.alife.data.repository.registration.model.email.EmailRegReadModel
 import com.alife.data.repository.registration.model.name.NameRegReadModel
 import com.alife.data.repository.registration.model.username.UsernameRegReadModel
 import com.alife.domain.core.MappingException
-import com.alife.domain.registration.usecase.base.entity.ReadCacheInputEntity
 import com.alife.domain.registration.usecase.base.entity.RegCacheInputEntity
-import com.alife.domain.registration.usecase.birthday.BirthdayReadCacheEntity
-import com.alife.domain.registration.usecase.email.save_read.EmailReadCacheEntity
-import com.alife.domain.registration.usecase.name.NameReadCacheEntity
-import com.alife.domain.registration.usecase.username.UsernameReadCacheEntity
+import com.alife.domain.registration.usecase.reg_log.birthday.BirthdayReadCacheEntity
+import com.alife.domain.registration.usecase.reg_log.email.save_read.EmailReadCacheEntity
+import com.alife.domain.registration.usecase.reg_log.name.NameReadCacheEntity
+import com.alife.domain.registration.usecase.reg_log.username.UsernameReadCacheEntity
 import javax.inject.Inject
 
 class ReadCacheInputEntityToReadRegModel @Inject constructor() :

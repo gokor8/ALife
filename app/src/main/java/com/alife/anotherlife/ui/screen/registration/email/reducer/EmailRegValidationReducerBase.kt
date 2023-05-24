@@ -1,7 +1,6 @@
 package com.alife.anotherlife.ui.screen.registration.email.reducer
 
 import com.alife.anotherlife.R
-import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
 import com.alife.anotherlife.core.ui.state.lce.LCEContent
 import com.alife.anotherlife.core.ui.state.lce.LCELoading
 import com.alife.anotherlife.core.ui.store.UIStore
@@ -9,10 +8,8 @@ import com.alife.anotherlife.di.ui.registration.email.EmailAnnotation
 import com.alife.anotherlife.ui.screen.registration.base.reducer.BaseValidationRegReducer
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
 import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationState
-import com.alife.domain.core.usecase.UseCaseResult
-import com.alife.domain.registration.usecase.email.send_reg_data.BaseSendRegDataUseCase
-import com.alife.domain.registration.usecase.email.save_read.BaseEmailUseCase
-import com.google.android.gms.common.util.concurrent.HandlerExecutor
+import com.alife.domain.registration.usecase.reg_log.email.save_read.BaseEmailUseCase
+import com.alife.domain.registration.usecase.reg_log.email.send_reg_data.BaseSendRegDataUseCase
 import javax.inject.Inject
 
 class EmailRegValidationReducerBase @Inject constructor(

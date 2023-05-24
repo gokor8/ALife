@@ -4,8 +4,8 @@ import com.alife.data.interceptor.model.BaseTokenErrorChain
 import com.alife.data.interceptor.model.TokenErrorChainModel
 import com.alife.domain.core.exception_global.GlobalExceptionHandler
 import com.alife.domain.core.exception_global.ServerUnavailable
-import com.alife.domain.registration.usecase.token.BaseTokensUseCase
-import com.alife.domain.registration.usecase.token.TokenStateEntity
+import com.alife.domain.registration.usecase.token.cache.BaseTokensUseCase
+import com.alife.domain.registration.usecase.token.cache.TokenStateEntity
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject

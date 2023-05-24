@@ -23,9 +23,6 @@ abstract class AbstractSuspendInterceptor(
     override fun intercept(chain: Chain) = runBlocking {
         try {
             suspendIntercept(chain)
-        } catch (e: IOException) {
-            exceptionHandler.handleException(this.coroutineContext, RetrofitException())
-            Response.Builder().build() // TODO Fix it
         } catch (e: Throwable) {
             exceptionHandler.handleException(this.coroutineContext, e)
             chain.proceed(chain.request())

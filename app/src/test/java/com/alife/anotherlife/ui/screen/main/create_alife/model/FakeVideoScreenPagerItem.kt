@@ -12,25 +12,29 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.Scre
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerItem
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.video.VideoPagerItem
+import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.BaseVideoScreenState
 import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.camera_state.video.LoadVideoScreenState
+import com.alife.anotherlife.ui.screen.main.create_alife.reducer.video.model.VideoCaptureCallback
 
 class FakeVideoScreenPagerItem(
     copyList: MutableList<ScreenPagerItem.Video>,
-    override val screenState: ScreenState = LoadVideoScreenState()
-): FakeAbstractScreenPagerItem<ScreenPagerItem.Video, VideoPagerItem>(copyList), ScreenPagerItem.Video {
+    override val screenState: BaseVideoScreenState = LoadVideoScreenState()
+): FakeAbstractScreenPagerItem<ScreenPagerItem.Video, BaseVideoScreenState, VideoPagerItem>(copyList), ScreenPagerItem.Video {
+
+    override fun onCallback(videoCaptureCallback: VideoCaptureCallback) {
+        TODO("Not yet implemented")
+    }
+
+    override fun canSwitchAudio(): Boolean {
+        TODO("Not yet implemented")
+    }
 
     override val pagerItem = FakeVideoPagerItem()
 
     override fun invertCamera(container: ScreenPagerContainer) = container.copy(video = copy())
-
-    override fun copy(
-        container: ScreenPagerContainer,
-        captureWrapper: CookedCaptureWrapper
-    ) = container.copy(video = copy())
-
     override fun copyContainer(
         container: ScreenPagerContainer,
-        screenState: ScreenState
+        screenState: BaseVideoScreenState
     ) = container.copy(video = copy())
 
     override fun copyContainer(
@@ -43,10 +47,7 @@ class FakeVideoScreenPagerItem(
 
 // Fake Realization
 class FakeVideoPagerItem : VideoPagerItem {
+
     @Composable
-    override fun Content(
-        size: Dp,
-        captureWrapper: BaseCaptureWrapper,
-        viewModel: CreateAlifeViewModel
-    ) {}
+    override fun Content(size: Dp, viewModel: CreateAlifeViewModel) {}
 }
