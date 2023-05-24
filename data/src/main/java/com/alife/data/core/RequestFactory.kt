@@ -15,7 +15,7 @@ class TokenRequestFactory @Inject constructor(
     private val baseUrl: String
 ) : BaseTokenRequestFactory {
 
-    private val refreshAuthTokenUrl = "$baseUrl/refresh"
+    private val refreshAuthTokenUrl = "${baseUrl}refresh"
     private val mediaType = "application/json; charset=utf-8"
 
     override fun create(jsonRefreshToken: String): Request {

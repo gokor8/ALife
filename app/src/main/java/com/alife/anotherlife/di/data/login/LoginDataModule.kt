@@ -11,6 +11,10 @@ import com.alife.data.repository.login.model.BaseTokenReadEntityToModel
 import com.alife.data.repository.login.model.BaseTokenSaveEntityToModel
 import com.alife.data.repository.login.model.TokenReadEntityToModel
 import com.alife.data.repository.login.model.TokenSaveEntityToModel
+import com.alife.data.repository.registration.RegistrationRepository
+import com.alife.data.repository.registration.mapper.BaseRegDataEntityToRequest
+import com.alife.data.repository.registration.mapper.RegDataEntityToRequest
+import com.alife.domain.registration.repository.BaseRegistrationRepository
 import com.alife.domain.registration.repository.BaseTokenCacheRepository
 import com.alife.domain.registration.usecase.token.cache.BaseTokensModel
 import com.alife.domain.registration.usecase.token.cache.TokenStateEntity
@@ -41,4 +45,10 @@ interface LoginDataModule {
 
     @Binds
     fun bindTokenRequestFactory(factory: TokenRequestFactory): BaseTokenRequestFactory
+
+    @Binds
+    fun bindRegistrationRepository(repository: RegistrationRepository): BaseRegistrationRepository
+
+    @Binds
+    fun bindRegDataEntityToRequest(mapper: RegDataEntityToRequest): BaseRegDataEntityToRequest
 }

@@ -39,11 +39,11 @@ class RetrofitModuleP {
         tokenReAuthInterceptor: TokenReAuthInterceptor
     ): OkHttpClient = OkHttpClient()
         .newBuilder()
-        .readTimeout(2, TimeUnit.MINUTES)
-        .connectTimeout(1, TimeUnit.MINUTES)
         .addInterceptor(httpLoggingInterceptor)
         .addInterceptor(tokenReAuthInterceptor)
         .addInterceptor(defaultRequestInterceptor)
+        .readTimeout(2, TimeUnit.MINUTES)
+        .connectTimeout(1, TimeUnit.MINUTES)
         .build()
 
     @Provides

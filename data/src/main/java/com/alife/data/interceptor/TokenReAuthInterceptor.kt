@@ -1,5 +1,6 @@
 package com.alife.data.interceptor
 
+import android.util.Log
 import com.alife.data.interceptor.model.BaseTokenErrorChain
 import com.alife.data.interceptor.model.TokenErrorChainModel
 import com.alife.domain.core.exception_global.GlobalExceptionHandler
@@ -23,12 +24,16 @@ class TokenReAuthInterceptor @Inject constructor(
         // TODO если надо будет на некоторые только запросы добавлять заголовок токена
         // TODO то можно завести интерфейс или енам класс со списком тех, которым нужно добавлять
         // Или инкапсулировать в метод абстрактного класса
+        Log.d("Tokens", "${tokens.accessToken} | ${tokens.refreshToken}")
 
         val response = chain.proceed(chain.request())
 
         // TODO заменить в будующем на классы, с методом(чтобы было ООП)
         return when(response.code()) {
-            403 -> tokenErrorChain.handle(TokenErrorChainModel(tokens.refreshToken, chain))
+            401 -> {
+                response.close()
+                tokenErrorChain.handle(TokenErrorChainModel(tokens.refreshToken, chain))
+            }
             404 -> {
                 //tokensUseCase.deleteTokens()
                 throw ServerUnavailable()

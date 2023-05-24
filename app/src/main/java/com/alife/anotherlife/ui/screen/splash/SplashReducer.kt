@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.splash
 
+import android.util.Log
 import com.alife.anotherlife.core.ui.reducer.AbstractVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.splash.state.SplashEffect
@@ -17,10 +18,16 @@ class SplashReducer @Inject constructor(
 
     override suspend fun onInit() {
         val navEffect = if (tokensUseCase.getTokens() is TokenStateEntity.Empty) {
-            tokenCheckUseCase.tokensCheck()
-            // TODO check it
             SplashEffect.NavigateToLogin()
         } else {
+            try {
+                tokenCheckUseCase.tokensCheck()
+            } catch (e: Exception) {
+                // TODO NavToLogin
+                setEffect(SplashEffect.NavigateToLogin())
+                Log.d("Aboba", "exception $e")
+                return
+            }
             SplashEffect.NavigateToMain()
         }
 

@@ -22,9 +22,12 @@ class RefreshTokenErrorChain @Inject constructor(
             jsonWrapper.toJson(RequestRefreshModel(refreshToken))
         )
 
-        val response = chain.proceed(request).takeIf { response ->
+        val response = chain.proceed(request)
+
+        response.takeIf { response ->
             response.isSuccessful
         } ?: run {
+            response.close()
             tokensUseCase.deleteTokens()
             throw RefreshTokenDied()
         }

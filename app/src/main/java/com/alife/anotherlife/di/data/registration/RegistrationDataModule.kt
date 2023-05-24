@@ -4,8 +4,6 @@ import com.alife.core.mapper.Mapper
 import com.alife.data.data_source.cache.shared.model.CacheModel
 import com.alife.data.repository.registration.RegCacheRepository
 import com.alife.data.repository.registration.RegistrationRepository
-import com.alife.data.repository.registration.mapper.BaseReadCacheInputEntityToReadRegModel
-import com.alife.data.repository.registration.mapper.BaseCacheInputEntityToWriteRegModel
 import com.alife.data.repository.registration.mapper.BaseRegDataEntityToRequest
 import com.alife.data.repository.registration.mapper.ReadCacheInputEntityToReadRegModel
 import com.alife.data.repository.registration.mapper.CacheInputEntityToWriteRegModel
@@ -21,12 +19,6 @@ import dagger.hilt.android.components.ViewModelComponent
 @Module
 @InstallIn(ViewModelComponent::class)
 interface RegistrationDataModule {
-
-    @Binds
-    fun bindRegistrationRepository(repository: RegistrationRepository): BaseRegistrationRepository
-
-    @Binds
-    fun bindRegDataEntityToRequest(mapper: RegDataEntityToRequest): BaseRegDataEntityToRequest
 
     @Binds
     fun bindRegCacheRepository(repository: RegCacheRepository): BaseRegCacheRepository
