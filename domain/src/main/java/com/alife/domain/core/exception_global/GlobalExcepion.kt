@@ -9,3 +9,5 @@ class RefreshTokenDied : GlobalException(), GoToLoginException
 class LogOut : GlobalException(), GoToLoginException
 
 class ServerUnavailable : GlobalException()
+
+class RetrofitException : GlobalException()

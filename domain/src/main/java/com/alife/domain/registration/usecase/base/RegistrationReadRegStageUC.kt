@@ -5,7 +5,6 @@ import com.alife.domain.core.mapper.ThrowableMapper
 import com.alife.domain.core.usecase.AbstractSafeUseCaseResult
 import com.alife.domain.core.usecase.UseCaseResult
 import com.alife.domain.registration.repository.BaseRegCacheRepository
-import com.alife.domain.registration.repository.BaseRegistrationRepository
 import kotlinx.coroutines.CoroutineDispatcher
 
 abstract class RegistrationReadRegStageUC<M : UseCaseEntity>(

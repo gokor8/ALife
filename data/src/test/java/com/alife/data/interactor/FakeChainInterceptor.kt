@@ -9,10 +9,18 @@ import okhttp3.Request
 import okhttp3.Response
 import java.util.concurrent.TimeUnit
 
-class FakeChainInterceptor(private val responseCode: Int = 200) : Interceptor.Chain {
-    override fun request() = Request.Builder().url("http:test.com").build()
+class FakeChainInterceptor(
+    private val link: String = "test",
+    private val responseCode: Int = 200,
+    private val proceedException: Exception? = null
+) : Interceptor.Chain {
+
+    private val baseUrl = "http:test.com/"
+
+    override fun request() = Request.Builder().url(baseUrl + link).build()
 
     override fun proceed(request: Request): Response {
+        proceedException?.let { throw it }
         return Response.Builder()
             .request(request)
             .protocol(Protocol.HTTP_1_0)

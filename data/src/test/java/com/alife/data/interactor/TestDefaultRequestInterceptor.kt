@@ -9,6 +9,7 @@ import com.alife.domain.registration.usecase.token.TokenStateEntity
 import junit.framework.TestCase.assertTrue
 import org.junit.Before
 import org.junit.Test
+import java.lang.IllegalStateException
 
 class TestDefaultRequestInterceptor {
 
@@ -55,14 +56,23 @@ class TestDefaultRequestInterceptor {
     }
 
     @Test
-    fun `intercept with TokenStateEntity Empty return Exception`() {
-        val chain = FakeChainInterceptor()
+    fun `intercept with TokenStateEntity Fill return Exception`() {
+        // TODO Может отлавливать обычные ошибки?
+        val chain = FakeChainInterceptor(proceedException = IllegalStateException())
+
+        defaultRequestInterceptor.intercept(chain)
+
+        assertTrue(testModelContainer.getState().assertThirdTest())
+    }
+
+    @Test
+    fun `intercept with link in exceptionsLinks`() {
+        val chain = FakeChainInterceptor("reg-log")
 
         defaultRequestInterceptor.intercept(chain)
 
         assertTrue(testModelContainer.getState().assertFourthTest())
     }
-
 
 
     // Test Realization
@@ -73,9 +83,9 @@ class TestDefaultRequestInterceptor {
         private val exceptionHandle: Boolean = false,
     ) {
 
-        fun assertFirstTest() = getTokens
-        fun assertSecondTest() = !getTokens
-        fun assertThirdTest() = exceptionHandle && !saveTokens && !getTokens && !deleteTokens
+        fun assertFirstTest() = getTokens && !exceptionHandle
+        fun assertSecondTest() = getTokens && exceptionHandle
+        fun assertThirdTest() = getTokens && !exceptionHandle && !saveTokens && !deleteTokens
         fun assertFourthTest() = !exceptionHandle && !saveTokens && !getTokens && !deleteTokens
     }
 

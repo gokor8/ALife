@@ -24,7 +24,8 @@ class TestRefreshTokenErrorChain {
             TokenStateEntity.Fill("", ""),
             testModelContainer
         ),
-        FakeJsonWrapper(testModelContainer)
+        FakeJsonWrapper(testModelContainer),
+        ""
     )
 
     @Before
@@ -43,7 +44,8 @@ class TestRefreshTokenErrorChain {
     fun `handle with not success refresh response`() = runBlocking {
         defaultRequestInterceptor = RefreshTokenErrorChain(
             FakeTokensUseCase(TokenStateEntity.Fill("", ""), testModelContainer),
-            FakeJsonWrapper(testModelContainer, IllegalStateException())
+            FakeJsonWrapper(testModelContainer, IllegalStateException()),
+            ""
         )
 
         defaultRequestInterceptor.handle(TokenErrorChainModel("", FakeChainInterceptor()))
