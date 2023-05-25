@@ -1,5 +1,7 @@
 package com.alife.data.interceptor
 
+import com.alife.domain.core.exception_global.CloudExceptionHandler
+import com.alife.domain.core.exception_global.CommonExceptionHandler
 import com.alife.domain.core.exception_global.GlobalExceptionHandler
 import com.alife.domain.registration.usecase.token.cache.BaseTokensUseCase
 import com.alife.domain.registration.usecase.token.cache.TokenStateEntity
@@ -8,7 +10,7 @@ import okhttp3.Response
 import javax.inject.Inject
 
 class DefaultRequestInterceptor @Inject constructor(
-    globalExceptionHandler: GlobalExceptionHandler,
+    globalExceptionHandler: CommonExceptionHandler,
     tokensUseCase: BaseTokensUseCase
 ) : AbstractTokenInterceptor(globalExceptionHandler, tokensUseCase) {
 

@@ -1,5 +1,7 @@
 package com.alife.data.interceptor
 
+import com.alife.domain.core.exception_global.CloudExceptionHandler
+import com.alife.domain.core.exception_global.CommonExceptionHandler
 import com.alife.domain.core.exception_global.GlobalException
 import com.alife.domain.core.exception_global.GlobalExceptionHandler
 import com.alife.domain.core.exception_global.RetrofitException
@@ -11,13 +13,16 @@ import okhttp3.Response
 import java.io.IOException
 
 abstract class AbstractSuspendInterceptor(
-    private val globalExceptionHandler: GlobalExceptionHandler
+    private val globalExceptionHandler: CommonExceptionHandler,
 ) : Interceptor {
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         println("Pre Global Exception $exception")
 
-        if (exception is GlobalException) globalExceptionHandler.handle(exception)
+        if (exception is GlobalException)
+            globalExceptionHandler.handle(exception)
+        else
+            globalExceptionHandler.handle(exception)
     }
 
     override fun intercept(chain: Chain) = runBlocking {

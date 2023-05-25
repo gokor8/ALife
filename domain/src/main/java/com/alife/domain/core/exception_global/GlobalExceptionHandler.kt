@@ -6,3 +6,5 @@ interface GlobalExceptionHandler {
 
     fun handle(exception: GlobalException)
 }
+
+interface CommonExceptionHandler : GlobalExceptionHandler, CloudExceptionHandler

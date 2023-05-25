@@ -1,5 +1,7 @@
 package com.alife.data.interceptor
 
+import com.alife.domain.core.exception_global.CloudExceptionHandler
+import com.alife.domain.core.exception_global.CommonExceptionHandler
 import com.alife.domain.core.exception_global.GlobalExceptionHandler
 import com.alife.domain.core.exception_global.LogOut
 import com.alife.domain.registration.usecase.token.cache.BaseTokensUseCase
@@ -8,7 +10,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 
 abstract class AbstractTokenInterceptor(
-    globalExceptionHandler: GlobalExceptionHandler,
+    globalExceptionHandler: CommonExceptionHandler,
     protected val tokensUseCase: BaseTokensUseCase
 ) : AbstractSuspendInterceptor(globalExceptionHandler) {
 

@@ -2,6 +2,9 @@ package com.alife.anotherlife.di.ui.activity
 
 import com.alife.anotherlife.ui.activity.BaseMainActivityReducer
 import com.alife.anotherlife.ui.activity.MainActivityReducer
+import com.alife.anotherlife.ui.activity.mapper.BaseCloudExceptionToActivityState
+import com.alife.anotherlife.ui.activity.mapper.CloudExceptionToActivityState
+import com.alife.domain.core.exception_global.CommonExceptionHandler
 import com.alife.domain.core.exception_global.GlobalExceptionHandler
 import dagger.Binds
 import dagger.Module
@@ -18,5 +21,9 @@ interface SingletonActivityViewModelModule {
 
 
     @Binds
-    fun bindGlobalExceptionHandler(reducer: MainActivityReducer): GlobalExceptionHandler
+    fun bindGlobalExceptionHandler(reducer: MainActivityReducer): CommonExceptionHandler
+
+    @Binds
+    fun bindCloudExceptionToActivityState(mapper: CloudExceptionToActivityState)
+            : BaseCloudExceptionToActivityState
 }

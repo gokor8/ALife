@@ -3,6 +3,7 @@ package com.alife.data.interceptor
 import android.util.Log
 import com.alife.data.interceptor.model.BaseTokenErrorChain
 import com.alife.data.interceptor.model.TokenErrorChainModel
+import com.alife.domain.core.exception_global.CommonExceptionHandler
 import com.alife.domain.core.exception_global.GlobalExceptionHandler
 import com.alife.domain.core.exception_global.ServerUnavailable
 import com.alife.domain.registration.usecase.token.cache.BaseTokensUseCase
@@ -12,7 +13,7 @@ import okhttp3.Response
 import javax.inject.Inject
 
 class TokenReAuthInterceptor @Inject constructor(
-    globalExceptionHandler: GlobalExceptionHandler,
+    globalExceptionHandler: CommonExceptionHandler,
     tokensUseCase: BaseTokensUseCase,
     private val tokenErrorChain: BaseTokenErrorChain
 ) : AbstractTokenInterceptor(globalExceptionHandler, tokensUseCase) {

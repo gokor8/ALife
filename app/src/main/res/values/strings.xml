@@ -11,8 +11,10 @@
     <string name="repeat">Повторить</string>
     <string name="back">Назад</string>
     <string name="global_exception">Произошла критическая ошибка</string>
+    <string name="connection_exception">Время выполнения запроса истекло</string>
     <string name="exception">Ошибка!</string>
     <string name="try_later">Повторите по позже</string>
+    <string name="try_again">Повторите попытку</string>
 
     // Generic Exception
     <string name="generic_exception_title">Непредвиденная ошибка</string>

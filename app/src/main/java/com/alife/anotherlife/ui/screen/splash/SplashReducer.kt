@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.splash
 
+import android.util.Log
 import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.splash.state.SplashEffect
@@ -15,6 +16,7 @@ class SplashReducer @Inject constructor(
 
     override suspend fun onInit() {
         val navEffect = execute<SplashEffect> {
+            Log.e("Aboba", "bad bad boy $it")
             SplashEffect.NavigateToLogin()
         }.handle {
             tokenCheckUseCase.tokensCheck()
