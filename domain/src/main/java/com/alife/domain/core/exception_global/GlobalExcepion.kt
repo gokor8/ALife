@@ -1,6 +1,6 @@
 package com.alife.domain.core.exception_global
 
-abstract class GlobalException : Throwable()
+abstract class GlobalException : Exception()
 
 interface GoToLoginException
 

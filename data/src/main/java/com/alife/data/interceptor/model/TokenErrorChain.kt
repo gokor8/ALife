@@ -36,6 +36,8 @@ class RefreshTokenErrorChain @Inject constructor(
             tokensUseCase.saveTokens(accessToken, refreshToken)
         }
 
+        response.code()
+
         return@with chain.proceed(chain.request())
     }
 }

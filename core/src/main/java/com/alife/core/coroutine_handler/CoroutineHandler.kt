@@ -8,8 +8,8 @@ class CoroutineHandler<R>(
 ) : BaseCoroutineHandler.Abstract<R>(onException, TryCatcher()),
     BaseCoroutineHandler<R> {
 
-    suspend fun handle(action: suspend () -> R) {
-        tryCatcher.tryCatch(onException, action)
+    suspend fun handle(action: suspend () -> R): R {
+        return tryCatcher.tryCatch(onException, action)
     }
 
     suspend fun <M> handle(model: M, action: suspend (M) -> R) {
