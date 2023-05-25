@@ -101,6 +101,9 @@ class CreateAlifePhotoReducer @Inject constructor(
             coroutineAwaitList.joinAll(Dispatchers.IO)
         }
 
+        // TODO if video captured navigate VideCaptureFinish
+        // TODO if photo captured finish navigate PhotoCaptureFinish
+        // TODO check creationType and navigate
         setEffect(CreateAlifeEffect.CreateAlifeFinish())
         setState { copy(lceModel = LCEContent) }
     }

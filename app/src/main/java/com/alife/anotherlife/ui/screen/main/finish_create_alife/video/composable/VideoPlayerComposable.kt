@@ -1,6 +1,5 @@
 package com.alife.anotherlife.ui.screen.main.finish_create_alife.video.composable
 
-import android.graphics.Bitmap
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -19,7 +18,7 @@ import com.alife.anotherlife.core.composable.lifecycle.OnLifecycle
 @ExperimentalAnimationApi
 @Composable
 fun VideoPlayerComposable(
-    preview: Bitmap,
+    //preview: Bitmap,
     videoUrl: String,
     modifier: Modifier = Modifier,
 ) {

@@ -11,8 +11,8 @@ class VideoPlayerListener : Player.Listener {
     ) {
         super.onEvents(player, events)
         // hide title only when player duration is at least 200ms
-        if (player.currentPosition >= 200)
-            visibleState.value = false
+//        if (player.currentPosition >= 200)
+//            visibleState.value = false
     }
 
     override fun onMediaItemTransition(
@@ -24,9 +24,9 @@ class VideoPlayerListener : Player.Listener {
             reason
         )
         // everytime the media item changes show the title
-        visibleState.value = true
-        videoTitle.value =
-            mediaItem?.mediaMetadata
-                ?.displayTitle.toString()
+//        visibleState.value = true
+//        videoTitle.value =
+//            mediaItem?.mediaMetadata
+//                ?.displayTitle.toString()
     }
 }
