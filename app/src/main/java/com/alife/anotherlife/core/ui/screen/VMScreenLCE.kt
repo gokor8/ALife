@@ -6,10 +6,11 @@ import com.alife.anotherlife.core.composable.modifier.ModifierProvider
 import com.alife.anotherlife.core.composable.modifier.ScrollableModifier
 import com.alife.anotherlife.core.ui.state.lce.LCEContent
 import com.alife.anotherlife.core.ui.state.lce.LCEModel
+import com.alife.anotherlife.core.ui.view_model.BaseViewModelLCE
 import com.alife.anotherlife.core.ui.view_model.ViewModelLCE
 import com.alife.core.mapper.Mapper
 
-abstract class VMScreenLCE<VM : ViewModelLCE<*, *, *, *>>(
+abstract class VMScreenLCE<VM : BaseViewModelLCE<*, *, *, *>>(
     modifier: ModifierProvider = ScrollableModifier()
 ) : VMScreen<VM>(modifier) {
 

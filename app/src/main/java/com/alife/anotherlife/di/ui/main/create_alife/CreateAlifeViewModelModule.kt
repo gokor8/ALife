@@ -8,8 +8,11 @@ import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToRe
 import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToSaveModel
 import com.alife.data.repository.main.create_alife.picture.mapper.EntityToReadModel
 import com.alife.data.repository.main.create_alife.picture.mapper.EntityToSaveModel
+import com.alife.domain.main.create_alife.picture.BasePhotoStorageAlifeUseCase
 import com.alife.domain.main.create_alife.picture.BaseSaveAlifeUseCase
+import com.alife.domain.main.create_alife.picture.PhotoStorageAlifeUseCase
 import com.alife.domain.main.create_alife.picture.SaveAlifeUseCase
+import com.alife.domain.main.create_alife.picture.repository.BaseCreateAlifePhotoRepository
 import com.alife.domain.main.create_alife.picture.repository.BaseCreateAlifeRepository
 import com.alife.domain.main.create_alife.video.BaseVideoStorageAlifeUseCase
 import com.alife.domain.main.create_alife.video.VideoStorageAlifeUseCase
@@ -28,6 +31,12 @@ interface CreateAlifeViewModelModule {
 
     @Binds
     fun bindVideoStorageAlifeUseCase(videoAlifeUseCase: VideoStorageAlifeUseCase): BaseVideoStorageAlifeUseCase
+
+    @Binds
+    fun bindPhotoStorageAlifeUseCase(photoAlifeUseCase: PhotoStorageAlifeUseCase): BasePhotoStorageAlifeUseCase
+
+    @Binds
+    fun bindCreateAlifePhotoRepository(repositroy: CreateAlifeRepository): BaseCreateAlifePhotoRepository
 
     @Binds
     fun bindCreateAlifeRepository(repository: CreateAlifeRepository): BaseCreateAlifeRepository

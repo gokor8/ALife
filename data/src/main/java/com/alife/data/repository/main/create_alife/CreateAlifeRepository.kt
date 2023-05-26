@@ -3,10 +3,14 @@ package com.alife.data.repository.main.create_alife
 import android.content.Context
 import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToReadModel
 import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToSaveModel
+import com.alife.data.repository.main.create_alife.picture.model.file.BackAlifeFileName
+import com.alife.data.repository.main.create_alife.picture.model.file.FrontAlifeFileName
 import com.alife.data.repository.main.create_alife.video.entity.VideoStorageEntity
 import com.alife.data.repository.main.create_alife.video.video.VideoFileModel
+import com.alife.domain.main.create_alife.picture.entity.PhotoPathEntity
 import com.alife.domain.main.create_alife.picture.entity.ReadImageEntity
 import com.alife.domain.main.create_alife.picture.entity.SaveImageEntity
+import com.alife.domain.main.create_alife.picture.repository.BaseCreateAlifePhotoRepository
 import com.alife.domain.main.create_alife.picture.repository.BaseCreateAlifeRepository
 import com.alife.domain.main.create_alife.video.entity.BaseVideoStorageEntity
 import com.alife.domain.main.create_alife.video.repository.BaseCreateAlifeVideoRepository
@@ -22,7 +26,7 @@ class CreateAlifeRepository @Inject constructor(
     private val entityToReadModel: BaseEntityToReadModel,
     @ApplicationContext
     private val context: Context
-) : BaseCreateAlifeRepository, BaseCreateAlifeVideoRepository {
+) : BaseCreateAlifeRepository, BaseCreateAlifePhotoRepository, BaseCreateAlifeVideoRepository {
 
     override suspend fun saveToFile(saveImageEntity: SaveImageEntity) {
         val saveModel = entityToSaveModel.map(saveImageEntity)
@@ -45,6 +49,13 @@ class CreateAlifeRepository @Inject constructor(
         buf.close()
 
         return imageByteArray
+    }
+
+    override suspend fun readPhotoUrls(): PhotoPathEntity {
+        val frontImageModel = entityToReadModel.map(ReadImageEntity.FrontReadImageEntity())
+        val backImageModel = entityToReadModel.map(ReadImageEntity.BackReadImageEntity())
+
+        return PhotoPathEntity(frontImageModel.getFullFilePath(), backImageModel.getFullFilePath())
     }
 
     override fun getVideoStorageModel() = VideoStorageEntity(

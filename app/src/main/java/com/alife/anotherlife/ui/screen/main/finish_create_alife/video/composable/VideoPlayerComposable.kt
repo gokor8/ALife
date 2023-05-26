@@ -10,11 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
+import androidx.media3.common.C
 import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import com.alife.anotherlife.core.composable.lifecycle.OnLifecycle
 
+@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @ExperimentalAnimationApi
 @Composable
 fun VideoPlayerComposable(
@@ -28,9 +32,10 @@ fun VideoPlayerComposable(
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
             setMediaItem(mediaItem)
-            prepare()
-
+            videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT
+            repeatMode = Player.REPEAT_MODE_ONE
             playWhenReady = true
+            prepare()
         }
     }
 
@@ -50,7 +55,10 @@ fun VideoPlayerComposable(
             modifier = modifier,
             factory = {
                 PlayerView(context).apply {
+                    hideController()
+                    useController = false
                     player = exoPlayer
+                    resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
                     layoutParams = FrameLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT

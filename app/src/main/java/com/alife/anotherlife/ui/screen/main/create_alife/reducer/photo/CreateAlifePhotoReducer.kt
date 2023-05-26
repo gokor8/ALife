@@ -104,7 +104,7 @@ class CreateAlifePhotoReducer @Inject constructor(
         // TODO if video captured navigate VideCaptureFinish
         // TODO if photo captured finish navigate PhotoCaptureFinish
         // TODO check creationType and navigate
-        setEffect(CreateAlifeEffect.CreateAlifeFinish())
+        setEffect(CreateAlifeEffect.CreateAlifePhotoFinish())
         setState { copy(lceModel = LCEContent) }
     }
 

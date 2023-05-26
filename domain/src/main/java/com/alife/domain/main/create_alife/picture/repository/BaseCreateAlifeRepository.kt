@@ -1,5 +1,6 @@
 package com.alife.domain.main.create_alife.picture.repository
 
+import com.alife.domain.main.create_alife.picture.entity.PhotoPathEntity
 import com.alife.domain.main.create_alife.picture.entity.ReadImageEntity
 import com.alife.domain.main.create_alife.picture.entity.SaveImageEntity
 

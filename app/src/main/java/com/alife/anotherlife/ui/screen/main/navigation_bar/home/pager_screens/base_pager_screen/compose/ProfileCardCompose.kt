@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
+import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.alife_card.ALifeCardCompose
 import com.alife.anotherlife.core.composable.alife_card.start_strategy.DefaultStrategy
 import com.alife.anotherlife.core.composable.icon.MockProfileIcon
@@ -47,6 +48,8 @@ fun ProfileCardCompose(
         Text(timestamp, modifier = Modifier.layoutId(profileCardModel.timestamp))
 
         ALifeCardCompose(
+            R.drawable.img_tutor_back,
+            R.drawable.img_tutor_front,
             offsetsStartStrategy = DefaultStrategy(),
             modifier = Modifier
                 .layoutId(profileCardModel.alife)
