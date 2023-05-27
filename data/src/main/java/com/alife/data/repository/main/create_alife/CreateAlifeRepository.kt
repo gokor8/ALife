@@ -1,6 +1,9 @@
 package com.alife.data.repository.main.create_alife
 
 import android.content.Context
+import com.alife.core.mapper.Mapper
+import com.alife.data.data_source.cache.file.OriginalFileWrapper
+import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToFileWrapper
 import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToReadModel
 import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToSaveModel
 import com.alife.data.repository.main.create_alife.picture.model.file.BackAlifeFileName
@@ -24,6 +27,7 @@ import javax.inject.Inject
 class CreateAlifeRepository @Inject constructor(
     private val entityToSaveModel: BaseEntityToSaveModel,
     private val entityToReadModel: BaseEntityToReadModel,
+    private val entityToFileWrapper: BaseEntityToFileWrapper,
     @ApplicationContext
     private val context: Context
 ) : BaseCreateAlifeRepository, BaseCreateAlifePhotoRepository, BaseCreateAlifeVideoRepository {
@@ -52,10 +56,13 @@ class CreateAlifeRepository @Inject constructor(
     }
 
     override suspend fun readPhotoUrls(): PhotoPathEntity {
-        val frontImageModel = entityToReadModel.map(ReadImageEntity.FrontReadImageEntity())
-        val backImageModel = entityToReadModel.map(ReadImageEntity.BackReadImageEntity())
+        val frontImageModel = entityToFileWrapper.map(ReadImageEntity.FrontReadImageEntity())
+        val backImageModel = entityToFileWrapper.map(ReadImageEntity.BackReadImageEntity())
 
-        return PhotoPathEntity(frontImageModel.getFullFilePath(), backImageModel.getFullFilePath())
+        return if (frontImageModel.exists() && backImageModel.exists())
+            PhotoPathEntity(frontImageModel.path, backImageModel.path)
+        else
+            throw NoFileException()
     }
 
     override fun getVideoStorageModel() = VideoStorageEntity(

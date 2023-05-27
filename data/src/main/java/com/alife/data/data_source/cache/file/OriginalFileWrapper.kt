@@ -4,7 +4,7 @@ import com.alife.data.data_source.cache.file.base.FileWrapper
 import java.io.File
 import javax.inject.Inject
 
-class OriginalFileWrapper @Inject constructor(path: String) : FileWrapper {
+class OriginalFileWrapper @Inject constructor(val path: String) : FileWrapper {
 
     private val file = File(path)
 

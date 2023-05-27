@@ -16,7 +16,7 @@ class CoroutineHandler<R>(
         tryCatcher.tryCatch(onException) { action(model) }
     }
 
-    suspend fun <M> handleThis(model: M, action: suspend M.() -> R) {
-        tryCatcher.tryCatch(onException) { action(model) }
+    suspend fun <M> handleThis(model: M, action: suspend M.() -> R): R {
+        return tryCatcher.tryCatch(onException) { action(model) }
     }
 }

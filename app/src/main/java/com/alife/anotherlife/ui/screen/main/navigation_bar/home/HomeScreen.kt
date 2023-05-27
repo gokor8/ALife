@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.brush.verticalPrimaryGradient
+import com.alife.anotherlife.core.composable.customTabIndicatorOffset
 import com.alife.anotherlife.core.composable.modifier.SystemPaddingModifier
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
@@ -64,8 +65,14 @@ class HomeScreen(
                 AnimatedVisibility(visible = tabRowVisibility.value) {
                     TabRow(
                         selectedTabIndex = pagerState.currentPage,
-                        divider = {},
-                        indicator = {},
+                        indicator = { tabPositions ->
+                            TabRowDefaults.Indicator(
+                                modifier = Modifier.customTabIndicatorOffset(
+                                    currentTabPosition = tabPositions[pagerState.currentPage],
+                                    tabWidth = pagerScreens[pagerState.currentPage].model.textWidth()
+                                )
+                            )
+                        },
                         modifier = Modifier.width(156.dp)
                     ) {
                         pagerScreens.forEach {

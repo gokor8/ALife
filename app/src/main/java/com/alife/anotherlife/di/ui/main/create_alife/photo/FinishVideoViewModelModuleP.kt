@@ -2,6 +2,7 @@ package com.alife.anotherlife.di.ui.main.create_alife.photo
 
 import com.alife.anotherlife.core.ui.store.DefaultUIStore
 import com.alife.anotherlife.core.ui.store.UIStore
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.FinishEffect
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.photo.state.FinishPictureEffect
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.photo.state.FinishPictureState
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.state.FinishVideoEffect
@@ -18,6 +19,6 @@ class FinishVideoViewModelModuleP {
 
     @Reusable
     @Provides
-    fun createFinishPhotoUIStore(): UIStore<FinishPictureState, FinishPictureEffect> =
+    fun createFinishPhotoUIStore(): UIStore<FinishPictureState, FinishEffect> =
         DefaultUIStore(FinishPictureState())
 }
