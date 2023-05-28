@@ -2,9 +2,10 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.b
 
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintSetScope
-import com.alife.anotherlife.core.composable.view_group.constraint_layout.ConstraintSetMarkup
+import com.alife.anotherlife.core.composable.view_group.constraint_layout.ConstraintMarkup
 
-class ProfileCardConstraints : ConstraintSetMarkup<ProfileCardModel, ProfileCardReferenceModel> {
+class ProfileCardConstraints :
+    ConstraintMarkup.Abstract<ProfileCardModel, ProfileCardReferenceModel>() {
 
     override fun safeMarkup(scope: ConstraintSetScope, refsModel: ProfileCardReferenceModel) {
         with(scope) {

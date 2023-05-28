@@ -2,6 +2,7 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -9,8 +10,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -41,41 +44,6 @@ class HomeScreen(
         val tabRowVisibility = rememberSaveable { mutableStateOf(true) }
 
         BoxWithConstraints(modifier = modifier) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                TextBase(
-                    textResId = R.string.horizontal_short_small_logo,
-                    style = Title28Style().style(),
-                    //modifier = Modifier.zIndex(1f)
-                )
-                Spacer(modifier = Modifier.padding(bottom = 16.dp))
-
-                AnimatedVisibility(visible = tabRowVisibility.value) {
-                    TabRow(
-                        selectedTabIndex = pagerState.currentPage,
-                        divider = {},
-                        indicator = { tabPositions ->
-                            TabRowDefaults.Indicator(
-                                height = 1.dp,
-                                modifier = Modifier.customTabIndicatorOffset(
-                                    currentTabPosition = tabPositions[pagerState.currentPage],
-                                    tabWidth = pagerScreens[pagerState.currentPage].model.textWidth()
-                                )
-                            )
-                        },
-                        modifier = Modifier.width(156.dp)
-                    ) {
-                        pagerScreens.forEach {
-                            it.TabContent(pagerState.currentPage) { index ->
-                                viewModel.reduce(HomeAction.ChangePagerItemAction(index))
-                            }
-                        }
-                    }
-                }
-            }
-
             HorizontalPager(
                 count = pagerScreens.size,
                 state = pagerState
@@ -92,6 +60,41 @@ class HomeScreen(
                     .height(20.dp)
                     .align(Alignment.TopCenter)
             ) { drawRect(brush = gradient, size = size) }
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                TextBase(
+                    textResId = R.string.horizontal_short_small_logo,
+                    style = Title28Style().style()
+                )
+                Spacer(modifier = Modifier.padding(bottom = 16.dp))
+
+                AnimatedVisibility(visible = tabRowVisibility.value) {
+                    TabRow(
+                        selectedTabIndex = pagerState.currentPage,
+                        divider = {},
+                        indicator = { tabPositions ->
+                            TabRowDefaults.Indicator(
+                                height = 1.dp,
+                                modifier = Modifier.customTabIndicatorOffset(
+                                    currentTabPosition = tabPositions[pagerState.currentPage],
+                                    tabWidth = pagerScreens[pagerState.currentPage].model.textWidth()
+                                )
+                            )
+                        },
+                        containerColor = Color.Transparent,
+                        modifier = Modifier.width(156.dp)
+                    ) {
+                        pagerScreens.forEach {
+                            it.TabContent(pagerState.currentPage) { index ->
+                                viewModel.reduce(HomeAction.ChangePagerItemAction(index))
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

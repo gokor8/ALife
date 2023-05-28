@@ -6,10 +6,10 @@ import com.alife.anotherlife.core.composable.view_group.constraint_layout.Constr
 class CameraActionModel(
     val cameraActionsPager: String = "cameraActionsPager",
     val invertCameraButton: String = "invertCameraButton"
-) : ConstraintModel<CameraActionsReferenceModel> {
+) : ConstraintModel<CameraReferenceModel> {
 
     override fun createRefs(scope: ConstraintSetScope) = with(scope) {
-        CameraActionsReferenceModel(
+        CameraReferenceModel(
             createRefFor(cameraActionsPager),
             createRefFor(invertCameraButton)
         )

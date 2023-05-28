@@ -2,11 +2,11 @@ package com.alife.anotherlife.ui.screen.main.create_alife.composable
 
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintSetScope
-import com.alife.anotherlife.core.composable.view_group.constraint_layout.ConstraintSetMarkup
+import com.alife.anotherlife.core.composable.view_group.constraint_layout.ConstraintMarkup
 
-class CameraActionsConstraints : ConstraintSetMarkup<CameraActionModel, CameraActionsReferenceModel> {
+class CameraActionsConstraints : ConstraintMarkup.Abstract<CameraActionModel, CameraReferenceModel>() {
 
-    override fun safeMarkup(scope: ConstraintSetScope, refsModel: CameraActionsReferenceModel) {
+    override fun safeMarkup(scope: ConstraintSetScope, refsModel: CameraReferenceModel) {
         with(scope) {
             constrain(refsModel.cameraActionsPager) {
                 linkTo(

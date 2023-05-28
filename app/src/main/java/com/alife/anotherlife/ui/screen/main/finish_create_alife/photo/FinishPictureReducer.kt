@@ -4,19 +4,21 @@ import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
 import com.alife.anotherlife.core.ui.state.lce.LCEContent
 import com.alife.anotherlife.core.ui.state.lce.LCELoading
 import com.alife.anotherlife.core.ui.store.UIStore
-import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_mapper.BaseFinishExceptionMapper
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_mapper.BasePhotoFinishExceptionMapper
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.FinishEffect
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.photo.mapper.BasePhotoPathEntityToUIPictures
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.photo.state.FinishPictureState
+import com.alife.data.repository.main.finish_create_alife.BaseFinishAlifeRepository
 import com.alife.domain.main.create_alife.picture.BasePhotoStorageAlifeUseCase
+import com.alife.domain.main.create_alife.video.entity.VideoPathEntity
 import javax.inject.Inject
 
 class FinishPictureReducer @Inject constructor(
     override val uiStore: UIStore<FinishPictureState, FinishEffect>,
     private val photoStorageAlifeUseCase: BasePhotoStorageAlifeUseCase,
     private val photoPathEntityToUIPictures: BasePhotoPathEntityToUIPictures,
-    private val exceptionMapper: BasePhotoFinishExceptionMapper
+    private val exceptionMapper: BasePhotoFinishExceptionMapper,
+    private val finishLoadUseCase: BaseFinishAlifeRepository<VideoPathEntity>
 ) : HandlerBaseVMReducer<FinishPictureState, FinishEffect>(), BaseFinishPictureReducer {
 
     override suspend fun onInit() {
@@ -34,6 +36,11 @@ class FinishPictureReducer @Inject constructor(
     }
 
     override suspend fun onDownload() {
+        execute {
+
+        }.handle {
+
+        }
 //        execute {
 //            Log.e("Aboba", "Some finish error $it")
 //            //trySetEffect(FinishVideoEffect.UploadVideoError())

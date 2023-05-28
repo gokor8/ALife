@@ -9,7 +9,7 @@ import com.alife.domain.main.create_alife.picture.entity.SaveImageEntity
 import com.alife.domain.main.create_alife.picture.repository.BaseCreateAlifePhotoRepository
 import com.alife.domain.main.create_alife.picture.repository.BaseCreateAlifeRepository
 import com.alife.domain.main.create_alife.video.entity.VideoReadEntity
-import com.alife.domain.main.create_alife.video.entity.VideoStorageEntity
+import com.alife.domain.main.create_alife.video.entity.VideoPathEntity
 import com.alife.domain.main.create_alife.video.repository.BaseCreateAlifeVideoRepository
 import java.io.BufferedInputStream
 import java.io.File
@@ -54,8 +54,8 @@ class CreateAlifeRepository @Inject constructor(
         return PhotoPathEntity(fileIsExistMapper.map(frontPath), fileIsExistMapper.map(backPath))
     }
 
-    override fun getVideoUrl(): VideoStorageEntity {
-        return VideoStorageEntity(
+    override fun getVideoUrl(): VideoPathEntity {
+        return VideoPathEntity(
             fileIsExistMapper.map(caReadEntityToPath.map(VideoReadEntity()))
         )
     }
