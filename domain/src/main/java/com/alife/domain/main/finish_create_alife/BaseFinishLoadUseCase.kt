@@ -1,8 +1,9 @@
 package com.alife.domain.main.finish_create_alife
 
-import com.alife.domain.main.create_alife.entity.PathEntity
+interface BaseFinishLoadUseCase {
 
-interface BaseFinishLoadUseCase<M : PathEntity> {
+    suspend fun upload()
 
-    fun upload(pathEntity: M)
+
+    abstract class Abstract(protected val repository: BaseFinishAlifeRepository) : BaseFinishLoadUseCase
 }

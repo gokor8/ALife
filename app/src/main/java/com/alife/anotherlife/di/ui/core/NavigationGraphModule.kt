@@ -15,9 +15,9 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 interface NavigationGraphModule {
 
-    @Binds
-    fun bindDevNavigationGraph(navigationGraph: DevNavigationGraph): NavigationGraph
-
     //@Binds
-    //fun bindMainNavigationGraph(navigationGraph: MainNavigationGraph): NavigationGraph
+    //fun bindDevNavigationGraph(navigationGraph: DevNavigationGraph): NavigationGraph
+
+    @Binds
+    fun bindMainNavigationGraph(navigationGraph: MainNavigationGraph): NavigationGraph
 }

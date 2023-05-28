@@ -1,10 +1,14 @@
 package com.alife.domain.main.finish_create_alife
 
-import com.alife.domain.main.create_alife.video.entity.VideoPathEntity
+import javax.inject.Inject
 
-class VideoFinishLoadUseCase : BaseFinishLoadUseCase<VideoPathEntity> {
+interface BaseVideoFinishLoadUseCase : BaseFinishLoadUseCase
 
-    override fun upload(pathEntity: VideoPathEntity) {
+class VideoFinishLoadUseCase @Inject constructor(
+    finishAlifeRepository: BaseFinishAlifeRepository
+) : BaseFinishLoadUseCase.Abstract(finishAlifeRepository), BaseVideoFinishLoadUseCase {
 
+    override suspend fun upload() {
+        repository.uploadVideo()
     }
 }

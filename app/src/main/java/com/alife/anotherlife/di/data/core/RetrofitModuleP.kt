@@ -4,6 +4,7 @@ import com.alife.data.interceptor.DefaultRequestInterceptor
 import com.alife.data.interceptor.TokenReAuthInterceptor
 import com.alife.data.interceptor.model.RetrofitAnnotation
 import com.alife.data.services.RegistrationService
+import com.alife.data.services.UploadService
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -60,4 +61,8 @@ class RetrofitModuleP {
     @Provides
     fun provideRegistrationService(retrofit: Retrofit): RegistrationService =
         retrofit.create(RegistrationService::class.java)
+
+    @Provides
+    fun provideUploadService(retrofit: Retrofit): UploadService =
+        retrofit.create(UploadService::class.java)
 }

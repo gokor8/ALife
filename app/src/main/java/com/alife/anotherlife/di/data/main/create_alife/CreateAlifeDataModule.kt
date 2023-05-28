@@ -1,12 +1,14 @@
 package com.alife.anotherlife.di.data.main.create_alife
 
-import com.alife.data.repository.main.create_alife.BaseFileIsExistMapper
+import com.alife.data.repository.main.create_alife.BasePathIsExistMapper
 import com.alife.data.repository.main.create_alife.CreateAlifeRepository
 import com.alife.data.repository.main.create_alife.PathFileIsExistMapper
 import com.alife.data.repository.main.create_alife.base_mapper.BaseCAReadEntityToFileModel
 import com.alife.data.repository.main.create_alife.base_mapper.BaseCAReadEntityToFilePath
 import com.alife.data.repository.main.create_alife.base_mapper.CAReadEntityToFileModel
 import com.alife.data.repository.main.create_alife.base_mapper.CAReadEntityToFilePath
+import com.alife.data.repository.main.finish_create_alife.mapper.BaseFileIsExistMapper
+import com.alife.data.repository.main.finish_create_alife.mapper.FileIsExistMapper
 import com.alife.domain.main.create_alife.picture.repository.BaseCreateAlifeRepository
 import dagger.Binds
 import dagger.Module
@@ -21,7 +23,10 @@ interface CreateAlifeDataModule {
     fun bindCreateAlifeRepository(repository: CreateAlifeRepository): BaseCreateAlifeRepository
 
     @Binds
-    fun bindFileIsExistMapper(mapper: PathFileIsExistMapper): BaseFileIsExistMapper
+    fun bindPathIsExistMapper(mapper: PathFileIsExistMapper): BasePathIsExistMapper
+
+    @Binds
+    fun bindFileIsExistMapper(mapper: FileIsExistMapper): BaseFileIsExistMapper
 
     @Binds
     fun bindEntityToFileWrapper(mapper: CAReadEntityToFileModel): BaseCAReadEntityToFileModel

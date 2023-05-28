@@ -3,6 +3,7 @@ package com.alife.data.repository.main.create_alife
 import com.alife.data.repository.main.create_alife.base_mapper.BaseCAReadEntityToFilePath
 import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToReadModel
 import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToSaveModel
+import com.alife.data.repository.main.finish_create_alife.mapper.BaseFileIsExistMapper
 import com.alife.domain.main.create_alife.picture.entity.PhotoPathEntity
 import com.alife.domain.main.create_alife.picture.entity.ImageReadEntity
 import com.alife.domain.main.create_alife.picture.entity.SaveImageEntity
@@ -21,7 +22,7 @@ class CreateAlifeRepository @Inject constructor(
     private val entityToSaveModel: BaseEntityToSaveModel,
     private val entityToReadModel: BaseEntityToReadModel,
     private val caReadEntityToPath: BaseCAReadEntityToFilePath,
-    private val fileIsExistMapper: BaseFileIsExistMapper,
+    private val pathIsExistMapper: BasePathIsExistMapper,
 ) : BaseCreateAlifeRepository, BaseCreateAlifePhotoRepository, BaseCreateAlifeVideoRepository {
 
     override suspend fun saveToFile(saveImageEntity: SaveImageEntity) {
@@ -51,12 +52,12 @@ class CreateAlifeRepository @Inject constructor(
         val frontPath = caReadEntityToPath.map(ImageReadEntity.Front())
         val backPath = caReadEntityToPath.map(ImageReadEntity.Back())
 
-        return PhotoPathEntity(fileIsExistMapper.map(frontPath), fileIsExistMapper.map(backPath))
+        return PhotoPathEntity(pathIsExistMapper.map(frontPath), pathIsExistMapper.map(backPath))
     }
 
     override fun getVideoUrl(): VideoPathEntity {
         return VideoPathEntity(
-            fileIsExistMapper.map(caReadEntityToPath.map(VideoReadEntity()))
+            pathIsExistMapper.map(caReadEntityToPath.map(VideoReadEntity()))
         )
     }
 }

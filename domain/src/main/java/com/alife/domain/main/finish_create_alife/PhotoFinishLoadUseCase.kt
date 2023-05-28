@@ -1,10 +1,14 @@
 package com.alife.domain.main.finish_create_alife
 
-import com.alife.domain.main.create_alife.picture.entity.PhotoPathEntity
+import javax.inject.Inject
 
-class PhotoFinishLoadUseCase : BaseFinishLoadUseCase<PhotoPathEntity> {
+interface BasePhotoFinishLoadUseCase : BaseFinishLoadUseCase
 
-    override fun upload(pathEntity: PhotoPathEntity) {
+class PhotoFinishLoadUseCase @Inject constructor(
+    finishAlifeRepository: BaseFinishAlifeRepository
+) : BaseFinishLoadUseCase.Abstract(finishAlifeRepository), BasePhotoFinishLoadUseCase {
 
+    override suspend fun upload() {
+        repository.uploadPhoto()
     }
 }

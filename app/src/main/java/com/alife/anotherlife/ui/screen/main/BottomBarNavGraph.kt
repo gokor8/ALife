@@ -6,6 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.alife.anotherlife.core.navigation.NavigationGraph
 import com.alife.anotherlife.ui.screen.main.create_alife.navigation.CreateAlifeNavBuilder
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.photo.navigation.FinishPictureNavBuilder
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.navigation.FinishVideoNavBuilder
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.navigation.HomeNavBuilder
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.navigation.HomeNavigationRoute
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.friends.navigation.FriendsNavBuilder
@@ -27,7 +29,9 @@ class BottomBarNavGraph(private val innerPadding: PaddingValues) : NavigationGra
                 ProfileNavBuilder(navHostController),
                 FriendsNavBuilder(navHostController),
                 WorldNavBuilder(navHostController),
-                CreateAlifeNavBuilder(navHostController)
+                CreateAlifeNavBuilder(navHostController),
+                FinishPictureNavBuilder(navHostController),
+                FinishVideoNavBuilder(navHostController)
             ).forEach { it.navComposable(this) }
         }
     }

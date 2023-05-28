@@ -10,13 +10,15 @@ import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.Finis
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.state.FinishVideoEffect
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.state.FinishVideoState
 import com.alife.domain.main.create_alife.video.BaseVideoStorageAlifeUseCase
+import com.alife.domain.main.finish_create_alife.BaseVideoFinishLoadUseCase
 import java.lang.IllegalStateException
 import javax.inject.Inject
 
 class FinishVideoReducer @Inject constructor(
     override val uiStore: UIStore<FinishVideoState, FinishEffect>,
     private val videoStorageAlifeUseCase: BaseVideoStorageAlifeUseCase,
-    private val exceptionMapper: BaseVideoFinishExceptionMapper
+    private val exceptionMapper: BaseVideoFinishExceptionMapper,
+    private val finishLoadUseCase: BaseVideoFinishLoadUseCase
 ) : HandlerBaseVMReducer<FinishVideoState, FinishEffect>(), BaseFinishVideoReducer {
 
     override suspend fun onInit() {
@@ -31,18 +33,20 @@ class FinishVideoReducer @Inject constructor(
         }.let(::setState)
     }
 
+    // TODO вынести в базовый абстрактный класс
     override suspend fun onDownload() {
+        setState { copy(lceModel = LCELoading) }
+
         execute {
             Log.e("Aboba", "Some finish error $it")
             trySetEffect(FinishVideoEffect.UploadVideoError())
+            // TODO если 500 ошибка, то говорить что чел уже выкладывал сегодня пост
             //setState { copy(lceModel = LCEError()) } // TODO add backEffect()
         }.handle {
-            // TODO мб дополнительно из кеша юзл взять, если этот пустой
-            if (getState().videoUrl.isEmpty()) throw IllegalStateException("Empty url")
+            finishLoadUseCase.upload()
 
+            setEffect(FinishEffect.GoMain())
             // TODO upload and navigate next
         }
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.alife.data.repository.main.finish_create_alife
+package com.alife.domain.main.finish_create_alife
 
 interface BaseFinishAlifeRepository {
 

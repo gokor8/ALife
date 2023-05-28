@@ -6,6 +6,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.PartMap
 
 interface UploadService {
@@ -13,10 +14,10 @@ interface UploadService {
     @Multipart
     @POST("/upload/photo")
     suspend fun sendPhotos(
-        @PartMap photos: Map<String, RequestBody>
+        @PartMap photos: @JvmSuppressWildcards Map<@JvmSuppressWildcards String, RequestBody>
     ): Response<Unit>
 
     @Multipart
     @POST("/upload/video")
-    suspend fun sendVideo(@Body video: MultipartBody.Part): Response<Unit>
+    suspend fun sendVideo(@Part video: MultipartBody.Part): Response<Unit>
 }
