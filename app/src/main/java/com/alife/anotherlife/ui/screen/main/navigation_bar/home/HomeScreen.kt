@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -42,15 +41,6 @@ class HomeScreen(
         val tabRowVisibility = rememberSaveable { mutableStateOf(true) }
 
         BoxWithConstraints(modifier = modifier) {
-            val gradient = verticalPrimaryGradient()
-            Canvas(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(20.dp)
-                    .align(Alignment.TopCenter)
-                    .zIndex(1f)
-            ) { drawRect(brush = gradient, size = size) }
-
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxSize()
@@ -58,15 +48,17 @@ class HomeScreen(
                 TextBase(
                     textResId = R.string.horizontal_short_small_logo,
                     style = Title28Style().style(),
-                    modifier = Modifier.zIndex(1f)
+                    //modifier = Modifier.zIndex(1f)
                 )
                 Spacer(modifier = Modifier.padding(bottom = 16.dp))
 
                 AnimatedVisibility(visible = tabRowVisibility.value) {
                     TabRow(
                         selectedTabIndex = pagerState.currentPage,
+                        divider = {},
                         indicator = { tabPositions ->
                             TabRowDefaults.Indicator(
+                                height = 1.dp,
                                 modifier = Modifier.customTabIndicatorOffset(
                                     currentTabPosition = tabPositions[pagerState.currentPage],
                                     tabWidth = pagerScreens[pagerState.currentPage].model.textWidth()
@@ -83,6 +75,7 @@ class HomeScreen(
                     }
                 }
             }
+
             HorizontalPager(
                 count = pagerScreens.size,
                 state = pagerState
@@ -91,6 +84,14 @@ class HomeScreen(
                     tabRowVisibility.value = visibility
                 }.SetupContent()
             }
+
+            val gradient = verticalPrimaryGradient()
+            Canvas(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(20.dp)
+                    .align(Alignment.TopCenter)
+            ) { drawRect(brush = gradient, size = size) }
         }
     }
 }

@@ -61,28 +61,6 @@ fun Modifier.clickable(
 
 fun Modifier.customTabIndicatorOffset(
     currentTabPosition: TabPosition,
-): Modifier = composed(
-    inspectorInfo = debugInspectorInfo {
-        name = "tabIndicatorOffset"
-        value = currentTabPosition
-    }
-) {
-    val currentTabWidth by animateDpAsState(
-        targetValue = currentTabPosition.width,
-        animationSpec = tween(durationMillis = 250, easing = FastOutSlowInEasing)
-    )
-    val indicatorOffset by animateDpAsState(
-        targetValue = currentTabPosition.left,
-        animationSpec = tween(durationMillis = 250, easing = FastOutSlowInEasing)
-    )
-    fillMaxWidth()
-        .wrapContentSize(Alignment.BottomStart)
-        .offset(x = indicatorOffset, y = 4.dp)
-        .width(currentTabWidth)
-}
-
-fun Modifier.customTabIndicatorOffset(
-    currentTabPosition: TabPosition,
     tabWidth: Dp
 ): Modifier = composed(
     inspectorInfo = debugInspectorInfo {

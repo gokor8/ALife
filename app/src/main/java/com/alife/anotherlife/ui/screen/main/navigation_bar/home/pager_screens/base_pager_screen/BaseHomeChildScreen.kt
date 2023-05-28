@@ -3,8 +3,11 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.b
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -19,7 +22,7 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.ba
 abstract class BaseHomeChildScreen(
     override val navController: NavController,
     private val pagingVisibility: (Boolean) -> Unit
-) : VMScreen<AbstractHomeChildViewModel>(SystemPaddingModifier) {
+) : VMScreen<AbstractHomeChildViewModel>() {
 
     override suspend fun onInit() {
         viewModel.reduce(HomeChildAction.OnInit())
@@ -35,20 +38,18 @@ abstract class BaseHomeChildScreen(
             state = lazyColumnState,
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(30.dp),
-            modifier = modifier,
+            modifier = Modifier.fillMaxSize().statusBarsPadding(),
         ) {
-            item { Spacer(modifier = Modifier
-                .height(60.dp)
-                .fillMaxWidth()) }
+            item { Spacer(modifier = Modifier.height(60.dp).fillMaxWidth()) }
+
             items(
                 state.profileList,
                 key = { it.itemKey() }
             ) {
                 it.Card(viewModel = viewModel, modifier = Modifier)
             }
-            item { Spacer(modifier = Modifier
-                .height(30.dp)
-                .fillMaxWidth()) }
+
+            //item { Spacer(modifier = Modifier.height(30.dp).fillMaxWidth()) }
         }
     }
 }

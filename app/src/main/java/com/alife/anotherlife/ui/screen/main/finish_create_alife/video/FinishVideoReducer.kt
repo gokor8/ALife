@@ -27,7 +27,6 @@ class FinishVideoReducer @Inject constructor(
 
     override suspend fun onInit() {
         setState { copy(lceModel = LCELoading) }
-        delay(1000L)
 
         executeThis(getState()) { exception ->
             copy(lceModel = exceptionMapper.map(this@FinishVideoReducer, exception))

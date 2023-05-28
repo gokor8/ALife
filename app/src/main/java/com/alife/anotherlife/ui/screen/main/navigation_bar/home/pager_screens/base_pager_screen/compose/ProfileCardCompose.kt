@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -57,7 +58,7 @@ fun ProfileCardCompose(
             offsetsStartStrategy = DefaultStrategy(),
             modifier = Modifier
                 .layoutId(profileCardModel.alife)
-                .height(486.dp)
+                .aspectRatio(328/526f)
         )
     }
 }

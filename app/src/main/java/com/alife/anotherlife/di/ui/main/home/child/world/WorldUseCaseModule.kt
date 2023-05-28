@@ -1,6 +1,7 @@
 package com.alife.anotherlife.di.ui.main.home.child.world
 
 import com.alife.domain.main.home.child.BaseProfileCardUseCase
+import com.alife.domain.main.home.child.child_world.BaseWorldProfileCardUC
 import com.alife.domain.main.home.child.child_world.WorldProfileCardUC
 import dagger.Binds
 import dagger.Module
@@ -13,5 +14,5 @@ interface WorldUseCaseModule {
 
     @WorldAnnotation.WorldProfileUseCase
     @Binds
-    fun bindWorldUseCase(useCase: WorldProfileCardUC): BaseProfileCardUseCase
+    fun bindWorldProfileCardUC(useCase: WorldProfileCardUC): BaseWorldProfileCardUC
 }
