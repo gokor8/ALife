@@ -1,5 +1,6 @@
 package com.alife.anotherlife.core.ui.reducer
 
+import com.alife.anotherlife.core.ui.UIExceptionMapper
 import com.alife.core.coroutine_handler.CoroutineHandler
 import com.alife.core.coroutine_handler.CoroutineHandlerBuilder
 import com.alife.core.mapper.Mapper
@@ -30,6 +31,11 @@ abstract class HandlerBaseVMReducer<STATE : MVI.State, EFFECT : MVI.Effect>(
     override suspend fun <M> execute(exceptionMapper: Mapper<Exception, M>): CoroutineHandler<M> {
         return coroutineHandlerBuilder.execute(exceptionMapper)
     }
+
+    override suspend fun <M : MVI.State> execute(
+        state: M,
+        mapper: UIExceptionMapper<M>
+    ): CoroutineHandler<M> = coroutineHandlerBuilder.execute(state, mapper)
 
     override suspend fun <I, M> execute(
         model: I,

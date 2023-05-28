@@ -6,7 +6,7 @@ import com.alife.data.repository.main.create_alife.file_model_base.file_builders
 
 interface BaseFileModel {
 
-    fun getFullFilePath(): String
+    fun getFullPath(): String
 
 
     abstract class AbstractFileModel(
@@ -14,7 +14,7 @@ interface BaseFileModel {
         protected val fileName: BaseFileName,
         protected val fileExtension: BaseFileExtension
     ) : BaseFileModel {
-        override fun getFullFilePath(): String {
+        override fun getFullPath(): String {
             return "${filePath.getPath()}/${fileName.getFileName()}${fileExtension.getFileExtension()}"
         }
     }

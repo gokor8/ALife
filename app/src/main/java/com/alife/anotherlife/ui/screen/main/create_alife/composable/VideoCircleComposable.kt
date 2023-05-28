@@ -39,7 +39,7 @@ fun VideoOnRecordingComposable(
         val rectSize = size / 2f
         drawRoundRect(
             color = colorSmallCircle.copy(alpha),
-            cornerRadius = CornerRadius(10f, 10f),
+            cornerRadius = CornerRadius(20f, 20f),
             size = rectSize,
             topLeft = Offset(
                 size.width / 2f - rectSize.width / 2f,

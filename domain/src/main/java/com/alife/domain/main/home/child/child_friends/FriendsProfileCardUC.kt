@@ -1,20 +1,19 @@
 package com.alife.domain.main.home.child.child_friends
 
-import com.alife.domain.core.usecase.UseCaseResult
-import com.alife.domain.main.home.child.ProfileCardEntity
-import com.alife.domain.main.home.child.ProfileCardUseCase
+import com.alife.domain.main.home.child.BaseProfileCardUseCase
 import com.alife.domain.main.home.child.ProfileUseCaseEntity
-import com.alife.domain.main.home.child.mapper.BaseThrowToProfileEntity
 import kotlinx.coroutines.CoroutineDispatcher
-import java.util.Date
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class FriendsProfileCardUC @Inject constructor(
-    dispatcher: CoroutineDispatcher,
-    throwableMapper: BaseThrowToProfileEntity
-) : ProfileCardUseCase(dispatcher, throwableMapper) {
 
-    override suspend fun getProfileCards(): UseCaseResult<ProfileUseCaseEntity> {
-        return withSafe { ProfileUseCaseEntity(emptyList()) }
+interface BaseFriendsProfileCardUC : BaseProfileCardUseCase
+
+class FriendsProfileCardUC @Inject constructor(
+    private val dispatcher: CoroutineDispatcher,
+) : BaseFriendsProfileCardUC {
+
+    override suspend fun getProfileCards(): ProfileUseCaseEntity {
+        return withContext(dispatcher) { ProfileUseCaseEntity(emptyList()) }
     }
 }

@@ -1,8 +1,8 @@
 package com.alife.domain.main.create_alife.video.repository
 
-import com.alife.domain.main.create_alife.video.entity.BaseVideoStorageEntity
+import com.alife.domain.main.create_alife.video.entity.VideoStorageEntity
 
 interface BaseCreateAlifeVideoRepository {
 
-    fun getVideoStorageModel(): BaseVideoStorageEntity
+    fun getVideoUrl(): VideoStorageEntity
 }

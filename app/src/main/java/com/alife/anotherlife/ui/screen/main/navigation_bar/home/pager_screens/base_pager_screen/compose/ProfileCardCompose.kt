@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -11,12 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
+import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.alife_card.ALifeCardCompose
+import com.alife.anotherlife.core.composable.alife_card.model.UIAlifeCardModel
 import com.alife.anotherlife.core.composable.alife_card.start_strategy.DefaultStrategy
 import com.alife.anotherlife.core.composable.icon.MockProfileIcon
 
@@ -47,10 +51,14 @@ fun ProfileCardCompose(
         Text(timestamp, modifier = Modifier.layoutId(profileCardModel.timestamp))
 
         ALifeCardCompose(
+            UIAlifeCardModel.Default(
+                R.drawable.img_tutor_front,
+                R.drawable.img_tutor_back
+            ),
             offsetsStartStrategy = DefaultStrategy(),
             modifier = Modifier
                 .layoutId(profileCardModel.alife)
-                .height(486.dp)
+                .aspectRatio(328/526f)
         )
     }
 }

@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-interface BaseSnackBarEffect : CreateAlifeEffect {
+interface BaseSnackBarEffect {
 
     suspend fun showSnackBar(snackBarVisibility: MutableState<BaseSnackBarEffect>) = Unit
 
@@ -19,13 +19,15 @@ interface BaseSnackBarEffect : CreateAlifeEffect {
     fun ShowSnackBar(modifier: Modifier) = Unit
 
 
+    class Empty : BaseSnackBarEffect
+
     abstract class Abstract(
         @StringRes private val text: Int
     ) : BaseSnackBarEffect {
         override suspend fun showSnackBar(snackBarVisibility: MutableState<BaseSnackBarEffect>) {
             snackBarVisibility.value = this
             DelayWrapper.Medium().delay()
-            snackBarVisibility.value = CreateAlifeEffect.EmptySnackError()
+            snackBarVisibility.value = Empty()
         }
 
         @Composable

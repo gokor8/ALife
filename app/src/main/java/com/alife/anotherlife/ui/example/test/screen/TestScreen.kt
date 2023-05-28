@@ -12,6 +12,8 @@ import com.alife.anotherlife.core.composable.button.ButtonBase
 import com.alife.anotherlife.core.composable.modifier.SystemPaddingModifier
 import com.alife.anotherlife.core.ui.screen.DefaultScreen
 import com.alife.anotherlife.ui.screen.main.create_alife.navigation.CreateAlifeNavigator
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.photo.navigation.FinishPictureNavigator
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.navigation.FinishVideoNavigator
 import com.alife.anotherlife.ui.screen.main.navigation.MainScreenNavigator
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.navigation.HomeNavigator
 import com.alife.anotherlife.ui.screen.registration.tutorial.navigation.TutorialNavigator
@@ -24,7 +26,9 @@ class TestScreen(val navController: NavController) : DefaultScreen(SystemPadding
             TutorialNavigator(),
             MainScreenNavigator(),
             HomeNavigator(),
-            CreateAlifeNavigator()
+            CreateAlifeNavigator(),
+            FinishPictureNavigator(),
+            FinishVideoNavigator()
         )
 
         LazyColumn(modifier = modifier, contentPadding = PaddingValues(10.dp)) {

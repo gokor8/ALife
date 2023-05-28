@@ -6,8 +6,9 @@ import androidx.navigation.NavController
 import com.alife.anotherlife.core.composable.modifier.ModifierProvider
 import com.alife.anotherlife.core.composable.modifier.ScrollableModifier
 import com.alife.anotherlife.core.ui.view_model.AbstractViewModel
+import com.alife.anotherlife.core.ui.view_model.BaseViewModel
 
-abstract class VMScreen<VM : AbstractViewModel<*, *, *>>(
+abstract class VMScreen<VM : BaseViewModel<*, *, *>>(
     modifier: ModifierProvider = ScrollableModifier()
 ) : DefaultScreen(modifier) {
 

@@ -1,8 +1,8 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.options
 
 import androidx.camera.video.FileOutputOptions
-import com.alife.data.repository.main.create_alife.video.entity.VideoStorageEntity
-import javax.inject.Inject
+import com.alife.domain.main.create_alife.video.entity.VideoStorageEntity
+import java.io.File
 
 interface BaseFileOutputOptions {
 
@@ -12,7 +12,7 @@ interface BaseFileOutputOptions {
     class Default(private val videoStorageEntity: VideoStorageEntity) : BaseFileOutputOptions {
 
         override fun options(): FileOutputOptions {
-            return FileOutputOptions.Builder(videoStorageEntity.videoFile).build()
+            return FileOutputOptions.Builder(File(videoStorageEntity.videoUrl)).build()
         }
     }
 }

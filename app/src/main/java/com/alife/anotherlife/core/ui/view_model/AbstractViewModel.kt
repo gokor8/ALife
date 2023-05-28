@@ -16,7 +16,7 @@ abstract class AbstractViewModel<ACTION : MVI.Action, STATE : MVI.State, EFFECT 
     @Composable
     override fun getUIState(): STATE = reducerVM.getStateCollector().collectAsState().value
 
-    suspend fun collectEffect(navController: NavController) {
+    override suspend fun collectEffect(navController: NavController) {
         reducerVM.getEffectCollector().collect(navController, this)
     }
 

@@ -8,6 +8,8 @@ import com.alife.anotherlife.ui.example.test.navigation.TestNavBuilder
 import com.alife.anotherlife.ui.example.test.navigation.TestNavRoute
 import com.alife.anotherlife.ui.example.test.screen.TestScreen
 import com.alife.anotherlife.ui.screen.main.create_alife.navigation.CreateAlifeNavBuilder
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.photo.navigation.FinishPictureNavBuilder
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.navigation.FinishVideoNavBuilder
 import com.alife.anotherlife.ui.screen.main.navigation.MainScreenNavBuilder
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.navigation.HomeNavBuilder
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.friends.navigation.FriendsNavBuilder
@@ -32,7 +34,9 @@ class DevNavigationGraph @Inject constructor() : NavigationGraph {
                 HomeNavBuilder(navHostController),
                 FriendsNavBuilder(navHostController),
                 WorldNavBuilder(navHostController),
-                CreateAlifeNavBuilder(navHostController)
+                CreateAlifeNavBuilder(navHostController),
+                FinishPictureNavBuilder(navHostController),
+                FinishVideoNavBuilder(navHostController)
             ).forEach { it.navComposable(this) }
         }
     }

@@ -41,7 +41,7 @@ class LCEError(
 fun ErrorScreen(
     title: String,
     description: String = "",
-    expand: @Composable () -> Unit = {}
+    expandContent: @Composable () -> Unit = {}
 ) = Column(
     modifier = Modifier
         .background(MaterialTheme.colorScheme.background)
@@ -75,7 +75,7 @@ fun ErrorScreen(
         Spacer(modifier = Modifier.padding(bottom = 20.dp))
     }
 
-    expand()
+    expandContent()
 }
 
 @Composable
@@ -87,8 +87,7 @@ fun ErrorScreen(
 ) = Column(
     modifier = Modifier
         .background(MaterialTheme.colorScheme.background)
-        .then(SystemPaddingModifier.provideModifier())
-        .padding(horizontal = 20.dp),
+        .then(SystemPaddingModifier.provideModifier()),
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.CenterHorizontally,
 ) {

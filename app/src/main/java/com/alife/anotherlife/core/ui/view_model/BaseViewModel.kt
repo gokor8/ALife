@@ -1,6 +1,7 @@
 package com.alife.anotherlife.core.ui.view_model
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import com.alife.anotherlife.core.ui.state_collector.NavigationOnEffectCollect
 import com.alife.core.mvi.MVI
 import com.alife.core.mvi.MVIReducer
@@ -10,4 +11,6 @@ interface BaseViewModel<ACTION : MVI.Action, STATE : MVI.State, EFFECT : MVI.Eff
 
     @Composable
     fun getUIState(): STATE
+
+    suspend fun collectEffect(navController: NavController)
 }

@@ -94,7 +94,7 @@ class CreateAlifeVideoReducer @Inject constructor(
         if (event.hasError())
             trySetEffect(CreateAlifeEffect.SnackVideoError())
         else
-            trySetEffect(CreateAlifeEffect.GoBack())
+            trySetEffect(CreateAlifeEffect.CreateAlifeVideoFinish())
 
         getState().pagerContainer.video.onCallback(this@CreateAlifeVideoReducer)
     }
