@@ -4,12 +4,9 @@ import com.alife.data.data_source.cache.file.base.FileWrapper
 import java.io.File
 import javax.inject.Inject
 
-class OriginalFileWrapper @Inject constructor(val path: String) : FileWrapper {
+class OriginalFileWrapper(path: String) : FileWrapper {
 
-    private val file = File(path)
-
-
-    override fun getFile() = file
+    override val file = File(path)
 
     override fun exists() = file.exists()
 

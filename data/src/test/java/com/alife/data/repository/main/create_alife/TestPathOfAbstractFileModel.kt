@@ -17,7 +17,7 @@ class TestPathOfAbstractFileModel {
 
     @Test
     fun `test front file path`() {
-        val actual = testFrontSaveModel.getFullFilePath()
+        val actual = testFrontSaveModel.getFullPath()
 
         val expected = "/front.jpeg"
 
@@ -27,7 +27,7 @@ class TestPathOfAbstractFileModel {
 
     @Test
     fun `test back file path`() {
-        val actual = testBackSaveModel.getFullFilePath()
+        val actual = testBackSaveModel.getFullPath()
 
         val expected = "/back.jpeg"
 

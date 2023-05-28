@@ -6,7 +6,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class SaveAlifeUseCase @Inject constructor(
+class SaveImageAlifeUseCase @Inject constructor(
     private val createAlifeRepository: BaseCreateAlifeRepository,
     private val dispatcher: CoroutineDispatcher,
 ) : BaseSaveAlifeUseCase {

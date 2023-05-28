@@ -1,3 +1,3 @@
 package com.alife.domain.main.create_alife.video.entity
 
-interface BaseVideoStorageEntity
+class VideoStorageEntity(val videoUrl: String)

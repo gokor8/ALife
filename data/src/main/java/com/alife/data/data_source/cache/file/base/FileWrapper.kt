@@ -4,7 +4,7 @@ import java.io.File
 
 interface FileWrapper {
 
-    fun getFile(): File
+    val file: File
 
     fun exists(): Boolean
 

@@ -2,8 +2,6 @@ package com.alife.anotherlife.di.ui.main.create_alife.video
 
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.BaseFinishVideoReducer
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.FinishVideoReducer
-import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.mapper.BaseVideoEntityToUrl
-import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.mapper.VideoEntityToUrl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,7 +13,4 @@ interface FinishVideoViewModelModule {
 
     @Binds
     fun bindFinishVideoReducer(reducer: FinishVideoReducer): BaseFinishVideoReducer
-
-    @Binds
-    fun bindVideoEntityToUrl(mapper: VideoEntityToUrl): BaseVideoEntityToUrl
 }

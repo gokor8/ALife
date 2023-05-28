@@ -25,7 +25,7 @@ interface BaseReadFileModel : BaseFileModel {
             buffer: BufferedInputStream,
             fileWrapperFactory: FileWrapperFactory
         ): ByteArray {
-            val file = fileWrapperFactory.create(getFullFilePath())
+            val file = fileWrapperFactory.create(getFullPath())
 
             if(!file.exists()) throw FileNotFoundException()
 

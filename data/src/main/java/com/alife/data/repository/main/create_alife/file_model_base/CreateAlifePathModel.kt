@@ -1,4 +1,4 @@
-package com.alife.data.repository.main.create_alife.picture.model.file
+package com.alife.data.repository.main.create_alife.file_model_base
 
 import android.content.Context
 import com.alife.data.repository.main.create_alife.file_model_base.file_builders.BasePathModel
