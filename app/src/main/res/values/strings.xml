@@ -8,6 +8,22 @@
     <string name="continue_next">Continue</string>
     <string name="cancel">Отмена</string>
     <string name="agree">Разрешить</string>
+    <string name="repeat">Повторить</string>
+    <string name="back">Назад</string>
+    <string name="global_exception">Произошла критическая ошибка</string>
+    <string name="connection_exception">Время выполнения запроса истекло</string>
+    <string name="exception">Ошибка!</string>
+    <string name="try_later">Повторите по позже</string>
+    <string name="try_again">Повторите попытку</string>
+
+    // Generic Exception
+    <string name="generic_exception_title">Непредвиденная ошибка</string>
+    <string name="generic_exception_description">Произошла непредвиденная ошибка, повторите попытку</string>
+
+
+    // Dialog
+    <string name="permission_dialog_description">Предоставьте разрешние через настройки</string>
+    <string name="permission_dialog_settings">в Настройки</string>
 
     // Login
     <string name="pass_login_in">Hi, pass login in</string>
@@ -40,9 +56,12 @@
     <string name="your_email">Your Email Plz.</string>
     <string name="email">Email</string>
     <string name="invalid_email">Invalid Email</string>
+    <string name="error_send_email">При отправке ваших данных произошла ошибка</string>
 
     // Email Code
     <string name="email_code">Code from email sms</string>
+    <string name="email_code_error">Вы ввели неверный код подтверждения</string>
+    <string name="email_code_critical_error">Ваш код подтверждения истек, повторите попытку</string>
 
     // Tutorial
     <string name="tutorial_first_description">В течение 1 минуты сделай видео или фото и покажи, чем ты занимаешься</string>
@@ -69,10 +88,12 @@
 
     // Camera Audio
     <string name="dialog_audio_title">Приложению необходим доступ к микрофону</string>
-    <string name="dialog_audio_description">Для создания Alife \n предоставьте доступ к микрофону</string>
+    <string name="dialog_audio_description">Для записи видео со звуком \n предоставьте доступ к микрофону</string>
 
     // Camera
     <string name="camera_blocking_error_camera">Предоставьте разрешение на использование Камеры</string>
     <string name="camera_blocking_error_fatal">Не получилось подключиться к камере</string>
     <string name="camera_snackbar_video_error">Произошла ошибка во время записи видео</string>
+    <string name="camera_snackbar_photo_error">Произошла ошибка во время фото</string>
+    <string name="camera_snackbar_camera_description_error">Попробуйте снова.</string>
 </resources>

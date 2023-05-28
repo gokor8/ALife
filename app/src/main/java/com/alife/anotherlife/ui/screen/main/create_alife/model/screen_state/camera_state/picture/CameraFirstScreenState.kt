@@ -22,7 +22,6 @@ class CameraFirstScreenState(
         return CameraFirstScreenState(cameraInverter.invertCameraSelector())
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onImageLoaded(
         reducer: BaseCreateAlifePhotoReducer,
         captureWrapper: CookedCaptureWrapper

@@ -13,22 +13,6 @@ import androidx.compose.ui.Modifier
 import com.alife.domain.core.delay.DelayWrapper
 
 @Composable
-fun <S> NormalSnackbar(
-    state: S,
-    modifier: Modifier = Modifier,
-    defaultState: S? = null,
-    delayWrapper: DelayWrapper = DelayWrapper.Short()
-) {
-    var lastState by remember { mutableStateOf(defaultState) }
-
-    key(state != lastState) {
-        LaunchedEffect(state != lastState) {
-            delayWrapper.delay()
-            lastState = state
-        }
-
-        Snackbar(modifier) {
-            Text("Aboba")
-        }
-    }
+fun OnlyTextSnackBar(text: String, modifier: Modifier) {
+    Snackbar(modifier) { Text(text) }
 }

@@ -6,6 +6,8 @@ import com.alife.anotherlife.core.composable.mvi_extensions.BaseMVIAction
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.BaseCreateAlifeReducerBase
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.audio.AudioModel
+import com.alife.anotherlife.ui.screen.main.create_alife.model.audio.BaseAudioActionModel
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.RecordingAction
@@ -21,21 +23,36 @@ import kotlinx.coroutines.CoroutineScope
 
 interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
 
+    class ChangeCurrentPage(private val currentPage: Int) : CreateAlifeAction {
+        override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
+            reducer.onChangeCurrentPage(currentPage)
+        }
+    }
+
     class ChangeCameraSelection : CreateAlifeAction {
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
             reducer.onChangeCamera()
         }
     }
 
-    class OnChangedAudio @OptIn(ExperimentalPermissionsApi::class) constructor(
-        private val permissionStatus: com.google.accompanist.permissions.PermissionStatus,
-        private val isAudioEnabled: Boolean
+    class OnChangedAudio(
+        private val audioActionModel: BaseAudioActionModel
     ) : CreateAlifeAction {
-        @OptIn(ExperimentalPermissionsApi::class)
+
         override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
-            (permissionStatus is com.google.accompanist.permissions.PermissionStatus.Granted).also {
-                reducer.onChangedAudio(it && isAudioEnabled)
-            }
+            reducer.onChangedAudio(audioActionModel)
+        }
+    }
+
+    class OnPictureLoading : CreateAlifeAction {
+        override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
+            reducer.onPictureLoading()
+        }
+    }
+
+    class OnVideoLoading : CreateAlifeAction {
+        override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
+            reducer.onVideoLoading()
         }
     }
 
@@ -137,16 +154,6 @@ interface CreateAlifeAction : BaseMVIAction<BaseCreateAlifeReducerBase> {
             Log.e("RecordingAction", recordingAction.toString())
             reducer.onRecordingAction(captureState, recordingAction)
             // reducer.onRecordingActions(recordingAction)
-            //TODO
-        }
-    }
-
-    class VideoRecordEventAction(
-        private val videoRecordEvent: VideoRecordEvent
-    ) : CreateAlifeAction {
-        override suspend fun onAction(reducer: BaseCreateAlifeReducerBase) {
-            Log.e("VideoRecordEvent", videoRecordEvent.toString())
-            // reducer.onVideoRecordEvent(videoRecordEvent)
             //TODO
         }
     }

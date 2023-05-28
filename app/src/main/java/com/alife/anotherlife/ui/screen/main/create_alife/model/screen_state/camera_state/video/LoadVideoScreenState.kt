@@ -8,14 +8,14 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.screen_state.Load
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
-class LoadVideoScreenState : LoadScreenState(), BaseVideoScreenState {
+class LoadVideoScreenState : LoadScreenState, BaseVideoScreenState {
 
     @OptIn(ExperimentalPermissionsApi::class)
     @Composable
     override fun Content(viewModel: CreateAlifeViewModel, modifier: Modifier) {
         val audioPermissionState = viewModel.audioPermission.requirePermission(viewModel)
 
-        viewModel.cameraPermission.requirePermission { status ->
+        viewModel.momentaryCameraPermission.requirePermission { status ->
             viewModel.reduce(CreateAlifeAction.VideoPermission(status, DefaultVideoScreenState()))
 
             if(status is PermissionStatus.Success) audioPermissionState.launchPermissionRequest()

@@ -13,6 +13,8 @@ import com.alife.anotherlife.ui.screen.registration.email_code.navigation.EmailC
 import com.alife.anotherlife.ui.screen.registration.name.navigation.RegNameNavBuilder
 import com.alife.anotherlife.ui.screen.registration.tutorial.navigation.TutorialNavBuilder
 import com.alife.anotherlife.ui.screen.registration.username.navigation.UsernameRegNavBuilder
+import com.alife.anotherlife.ui.screen.splash.navigation.SplashScreenNavBuilder
+import com.alife.anotherlife.ui.screen.splash.navigation.SplashScreenNavRoute
 import javax.inject.Inject
 
 class MainNavigationGraph @Inject constructor(): NavigationGraph {
@@ -21,9 +23,10 @@ class MainNavigationGraph @Inject constructor(): NavigationGraph {
     override fun SetupNavigation(navHostController: NavHostController) {
         NavHost(
             navController = navHostController,
-            startDestination = LoginNavRoute().routeTag
+            startDestination = SplashScreenNavRoute().routeTag
         ) {
             listOf(
+                SplashScreenNavBuilder(navHostController),
                 LoginNavBuilder(navHostController),
                 RegNameNavBuilder(navHostController),
                 UsernameRegNavBuilder(navHostController),

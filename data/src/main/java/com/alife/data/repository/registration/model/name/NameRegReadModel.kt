@@ -1,8 +1,7 @@
 package com.alife.data.repository.registration.model.name
 
 import com.alife.data.repository.registration.model.StringCacheRead
-import com.alife.domain.registration.usecase.name.addons.NameException
-import javax.inject.Inject
+import com.alife.domain.registration.usecase.reg_log.name.addons.NameException
 
 class NameRegReadModel: StringCacheRead(NameRegKey()) {
 

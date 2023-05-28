@@ -18,6 +18,8 @@ interface BaseCreateAlifeVideoReducer :
     BaseCameraPermissionReducer<BaseVideoScreenState>,
     BaseVMReducer<CreateAlifeState, CreateAlifeEffect> {
 
+    suspend fun onVideoLoading()
+
     suspend fun onStart(
         contextWrapper: BaseContextMainExecutorWrapper,
         videoCapture: BaseStartVideoCaptureState

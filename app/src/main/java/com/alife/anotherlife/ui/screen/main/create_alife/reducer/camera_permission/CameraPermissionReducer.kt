@@ -1,6 +1,5 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.reducer.camera_permission
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.container.ScreenPagerContainer
@@ -14,12 +13,7 @@ abstract class CameraPermissionReducer<S : ScreenState>(
 
     abstract fun changeCurrentScreen(screenState: S): ScreenPagerContainer
 
-    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onPermissionGranted(screenState: S) {
         setState { copy(pagerContainer = changeCurrentScreen(screenState)) }
-    }
-
-    override suspend fun onPermissionFatal() {
-        setEffect(CreateAlifeEffect.GoBack())
     }
 }

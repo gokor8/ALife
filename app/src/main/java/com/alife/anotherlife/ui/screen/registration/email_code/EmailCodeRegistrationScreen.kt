@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.registration.email_code
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,17 +18,18 @@ import com.alife.anotherlife.core.composable.text.style.Title22Style
 import com.alife.anotherlife.core.composable.text.style.Title28Style
 import com.alife.anotherlife.core.composable.view_group.CustomColumn
 import com.alife.anotherlife.core.ui.screen.VMScreen
+import com.alife.anotherlife.core.ui.screen.VMScreenLCE
 import javax.inject.Inject
 
 class EmailCodeRegistrationScreen @Inject constructor(
     override val navController: NavController,
-) : VMScreen<EmailCodeRegistrationVM>() {
+) : VMScreenLCE<EmailCodeRegistrationVM>() {
 
     @Composable
     override fun setupViewModel(): EmailCodeRegistrationVM = hiltViewModel()
 
     @Composable
-    override fun Content(modifier: Modifier) = CustomColumn(
+    override fun SafeContent(modifier: Modifier) = CustomColumn(
         modifier = modifier.padding(horizontal = 32.dp, vertical = 35.dp)
     ) {
         Column(
@@ -50,6 +52,12 @@ class EmailCodeRegistrationScreen @Inject constructor(
                 codeModel = viewModel.getUIState().codeModel,
                 codeViewModel = viewModel,
                 contentPaddingValues = PaddingValues(horizontal = 10.dp)
+            )
+            Spacer(modifier = Modifier.padding(bottom = 8.dp))
+            TextBase(
+                viewModel.getUIState().error,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.error
             )
             Spacer(modifier = Modifier.padding(bottom = 25.dp))
         }

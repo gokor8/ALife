@@ -1,14 +1,11 @@
 package com.alife.anotherlife.ui.screen.main.create_alife.state
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.Stable
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.navigation.NavigationWrapper
 import com.alife.core.mvi.MVI
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
 
 interface CreateAlifeEffect : MVI.Effect {
 
@@ -16,26 +13,25 @@ interface CreateAlifeEffect : MVI.Effect {
 
     class GoBack : CreateAlifeEffect, NavigationWrapper.Back()
 
-    abstract class SnackBarError(
-        @StringRes private val text: Int
-    ) : CreateAlifeEffect {
-        fun showSnackbar(snackbarHostState: SnackbarHostState) {
-            //snackbarHostState.showSnackbar()
-        }
-    }
+    class SnackVideoError : BaseSnackBarEffect.Abstract(R.string.camera_snackbar_video_error)
 
-    class SnackVideoError : SnackBarError(text = R.string.camera_snackbar_video_error)
+    class SnackPictureError : BaseSnackBarEffect.Abstract(R.string.camera_snackbar_photo_error)
 
-    class DefaultSnackError(
-        @StringRes private val text: Int
-    ) : SnackBarError(text)
+    class EmptySnackError : BaseSnackBarEffect
 
-    @OptIn(ExperimentalFoundationApi::class)
+    class EmptyDialogError : BaseDialogErrorEffect
+
+    @Stable
+    class AudioDialogError : AbstractDialogErrorEffect(
+        R.string.dialog_audio_title,
+        R.string.dialog_audio_description
+    )
+
     class VideoToMainPage(
-        private val pagerState: PagerState,
         private val videoPageIndex: Int
     ) : CreateAlifeEffect {
-        suspend fun scrollToVideoPage() {
+        @OptIn(ExperimentalFoundationApi::class)
+        suspend fun scrollToVideoPage(pagerState: PagerState) {
             pagerState.animateScrollToPage(videoPageIndex)
         }
     }

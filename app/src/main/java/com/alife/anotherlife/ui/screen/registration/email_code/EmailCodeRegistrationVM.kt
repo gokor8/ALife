@@ -3,6 +3,7 @@ package com.alife.anotherlife.ui.screen.registration.email_code
 import com.alife.anotherlife.core.composable.text.code.CodeViewModel
 import com.alife.anotherlife.core.composable.text.code.state.CodeAction
 import com.alife.anotherlife.core.ui.view_model.AbstractViewModel
+import com.alife.anotherlife.core.ui.view_model.ViewModelLCE
 import com.alife.anotherlife.ui.screen.registration.email_code.reducer.AbstractEmailCodeRegReducerBase
 import com.alife.anotherlife.ui.screen.registration.email_code.state.EmailCodeAction
 import com.alife.anotherlife.ui.screen.registration.email_code.state.EmailCodeEffect
@@ -13,7 +14,9 @@ import javax.inject.Inject
 @HiltViewModel
 class EmailCodeRegistrationVM @Inject constructor(
     override val reducerVM: AbstractEmailCodeRegReducerBase
-) : AbstractViewModel<EmailCodeAction, EmailCodeState, EmailCodeEffect>(),
+) : ViewModelLCE<AbstractEmailCodeRegReducerBase, EmailCodeAction, EmailCodeState, EmailCodeEffect>(
+    reducerVM
+),
     CodeViewModel {
 
     override val limit: Int = reducerVM.limit

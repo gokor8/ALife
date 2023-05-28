@@ -2,8 +2,8 @@ package com.alife.domain.registration.usecase.email.send_reg_data
 
 import com.alife.domain.core.usecase.UseCaseResult
 import com.alife.domain.registration.repository.BaseRegistrationRepository
-import com.alife.domain.registration.usecase.base.entity.ReadRegInputEntity
-import com.alife.domain.registration.usecase.base.entity.SaveRegInputEntity
+import com.alife.domain.registration.usecase.base.entity.ReadCacheInputEntity
+import com.alife.domain.registration.usecase.base.entity.SaveCacheInputEntity
 import com.alife.domain.registration.usecase.email.send_reg_data.entity.RegDataEntity
 import com.alife.domain.registration.usecase.name.addons.NameException
 import junit.framework.TestCase.assertEquals
@@ -83,11 +83,11 @@ class FakeRegistrationRepository(
     private val exception: Exception? = null
 ) : BaseRegistrationRepository {
 
-    override fun saveRegData(regEntity: SaveRegInputEntity<*>) {
+    override fun saveRegData(regEntity: SaveCacheInputEntity<*>) {
         TODO("Not yet implemented")
     }
 
-    override fun <M : Any> readRegData(regEntity: ReadRegInputEntity<M>): M {
+    override fun <M : Any> readRegData(regEntity: ReadCacheInputEntity<M>): M {
         TODO("Not yet implemented")
     }
 

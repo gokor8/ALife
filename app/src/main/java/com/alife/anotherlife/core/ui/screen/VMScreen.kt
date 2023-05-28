@@ -32,7 +32,11 @@ abstract class VMScreen<VM : AbstractViewModel<*, *, *>>(
     open fun SetupLaunchEffect() {
         LaunchedEffect(Unit) {
             onInit()
-            viewModel.collectEffect(navController)
+            setupEventCollector()
         }
+    }
+
+    open suspend fun setupEventCollector() {
+        viewModel.collectEffect(navController)
     }
 }

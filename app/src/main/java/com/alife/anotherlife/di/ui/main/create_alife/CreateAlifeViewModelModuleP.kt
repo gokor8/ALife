@@ -18,10 +18,9 @@ class CreateAlifeViewModelModuleP {
 
     @Reusable
     @Provides
-    fun birthdayUIStore(
+    fun createAlifeUIStore(
         @IntentModule.IntentAnnotation.Settings
-        settingsIntent: Intent,
-    ): UIStore<CreateAlifeState, CreateAlifeEffect> = DefaultUIStore(
-        CreateAlifeState(settingsIntent = settingsIntent)
-    )
+        settingsIntent: Intent
+    ): UIStore<CreateAlifeState, CreateAlifeEffect> =
+        DefaultUIStore(CreateAlifeState(settingsIntent = settingsIntent))
 }

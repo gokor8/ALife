@@ -9,9 +9,11 @@ interface SharedCacheDataSource {
 
     fun<M> read(cacheModel: CacheModel.Read<M>): M
 
+    fun delete(deleteModel: CacheModel.Read<*>)
+
 
     abstract class AbstractSharedCacheDataSource(
-        protected val sharedPreferences: SharedPreferences
+        private val sharedPreferences: SharedPreferences
     ) : SharedCacheDataSource {
 
         override fun save(saveModel: CacheModel.Write<*>) {
@@ -22,6 +24,12 @@ interface SharedCacheDataSource {
 
         override fun<M> read(cacheModel: CacheModel.Read<M>): M {
             return cacheModel.read(sharedPreferences)
+        }
+
+        override fun delete(deleteModel: CacheModel.Read<*>) {
+            val editor = sharedPreferences.edit()
+            deleteModel.delete(editor)
+            editor.apply()
         }
     }
 }

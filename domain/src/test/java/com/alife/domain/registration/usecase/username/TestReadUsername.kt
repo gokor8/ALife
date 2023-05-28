@@ -2,9 +2,8 @@ package com.alife.domain.registration.usecase.username
 
 import com.alife.domain.core.usecase.UseCaseResult
 import com.alife.domain.registration.repository.BaseRegistrationRepository
-import com.alife.domain.registration.core.entity.DefaultRegEntity
-import com.alife.domain.registration.usecase.base.entity.ReadRegInputEntity
-import com.alife.domain.registration.usecase.base.entity.SaveRegInputEntity
+import com.alife.domain.registration.usecase.base.entity.ReadCacheInputEntity
+import com.alife.domain.registration.usecase.base.entity.SaveCacheInputEntity
 import com.alife.domain.registration.usecase.email.send_reg_data.entity.RegDataEntity
 import com.alife.domain.registration.usecase.username.addons.UsernameException
 import com.alife.domain.registration.usecase.username.addons.UsernameRegEntity
@@ -78,11 +77,11 @@ class FakeRegistrationRepository(
     private val readException: Exception? = null
 ) : BaseRegistrationRepository {
 
-    override fun saveRegData(regEntity: SaveRegInputEntity<*>) {
+    override fun saveRegData(regEntity: SaveCacheInputEntity<*>) {
 
     }
 
-    override fun <M : Any> readRegData(regEntity: ReadRegInputEntity<M>): M {
+    override fun <M : Any> readRegData(regEntity: ReadCacheInputEntity<M>): M {
         readException?.apply { throw readException }
         readData.takeIf { it.isNotEmpty() } ?: throw UsernameException()
         return readData as M

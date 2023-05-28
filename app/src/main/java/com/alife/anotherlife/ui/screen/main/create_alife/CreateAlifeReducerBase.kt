@@ -1,10 +1,10 @@
 package com.alife.anotherlife.ui.screen.main.create_alife
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.create_alife.addons.BaseContextMainExecutorWrapper
+import com.alife.anotherlife.ui.screen.main.create_alife.model.audio.BaseAudioActionModel
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.CookedCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.RecordingAction
@@ -29,17 +29,18 @@ class CreateAlifeReducerBase @Inject constructor(
     private val createAlifeVideoReducer: BaseCreateAlifeVideoReducer
 ) : HandlerBaseVMReducer<CreateAlifeState, CreateAlifeEffect>(), BaseCreateAlifeReducerBase {
 
-    @OptIn(ExperimentalFoundationApi::class)
+    override fun onChangeCurrentPage(page: Int) {
+        setState { copy(currentPage = page) }
+    }
+
     override suspend fun onChangeCamera() {
         setState { copy(pagerContainer = tryCopyWithInvert()) }
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
-    override fun onChangedAudio(isEnabled: Boolean) {
-        setState { copy(isAudioEnabled = isEnabled) }
+    override fun onChangedAudio(audioActionModel: BaseAudioActionModel) {
+        setState { copy(audioEnabledModel = audioActionModel.copyAudioModel(audioEnabledModel)) }
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     override suspend fun onCameraWrapper(captureWrapper: BaseCaptureWrapper) {
         if (captureWrapper is CookedCaptureWrapper)
             createAlifePhotoReducer.onCaptureWrapper(captureWrapper)
@@ -49,6 +50,14 @@ class CreateAlifeReducerBase @Inject constructor(
 
     override suspend fun onVideoWrapper(captureWrapper: BaseVideoCaptureWrapper) {
         createAlifeVideoReducer.onVideoPrepare(captureWrapper)
+    }
+
+    override suspend fun onPictureLoading() {
+        createAlifePhotoReducer.onPictureLoading()
+    }
+
+    override suspend fun onVideoLoading() {
+        createAlifeVideoReducer.onVideoLoading()
     }
 
     override suspend fun onCreatePhoto(
@@ -102,6 +111,7 @@ class CreateAlifeReducerBase @Inject constructor(
     }
 
     override suspend fun onAudioPermission(permissionStatus: PermissionStatus) {
+        onChangedAudio(BaseAudioActionModel.Permission(permissionStatus))
         createAlifeVideoReducer.onAudioPermission(permissionStatus)
     }
 }

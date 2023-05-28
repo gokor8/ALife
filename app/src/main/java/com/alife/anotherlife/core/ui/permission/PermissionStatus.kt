@@ -8,5 +8,6 @@ interface PermissionStatus {
     class Init : PermissionStatus
     class Success : PermissionStatus
     class Fail : PermissionStatus
+    class PreFatal : PermissionStatus
     class Fatal : PermissionStatus
 }

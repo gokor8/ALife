@@ -6,21 +6,31 @@ interface FakeCreateAlifeEffect : CreateAlifeEffect {
 
     interface Photo : FakeCreateAlifeEffect {
 
+        class CaptureWrapper : Photo
+
         class CreatePhoto : Photo {
             override fun hashCode(): Int = super.hashCode()
             override fun equals(other: Any?) = other is CreatePhoto
         }
 
+        class PictureLoading : Photo
+
         class PermissionGranted : Photo
 
         class PermissionFatal : Photo
+
+        class PictureFinish : Photo
     }
 
     interface Video : FakeCreateAlifeEffect {
 
+        class VideoPrepare : Video
         class StartRecording : Video
         class RecordingAction : Video
-        class VideoPrepare : Video
+        class ConfirmStartRecording : Video
+        class ConfirmFinalizeRecording : Video
+
+        class VideoLoading : Video
 
         class ClickSmallVideo : Video
 

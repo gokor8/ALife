@@ -1,12 +1,11 @@
 package com.alife.anotherlife.di.domain.registration.name
 
-import com.alife.domain.core.mapper.ThrowableMapper
 import com.alife.domain.core.mapper.ThrowableUCMapper
-import com.alife.domain.registration.usecase.name.BaseNameUseCase
-import com.alife.domain.registration.usecase.name.NameReadRegStageUC
-import com.alife.domain.registration.usecase.name.NameSaveRegRegStageUC
-import com.alife.domain.registration.usecase.name.addons.NameRegEntity
-import com.alife.domain.registration.usecase.name.mapper.ThrowToNameRegEntity
+import com.alife.domain.registration.usecase.reg_log.name.BaseNameUseCase
+import com.alife.domain.registration.usecase.reg_log.name.NameReadRegStageUC
+import com.alife.domain.registration.usecase.reg_log.name.NameSaveRegRegStageUC
+import com.alife.domain.registration.usecase.reg_log.name.addons.NameRegEntity
+import com.alife.domain.registration.usecase.reg_log.name.mapper.ThrowToNameRegEntity
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

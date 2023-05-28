@@ -45,5 +45,7 @@ interface ScreenPagerItem<S : ScreenState, P : CreateAlifePagerItem> {
 
     interface Video : ScreenPagerItem<BaseVideoScreenState, VideoPagerItem> {
         fun onCallback(videoCaptureCallback: VideoCaptureCallback)
+
+        fun canSwitchAudio(): Boolean
     }
 }

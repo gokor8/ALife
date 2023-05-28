@@ -5,7 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.ui.screen.main.create_alife.CreateAlifeViewModel
+import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 
@@ -25,7 +27,7 @@ interface ScreenState {
     }
 
     abstract class AbstractScreenState(
-        protected val contentAlignment: Alignment = Alignment.TopStart,
+        private val contentAlignment: Alignment = Alignment.TopStart,
     ) : ScreenState {
 
         @Composable
@@ -33,14 +35,19 @@ interface ScreenState {
             viewModel: CreateAlifeViewModel,
             modifier: Modifier,
         ) {
+            SetupPermission(viewModel = viewModel)
+
             Box(
                 contentAlignment = contentAlignment,
-                modifier = modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize()
             ) {
-                TopRowContent(viewModel, modifier)
                 SafeContent(viewModel = viewModel)
+                TopRowContent(viewModel, modifier)
             }
         }
+
+        @Composable
+        protected open fun SetupPermission(viewModel: CreateAlifeViewModel) = Unit
 
         @Composable
         protected abstract fun SafeContent(viewModel: CreateAlifeViewModel)

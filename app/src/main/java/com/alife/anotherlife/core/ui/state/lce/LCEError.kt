@@ -23,6 +23,7 @@ import com.alife.anotherlife.core.composable.text.style.Button18
 import com.alife.anotherlife.core.composable.text.style.Title18Style
 import com.alife.anotherlife.core.composable.text.style.Title20Style
 import com.alife.anotherlife.core.ui.text.TextWrapper
+
 class LCEError(
     private val title: TextWrapper,
     private val description: TextWrapper,
@@ -39,9 +40,8 @@ class LCEError(
 @Composable
 fun ErrorScreen(
     title: String,
-    description: String,
-    buttonText: String,
-    onTry: () -> Unit
+    description: String = "",
+    expand: @Composable () -> Unit = {}
 ) = Column(
     modifier = Modifier
         .background(MaterialTheme.colorScheme.background)
@@ -66,16 +66,36 @@ fun ErrorScreen(
 
     Divider(modifier = Modifier.padding(vertical = 20.dp))
 
-    if(description.isNotEmpty()) {
+    if (description.isNotEmpty()) {
         Text(
-            text = title,
+            text = description,
             style = Title18Style(color = MaterialTheme.colorScheme.onBackground).style(),
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.padding(bottom = 20.dp))
     }
 
-    Button18(text = buttonText, onClick = onTry, modifier = Modifier.fillMaxWidth())
+    expand()
+}
+
+@Composable
+fun ErrorScreen(
+    title: String,
+    description: String = "",
+    buttonText: String = "",
+    onTry: () -> Unit
+) = Column(
+    modifier = Modifier
+        .background(MaterialTheme.colorScheme.background)
+        .then(SystemPaddingModifier.provideModifier())
+        .padding(horizontal = 20.dp),
+    verticalArrangement = Arrangement.Center,
+    horizontalAlignment = Alignment.CenterHorizontally,
+) {
+    ErrorScreen(title, description) {
+        if (buttonText.isNotEmpty())
+            Button18(text = buttonText, onClick = onTry, modifier = Modifier.fillMaxWidth())
+    }
 }
 
 @Preview

@@ -1,11 +1,11 @@
 package com.alife.anotherlife.di.domain.registration.username
 
 import com.alife.domain.core.mapper.ThrowableUCMapper
-import com.alife.domain.registration.usecase.username.BaseUsernameUseCase
-import com.alife.domain.registration.usecase.username.UsernameReadRegStageUC
-import com.alife.domain.registration.usecase.username.UsernameSaveRegStageUC
-import com.alife.domain.registration.usecase.username.addons.UsernameRegEntity
-import com.alife.domain.registration.usecase.username.mapper.ThrowToUsernameRegEntity
+import com.alife.domain.registration.usecase.reg_log.username.BaseUsernameUseCase
+import com.alife.domain.registration.usecase.reg_log.username.UsernameReadRegStageUC
+import com.alife.domain.registration.usecase.reg_log.username.UsernameSaveRegStageUC
+import com.alife.domain.registration.usecase.reg_log.username.addons.UsernameRegEntity
+import com.alife.domain.registration.usecase.reg_log.username.mapper.ThrowToUsernameRegEntity
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

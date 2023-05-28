@@ -7,7 +7,9 @@ abstract class DelayWrapper(private val delayTime: Int) {
     suspend fun delay() = delay(delayTime.toLong())
 
 
-    class Short : DelayWrapper(1500)
+    class Short : DelayWrapper(2000)
 
-    class Long : DelayWrapper(2500)
+    class Medium : DelayWrapper(3500)
+
+    class Long : DelayWrapper(5000)
 }

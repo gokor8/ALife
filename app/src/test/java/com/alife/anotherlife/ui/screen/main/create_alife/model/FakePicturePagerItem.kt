@@ -7,10 +7,9 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capt
 import com.alife.anotherlife.ui.screen.main.create_alife.model.pager_item.photo.PicturePagerItem
 
 class FakePicturePagerItem : PicturePagerItem {
+
     @Composable
-    override fun Content(
-        size: Dp,
-        captureWrapper: BaseCaptureWrapper,
-        viewModel: CreateAlifeViewModel
-    ) {}
+    override fun Content(size: Dp, viewModel: CreateAlifeViewModel) {
+        TODO("Not yet implemented")
+    }
 }

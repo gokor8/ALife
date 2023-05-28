@@ -1,5 +1,6 @@
 package com.alife.anotherlife.core
 
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import com.alife.anotherlife.core.ui.state_collector.EffectCollector
 import com.alife.anotherlife.core.ui.state_collector.OnEffectCollect
@@ -11,4 +12,12 @@ class FakeEffectCollector<EFFECT : MVI.Effect> : EffectCollector<EFFECT> {
         navController: NavController,
         onEffectCollect: OnEffectCollect<EFFECT>,
     ) {}
+
+    override suspend fun collect(onEffectCollect: suspend (EFFECT) -> Unit) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun collect(lifecycle: Lifecycle, onEffectCollect: suspend (EFFECT) -> Unit) {
+        TODO("Not yet implemented")
+    }
 }
