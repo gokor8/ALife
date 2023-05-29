@@ -10,7 +10,7 @@ class PostsUseCase @Inject constructor(
     private val mainRepository: BaseMainRepository
 ) : BasePostsUseCase {
 
-    override suspend fun getPosts(page: Int) = withContext(dispatcher) {
-        mainRepository.getPosts(page)
+    override suspend fun getPosts(page: Int, pageSize: Int) = withContext(dispatcher) {
+        mainRepository.getPosts(page, pageSize)
     }
 }

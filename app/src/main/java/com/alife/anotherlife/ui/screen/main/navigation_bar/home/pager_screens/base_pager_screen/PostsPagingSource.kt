@@ -26,8 +26,9 @@ class PostsPagingSource @Inject constructor(
         return try {
             val page = params.key ?: 1
 
-            val entity = responseToEntity.map(postsUseCase.getPosts(page))
+            val entity = responseToEntity.map(postsUseCase.getPosts(page, params.loadSize))
 
+            // TODO refactor to OOP
             LoadResult.Page(
                 data = entity,
                 prevKey = if (page == 1) null else page.minus(1),

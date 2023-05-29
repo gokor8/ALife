@@ -13,7 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
-import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.alife_card.ALifeCardCompose
 import com.alife.anotherlife.core.composable.alife_card.model.UIAlifeCardModel
 import com.alife.anotherlife.core.composable.alife_card.start_strategy.DefaultStrategy
@@ -24,6 +23,7 @@ fun PostPhotoCardCompose(
     profileName: String,
     timestamp: String,
     avatar: String? = null,
+    photoCardModel: UIAlifeCardModel
 ) {
     val profileCardModel = ProfileCardModel()
 
@@ -46,10 +46,7 @@ fun PostPhotoCardCompose(
         Text(timestamp, modifier = Modifier.layoutId(profileCardModel.timestamp))
 
         ALifeCardCompose(
-            UIAlifeCardModel.Default(
-                R.drawable.img_tutor_front,
-                R.drawable.img_tutor_back
-            ),
+            photoCardModel,
             offsetsStartStrategy = DefaultStrategy(),
             modifier = Modifier
                 .layoutId(profileCardModel.alife)
@@ -61,5 +58,5 @@ fun PostPhotoCardCompose(
 @Preview
 @Composable
 fun ProfileCardPreview() {
-    PostPhotoCardCompose(profileName = "Vlad", timestamp = "2 ч. назад")
+    //PostPhotoCardCompose(profileName = "Vlad", timestamp = "2 ч. назад")
 }

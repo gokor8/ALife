@@ -12,11 +12,16 @@ class PostResponse(
     @SerializedName("username")
     val username: String,
     @SerializedName("creationDate")
-    val creationDate: Date,
+    val creationDate: Long,
     @SerializedName("firstPhoto")
     val firstPhoto: String?,
     @SerializedName("secondPhoto")
     val secondPhoto: String?,
     @SerializedName("video")
-    val video: String?
-)
+    val video: String?,
+) {
+
+    fun isPhoto() = firstPhoto != null && secondPhoto != null
+
+    fun isVideo() = video != null
+}

@@ -31,7 +31,7 @@ class FinishPictureReducer @Inject constructor(
                 photoStorageAlifeUseCase.getPictures()
             )
 
-            copy(lceModel = LCEContent, uiPicturesModel = uiPictures)
+            copy(lceModel = LCEContent, uiLocalPicturesModel = uiPictures)
         }.let(::setState)
     }
 }

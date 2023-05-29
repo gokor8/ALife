@@ -1,6 +1,8 @@
 package com.alife.anotherlife.di.data.main.home
 
 import com.alife.data.repository.main.home.child.MainRepository
+import com.alife.data.repository.main.home.child.mapper.BasePostsResponseToPostsEntity
+import com.alife.data.repository.main.home.child.mapper.PostsResponseToPostsEntity
 import com.alife.domain.main.home.child.BaseMainRepository
 import dagger.Binds
 import dagger.Module
@@ -13,4 +15,8 @@ interface HomeDataModule {
 
     @Binds
     fun bindMainRepository(repository: MainRepository): BaseMainRepository
+
+    @Binds
+    fun bindPostsResponseToPostsEntity(mapper: PostsResponseToPostsEntity)
+            : BasePostsResponseToPostsEntity
 }

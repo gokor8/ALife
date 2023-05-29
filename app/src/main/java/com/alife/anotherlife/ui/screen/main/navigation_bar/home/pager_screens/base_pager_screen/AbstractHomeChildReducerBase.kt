@@ -24,9 +24,11 @@ abstract class AbstractHomeChildReducerBase(
     private val postsPaging: PagingSource<Int, UIPostModel>
 ) : HandlerBaseVMReducer<HomeChildState, HomeChildEffect>(), BaseHomeChildReducer {
 
+    private val pageSize = 10
+
     override suspend fun onInit(viewModelScoped: CoroutineScope) {
         val pagingFlow = Pager(
-            config = PagingConfig(pageSize = 10),
+            config = PagingConfig(pageSize = pageSize),
             pagingSourceFactory = { postsPaging }
         ).flow.cachedIn(viewModelScoped)
 

@@ -23,15 +23,15 @@ class PostsEntityToUIPostsList @Inject constructor() : BasePostsEntityToUIPostsL
         return inputModel.posts.map { postEntity ->
             when (postEntity) {
                 is VideoPostEntity -> with(postEntity) {
-                    UIVideoPostModel(username, date.toString(), avatar, video)
+                    UIVideoPostModel(username, creationDate.toString(), avatar, video)
                 }
                 is ImagePostEntity -> with(postEntity) {
-                    UIPhotosPostModel(username, date.toString(), avatar, firstPhoto, secondPhoto)
+                    UIPhotosPostModel(username, creationDate.toString(), avatar, firstPhoto, secondPhoto)
                 }
                 is BadPostEntity -> with(postEntity) {
                     UIBadPostModel(
                         username,
-                        date.toString(),
+                        creationDate.toString(),
                         avatar
                     )
                 }

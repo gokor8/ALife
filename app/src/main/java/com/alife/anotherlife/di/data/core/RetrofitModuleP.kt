@@ -3,6 +3,7 @@ package com.alife.anotherlife.di.data.core
 import com.alife.data.interceptor.DefaultRequestInterceptor
 import com.alife.data.interceptor.TokenReAuthInterceptor
 import com.alife.data.interceptor.model.RetrofitAnnotation
+import com.alife.data.services.MainService
 import com.alife.data.services.RegistrationService
 import com.alife.data.services.TokenService
 import com.alife.data.services.UploadService
@@ -66,6 +67,10 @@ class RetrofitModuleP {
     @Provides
     fun provideUploadService(retrofit: Retrofit): UploadService =
         retrofit.create(UploadService::class.java)
+
+    @Provides
+    fun provideMainService(retrofit: Retrofit): MainService =
+        retrofit.create(MainService::class.java)
 
     @Provides
     fun provideTokenService(

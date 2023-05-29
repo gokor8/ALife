@@ -16,9 +16,9 @@ class FinishPictureScreen(
     override fun InnerContent(modifier: Modifier) {
         val state = viewModel.getUIState()
 
-        state.uiPicturesModel?.apply {
+        state.uiLocalPicturesModel?.apply {
             ALifeCardCompose(
-                state.uiPicturesModel,
+                state.uiLocalPicturesModel,
                 modifier = modifier,
                 mainImageModifier = Modifier.fillMaxSize()
             )
