@@ -4,6 +4,7 @@ import com.alife.data.interceptor.DefaultRequestInterceptor
 import com.alife.data.interceptor.TokenReAuthInterceptor
 import com.alife.data.interceptor.model.RetrofitAnnotation
 import com.alife.data.services.RegistrationService
+import com.alife.data.services.TokenService
 import com.alife.data.services.UploadService
 import com.google.gson.Gson
 import dagger.Module
@@ -40,8 +41,8 @@ class RetrofitModuleP {
         tokenReAuthInterceptor: TokenReAuthInterceptor
     ): OkHttpClient = OkHttpClient()
         .newBuilder()
-        .addInterceptor(httpLoggingInterceptor)
         .addInterceptor(tokenReAuthInterceptor)
+        .addInterceptor(httpLoggingInterceptor)
         .addInterceptor(defaultRequestInterceptor)
         .readTimeout(2, TimeUnit.MINUTES)
         .connectTimeout(1, TimeUnit.MINUTES)
@@ -65,4 +66,17 @@ class RetrofitModuleP {
     @Provides
     fun provideUploadService(retrofit: Retrofit): UploadService =
         retrofit.create(UploadService::class.java)
+
+    @Provides
+    fun provideTokenService(
+        @RetrofitAnnotation.BaseUrl
+        baseUrl: String,
+    ): TokenService {
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build().let {
+                it.create(TokenService::class.java)
+            }
+    }
 }

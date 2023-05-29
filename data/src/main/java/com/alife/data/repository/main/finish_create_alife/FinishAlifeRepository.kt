@@ -19,16 +19,14 @@ class FinishAlifeRepository @Inject constructor(
 
     override suspend fun uploadPhoto() {
         uploadService.sendPhotos(
-            mapOf<@JvmSuppressWildcards String, RequestBody>(
-                fileTag to entityToRequestBody.map(ImageReadEntity.Front(), FileMediaType.Image()),
-                fileTag to entityToRequestBody.map(ImageReadEntity.Back(), FileMediaType.Image())
-            )
+            entityToRequestBody.map(ImageReadEntity.Front(), FileMediaType.Image()),
+            entityToRequestBody.map(ImageReadEntity.Back(), FileMediaType.Image())
         )
     }
 
     override suspend fun uploadVideo() {
         val videoFile = entityToRequestBody.map(VideoReadEntity(), FileMediaType.Video())
 
-        uploadService.sendVideo(MultipartBody.Part.create(videoFile))
+        uploadService.sendVideo(videoFile)
     }
 }

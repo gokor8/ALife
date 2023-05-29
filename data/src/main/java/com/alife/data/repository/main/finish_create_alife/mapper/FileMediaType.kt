@@ -14,6 +14,6 @@ interface FileMediaType {
     }
 
     class Video : FileMediaType {
-        override fun mediaType() = "video/*"
+        override fun mediaType() = "video/mp4"
     }
 }

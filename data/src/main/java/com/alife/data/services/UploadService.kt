@@ -13,13 +13,15 @@ import retrofit2.http.PartMap
 interface UploadService {
 
     @Multipart
+    //@Headers("Content-Type: multipart/form-data")
     @POST("/upload/photo")
     suspend fun sendPhotos(
-        @PartMap photos: @JvmSuppressWildcards Map<@JvmSuppressWildcards String, RequestBody>
+        @Part firstPhoto: MultipartBody.Part,
+        @Part secondPhoto: MultipartBody.Part
     ): Response<Unit>
 
     @Multipart
-    @Headers("Content-Type: multipart/form-data")
+    //@Headers("Content-Type: multipart/form-data")
     @POST("/upload/video")
     suspend fun sendVideo(@Part video: MultipartBody.Part): Response<Unit>
 }
