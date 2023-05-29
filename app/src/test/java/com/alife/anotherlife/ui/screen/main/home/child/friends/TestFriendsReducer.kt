@@ -4,8 +4,8 @@ import com.alife.anotherlife.core.FakeUIStore
 import com.alife.anotherlife.ui.screen.main.home.child.world.testUIProfileCardModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.ProfileCardEntityToUICard
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPostModel
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPlzCreateAlifePostModel
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIProfilePostModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPlzCreatePostModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPhotosPostModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.friends.FriendsReducer
@@ -59,7 +59,7 @@ class TestFriendsReducer {
         val actual = uiStore.stateCollector.last()
 
         assertEquals(2, uiStore.stateCollector.size)
-        assertTrue(actual.profileList.last() is UIPlzCreateAlifePostModel)
+        assertTrue(actual.profileList.last() is UIPlzCreatePostModel)
     }
 
 
@@ -69,12 +69,12 @@ class TestFriendsReducer {
         setupReducer(useCaseResult = UseCaseResult.Success(ProfileUseCaseEntity(emptyList())))
         reducer.onInit()
 
-        val expected = listOf<UIPostModel>(UIPlzCreateAlifePostModel())
+        val expected = listOf<UIPostModel>(UIPlzCreatePostModel())
 
         val actual = uiStore.stateCollector.last()
 
         assertEquals(2, uiStore.stateCollector.size)
-        assertTrue(actual.profileList.last() is UIPlzCreateAlifePostModel)
+        assertTrue(actual.profileList.last() is UIPlzCreatePostModel)
         //assertEquals(expected, actual)
     }
 
@@ -96,13 +96,13 @@ class TestFriendsReducer {
         setupReducer(useCaseResult = UseCaseResult.Success(profileUseCaseEntity))
         reducer.onInit()
 
-        val expected = UIProfilePostModel("avatar", "frontAlife", "backAlife", Date().toString(), "avatar")
+        val expected = UIPhotosPostModel("avatar", "frontAlife", "backAlife", Date().toString(), "avatar")
 
         val actual = uiStore.stateCollector.last()
 
         assertEquals(2, uiStore.stateCollector.size)
         assertEquals(1, actual.profileList.size)
-        assertTrue(actual.profileList.last() is UIProfilePostModel)
+        assertTrue(actual.profileList.last() is UIPhotosPostModel)
         assertEquals(expected, actual.profileList.last())
     }
 

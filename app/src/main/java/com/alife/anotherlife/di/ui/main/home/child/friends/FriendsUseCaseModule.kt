@@ -14,7 +14,4 @@ interface FriendsUseCaseModule {
 
     @Binds
     fun bindFriendsUseCase(useCase: FriendsProfileCardUC): BaseFriendsProfileCardUC
-
-    @Binds
-    fun bindHomeChildThrowableMapper(mapper: ThrowToProfileEntity): BaseThrowToProfileEntity
 }

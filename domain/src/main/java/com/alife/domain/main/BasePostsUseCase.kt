@@ -1,8 +1,8 @@
-package com.alife.domain.main.home.child
+package com.alife.domain.main
 
 import com.alife.domain.main.home.child.base_entity.PostsEntity
 
-interface BaseMainRepository {
+interface BasePostsUseCase {
 
     suspend fun getPosts(page: Int): PostsEntity
 }

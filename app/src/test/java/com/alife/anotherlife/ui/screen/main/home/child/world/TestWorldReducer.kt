@@ -4,8 +4,8 @@ import com.alife.anotherlife.core.FakeUIStore
 import com.alife.anotherlife.ui.screen.main.home.child.friends.FakeProfileCardUseCase
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.ProfileCardEntityToUICard
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPostModel
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPlzCreateAlifePostModel
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIProfilePostModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPlzCreatePostModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPhotosPostModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.world.WorldReducer
@@ -67,12 +67,12 @@ class TestWorldReducer {
         setupReducer(useCaseResult = UseCaseResult.Success(ProfileUseCaseEntity(emptyList())))
         reducer.onInit()
 
-        val expected = listOf<UIPostModel>(UIPlzCreateAlifePostModel())
+        val expected = listOf<UIPostModel>(UIPlzCreatePostModel())
 
         val actual = uiStore.stateCollector.last()
 
         TestCase.assertEquals(2, uiStore.stateCollector.size)
-        TestCase.assertTrue(actual.profileList.last() is UIPlzCreateAlifePostModel)
+        TestCase.assertTrue(actual.profileList.last() is UIPlzCreatePostModel)
         //assertEquals(expected, actual)
     }
 
@@ -85,13 +85,13 @@ class TestWorldReducer {
         reducer.onInit()
 
         val expected =
-            UIProfilePostModel("avatar", "frontAlife", "backAlife", Date().toString(), "avatar")
+            UIPhotosPostModel("avatar", "frontAlife", "backAlife", Date().toString(), "avatar")
 
         val actual = uiStore.stateCollector.last()
 
         TestCase.assertEquals(2, uiStore.stateCollector.size)
         TestCase.assertEquals(1, actual.profileList.size)
-        TestCase.assertTrue(actual.profileList.last() is UIProfilePostModel)
+        TestCase.assertTrue(actual.profileList.last() is UIPhotosPostModel)
         TestCase.assertEquals(expected, actual.profileList.last())
     }
 
@@ -116,7 +116,7 @@ fun testListProfileCardEntity() = listOf(
     )
 )
 
-fun testUIProfileCardModel() = UIProfilePostModel(
+fun testUIProfileCardModel() = UIPhotosPostModel(
     "avatar",
     "frontAlife",
     "backAlife",

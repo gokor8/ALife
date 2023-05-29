@@ -10,4 +10,11 @@ interface UIPostModel {
 
     @Composable
     fun Card(viewModel: AbstractHomeChildViewModel, modifier: Modifier)
+
+
+    abstract class Abstract : UIPostModel {
+        abstract val username: String
+        abstract val timestamp: String
+        abstract val avatar: String?
+    }
 }

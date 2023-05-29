@@ -15,6 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.alife.anotherlife.core.composable.modifier.SystemPaddingModifier
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildAction
@@ -34,22 +37,34 @@ abstract class BaseHomeChildScreen(
 
         val lazyColumnState = rememberLazyListState()
 
-        LazyColumn(
-            state = lazyColumnState,
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(30.dp),
-            modifier = Modifier.fillMaxSize().statusBarsPadding(),
-        ) {
-            item { Spacer(modifier = Modifier.height(60.dp).fillMaxWidth()) }
+        val lazyPosts = state.postsPagingData?.collectAsLazyPagingItems()
 
-            items(
-                state.profileList,
-                key = { it.itemKey() }
+        lazyPosts?.also {
+            LazyColumn(
+                state = lazyColumnState,
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(30.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .statusBarsPadding(),
             ) {
-                it.Card(viewModel = viewModel, modifier = Modifier)
-            }
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .height(60.dp)
+                            .fillMaxWidth()
+                    )
+                }
 
-            //item { Spacer(modifier = Modifier.height(30.dp).fillMaxWidth()) }
+                items(
+                    items = lazyPosts,
+                    key = { it.itemKey() }
+                ) {
+                    it?.Card(viewModel = viewModel, modifier = Modifier)
+                }
+
+                //item { Spacer(modifier = Modifier.height(30.dp).fillMaxWidth()) }
+            }
         }
     }
 }

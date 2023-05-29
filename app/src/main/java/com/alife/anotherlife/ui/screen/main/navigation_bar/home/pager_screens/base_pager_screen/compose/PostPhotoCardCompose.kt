@@ -20,7 +20,7 @@ import com.alife.anotherlife.core.composable.alife_card.start_strategy.DefaultSt
 import com.alife.anotherlife.core.composable.icon.MockProfileIcon
 
 @Composable
-fun ProfileCardCompose(
+fun PostPhotoCardCompose(
     profileName: String,
     timestamp: String,
     avatar: String? = null,
@@ -61,5 +61,5 @@ fun ProfileCardCompose(
 @Preview
 @Composable
 fun ProfileCardPreview() {
-    ProfileCardCompose(profileName = "Vlad", timestamp = "2 ч. назад")
+    PostPhotoCardCompose(profileName = "Vlad", timestamp = "2 ч. назад")
 }

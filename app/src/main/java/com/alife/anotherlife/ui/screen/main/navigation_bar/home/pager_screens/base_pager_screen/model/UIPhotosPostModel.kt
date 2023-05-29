@@ -3,21 +3,21 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.b
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.AbstractHomeChildViewModel
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.ProfileCardCompose
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.PostPhotoCardCompose
 
-data class UIProfilePostModel(
-    val username: String,
+data class UIPhotosPostModel(
+    override val username: String,
+    override val timestamp: String,
+    override val avatar: String? = null,
     val frontAlife: String,
     val backAlife: String,
-    val timestamp: String,
-    val avatar: String? = null
-) : UIPostModel {
+) : UIPostModel.Abstract() {
 
     override fun itemKey() = username
 
     @Composable
     override fun Card(viewModel: AbstractHomeChildViewModel, modifier: Modifier) {
-        ProfileCardCompose(
+        PostPhotoCardCompose(
             profileName = username,
             avatar = avatar,
             timestamp = timestamp
