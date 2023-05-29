@@ -3,8 +3,8 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.f
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.di.ui.main.home.child.friends.FriendsAnnotation
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.AbstractHomeChildReducerBase
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UICardModel
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPlzCreateAlifeCardModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPostModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPlzCreateAlifePostModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildState
 import com.alife.core.mapper.Mapper
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class FriendsReducer @Inject constructor(
     @FriendsAnnotation.FriendsUIStore
     override val uiStore: UIStore<HomeChildState, HomeChildEffect>,
-    mapper: Mapper<ProfileCardEntity, UICardModel>,
+    mapper: Mapper<ProfileCardEntity, UIPostModel>,
     friendsCardUseCase: BaseFriendsProfileCardUC,
 ) : AbstractHomeChildReducerBase(uiStore, mapper, friendsCardUseCase) {
 
@@ -30,13 +30,13 @@ class FriendsReducer @Inject constructor(
         }.handle {
             val profileCards = profileCardUseCase.getProfileCards().profileCards
 
-            val uiCardModels = if(profileCards.isNotEmpty()) {
+            val uiPostModels = if(profileCards.isNotEmpty()) {
                 profileCards.map { mapper.map(it) }
             } else {
-                listOf<UICardModel>(UIPlzCreateAlifeCardModel())
+                listOf<UIPostModel>(UIPlzCreateAlifePostModel())
             }
 
-            setState { copy(profileList = uiCardModels) }
+            setState { copy(profileList = uiPostModels) }
         }
     }
 }

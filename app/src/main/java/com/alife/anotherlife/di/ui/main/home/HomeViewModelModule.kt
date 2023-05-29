@@ -3,7 +3,7 @@ package com.alife.anotherlife.di.ui.main.home
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.BaseHomeReducerBase
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.HomeReducerBase
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.ProfileCardEntityToUICard
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UICardModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPostModel
 import com.alife.core.mapper.Mapper
 import com.alife.domain.main.home.child.ProfileCardEntity
 import dagger.Binds
@@ -21,5 +21,5 @@ interface HomeViewModelModule {
     @Binds
     fun bindProfileCardEntityToUICard(
         mapper: ProfileCardEntityToUICard
-    ): Mapper<ProfileCardEntity, UICardModel>
+    ): Mapper<ProfileCardEntity, UIPostModel>
 }

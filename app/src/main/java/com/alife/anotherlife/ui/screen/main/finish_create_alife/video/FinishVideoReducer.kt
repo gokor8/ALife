@@ -5,6 +5,7 @@ import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
 import com.alife.anotherlife.core.ui.state.lce.LCEContent
 import com.alife.anotherlife.core.ui.state.lce.LCELoading
 import com.alife.anotherlife.core.ui.store.UIStore
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.BaseCreateFinishReducer
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_mapper.BaseVideoFinishExceptionMapper
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.FinishEffect
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.state.FinishVideoEffect
@@ -18,8 +19,8 @@ class FinishVideoReducer @Inject constructor(
     override val uiStore: UIStore<FinishVideoState, FinishEffect>,
     private val videoStorageAlifeUseCase: BaseVideoStorageAlifeUseCase,
     private val exceptionMapper: BaseVideoFinishExceptionMapper,
-    private val finishLoadUseCase: BaseVideoFinishLoadUseCase
-) : HandlerBaseVMReducer<FinishVideoState, FinishEffect>(), BaseFinishVideoReducer {
+    finishLoadUseCase: BaseVideoFinishLoadUseCase
+) : BaseCreateFinishReducer.Abstract<FinishVideoState>(finishLoadUseCase), BaseFinishVideoReducer {
 
     override suspend fun onInit() {
         setState { copy(lceModel = LCELoading) }
@@ -31,22 +32,5 @@ class FinishVideoReducer @Inject constructor(
 
             copy(lceModel = LCEContent, videoUrl = url)
         }.let(::setState)
-    }
-
-    // TODO вынести в базовый абстрактный класс
-    override suspend fun onDownload() {
-        setState { copy(lceModel = LCELoading) }
-
-        execute {
-            Log.e("Aboba", "Some finish error $it")
-            trySetEffect(FinishVideoEffect.UploadVideoError())
-            // TODO если 500 ошибка, то говорить что чел уже выкладывал сегодня пост
-            //setState { copy(lceModel = LCEError()) } // TODO add backEffect()
-        }.handle {
-            finishLoadUseCase.upload()
-
-            setEffect(FinishEffect.GoMain())
-            // TODO upload and navigate next
-        }
     }
 }

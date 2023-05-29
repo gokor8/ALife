@@ -94,6 +94,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
+    // Pagging
+    implementation "androidx.paging:paging-compose:1.0.0-alpha20"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
     // Drag and drop
     implementation "androidx.draganddrop:draganddrop:1.0.0"
 

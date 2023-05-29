@@ -5,13 +5,13 @@ import androidx.compose.ui.Modifier
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.AbstractHomeChildViewModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.ProfileCardCompose
 
-data class UIProfileCardModel(
+data class UIProfilePostModel(
     val username: String,
     val frontAlife: String,
     val backAlife: String,
     val timestamp: String,
     val avatar: String? = null
-) : UICardModel {
+) : UIPostModel {
 
     override fun itemKey() = username
 
