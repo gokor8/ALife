@@ -13,7 +13,7 @@ data class UIPhotosPostModel(
     val backAlife: String,
 ) : UIPostModel.Abstract() {
 
-    override fun itemKey() = username
+    override fun itemKey() = username + timestamp
 
     @Composable
     override fun Card(viewModel: AbstractHomeChildViewModel, modifier: Modifier) {

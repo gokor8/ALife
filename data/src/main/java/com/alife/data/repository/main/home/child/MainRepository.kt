@@ -11,10 +11,13 @@ import javax.inject.Inject
 class MainRepository @Inject constructor() : BaseMainRepository {
 
     override suspend fun getPosts(page: Int): PostsEntity {
+//        if(page > 2)
+//            return PostsEntity(listOf())
+
         return PostsEntity(
             listOf<PostEntity>(
-                ImagePostEntity("Aboba", Date(), "", Date(), "", ""),
-                VideoPostEntity("Oleg", Date(), "", Date(), "")
+                ImagePostEntity("Aboba$page", Date(), "", Date(), "", ""),
+                VideoPostEntity("Oleg$page", Date(), "", Date(), "")
             )
         )
     }

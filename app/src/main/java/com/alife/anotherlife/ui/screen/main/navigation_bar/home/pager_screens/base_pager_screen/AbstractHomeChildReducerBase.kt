@@ -21,7 +21,6 @@ import kotlinx.coroutines.CoroutineScope
 abstract class AbstractHomeChildReducerBase(
     override val uiStore: UIStore<HomeChildState, HomeChildEffect>,
     protected val mapper: Mapper<ProfileCardEntity, UIPostModel>,
-    //protected val profileCardUseCase: BaseProfileCardUseCase,
     private val postsPaging: PagingSource<Int, UIPostModel>
 ) : HandlerBaseVMReducer<HomeChildState, HomeChildEffect>(), BaseHomeChildReducer {
 

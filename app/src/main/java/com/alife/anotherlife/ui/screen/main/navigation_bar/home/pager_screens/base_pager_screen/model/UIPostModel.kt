@@ -16,5 +16,7 @@ interface UIPostModel {
         abstract val username: String
         abstract val timestamp: String
         abstract val avatar: String?
+
+        override fun itemKey(): String = username + timestamp
     }
 }

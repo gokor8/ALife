@@ -18,7 +18,7 @@ interface BasePostsEntityToUIPostsList : Mapper<PostsEntity, UIPostsModelList>
 class PostsEntityToUIPostsList @Inject constructor() : BasePostsEntityToUIPostsList {
 
     override fun map(inputModel: PostsEntity): UIPostsModelList {
-        if (inputModel.posts.isEmpty()) return UIPostsModelList(UIPlzCreatePostModel())
+        //if (inputModel.posts.isEmpty()) return UIPostsModelList(UIPlzCreatePostModel())
 
         return inputModel.posts.map { postEntity ->
             when (postEntity) {

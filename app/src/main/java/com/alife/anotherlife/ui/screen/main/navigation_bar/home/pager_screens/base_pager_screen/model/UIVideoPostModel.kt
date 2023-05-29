@@ -13,8 +13,6 @@ data class UIVideoPostModel(
     val video: String
 ) : UIPostModel.Abstract() {
 
-    override fun itemKey() = username
-
     @Composable
     override fun Card(viewModel: AbstractHomeChildViewModel, modifier: Modifier) {
         Text("Video", style = Title20Style().style())
