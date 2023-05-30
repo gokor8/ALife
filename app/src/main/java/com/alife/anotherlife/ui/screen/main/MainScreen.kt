@@ -10,6 +10,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.alife.anotherlife.core.ui.screen.DefaultScreen
 import com.alife.anotherlife.theme.Shapes
+import com.alife.anotherlife.theme.TopShapes
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.HomeNavBarItem
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.ProfileNavBarItem
 import com.alife.anotherlife.ui.screen.main.navigation_bar.map.MapNavBarItem
@@ -29,7 +30,7 @@ class MainScreen : DefaultScreen() {
         Scaffold(
             bottomBar = {
                 if (!currentRoute.contains(BottomBarHideNavRoute().routeTag)) {
-                    NavigationBar(modifier = Modifier.clip(Shapes.large)) {
+                    NavigationBar(modifier = Modifier.clip(TopShapes.large)) {
                         val currentDestination = navBackStackEntry?.destination
                         bottomBarItems.forEach { item ->
                             item.Content(

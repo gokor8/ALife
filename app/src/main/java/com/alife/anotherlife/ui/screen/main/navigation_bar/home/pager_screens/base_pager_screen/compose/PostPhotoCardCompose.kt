@@ -50,7 +50,7 @@ fun PostPhotoCardCompose(
             offsetsStartStrategy = DefaultStrategy(),
             modifier = Modifier
                 .layoutId(profileCardModel.alife)
-                .aspectRatio(328/526f)
+                .aspectRatio(328/480f)
         )
     }
 }

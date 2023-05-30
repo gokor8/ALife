@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.di.ui.main.home.child.friends.FriendsAnnotation
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.AbstractHomeChildReducerBase
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BaseLoadStatesToStateEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPostModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildState
@@ -16,8 +17,9 @@ class FriendsReducer @Inject constructor(
     @FriendsAnnotation.FriendsUIStore
     override val uiStore: UIStore<HomeChildState, HomeChildEffect>,
     mapper: Mapper<ProfileCardEntity, UIPostModel>,
-    postsPaging: PagingSource<Int, UIPostModel>
-) : AbstractHomeChildReducerBase(uiStore, mapper, postsPaging) {
+    postsPaging: PagingSource<Int, UIPostModel>,
+    loadStateMapper: BaseLoadStatesToStateEffect
+) : AbstractHomeChildReducerBase(uiStore, mapper, postsPaging, loadStateMapper) {
 
 //    override suspend fun onInit(viewModelScope: CoroutineScope) {
 //

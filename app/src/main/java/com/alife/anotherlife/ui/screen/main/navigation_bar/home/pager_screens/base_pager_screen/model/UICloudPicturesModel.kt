@@ -11,8 +11,8 @@ class UICloudPicturesModel (
 ) : UIAlifeCardModel {
 
     @Composable
-    override fun getFirstPainter() = rememberAsyncImagePainter(File(firstUrl))
+    override fun getFirstPainter() = rememberAsyncImagePainter(firstUrl)
 
     @Composable
-    override fun getSecondPainter() = rememberAsyncImagePainter(File(secondUrl))
+    override fun getSecondPainter() = rememberAsyncImagePainter(secondUrl)
 }

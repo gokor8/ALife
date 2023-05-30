@@ -9,9 +9,14 @@ import javax.inject.Inject
 class ProfileCardEntityToUICard @Inject constructor() : Mapper<ProfileCardEntity, UIPostModel> {
     override fun map(inputModel: ProfileCardEntity): UIPostModel {
         return with(inputModel) {
+            val randomPictureRequest = "https://api.api-ninjas.com/v1/randomimage?category=nature"
             UIPhotosPostModel(
                 // TODO add timestamp mapper
-                username, timestamp.toString(), avatar, frontAlife, backAlife
+                username,
+                timestamp.toString(),
+                randomPictureRequest,//avatar,
+                randomPictureRequest,//frontAlife,
+                randomPictureRequest//backAlife
             )
         }
     }

@@ -22,7 +22,7 @@ data class UIPhotosPostModel(
             profileName = username,
             avatar = avatar,
             timestamp = timestamp,
-            photoCardModel = UILocalPicturesModel(frontAlife, backAlife)
+            photoCardModel = UICloudPicturesModel(frontAlife, backAlife)
         )
     }
 }
