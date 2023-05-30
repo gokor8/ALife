@@ -62,7 +62,7 @@ class CreateAlifeVideoReducer @Inject constructor(
             setupVideoCaptureState(videoCapture)
         }.handle {
             val fileOutputOptions = videoStorageToOptions.map(
-                videoStorageAlifeUseCase.getVideoStorageEntity()
+                videoStorageAlifeUseCase.getVideoRawPathEntity()
             )
 
             val recordingWrapper = videoCapture.start(

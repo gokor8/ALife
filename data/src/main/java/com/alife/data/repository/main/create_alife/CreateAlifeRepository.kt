@@ -60,4 +60,8 @@ class CreateAlifeRepository @Inject constructor(
             pathIsExistMapper.map(caReadEntityToPath.map(VideoReadEntity()))
         )
     }
+
+    override fun getRawVideoUrl(): VideoPathEntity {
+        return VideoPathEntity(caReadEntityToPath.map(VideoReadEntity()))
+    }
 }
