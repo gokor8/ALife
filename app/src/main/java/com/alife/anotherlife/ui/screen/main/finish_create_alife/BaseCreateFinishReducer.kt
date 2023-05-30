@@ -3,6 +3,7 @@ package com.alife.anotherlife.ui.screen.main.finish_create_alife
 import android.util.Log
 import com.alife.anotherlife.core.ui.reducer.BaseVMReducer
 import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
+import com.alife.anotherlife.core.ui.state.lce.LCEContent
 import com.alife.anotherlife.core.ui.state.lce.LCELoading
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_model.FinishErrorContract
@@ -47,6 +48,8 @@ interface BaseCreateFinishReducer<STATE : FinishState<STATE>> :
                 setEffect(FinishEffect.GoMain())
                 // TODO upload and navigate next
             }
+
+            setState { copyLce(newLceModel = LCEContent) }
         }
     }
 }

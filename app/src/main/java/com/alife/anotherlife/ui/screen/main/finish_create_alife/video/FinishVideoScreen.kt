@@ -24,4 +24,5 @@ class FinishVideoScreen(
 
     @Composable
     override fun setupViewModel(): FinishVideoViewModel = hiltViewModel()
+
 }

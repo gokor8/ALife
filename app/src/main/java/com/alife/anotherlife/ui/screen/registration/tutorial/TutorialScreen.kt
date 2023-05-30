@@ -67,7 +67,7 @@ class TutorialScreen(
                     Box(
                         modifier = Modifier
                             .padding(horizontal = 8.dp)
-                            .size(78.dp, 8.dp)
+                            .height(8.dp).weight(1f)
                             .background(
                                 animationColor,
                                 MaterialTheme.shapes.medium

@@ -12,5 +12,5 @@ interface FinishEffect : MVI.Effect {
     class GoBack : FinishEffect, NavigationWrapper.Back()
 
     // TODO New Stack Screen (backToMainScreen)
-    class GoMain : FinishEffect, NavigationWrapper.BackTo(MainScreenNavigator())
+    class GoMain : FinishEffect, NavigationWrapper.Forward(MainScreenNavigator())
 }
