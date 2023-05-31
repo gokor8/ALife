@@ -8,5 +8,5 @@ import com.alife.core.mvi.MVI
 
 interface FinishVideoEffect : FinishEffect {
 
-    class UploadVideoError : BaseSnackBarEffect.Abstract(R.string.upload_error), FinishVideoEffect
+    class UploadVideoError : FinishVideoEffect
 }

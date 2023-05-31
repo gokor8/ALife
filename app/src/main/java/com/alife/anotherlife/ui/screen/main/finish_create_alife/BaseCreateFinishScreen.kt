@@ -19,9 +19,11 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -37,6 +39,7 @@ import com.alife.anotherlife.core.ui.screen.VMScreenLCE
 import com.alife.anotherlife.ui.screen.main.create_alife.state.BaseSnackBarEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.BaseFinishAction
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.model.SnackBarWrapper
 import kotlinx.coroutines.launch
 
 abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
@@ -55,9 +58,11 @@ abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
         val snackbarHostState = remember { SnackbarHostState() }
 
         Scaffold(
+            modifier,
             snackbarHost = { SnackbarHost(snackbarHostState) }
         ) { innerPadding ->
-            Box(modifier.padding(innerPadding)) {
+            innerPadding
+            Box(Modifier.fillMaxSize()) {
                 Column(
                     modifier = Modifier
                         .verticalScroll(rememberScrollState())
@@ -97,22 +102,15 @@ abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
                 }
             }
 
-            val snackBarErrorEffect = remember { mutableStateOf<Int?>(null) }
-
-            val errorString = snackBarErrorEffect.value?.let {
-                stringResource(it)
-            } ?: ""
-
-            LaunchedEffect(key1 = snackBarErrorEffect) {
-                coroutineScope.launch {
-                    if (errorString.isNotEmpty())
-                        snackbarHostState.showSnackbar(errorString)
-                }
+            var snackBarErrorEffect by remember {
+                mutableStateOf<SnackBarWrapper?>(null)
+            }.also { wrapper ->
+                wrapper.value?.SnackBar(snackbarHostState)
             }
 
             LaunchedEffect(Unit) {
-                viewModel.collectEffect(navController) { resError ->
-                    snackBarErrorEffect.value = resError
+                viewModel.collectEffect(navController) { wrapper ->
+                    snackBarErrorEffect = wrapper
                 }
             }
         }

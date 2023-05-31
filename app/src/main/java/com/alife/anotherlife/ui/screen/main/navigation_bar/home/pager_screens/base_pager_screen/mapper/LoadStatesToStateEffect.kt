@@ -25,7 +25,7 @@ class LoadStatesToStateEffect @Inject constructor() : BaseLoadStatesToStateEffec
             reducer.setState {
                 when (refresh) {
                     // TODO Fix with LCELoading
-                    is LoadState.Loading -> copy(lceModel = LCEContent)
+                    is LoadState.Loading -> copy(lceModel = LCELoading)
                     is LoadState.Error -> copy(lceModel = LCEErrorLoadingPagingData(reducer))
                     is LoadState.NotLoading -> copy(lceModel = LCEContent)
                 }
@@ -33,11 +33,11 @@ class LoadStatesToStateEffect @Inject constructor() : BaseLoadStatesToStateEffec
 
             when (append) {
                 is LoadState.Loading -> reducer.setState {
-                    copy(uiLoaderModel = UIPostLoaderModel.LoaderModel())
+                    copy(uiLoaderModel = UIPostLoaderModel.LoaderModel)
                 }
                 is LoadState.Error -> reducer.trySetEffect(HomeChildEffect.SnackBarPagingError())
                 is LoadState.NotLoading -> reducer.setState {
-                    copy(uiLoaderModel = UIPostLoaderModel.EmptyModel())
+                    copy(uiLoaderModel = UIPostLoaderModel.EmptyModel)
                 }
             }
         }

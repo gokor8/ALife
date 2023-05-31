@@ -5,18 +5,20 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+@Stable
 interface UIPostLoaderModel {
 
     @Composable
     fun Loader(modifier: Modifier) = Unit
 
-    class EmptyModel : UIPostLoaderModel
+    object EmptyModel : UIPostLoaderModel
 
-    class LoaderModel : UIPostLoaderModel {
+    object LoaderModel : UIPostLoaderModel {
 
         @Composable
         override fun Loader(modifier: Modifier) {

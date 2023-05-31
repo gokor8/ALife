@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 data class HomeChildState(
     // Set load state
     override val lceModel: LCEModel = LCEContent,
-    val uiLoaderModel: UIPostLoaderModel = UIPostLoaderModel.EmptyModel(),
+    val uiLoaderModel: UIPostLoaderModel = UIPostLoaderModel.EmptyModel,
     val profileList: List<UIPostModel> = listOf(UIPlzCreatePostModel()),
     val postsPagingData: Flow<PagingData<UIPostModel>>? = null
 ) : StateLCE, HomeStateEffect

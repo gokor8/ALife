@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -62,24 +63,34 @@ abstract class BaseHomeChildScreen(
 
     @Composable
     override fun Content(modifier: Modifier) {
+        Log.d("modifier", "$modifier")
         val state = viewModel.getUIState()
+        Log.d("state", "${state.hashCode()} $state")
         val lazyPosts = state.postsPagingData?.collectAsLazyPagingItems()
 
-        //var lceModel = state.lceModel
-
-
-        object : LCEModel.Content {
-            @Composable
-            override fun LCEContent(modifier: Modifier) {
-                SafeContent(lazyPosts, modifier)
+        lazyPosts?.apply {
+            Log.d("loadState SafeContent", "${loadState}")
+            key(loadState) {
+                Log.d("loadState SafeContent in", "${loadState}")
+                viewModel.reduce(HomeChildAction.OnPagingLoadState(loadState))
             }
-        }.LCEContent(modifier)
+        }
+
+        val lceModel = state.lceModel
+
+        if (lceModel is LCEContent)
+            SafeContent(lazyPosts, Modifier)
+        else
+            state.lceModel.LCEContent(Modifier)
+
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun SafeContent(lazyPosts: LazyPagingItems<UIPostModel>?, modifier: Modifier) {
+        Log.d("lazyPosts SafeContent", "$lazyPosts")
         val state = viewModel.getUIState()
+        Log.d("state SafeContent", "$state")
 
         val coroutineScope = rememberCoroutineScope()
 
@@ -89,13 +100,11 @@ abstract class BaseHomeChildScreen(
             snackbarHost = { SnackbarHost(snackbarHostState) }
         ) { innerPadding ->
             Box(
-                modifier = Modifier.padding(innerPadding).fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
             ) {
                 lazyPosts?.also {
-                    key(lazyPosts) {
-                        viewModel.reduce(HomeChildAction.OnPagingLoadState(lazyPosts.loadState))
-                    }
-
                     LazyColumn(
                         contentPadding = PaddingValues(16.dp),
                         verticalArrangement = Arrangement.spacedBy(30.dp),
@@ -104,9 +113,11 @@ abstract class BaseHomeChildScreen(
                             .statusBarsPadding(),
                     ) {
                         item {
-                            Spacer(modifier = Modifier
-                                .height(40.dp)
-                                .fillMaxWidth())
+                            Spacer(
+                                modifier = Modifier
+                                    .height(40.dp)
+                                    .fillMaxWidth()
+                            )
                         }
 
                         items(

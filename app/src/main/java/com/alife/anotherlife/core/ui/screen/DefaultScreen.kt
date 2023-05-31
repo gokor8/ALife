@@ -3,6 +3,7 @@ package com.alife.anotherlife.core.ui.screen
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
@@ -20,12 +21,13 @@ abstract class DefaultScreen(
     override fun SetupContent() {
         BackHandler(backHandle != null) { backHandle?.invoke() }
 
+        //val modifier = modifier.provideModifier()
+
         val focusManager = LocalFocusManager.current
-        Content(modifier = modifier
-            .provideModifier()
-            .padding(vertical = 6.dp)
-            .clickableNoRipple {
-                focusManager.clearFocus()
+        Content(modifier = remember {
+            Modifier
+                .padding(vertical = 6.dp)
+
             }
         )
     }

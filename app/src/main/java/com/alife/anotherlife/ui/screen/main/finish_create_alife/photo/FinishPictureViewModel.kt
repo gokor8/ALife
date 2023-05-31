@@ -19,24 +19,9 @@ import javax.inject.Inject
 @HiltViewModel
 class FinishPictureViewModel @Inject constructor(
     reducer: BaseFinishPictureReducer
-) : ViewModelLCE<BaseFinishPictureReducer, FinishPictureAction, FinishPictureState, FinishEffect>(
+) : BaseCreateFinishViewModel.Abstract<BaseFinishPictureReducer, FinishPictureAction, FinishPictureState>(
     reducer
-), BaseCreateFinishViewModel<BaseFinishPictureReducer, FinishPictureAction, FinishPictureState> {
-
-    override suspend fun collectEffect(
-        navController: NavController,
-        onSnackBarError: (Int) -> Unit
-    ) {
-        reducerVM.getEffectCollector().collect { effect ->
-            Log.d("catched effect", "$$effect")
-            if (effect is FinishVideoEffect.UploadVideoError)
-                onSnackBarError(R.string.upload_error)
-            else if(effect is FinishPictureEffect.UploadPictureError)
-                onSnackBarError(R.string.upload_error)
-            else
-                onEffect(navController, effect)
-        }
-    }
+) {
 
     override fun reduceFinishAction(action: BaseFinishAction) {
         reduce(FinishPictureAction.OnBox(action))

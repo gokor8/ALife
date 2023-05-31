@@ -6,5 +6,5 @@ import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.Finis
 
 interface FinishPictureEffect : FinishEffect {
 
-    class UploadPictureError : BaseSnackBarEffect.Abstract(R.string.upload_error), FinishPictureEffect
+    class UploadPictureError : FinishPictureEffect
 }

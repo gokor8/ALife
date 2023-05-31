@@ -99,7 +99,8 @@
     <string name="camera_snackbar_camera_description_error">Попробуйте снова.</string>
 
     // Upload
-    <string name="upload_error">Произошла ошибка во время отправки</string>
+    <string name="upload_error_video">Произошла ошибка во время отправки видео</string>
+    <string name="upload_error_photo">Произошла ошибка во время отправки фото</string>
     <string name="upload_no_photo_file_error">Мы не смогли найти фото для загрузки</string>
     <string name="upload_no_video_file_error">Мы не смогли найти видео для загрузки</string>
     <string name="upload_no_photo_file_error_description">Повторите сделать фотокарточки снова</string>
