@@ -52,8 +52,7 @@ interface BaseCreateFinishViewModel<
             reducerVM.getEffectCollector().collect { effect ->
                 Log.d("catched effect", "$$effect")
                 when (effect) {
-                    is FinishVideoEffect.UploadVideoError -> onSnackBarError(SnackBarWrapper(R.string.upload_error_video))
-                    is FinishPictureEffect.UploadPictureError -> onSnackBarError(SnackBarWrapper(R.string.upload_error_photo))
+                    is SnackBarWrapper -> onSnackBarError(effect)
                     else -> onEffect(navController, effect)
                 }
             }

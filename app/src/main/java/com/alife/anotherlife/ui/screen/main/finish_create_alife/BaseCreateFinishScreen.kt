@@ -53,8 +53,6 @@ abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun SafeContent(modifier: Modifier) {
-        val coroutineScope = rememberCoroutineScope()
-
         val snackbarHostState = remember { SnackbarHostState() }
 
         Scaffold(

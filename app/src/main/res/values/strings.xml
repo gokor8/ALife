@@ -107,7 +107,7 @@
     <string name="upload_no_video_file_error_description">Попробуйте записать видео снова</string>
 
     // HomeChild
-    <string name="home_chile_paging_error_title">Произошла ошибка, при получении данных</string>
+    <string name="home_chile_paging_error_title">Произошла ошибка, при загрузке данных</string>
     <string name="home_chile_paging_error_description">Повторите попытку</string>
 
 </resources>

@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.alife.anotherlife.core.composable.clickableNoRipple
 
 object LCELoading : LCEModel.Loading {
@@ -35,6 +36,7 @@ fun LoadingScreen(
         .fillMaxSize()
 ) {
     CircularProgressIndicator(
+        strokeWidth = 2.dp,
         color = MaterialTheme.colorScheme.onBackground,
         modifier = Modifier.clickableNoRipple(onClick = onProgressIndicatorClick)
     )

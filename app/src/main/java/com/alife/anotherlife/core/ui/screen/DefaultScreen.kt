@@ -21,13 +21,13 @@ abstract class DefaultScreen(
     override fun SetupContent() {
         BackHandler(backHandle != null) { backHandle?.invoke() }
 
-        //val modifier = modifier.provideModifier()
-
         val focusManager = LocalFocusManager.current
-        Content(modifier = remember {
-            Modifier
-                .padding(vertical = 6.dp)
 
+        Content(modifier = modifier
+            .provideModifier()
+            .padding(vertical = 6.dp)
+            .clickableNoRipple {
+                focusManager.clearFocus()
             }
         )
     }

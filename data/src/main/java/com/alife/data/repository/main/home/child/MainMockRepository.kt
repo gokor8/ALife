@@ -9,6 +9,7 @@ import com.alife.domain.main.home.child.base_entity.PostEntity
 import com.alife.domain.main.home.child.base_entity.PostsEntity
 import com.alife.domain.main.home.child.base_entity.VideoPostEntity
 import kotlinx.coroutines.delay
+import java.io.IOException
 import java.util.Date
 import javax.inject.Inject
 
@@ -19,7 +20,12 @@ class MainMockRepository @Inject constructor(
 ) : BaseMainRepository {
 
     override suspend fun getPosts(page: Int, pageSize: Int): PostsEntity {
-        delay(3000L)
+        delay(1000L)
+
+        // TODO Сделать повтор запроса, при ошибке
+        if(page == 8)
+            throw IOException()
+
         return PostsEntity(
             listOf<PostEntity>(
                 ImagePostEntity(

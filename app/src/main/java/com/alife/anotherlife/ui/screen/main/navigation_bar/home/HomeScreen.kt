@@ -43,7 +43,7 @@ class HomeScreen(
         val pagerState = state.pagerState
         val tabRowVisibility = rememberSaveable { mutableStateOf(true) }
 
-        BoxWithConstraints(modifier = modifier) {
+        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
             HorizontalPager(
                 count = pagerScreens.size,
                 state = pagerState
@@ -57,7 +57,7 @@ class HomeScreen(
             Canvas(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(20.dp)
+                    .height(10.dp)
                     .align(Alignment.TopCenter)
             ) { drawRect(brush = gradient, size = size) }
 

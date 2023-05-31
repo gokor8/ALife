@@ -8,7 +8,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.launch
 
-class SnackBarWrapper(@StringRes private val textRes: Int) {
+abstract class SnackBarWrapper(@StringRes private val textRes: Int) {
 
     @Composable
     fun SnackBar(snackBarHostState: SnackbarHostState) {
