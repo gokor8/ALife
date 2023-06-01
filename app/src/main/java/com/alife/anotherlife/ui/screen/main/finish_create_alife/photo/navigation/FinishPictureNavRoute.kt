@@ -3,6 +3,6 @@ package com.alife.anotherlife.ui.screen.main.finish_create_alife.photo.navigatio
 import com.alife.anotherlife.core.navigation.routes.NavigationRoute
 import com.alife.anotherlife.ui.screen.main.BottomBarHideNavRoute
 
-class FinishPictureNavRoute : NavigationRoute {
-    override val routeTag: String = "finish_picture" + BottomBarHideNavRoute().routeTag
+class FinishPictureNavRoute : BottomBarHideNavRoute {
+    override fun sageRouteTag() = "finish_picture"
 }

@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.screen.main.navigation_bar.profile
+package com.alife.anotherlife.ui.screen.main.navigation_bar.home.post_profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -9,44 +9,53 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.brush.verticalBottomToTopGradient
 import com.alife.anotherlife.core.composable.brush.verticalTopToBottomGradient
 import com.alife.anotherlife.core.composable.icon.IconBase
 import com.alife.anotherlife.core.composable.image.ImageBase
-import com.alife.anotherlife.core.composable.modifier.SystemPaddingModifier
 import com.alife.anotherlife.core.composable.text.style.style16
 import com.alife.anotherlife.core.composable.text.style.style36Bold
-import com.alife.anotherlife.core.ui.screen.DefaultScreen
+import com.alife.anotherlife.core.ui.screen.VMScreenLCE
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.post_profile.state.PostAction
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileConstraintModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileConstraints
 
-class ProfileScreen : DefaultScreen() {
+class PostProfileScreen(
+    override val navController: NavController,
+    private val username: String
+) : VMScreenLCE<PostProfileViewModel>() {
 
     @Composable
-    override fun Content(modifier: Modifier) {
+    override fun setupViewModel(): PostProfileViewModel = hiltViewModel()
+
+    override suspend fun onInit() {
+        viewModel.reduce(PostAction.OnInit(username))
+    }
+
+    @Composable
+    override fun SafeContent(modifier: Modifier) {
         val constraints = ProfileConstraintModel()
 
         val onBackgroundColor = MaterialTheme.colorScheme.onBackground
 
         ConstraintLayout(
             ProfileConstraints().markup(constraints),
-            modifier = modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)
+            modifier = modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -61,7 +70,7 @@ class ProfileScreen : DefaultScreen() {
             }
 
             ImageBase(
-                R.drawable.img_tutor_back,
+                com.alife.data.R.drawable.img_voin,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .layoutId(constraints.image)
@@ -92,10 +101,4 @@ class ProfileScreen : DefaultScreen() {
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ProfileScreenPreview() {
-    ProfileScreen().SetupContent()
 }

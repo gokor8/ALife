@@ -4,11 +4,13 @@ import androidx.paging.PagingSource
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.BaseHomeReducerBase
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.HomeReducer
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.model.TabsVisibilityContract
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.PostsPagingSource
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.paging.PostsPagingSource
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BasePostsEntityToUIPostsList
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.PostsEntityToUIPostsList
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.ProfileCardEntityToUICard
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPostModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.paging.BasePagingSourceFactory
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.paging.PostsPagingSourceFactory
 import com.alife.core.mapper.Mapper
 import com.alife.domain.main.home.child.ProfileCardEntity
 import dagger.Binds
@@ -36,4 +38,8 @@ interface HomeViewModelModule {
 
     @Binds
     fun bindPaging(paging: PostsPagingSource): PagingSource<Int, UIPostModel>
+
+    @Binds
+    fun bindPostsPagingSourceFactory(pagingSource: PostsPagingSourceFactory)
+            : BasePagingSourceFactory<PostsPagingSource>
 }

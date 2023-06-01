@@ -14,6 +14,10 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -26,6 +30,7 @@ import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -43,6 +48,7 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.ba
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.LceErrorPagingLoadProvider
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPostModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildAction
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.state.HomeAction
 
 abstract class BaseHomeChildScreen(
     override val navController: NavController,
@@ -75,15 +81,22 @@ abstract class BaseHomeChildScreen(
         }
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterialApi::class)
     @Composable
     fun SafeContent(lazyPosts: LazyPagingItems<UIPostModel>?, modifier: Modifier) {
         val state = viewModel.getUIState()
 
         val snackBarHostState = remember { SnackbarHostState() }
 
+        val refreshState = rememberPullRefreshState(
+            refreshing = state.isRefreshing,
+            onRefresh = { lazyPosts?.refresh() }
+        )
+
         Scaffold(
-            modifier = modifier.fillMaxSize(),
+            modifier = modifier
+                .fillMaxSize()
+                .pullRefresh(refreshState),
             contentWindowInsets = WindowInsets(bottom = 0.dp),
             snackbarHost = { SnackbarHost(snackBarHostState) }
         ) { innerPadding ->
@@ -98,20 +111,26 @@ abstract class BaseHomeChildScreen(
 
                     val condition = previousScrollPosition >= newPosition
 
-                    if(previousScrollPosition != newPosition)
+                    if (previousScrollPosition != newPosition)
                         previousScrollPosition = lazyListState.firstVisibleItemIndex
 
                     condition
                 }
             }
 
-            if(isVisible) {
+            if (isVisible) {
                 key(upOrDownScroll) {
                     viewModel.reduce(HomeChildAction.OnScroll(upOrDownScroll))
                 }
             }
 
             Box(modifier = Modifier.fillMaxSize()) {
+                PullRefreshIndicator(
+                    state.isRefreshing,
+                    refreshState,
+                    Modifier.align(Alignment.TopCenter)
+                )
+
                 lazyPosts?.also {
                     LazyColumn(
                         state = lazyListState,
@@ -122,11 +141,9 @@ abstract class BaseHomeChildScreen(
                             .statusBarsPadding(),
                     ) {
                         item {
-                            Spacer(
-                                modifier = Modifier
-                                    .height(40.dp)
-                                    .fillMaxWidth()
-                            )
+                            Spacer(modifier = Modifier
+                                .height(60.dp)
+                                .fillMaxWidth())
                         }
 
                         items(

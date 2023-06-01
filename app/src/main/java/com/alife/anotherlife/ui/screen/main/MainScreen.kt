@@ -17,7 +17,6 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.map.MapNavBarItem
 
 class MainScreen : DefaultScreen() {
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content(modifier: Modifier) {
 

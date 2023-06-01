@@ -15,5 +15,6 @@ data class HomeChildState(
     val uiLoaderModel: UIPostLoaderModel = UIPostLoaderModel.EmptyModel,
     val profileList: List<UIPostModel> = listOf(UIPlzCreatePostModel()),
     val postsPagingData: Flow<PagingData<UIPostModel>>? = null,
-    val previousScrollPosition: Int = 0
+    val previousScrollPosition: Int = 0,
+    val isRefreshing: Boolean = false
 ) : StateLCE, HomeStateEffect

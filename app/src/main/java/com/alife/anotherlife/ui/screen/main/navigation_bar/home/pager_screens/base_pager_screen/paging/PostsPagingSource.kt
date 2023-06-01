@@ -1,13 +1,10 @@
-package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen
+package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BasePostsEntityToUIPostsList
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPostModel
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPostsModelList
-import com.alife.core.mapper.Mapper
 import com.alife.domain.main.BasePostsUseCase
-import com.alife.domain.main.home.child.base_entity.PostsEntity
 import javax.inject.Inject
 
 class PostsPagingSource @Inject constructor(

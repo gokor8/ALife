@@ -42,11 +42,6 @@ class HomeScreen(
         val pagerScreens = state.pagerScreens
         val pagerState = state.pagerState
 
-        val refreshState = rememberPullRefreshState(
-            refreshing = state.isRefreshing,
-            onRefresh = { viewModel.reduce(HomeAction.Refresh()) }
-        )
-
         BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
             HorizontalPager(
                 count = pagerScreens.size,
@@ -66,7 +61,7 @@ class HomeScreen(
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = modifier.fillMaxWidth().pullRefresh(refreshState)
+                modifier = modifier.fillMaxWidth()
             ) {
                 TextBase(
                     textResId = R.string.horizontal_short_small_logo,
@@ -97,8 +92,6 @@ class HomeScreen(
                         }
                     }
                 }
-
-                PullRefreshIndicator(state.isRefreshing, refreshState, Modifier.offset(y = (-10).dp))
             }
         }
     }

@@ -12,6 +12,7 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.navigation.HomeN
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.navigation.HomeNavigationRoute
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.friends.navigation.FriendsNavBuilder
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.world.navigation.WorldNavBuilder
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.post_profile.navigation.PostProfileNavBuilder
 import com.alife.anotherlife.ui.screen.main.navigation_bar.map.navigation.MapNavBuilder
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.navigation.ProfileNavBuilder
 
@@ -31,7 +32,8 @@ class BottomBarNavGraph(private val innerPadding: PaddingValues) : NavigationGra
                 WorldNavBuilder(navHostController),
                 CreateAlifeNavBuilder(navHostController),
                 FinishPictureNavBuilder(navHostController),
-                FinishVideoNavBuilder(navHostController)
+                FinishVideoNavBuilder(navHostController),
+                PostProfileNavBuilder(navHostController)
             ).forEach { it.navComposable(this) }
         }
     }
