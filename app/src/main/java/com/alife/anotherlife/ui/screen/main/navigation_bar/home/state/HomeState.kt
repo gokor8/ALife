@@ -9,6 +9,7 @@ import com.google.accompanist.pager.PagerState
 
 @OptIn(ExperimentalPagerApi::class)
 data class HomeState(
+    val isRefreshing: Boolean = false,
     val pagerScreens: HomePagerIndexWrapperList = HomePagerIndexWrapperList(
         FriendsPagerItem(),
         WorldPagerItem()

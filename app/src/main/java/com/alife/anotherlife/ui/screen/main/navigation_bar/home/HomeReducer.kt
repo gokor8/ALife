@@ -17,6 +17,10 @@ class HomeReducer @Inject constructor(
         setEffect(HomeEffect.ChangePagerItemEffect(position))
     }
 
+    override suspend fun onRefresh() {
+
+    }
+
     override suspend fun onTabsVisible() {
         onTabVisibility(true)
     }
