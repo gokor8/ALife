@@ -13,5 +13,6 @@ data class HomeState(
         FriendsPagerItem(),
         WorldPagerItem()
     ),
-    val pagerState: PagerState = PagerState(currentPage = 0)
+    val pagerState: PagerState = PagerState(currentPage = 0),
+    val isTabsVisible: Boolean = true
 ) : MVI.State

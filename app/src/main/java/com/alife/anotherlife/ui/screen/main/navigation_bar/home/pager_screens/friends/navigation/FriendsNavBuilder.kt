@@ -11,5 +11,5 @@ class FriendsNavBuilder(
 ) : NewDefaultNavBuilder(navController, FriendsNavRoute()) {
 
     @Composable
-    override fun content(navBackStackEntry: NavBackStackEntry) = FriendsScreen(navController) {}
+    override fun content(navBackStackEntry: NavBackStackEntry) = FriendsScreen(navController, false)
 }

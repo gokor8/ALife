@@ -13,4 +13,6 @@ interface BaseHomeChildReducer : BaseVMReducer<HomeChildState, HomeChildEffect> 
     suspend fun onPagingLoadState(loadStates: CombinedLoadStates)
 
     suspend fun onTakeALife()
+
+    suspend fun onScrollPosition(isScrolledUp: Boolean)
 }

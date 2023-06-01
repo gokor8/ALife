@@ -14,5 +14,6 @@ data class HomeChildState(
     override val lceModel: LCEModel = LCEContent,
     val uiLoaderModel: UIPostLoaderModel = UIPostLoaderModel.EmptyModel,
     val profileList: List<UIPostModel> = listOf(UIPlzCreatePostModel()),
-    val postsPagingData: Flow<PagingData<UIPostModel>>? = null
+    val postsPagingData: Flow<PagingData<UIPostModel>>? = null,
+    val previousScrollPosition: Int = 0
 ) : StateLCE, HomeStateEffect

@@ -9,6 +9,6 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.fr
 class FriendsPagerItem: HomePagerItem(R.string.home_pager_friends) {
 
     @Composable
-    override fun screen(navController: NavController, pagingVisibility: (Boolean) -> Unit) =
-        FriendsScreen(navController, pagingVisibility)
+    override fun screen(navController: NavController, isVisible: Boolean) =
+        FriendsScreen(navController, isVisible)
 }

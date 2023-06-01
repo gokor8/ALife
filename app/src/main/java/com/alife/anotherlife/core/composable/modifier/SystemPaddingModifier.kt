@@ -26,3 +26,13 @@ object SystemPaddingModifier : ModifierProvider {
             .navigationBarsPadding()
     }
 }
+
+object NoMaxSizeSystemPaddingModifier : ModifierProvider {
+
+    @Composable
+    override fun provideModifier(): Modifier {
+        return Modifier
+            .statusBarsPadding()
+            .navigationBarsPadding()
+    }
+}

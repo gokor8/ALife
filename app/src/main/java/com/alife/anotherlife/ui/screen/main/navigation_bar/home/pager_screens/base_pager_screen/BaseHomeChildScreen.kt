@@ -5,18 +5,22 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -30,6 +34,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.alife.anotherlife.core.composable.modifier.BaseFillMaxModifier
+import com.alife.anotherlife.core.composable.modifier.OnlyTopPadding
 import com.alife.anotherlife.core.composable.modifier.SystemPaddingModifier
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.core.ui.state.lce.LCEContent
@@ -41,8 +46,8 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.ba
 
 abstract class BaseHomeChildScreen(
     override val navController: NavController,
-    private val pagingVisibility: (Boolean) -> Unit
-) : VMScreen<AbstractHomeChildViewModel>(SystemPaddingModifier) {
+    private val isVisible: Boolean
+) : VMScreen<AbstractHomeChildViewModel>(OnlyTopPadding) {
 
     override suspend fun onInit() {
         viewModel.reduce(HomeChildAction.OnInit())
@@ -54,15 +59,13 @@ abstract class BaseHomeChildScreen(
         val lazyPosts = state.postsPagingData?.collectAsLazyPagingItems()
 
         lazyPosts?.apply {
-            Log.d("loadState SafeContent", "${loadState}")
             key(loadState) {
-                Log.d("loadState SafeContent in", "${loadState}")
                 viewModel.reduce(HomeChildAction.OnPagingLoadState(loadState))
             }
         }
 
         // TODO вынести в маппер
-        when(val lceModel = state.lceModel) {
+        when (val lceModel = state.lceModel) {
             is LCEContent -> SafeContent(lazyPosts, modifier)
             is LceErrorPagingLoadProvider -> LceErrorPagingLoad().LCEContent(modifier) {
                 lazyPosts?.retry()
@@ -77,18 +80,41 @@ abstract class BaseHomeChildScreen(
     fun SafeContent(lazyPosts: LazyPagingItems<UIPostModel>?, modifier: Modifier) {
         val state = viewModel.getUIState()
 
-        val snackbarHostState = remember { SnackbarHostState() }
+        val snackBarHostState = remember { SnackbarHostState() }
 
         Scaffold(
-            modifier = modifier,
-            snackbarHost = { SnackbarHost(snackbarHostState) }
+            modifier = modifier.fillMaxSize(),
+            contentWindowInsets = WindowInsets(bottom = 0.dp),
+            snackbarHost = { SnackbarHost(snackBarHostState) }
         ) { innerPadding ->
             innerPadding
-            Box(
-                modifier = Modifier.fillMaxSize()
-            ) {
+
+            val lazyListState = rememberLazyListState()
+            var previousScrollPosition by remember(this::class.simpleName) { mutableStateOf(0) }
+
+            val upOrDownScroll by remember(this::class.simpleName) {
+                derivedStateOf {
+                    val newPosition = lazyListState.firstVisibleItemIndex
+
+                    val condition = previousScrollPosition >= newPosition
+
+                    if(previousScrollPosition != newPosition)
+                        previousScrollPosition = lazyListState.firstVisibleItemIndex
+
+                    condition
+                }
+            }
+
+            if(isVisible) {
+                key(upOrDownScroll) {
+                    viewModel.reduce(HomeChildAction.OnScroll(upOrDownScroll))
+                }
+            }
+
+            Box(modifier = Modifier.fillMaxSize()) {
                 lazyPosts?.also {
                     LazyColumn(
+                        state = lazyListState,
                         contentPadding = PaddingValues(16.dp),
                         verticalArrangement = Arrangement.spacedBy(30.dp),
                         modifier = Modifier
@@ -123,7 +149,7 @@ abstract class BaseHomeChildScreen(
         var snackBarErrorEffect by remember {
             mutableStateOf<SnackBarWrapper?>(null)
         }.also { wrapper ->
-            wrapper.value?.SnackBar(snackbarHostState)
+            wrapper.value?.SnackBar(snackBarHostState)
         }
 
         LaunchedEffect(Unit) {

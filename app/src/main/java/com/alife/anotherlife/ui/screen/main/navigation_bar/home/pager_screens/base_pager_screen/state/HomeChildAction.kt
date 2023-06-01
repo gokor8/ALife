@@ -31,4 +31,10 @@ interface HomeChildAction : BaseMVIAction<BaseHomeChildReducer> {
             reducer.onTakeALife()
         }
     }
+
+    class OnScroll(private val isScrolledUp: Boolean) : HomeChildAction {
+        override suspend fun onAction(reducer: BaseHomeChildReducer) {
+            reducer.onScrollPosition(isScrolledUp)
+        }
+    }
 }

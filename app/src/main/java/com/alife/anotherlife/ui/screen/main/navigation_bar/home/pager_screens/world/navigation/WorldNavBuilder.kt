@@ -11,5 +11,5 @@ class WorldNavBuilder(
 ) : NewDefaultNavBuilder(navController, WorldNavRoute()) {
 
     @Composable
-    override fun content(navBackStackEntry: NavBackStackEntry) = WorldScreen(navController) {}
+    override fun content(navBackStackEntry: NavBackStackEntry) = WorldScreen(navController, false)
 }

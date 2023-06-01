@@ -11,12 +11,14 @@ import dagger.Provides
 import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 class HomeViewModelModuleP {
 
-    @Reusable
     @Provides
+    @Singleton
     fun provideHomeUIStore(): UIStore<HomeState, HomeEffect> = DefaultUIStore(HomeState())
 }

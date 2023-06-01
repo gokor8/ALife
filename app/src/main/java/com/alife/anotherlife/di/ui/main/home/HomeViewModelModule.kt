@@ -2,7 +2,8 @@ package com.alife.anotherlife.di.ui.main.home
 
 import androidx.paging.PagingSource
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.BaseHomeReducerBase
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.HomeReducerBase
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.HomeReducer
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.model.TabsVisibilityContract
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.PostsPagingSource
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BasePostsEntityToUIPostsList
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.PostsEntityToUIPostsList
@@ -20,7 +21,10 @@ import dagger.hilt.android.components.ViewModelComponent
 interface HomeViewModelModule {
 
     @Binds
-    fun bindHomeReducer(reducer: HomeReducerBase): BaseHomeReducerBase
+    fun bindHomeReducer(reducer: HomeReducer): BaseHomeReducerBase
+
+    @Binds
+    fun bindBaseHomeReducerBase(reducer: HomeReducer): TabsVisibilityContract
 
     @Binds
     fun bindProfileCardEntityToUICard(

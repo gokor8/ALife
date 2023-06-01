@@ -6,10 +6,8 @@ import androidx.navigation.NavController
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.BaseHomeChildScreen
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildAction
 
-class FriendsScreen(
-    navController: NavController,
-    pagingVisibility: (Boolean) -> Unit
-) : BaseHomeChildScreen(navController, pagingVisibility) {
+class FriendsScreen(navController: NavController, isVisible: Boolean) :
+    BaseHomeChildScreen(navController, isVisible) {
 
     @Composable
     override fun setupViewModel(): FriendsViewModel = hiltViewModel()

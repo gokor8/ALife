@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.home
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -20,6 +21,7 @@ import androidx.navigation.compose.rememberNavController
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.brush.verticalPrimaryGradient
 import com.alife.anotherlife.core.composable.customTabIndicatorOffset
+import com.alife.anotherlife.core.composable.modifier.NoMaxSizeSystemPaddingModifier
 import com.alife.anotherlife.core.composable.modifier.SystemPaddingModifier
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Title28Style
@@ -30,7 +32,7 @@ import com.google.accompanist.pager.HorizontalPager
 
 class HomeScreen(
     override val navController: NavController,
-) : VMScreen<HomeViewModel>(SystemPaddingModifier) {
+) : VMScreen<HomeViewModel>(NoMaxSizeSystemPaddingModifier) {
 
     @Composable
     override fun setupViewModel(): HomeViewModel = hiltViewModel()
@@ -41,16 +43,13 @@ class HomeScreen(
         val state = viewModel.getUIState()
         val pagerScreens = state.pagerScreens
         val pagerState = state.pagerState
-        val tabRowVisibility = rememberSaveable { mutableStateOf(true) }
 
         BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
             HorizontalPager(
                 count = pagerScreens.size,
                 state = pagerState
             ) {
-                pagerScreens[it].model.screen(navController) { visibility ->
-                    tabRowVisibility.value = visibility
-                }.SetupContent()
+                pagerScreens[it].model.screen(navController, it == pagerState.currentPage).SetupContent()
             }
 
             val gradient = verticalPrimaryGradient()
@@ -63,7 +62,7 @@ class HomeScreen(
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxSize()
+                modifier = modifier.fillMaxWidth()
             ) {
                 TextBase(
                     textResId = R.string.horizontal_short_small_logo,
@@ -71,7 +70,7 @@ class HomeScreen(
                 )
                 Spacer(modifier = Modifier.padding(bottom = 16.dp))
 
-                AnimatedVisibility(visible = tabRowVisibility.value) {
+                AnimatedVisibility(visible = state.isTabsVisible) {
                     TabRow(
                         selectedTabIndex = pagerState.currentPage,
                         divider = {},

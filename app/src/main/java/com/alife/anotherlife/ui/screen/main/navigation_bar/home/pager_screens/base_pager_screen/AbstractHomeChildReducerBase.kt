@@ -10,6 +10,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.map
 import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.model.TabsVisibilityContract
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BaseLoadStatesToStateEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPostModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildEffect
@@ -29,7 +30,8 @@ abstract class AbstractHomeChildReducerBase(
     override val uiStore: UIStore<HomeChildState, HomeChildEffect>,
     protected val mapper: Mapper<ProfileCardEntity, UIPostModel>,
     private val postsPaging: PagingSource<Int, UIPostModel>,
-    private val loadStateMapper: BaseLoadStatesToStateEffect
+    private val loadStateMapper: BaseLoadStatesToStateEffect,
+    private val tabsVisibilityContract: TabsVisibilityContract,
 ) : HandlerBaseVMReducer<HomeChildState, HomeChildEffect>(), BaseHomeChildReducer {
 
     private val pageSize = 10
@@ -51,5 +53,9 @@ abstract class AbstractHomeChildReducerBase(
 
     override suspend fun onTakeALife() {
         setEffect(HomeChildEffect.NavigateToTakeALife())
+    }
+
+    override suspend fun onScrollPosition(isScrolledUp: Boolean) {
+        tabsVisibilityContract.onTabVisibility(isScrolledUp)
     }
 }

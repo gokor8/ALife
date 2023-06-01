@@ -53,11 +53,11 @@ abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun SafeContent(modifier: Modifier) {
-        val snackbarHostState = remember { SnackbarHostState() }
+        val snackBarHostState = remember { SnackbarHostState() }
 
         Scaffold(
             modifier,
-            snackbarHost = { SnackbarHost(snackbarHostState) }
+            snackbarHost = { SnackbarHost(snackBarHostState) }
         ) { innerPadding ->
             innerPadding
             Box(Modifier.fillMaxSize()) {
@@ -103,7 +103,7 @@ abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
             var snackBarErrorEffect by remember {
                 mutableStateOf<SnackBarWrapper?>(null)
             }.also { wrapper ->
-                wrapper.value?.SnackBar(snackbarHostState)
+                wrapper.value?.SnackBar(snackBarHostState)
             }
 
             LaunchedEffect(Unit) {

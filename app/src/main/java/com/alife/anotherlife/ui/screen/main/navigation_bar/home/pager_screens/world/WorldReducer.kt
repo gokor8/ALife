@@ -3,6 +3,7 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.w
 import androidx.paging.PagingSource
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.di.ui.main.home.child.world.WorldAnnotation
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.model.TabsVisibilityContract
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.AbstractHomeChildReducerBase
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BaseLoadStatesToStateEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPostModel
@@ -18,8 +19,15 @@ class WorldReducer @Inject constructor(
     override val uiStore: UIStore<HomeChildState, HomeChildEffect>,
     mapper: Mapper<ProfileCardEntity, UIPostModel>,
     postsPaging: PagingSource<Int, UIPostModel>,
-    loadStateMapper: BaseLoadStatesToStateEffect
-) : AbstractHomeChildReducerBase(uiStore, mapper, postsPaging, loadStateMapper) {
+    loadStateMapper: BaseLoadStatesToStateEffect,
+    tabsVisibilityContract: TabsVisibilityContract
+) : AbstractHomeChildReducerBase(
+    uiStore,
+    mapper,
+    postsPaging,
+    loadStateMapper,
+    tabsVisibilityContract
+) {
 
 //    override suspend fun onInit(viewModelScope: CoroutineScope) {
 //

@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    override val reducerVM: HomeReducerBase
+    override val reducerVM: BaseHomeReducerBase
 ) : DefaultViewModel<BaseHomeReducerBase, HomeAction, HomeState, HomeEffect>(reducerVM) {
 
     @OptIn(ExperimentalPagerApi::class)
