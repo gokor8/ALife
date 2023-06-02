@@ -8,7 +8,7 @@ import javax.inject.Named
 
 class MyPostUseCase @Inject constructor(
     override val dispatcher: CoroutineDispatcher,
-    @Named("MockMainRepo")
+    //@Named("MockMainRepo")
     private val mainRepository: BaseMainRepository
 ) : AbstractUseCase(), BaseMyPostUseCase {
 

@@ -19,8 +19,8 @@ import javax.inject.Named
 @InstallIn(ViewModelComponent::class)
 interface HomeDataModule {
 
-    //@Binds
-    //fun bindMainRepository(repository: MainRepository): BaseMainRepository
+    @Binds
+    fun bindMainRepository(repository: MainRepository): BaseMainRepository
 
     @Named("MockMainRepo")
     @Binds

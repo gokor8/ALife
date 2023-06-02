@@ -16,10 +16,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 interface SingletonActivityViewModelModule {
 
+    @Singleton
     @Binds
     fun bindsReducer(reducer: MainActivityReducer): BaseMainActivityReducer
 
-
+    @Singleton
     @Binds
     fun bindGlobalExceptionHandler(reducer: MainActivityReducer): CommonExceptionHandler
 

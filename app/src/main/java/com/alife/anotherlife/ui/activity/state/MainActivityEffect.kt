@@ -6,5 +6,5 @@ import com.alife.core.mvi.MVI
 
 interface MainActivityEffect : MVI.Effect {
 
-    class GoToLogin : MainActivityEffect, NavigationWrapper.BackTo(LoginNavigator())
+    class GoToLogin : MainActivityEffect, NavigationWrapper.Forward(LoginNavigator())
 }

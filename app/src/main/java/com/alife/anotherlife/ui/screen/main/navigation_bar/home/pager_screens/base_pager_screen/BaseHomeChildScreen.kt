@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -66,11 +67,10 @@ abstract class BaseHomeChildScreen(
         // TODO вынести в маппер
         when (val lceModel = state.lceModel) {
             is LCEContent -> SafeContent(lazyPosts, modifier)
-            is LceErrorPagingLoadProvider -> LceErrorPagingLoad().LCEContent(modifier) {
+            is LceErrorPagingLoadProvider -> LceErrorPagingLoad().LCEContent(modifier.fillMaxSize()) {
                 lazyPosts?.retry()
             }
-
-            else -> lceModel.LCEContent(modifier = modifier)
+            else -> lceModel.LCEContent(modifier = modifier.fillMaxSize())
         }
     }
 

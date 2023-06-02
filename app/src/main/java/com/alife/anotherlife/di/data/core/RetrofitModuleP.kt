@@ -26,7 +26,7 @@ class RetrofitModuleP {
 
     @RetrofitAnnotation.BaseUrl
     @Provides
-    fun provideBaseUrl(): String = "http://10.0.2.2:8080/"//"http://127.0.0.1:8080/"
+    fun provideBaseUrl(): String = "http://193.105.114.31:8080/"
 
     @Provides
     fun provideHttpLoginInterceptor() = HttpLoggingInterceptor().apply {
