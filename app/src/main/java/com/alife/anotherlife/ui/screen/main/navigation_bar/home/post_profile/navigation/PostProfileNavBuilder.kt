@@ -13,6 +13,7 @@ class PostProfileNavBuilder(navController: NavController) :
         PostProfileNavRoute(),
         PostProfileArgsContainer()
     ) {
+
     override fun createScreen(
         navBackStackEntry: NavBackStackEntry,
         containerModel: PostProfileArgsContainer

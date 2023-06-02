@@ -26,9 +26,14 @@ interface HomeChildAction : BaseMVIAction<BaseHomeChildReducer> {
     }
 
     class OnTakeALife : HomeChildAction {
-
         override suspend fun onAction(reducer: BaseHomeChildReducer) {
             reducer.onTakeALife()
+        }
+    }
+
+    class OnPostProfile(private val username: String) : HomeChildAction {
+        override suspend fun onAction(reducer: BaseHomeChildReducer) {
+            reducer.onPostProfile(username)
         }
     }
 

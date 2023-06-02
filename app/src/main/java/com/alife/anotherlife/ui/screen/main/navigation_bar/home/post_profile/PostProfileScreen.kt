@@ -14,19 +14,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alife.anotherlife.R
+import com.alife.anotherlife.core.composable.addons.copyToClipboard
 import com.alife.anotherlife.core.composable.brush.verticalBottomToTopGradient
 import com.alife.anotherlife.core.composable.brush.verticalTopToBottomGradient
+import com.alife.anotherlife.core.composable.clickableNoRipple
 import com.alife.anotherlife.core.composable.icon.IconBase
 import com.alife.anotherlife.core.composable.image.ImageBase
 import com.alife.anotherlife.core.composable.text.style.style16
+import com.alife.anotherlife.core.composable.text.style.style16Bold
 import com.alife.anotherlife.core.composable.text.style.style36Bold
 import com.alife.anotherlife.core.ui.screen.VMScreenLCE
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.post_profile.state.PostAction
@@ -47,7 +52,10 @@ class PostProfileScreen(
 
     @Composable
     override fun SafeContent(modifier: Modifier) {
+        val context = LocalContext.current
+
         val constraints = ProfileConstraintModel()
+        val state = viewModel.getUIState()
 
         val onBackgroundColor = MaterialTheme.colorScheme.onBackground
 
@@ -66,7 +74,22 @@ class PostProfileScreen(
                     .systemBarsPadding()
                     .padding(vertical = 14.dp)
             ) {
-                Text("Chypondiks", style = style16())
+                ImageBase(
+                    resId = R.drawable.ic_base_back,
+                    colorFilter = ColorFilter.tint(onBackgroundColor),
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .clickableNoRipple {
+                            navController.popBackStack()
+                        }
+                )
+                Text(
+                    state.username,
+                    style = style16Bold(),
+                    modifier = Modifier.clickableNoRipple {
+                        copyToClipboard(context, state.username)
+                    }
+                )
             }
 
             ImageBase(
@@ -83,11 +106,11 @@ class PostProfileScreen(
                     .layoutId(constraints.preBottom)
                     .zIndex(1f)
                     .background(verticalBottomToTopGradient())
-                    .padding(horizontal = 14.dp),
+                    .padding(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Gregory", style = style36Bold())
+                Text(state.name, style = style36Bold())
                 IconBase(R.drawable.ic_profile_addons, tint = onBackgroundColor)
             }
 
@@ -95,9 +118,9 @@ class PostProfileScreen(
                 modifier = Modifier
                     .layoutId(constraints.bottom)
                     .background(MaterialTheme.colorScheme.background)
-                    .padding(start = 14.dp)
+                    .padding(start = 16.dp)
             ) {
-                Text("Russia", style = style16())
+                Text(state.country, style = style16())
             }
         }
     }

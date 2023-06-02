@@ -8,7 +8,8 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.ba
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BasePostsEntityToUIPostsList
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.PostsEntityToUIPostsList
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.ProfileCardEntityToUICard
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPostModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.UIBasePostContainer
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.post_model.UIPostModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.paging.BasePagingSourceFactory
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.paging.PostsPagingSourceFactory
 import com.alife.core.mapper.Mapper
@@ -37,7 +38,7 @@ interface HomeViewModelModule {
     fun bindPostsEntityToUIPostsList(mapper: PostsEntityToUIPostsList): BasePostsEntityToUIPostsList
 
     @Binds
-    fun bindPaging(paging: PostsPagingSource): PagingSource<Int, UIPostModel>
+    fun bindPaging(paging: PostsPagingSource): PagingSource<Int, UIBasePostContainer>
 
     @Binds
     fun bindPostsPagingSourceFactory(pagingSource: PostsPagingSourceFactory)

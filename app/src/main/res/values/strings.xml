@@ -21,11 +21,13 @@
     <string name="generic_exception_title">Непредвиденная ошибка</string>
     <string name="generic_exception_description">Произошла непредвиденная ошибка, повторите попытку</string>
 
+    // Copy
+    <string name="copy_username">Никнейм скопирован</string>
 
     // Dialog
     <string name="permission_dialog_description">Предоставьте разрешние через настройки</string>
     <string name="permission_dialog_settings">в Настройки</string>
-
+    
     // Login
     <string name="pass_login_in">Hi, pass login in</string>
     <string name="authorization_type">Выберите подходящий способ авторизации</string>
@@ -81,8 +83,11 @@
 
     // Home_Friends
     <string name="home_friends_be_first">Ваши друзья еще не выкладывали Alife, будьте первыми.</string>
-    <string name="home_friends_create_alife">Создайте свой Alife</string>
 
+    // Create Alife
+    <string name="create_alife_on_post">Создайте Alife, чтобы увидеть посты</string>
+    <string name="create_alife_base">Создайте свой Alife</string>
+    
     // Camera Dialog
     <string name="dialog_camera_title">Приложению необходим доступ к камере</string>
     <string name="dialog_camera_description">Для создания Alife \n предоставьте доступ к камере</string>

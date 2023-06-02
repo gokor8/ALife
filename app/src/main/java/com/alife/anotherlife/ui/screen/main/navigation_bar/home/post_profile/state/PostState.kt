@@ -6,9 +6,9 @@ import com.alife.anotherlife.core.ui.state.lce.StateLCE
 
 data class PostState(
     override val lceModel: LCEModel = LCEContent,
-    val username: String,
-    val name: String,
-    val country: String,
-    val description: String,
-    val pictureUrl: String
+    val username: String = "",
+    val name: String = "",
+    val country: String = "",
+    val description: String = "",
+    val pictureUrl: String = ""
 ) : StateLCE

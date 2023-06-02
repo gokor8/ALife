@@ -14,5 +14,7 @@ interface BaseHomeChildReducer : BaseVMReducer<HomeChildState, HomeChildEffect> 
 
     suspend fun onTakeALife()
 
+    suspend fun onPostProfile(username: String)
+
     suspend fun onScrollPosition(isScrolledUp: Boolean)
 }

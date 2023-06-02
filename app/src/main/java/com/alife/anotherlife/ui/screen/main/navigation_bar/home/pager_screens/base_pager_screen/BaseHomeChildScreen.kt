@@ -1,6 +1,5 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,16 +8,13 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -38,17 +34,14 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
-import com.alife.anotherlife.core.composable.modifier.BaseFillMaxModifier
 import com.alife.anotherlife.core.composable.modifier.OnlyTopPadding
-import com.alife.anotherlife.core.composable.modifier.SystemPaddingModifier
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.core.ui.state.lce.LCEContent
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.model.SnackBarWrapper
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.LceErrorPagingLoad
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.LceErrorPagingLoadProvider
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIPostModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.UIBasePostContainer
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildAction
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.state.HomeAction
 
 abstract class BaseHomeChildScreen(
     override val navController: NavController,
@@ -83,7 +76,7 @@ abstract class BaseHomeChildScreen(
 
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
-    fun SafeContent(lazyPosts: LazyPagingItems<UIPostModel>?, modifier: Modifier) {
+    fun SafeContent(lazyPosts: LazyPagingItems<UIBasePostContainer>?, modifier: Modifier) {
         val state = viewModel.getUIState()
 
         val snackBarHostState = remember { SnackbarHostState() }
@@ -151,8 +144,7 @@ abstract class BaseHomeChildScreen(
                             key = lazyPosts.itemKey(key = { it.itemKey() }),
                             contentType = lazyPosts.itemContentType()
                         ) { index ->
-                            val item = lazyPosts[index]
-                            item?.Card(viewModel = viewModel, modifier = Modifier)
+                            lazyPosts[index]?.Post(viewModel = viewModel, modifier = Modifier)
                         }
 
                         item {

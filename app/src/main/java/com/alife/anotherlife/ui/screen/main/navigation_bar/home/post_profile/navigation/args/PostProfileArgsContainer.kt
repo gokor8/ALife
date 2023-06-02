@@ -6,7 +6,7 @@ import com.alife.anotherlife.core.navigation.nav_arg.DefaultNavigationArg
 import com.alife.anotherlife.core.navigation.nav_arg_container.ArgsContainer
 
 
-class UsernameNavArg : DefaultNavigationArg<String?>("userId", NavType.StringType)
+class UsernameNavArg : DefaultNavigationArg<String?>("username", NavType.StringType)
 
 class PostProfileArgsContainer: ArgsContainer {
 

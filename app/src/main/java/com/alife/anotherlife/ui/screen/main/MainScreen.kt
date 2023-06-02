@@ -28,7 +28,7 @@ class MainScreen : DefaultScreen() {
 
         Scaffold(
             bottomBar = {
-                if (!currentRoute.contains(BottomBarHideNavRoute().routeTag)) {
+                if (!currentRoute.contains(BottomBarHideTag().routeTag)) {
                     NavigationBar(modifier = Modifier.clip(TopShapes.large)) {
                         val currentDestination = navBackStackEntry?.destination
                         bottomBarItems.forEach { item ->

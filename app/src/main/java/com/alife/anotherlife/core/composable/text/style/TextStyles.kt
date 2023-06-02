@@ -6,6 +6,8 @@ import androidx.compose.ui.unit.sp
 
 fun style16() = TextStyle(fontSize = 16.sp)
 
+fun style16Bold() = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold)
+
 fun style18Bold() = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold)
 
 fun style36Bold() = TextStyle(fontSize = 36.sp, fontWeight = FontWeight.Bold)

@@ -55,7 +55,7 @@ class ProfileScreen : DefaultScreen() {
                     .zIndex(1f)
                     .background(verticalTopToBottomGradient())
                     .systemBarsPadding()
-                    .padding(vertical = 14.dp)
+                    .padding(vertical = 14.dp, horizontal = 16.dp)
             ) {
                 Text("Chypondiks", style = style16())
             }

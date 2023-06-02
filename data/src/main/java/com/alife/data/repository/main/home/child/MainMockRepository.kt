@@ -1,29 +1,40 @@
 package com.alife.data.repository.main.home.child
 
-import com.alife.data.repository.main.home.child.mapper.BasePostsResponseToPostsEntityMockImage
-import com.alife.data.services.MainService
 import com.alife.data.services.MockImageService
 import com.alife.domain.main.home.child.BaseMainRepository
 import com.alife.domain.main.home.child.base_entity.ImagePostEntity
 import com.alife.domain.main.home.child.base_entity.PostEntity
 import com.alife.domain.main.home.child.base_entity.PostsEntity
 import com.alife.domain.main.home.child.base_entity.VideoPostEntity
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import java.io.IOException
 import java.util.Date
 import javax.inject.Inject
 
 class MainMockRepository @Inject constructor(
-    private val mainService: MainService,
-    private val mockImageService: MockImageService,
-    private val mapper: BasePostsResponseToPostsEntityMockImage
+    private val mockImageService: MockImageService
 ) : BaseMainRepository {
+
+    private var counter = 0
+
+    override suspend fun isHavePostToday(): Boolean {
+        if(counter != 8) ++counter
+        return counter % 8 == 0
+    }
 
     override suspend fun getPosts(page: Int, pageSize: Int): PostsEntity {
         delay(1000L)
 
         // TODO Сделать повтор запроса, при ошибке
-        if(page == 8)
+        if (page == 8)
             throw IOException()
 
         return PostsEntity(
@@ -43,11 +54,5 @@ class MainMockRepository @Inject constructor(
                 )
             )
         )
-        //        return mapper.map(
-//            mainService.getPosts(page, pageSize),
-//            mockImageService.getImage().url,
-//            mockImageService.getImage().url,
-//            mockImageService.getImage().url
-//        )
     }
 }

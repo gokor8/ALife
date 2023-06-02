@@ -46,7 +46,12 @@ abstract class NewArgsNavigationBuilder<ACM : ArgsContainer>(
         navGraphBuilder.composable(
             route = route,
             arguments = containerModel.argsList().map { arg -> arg.createNavArg() },
-            content = { navBackStackEntry -> createScreen(navBackStackEntry, containerModel) }
+            content = { navBackStackEntry ->
+                createScreen(
+                    navBackStackEntry,
+                    containerModel
+                ).SetupContent()
+            }
         )
     }
 

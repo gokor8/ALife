@@ -18,4 +18,6 @@ class MainRepository @Inject constructor(
     override suspend fun getPosts(page: Int, pageSize: Int): PostsEntity {
         return mainService.getPosts(page, pageSize).let(mapper::map)
     }
+
+    override suspend fun isHavePostToday() = mainService.getIsHavePostToday().isSuccessful
 }

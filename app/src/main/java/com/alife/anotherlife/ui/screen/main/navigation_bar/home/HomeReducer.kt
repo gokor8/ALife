@@ -31,8 +31,6 @@ class HomeReducer @Inject constructor(
 
     @OptIn(ExperimentalPagerApi::class)
     override suspend fun onTabVisibility(isVisible: Boolean) {
-        Log.d("Visibility 1", "${getState().isTabsVisible}")
-
         setState { copy(isTabsVisible = isVisible) }
     }
 }

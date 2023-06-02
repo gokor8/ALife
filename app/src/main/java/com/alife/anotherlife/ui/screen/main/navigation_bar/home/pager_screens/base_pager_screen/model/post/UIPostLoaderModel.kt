@@ -1,4 +1,4 @@
-package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model
+package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth

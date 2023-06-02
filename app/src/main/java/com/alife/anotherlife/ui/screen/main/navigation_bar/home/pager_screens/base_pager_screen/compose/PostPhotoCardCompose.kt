@@ -16,33 +16,45 @@ import coil.compose.AsyncImage
 import com.alife.anotherlife.core.composable.alife_card.ALifeCardCompose
 import com.alife.anotherlife.core.composable.alife_card.model.UIAlifeCardModel
 import com.alife.anotherlife.core.composable.alife_card.start_strategy.DefaultStrategy
+import com.alife.anotherlife.core.composable.clickableNoRipple
 import com.alife.anotherlife.core.composable.icon.MockProfileIcon
 
 @Composable
 fun PostPhotoCardCompose(
     profileName: String,
     timestamp: String,
+    modifier: Modifier = Modifier,
     avatar: String? = null,
-    photoCardModel: UIAlifeCardModel
+    photoCardModel: UIAlifeCardModel,
+    onProfileClick: () -> Unit
 ) {
     val profileCardModel = ProfileCardModel()
 
-    ConstraintLayout(ProfileCardConstraints().markup(profileCardModel)) {
+    ConstraintLayout(
+        ProfileCardConstraints().markup(profileCardModel),
+        modifier = Modifier.clickableNoRipple(onClick = onProfileClick)
+    ) {
         val profileIconModifier = Modifier
             .layoutId(profileCardModel.profileIcon)
             .size(28.dp)
             .clip(CircleShape)
+            .clickableNoRipple(onClick = onProfileClick)
 
         avatar?.apply {
             AsyncImage(
                 model = avatar,
                 contentDescription = null,
+                contentScale = ContentScale.Crop,
                 modifier = profileIconModifier,
-                contentScale = ContentScale.Crop
             )
         } ?: MockProfileIcon(profileIconModifier)
 
-        Text(profileName, modifier = Modifier.layoutId(profileCardModel.username))
+        Text(
+            profileName,
+            modifier = Modifier
+                .layoutId(profileCardModel.username)
+                .clickableNoRipple(onClick = onProfileClick)
+        )
         Text(timestamp, modifier = Modifier.layoutId(profileCardModel.timestamp))
 
         ALifeCardCompose(
@@ -50,7 +62,8 @@ fun PostPhotoCardCompose(
             offsetsStartStrategy = DefaultStrategy(),
             modifier = Modifier
                 .layoutId(profileCardModel.alife)
-                .aspectRatio(328/480f)
+                .aspectRatio(328 / 480f)
+                .then(modifier)
         )
     }
 }

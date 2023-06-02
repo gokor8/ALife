@@ -17,7 +17,7 @@ class PostProfileReducer @Inject constructor(
     override suspend fun onInit(username: String) {
         setState { copy(lceModel = LCELoading) }
 
-        execute<Unit> {
+        execute {
 
         }.handle {
             val user = postProfileInfoUSeCase.getUserInfo(username)
