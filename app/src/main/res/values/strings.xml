@@ -114,5 +114,6 @@
     // HomeChild
     <string name="home_chile_paging_error_title">Произошла ошибка, при загрузке данных</string>
     <string name="home_chile_paging_error_description">Повторите попытку</string>
+    <string name="home_chile_paging_first_error_description">Вы единственный кто выложил пост, не удалось его загрузить</string>
 
 </resources>

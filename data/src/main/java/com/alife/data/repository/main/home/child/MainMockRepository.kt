@@ -26,15 +26,15 @@ class MainMockRepository @Inject constructor(
     private var counter = 0
 
     override suspend fun isHavePostToday(): Boolean {
-        if(counter != 8) ++counter
-        return counter % 8 == 0
+        if(counter != 16) ++counter
+        return counter % 16 == 0
     }
 
     override suspend fun getPosts(page: Int, pageSize: Int): PostsEntity {
         delay(1000L)
 
         // TODO Сделать повтор запроса, при ошибке
-        if (page == 8)
+        if (page == 16)
             throw IOException()
 
         return PostsEntity(

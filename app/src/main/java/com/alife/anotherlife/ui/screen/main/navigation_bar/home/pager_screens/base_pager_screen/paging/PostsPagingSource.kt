@@ -2,19 +2,26 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.b
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BasePagingKeyMapper
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BasePostsEntityToUIPostsList
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.UIPostsModelList
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.DefaultPostContainerUI
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.PlzCreatePostContainerUI
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.UIBasePostContainer
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.post_model.UIPlzCreatePostModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.post_model.UIPostModel
 import com.alife.domain.main.BaseMyPostUseCase
 import com.alife.domain.main.BasePostsUseCase
+import java.io.IOException
 import javax.inject.Inject
 
 class PostsPagingSource @Inject constructor(
     private val responseToEntity: BasePostsEntityToUIPostsList,
     private val postsUseCase: BasePostsUseCase,
     private val myPostUseCase: BaseMyPostUseCase,
-    private val pagingLoadCallback: PagingLoadCallback
-): PagingSource<Int, UIBasePostContainer>() {
+    private val pagingLoadCallback: PagingLoadCallback,
+    private val pagingKeyMapper: BasePagingKeyMapper
+) : PagingSource<Int, UIBasePostContainer>() {
 
     override fun getRefreshKey(state: PagingState<Int, UIBasePostContainer>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -27,15 +34,19 @@ class PostsPagingSource @Inject constructor(
         return try {
             val page = params.key ?: 1
 
-            val entity = responseToEntity.map(postsUseCase.getPosts(page, params.loadSize))
+            val isHavePostToday = myPostUseCase.isHavePostToday()
 
-            pagingLoadCallback.onLoad(myPostUseCase.isHavePostToday())
+            val postModelList = responseToEntity.map(
+                postsUseCase.getPosts(page, params.loadSize).posts,
+                isHavePostToday
+            )
 
-            // TODO refactor to OOP
+            pagingLoadCallback.onLoad(isHavePostToday)
+
             LoadResult.Page(
-                data = entity,
-                prevKey = if (page == 1) null else page.minus(1),
-                nextKey = if (entity.isEmpty()) null else page.plus(1),
+                data = postModelList,
+                prevKey = pagingKeyMapper.mapPreviousKey(postModelList, page),
+                nextKey = pagingKeyMapper.mapNextKey(postModelList, page)
             )
         } catch (e: Exception) {
             LoadResult.Error(e)

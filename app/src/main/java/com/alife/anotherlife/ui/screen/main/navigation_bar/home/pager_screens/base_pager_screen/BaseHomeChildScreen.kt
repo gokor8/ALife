@@ -38,6 +38,8 @@ import com.alife.anotherlife.core.composable.modifier.OnlyTopPadding
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.core.ui.state.lce.LCEContent
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.model.SnackBarWrapper
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.LceErrorNoPostsHaveMyPost
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.LceErrorNoPostsHaveMyPostProvider
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.LceErrorPagingLoad
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.LceErrorPagingLoadProvider
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.UIBasePostContainer
@@ -63,14 +65,18 @@ abstract class BaseHomeChildScreen(
             }
         }
 
+        val localModifier = modifier.fillMaxSize()
+
         // TODO вынести в маппер
         when (val lceModel = state.lceModel) {
-            is LCEContent -> SafeContent(lazyPosts, modifier)
-            is LceErrorPagingLoadProvider -> LceErrorPagingLoad().LCEContent(modifier) {
-                lazyPosts?.retry()
+            is LCEContent -> SafeContent(lazyPosts, localModifier)
+            is LceErrorNoPostsHaveMyPostProvider -> {
+                LceErrorNoPostsHaveMyPost().LCEContent(localModifier, lazyPosts)
             }
-
-            else -> lceModel.LCEContent(modifier = modifier)
+            is LceErrorPagingLoadProvider -> {
+                LceErrorPagingLoad().LCEContent(localModifier, lazyPosts)
+            }
+            else -> lceModel.LCEContent(modifier = localModifier)
         }
     }
 
@@ -87,9 +93,7 @@ abstract class BaseHomeChildScreen(
         )
 
         Scaffold(
-            modifier = modifier
-                .fillMaxSize()
-                .pullRefresh(refreshState),
+            modifier = modifier.pullRefresh(refreshState),
             contentWindowInsets = WindowInsets(bottom = 0.dp),
             snackbarHost = { SnackbarHost(snackBarHostState) }
         ) { innerPadding ->
@@ -134,9 +138,11 @@ abstract class BaseHomeChildScreen(
                             .statusBarsPadding(),
                     ) {
                         item {
-                            Spacer(modifier = Modifier
-                                .height(60.dp)
-                                .fillMaxWidth())
+                            Spacer(
+                                modifier = Modifier
+                                    .height(60.dp)
+                                    .fillMaxWidth()
+                            )
                         }
 
                         items(

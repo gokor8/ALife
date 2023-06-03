@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.alife.anotherlife.R
@@ -15,6 +16,7 @@ import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Button18
 import com.alife.anotherlife.core.composable.text.style.style16Bold
 import com.alife.anotherlife.core.composable.text.style.style18Bold
+import com.alife.anotherlife.theme.Shapes
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.AbstractHomeChildViewModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.PostPhotoCardCompose
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.UICloudPicturesModel
@@ -56,7 +58,7 @@ class BlurUIPhotosPostModel(
     @Composable
     override fun Card(viewModel: AbstractHomeChildViewModel, modifier: Modifier) {
         Box(modifier = modifier, contentAlignment = Alignment.Center) {
-            super.Card(viewModel, modifier.blur(30.dp))
+            super.Card(viewModel, modifier.clip(Shapes.large).blur(30.dp))
             Column(Modifier.padding(horizontal = 40.dp)) {
                 TextBase(
                     textResId = R.string.create_alife_on_post,

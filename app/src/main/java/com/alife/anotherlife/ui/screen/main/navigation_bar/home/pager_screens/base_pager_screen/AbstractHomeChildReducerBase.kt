@@ -16,7 +16,6 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.ba
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildState
 import com.alife.core.mapper.Mapper
 import com.alife.domain.main.BaseMyPostUseCase
-import com.alife.domain.main.MyPostUseCase
 import com.alife.domain.main.home.child.ProfileCardEntity
 import kotlinx.coroutines.CoroutineScope
 
@@ -33,19 +32,20 @@ abstract class AbstractHomeChildReducerBase(
     private val pageSize = 10
 
     override suspend fun onInit(viewModelScoped: CoroutineScope) {
-        if(getState().postsPagingData != null) return
+        if (getState().postsPagingData != null) return
 
         val pagingFlow = Pager(
             config = PagingConfig(pageSize = pageSize),
             pagingSourceFactory = { pagingFactory.create(this) }
         ).flow.cachedIn(viewModelScoped)
 
+        onLoad(myPostUseCase.isHavePostToday())
+
         setState { copy(postsPagingData = pagingFlow) }
     }
 
     override suspend fun onPagingLoadState(loadStates: CombinedLoadStates) {
         loadStateMapper.map(this, loadStates)
-        onLoad(myPostUseCase.isHavePostToday())
     }
 
     override suspend fun onTakeALife() {

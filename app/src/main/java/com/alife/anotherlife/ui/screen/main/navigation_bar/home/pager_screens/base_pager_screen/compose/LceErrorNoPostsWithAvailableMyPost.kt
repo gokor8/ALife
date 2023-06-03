@@ -2,6 +2,7 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.b
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
@@ -14,25 +15,27 @@ import androidx.paging.compose.LazyPagingItems
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.button.BorderButton
 import com.alife.anotherlife.core.composable.text.TextBase
+import com.alife.anotherlife.core.composable.text.style.style16
+import com.alife.anotherlife.core.composable.text.style.style16Bold
 import com.alife.anotherlife.core.composable.text.style.style18Bold
-import com.alife.anotherlife.core.composable.text.style.style36Bold
 import com.alife.anotherlife.core.ui.state.lce.LCEModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.UIBasePostContainer
 
-object LceErrorPagingLoadProvider : LCEModel.Error {
-
+object LceErrorNoPostsHaveMyPostProvider : LCEModel.Error {
     @Composable
     override fun LCEContent(modifier: Modifier) = Unit
 }
 
-class LceErrorPagingLoad : PagingLceError {
+class LceErrorNoPostsHaveMyPost : PagingLceError {
 
     @Composable
     override fun LCEContent(modifier: Modifier, lazyPosts: LazyPagingItems<UIBasePostContainer>?) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier.fillMaxWidth().padding(horizontal = 30.dp)
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(horizontal = 30.dp)
         ) {
             TextBase(
                 textResId = R.string.home_chile_paging_error_title,
@@ -40,6 +43,12 @@ class LceErrorPagingLoad : PagingLceError {
                 textAlign = TextAlign.Center
             )
             Divider(Modifier.padding(vertical = 16.dp), thickness = 1.dp)
+            TextBase(
+                textResId = R.string.home_chile_paging_first_error_description,
+                style = style16(),
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.padding(22.dp))
             BorderButton(textResId = R.string.repeat, onClick = { lazyPosts?.retry() })
         }
     }

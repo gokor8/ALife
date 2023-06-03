@@ -1,5 +1,7 @@
 package com.alife.anotherlife.di.data.main.home
 
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.AppendErrorMapper
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BaseAppendErrorMapper
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BaseLoadStatesToStateEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.LoadStatesToStateEffect
 import com.alife.data.repository.main.home.child.MainMockRepository
@@ -36,4 +38,7 @@ interface HomeDataModule {
 
     @Binds
     fun bindLoadStatesToStateEffect(mapper: LoadStatesToStateEffect): BaseLoadStatesToStateEffect
+
+    @Binds
+    fun bindAppendErrorMapper(mapper: AppendErrorMapper): BaseAppendErrorMapper
 }

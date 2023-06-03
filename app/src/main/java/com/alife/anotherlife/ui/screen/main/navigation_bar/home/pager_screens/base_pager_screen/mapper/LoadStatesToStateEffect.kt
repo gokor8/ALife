@@ -15,7 +15,9 @@ interface BaseLoadStatesToStateEffect {
     fun map(reducer: BaseHomeChildReducer, inputModel: CombinedLoadStates)
 }
 
-class LoadStatesToStateEffect @Inject constructor() : BaseLoadStatesToStateEffect {
+class LoadStatesToStateEffect @Inject constructor(
+    private val appendErrorMapper: BaseAppendErrorMapper
+) : BaseLoadStatesToStateEffect {
 
     override fun map(reducer: BaseHomeChildReducer, inputModel: CombinedLoadStates) {
         with(reducer.getState()) {
@@ -25,7 +27,7 @@ class LoadStatesToStateEffect @Inject constructor() : BaseLoadStatesToStateEffec
             reducer.setState {
                 when (refresh) {
                     is LoadState.Loading -> copy(lceModel = LCELoading)
-                    is LoadState.Error -> copy(lceModel = LceErrorPagingLoadProvider())
+                    is LoadState.Error -> copy(lceModel = appendErrorMapper.map(refresh.error))
                     is LoadState.NotLoading -> copy(lceModel = LCEContent)
                 }
             }
