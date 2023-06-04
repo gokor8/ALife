@@ -9,8 +9,8 @@ import com.alife.anotherlife.core.ui.state.lce.LCEModel
 import com.alife.anotherlife.core.ui.view_model.BaseViewModelLCE
 import com.alife.anotherlife.core.ui.view_model.ViewModelLCE
 import com.alife.core.mapper.Mapper
-
 abstract class VMScreenLCE<VM : BaseViewModelLCE<*, *, *, *>>(
+
     modifier: ModifierProvider = ScrollableModifier()
 ) : VMScreen<VM>(modifier) {
 

@@ -29,20 +29,21 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 
 class HomeScreen(
+    private val innerPadding: PaddingValues,
     override val navController: NavController,
 ) : VMScreen<HomeViewModel>(NoMaxSizeSystemPaddingModifier) {
 
     @Composable
     override fun setupViewModel(): HomeViewModel = hiltViewModel()
 
-    @OptIn(ExperimentalPagerApi::class, ExperimentalMaterialApi::class)
+    @OptIn(ExperimentalPagerApi::class)
     @Composable
     override fun Content(modifier: Modifier) {
         val state = viewModel.getUIState()
         val pagerScreens = state.pagerScreens
         val pagerState = state.pagerState
 
-        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+        BoxWithConstraints(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
             HorizontalPager(
                 count = pagerScreens.size,
                 state = pagerState
@@ -100,5 +101,5 @@ class HomeScreen(
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(rememberNavController()).SetupContent()
+    HomeScreen(PaddingValues(), rememberNavController()).SetupContent()
 }

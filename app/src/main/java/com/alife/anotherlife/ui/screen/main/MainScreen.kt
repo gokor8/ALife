@@ -1,5 +1,7 @@
 package com.alife.anotherlife.ui.screen.main
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -42,7 +44,9 @@ class MainScreen : DefaultScreen() {
                 }
             }
         ) { innerPadding ->
-            BottomBarNavGraph(innerPadding).SetupNavigation(navHostController = navController)
+            BottomBarNavGraph(
+                PaddingValues(bottom = innerPadding.calculateBottomPadding())
+            ).SetupNavigation(navHostController = navController)
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -31,7 +32,7 @@ class DevNavigationGraph @Inject constructor() : NavigationGraph {
                 },
                 TutorialNavBuilder(navHostController),
                 MainScreenNavBuilder(navHostController),
-                HomeNavBuilder(navHostController),
+                HomeNavBuilder(PaddingValues(), navHostController),
                 FriendsNavBuilder(navHostController),
                 WorldNavBuilder(navHostController),
                 CreateAlifeNavBuilder(navHostController),

@@ -3,6 +3,7 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home.post_profile
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -93,7 +94,7 @@ class PostProfileScreen(
             }
 
             ImageBase(
-                com.alife.data.R.drawable.img_voin,
+                R.drawable.img_voin,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .layoutId(constraints.image)

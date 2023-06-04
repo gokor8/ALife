@@ -25,11 +25,9 @@ class BottomBarNavGraph(private val innerPadding: PaddingValues) : NavigationGra
             startDestination = HomeNavigationRoute().routeTag
         ) {
             listOf(
-                MapNavBuilder(navHostController),
-                HomeNavBuilder(navHostController),
-                ProfileNavBuilder(navHostController),
-                FriendsNavBuilder(navHostController),
-                WorldNavBuilder(navHostController),
+                MapNavBuilder(innerPadding, navHostController),
+                HomeNavBuilder(innerPadding, navHostController),
+                ProfileNavBuilder(innerPadding, navHostController),
                 CreateAlifeNavBuilder(navHostController),
                 FinishPictureNavBuilder(navHostController),
                 FinishVideoNavBuilder(navHostController),
