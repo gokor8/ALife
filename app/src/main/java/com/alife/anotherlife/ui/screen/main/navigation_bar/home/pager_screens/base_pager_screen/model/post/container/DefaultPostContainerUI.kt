@@ -2,6 +2,7 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.b
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.media3.exoplayer.ExoPlayer
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.AbstractHomeChildViewModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.post_model.UIPlzCreatePostModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.post_model.UIPostModel
@@ -13,8 +14,12 @@ class DefaultPostContainerUI(
     override fun itemKey() = uiPostModel.itemKey()
 
     @Composable
-    override fun Post(viewModel: AbstractHomeChildViewModel, modifier: Modifier) {
-        uiPostModel.Card(viewModel = viewModel, modifier = modifier)
+    override fun Post(
+        exoPlayer: ExoPlayer,
+        viewModel: AbstractHomeChildViewModel,
+        modifier: Modifier
+    ) {
+        uiPostModel.Card(exoPlayer, viewModel, modifier)
     }
 }
 
@@ -25,7 +30,7 @@ class PlzCreatePostContainerUI : UIBasePostContainer {
     override fun itemKey() = uiPostModel.itemKey()
 
     @Composable
-    override fun Post(viewModel: AbstractHomeChildViewModel, modifier: Modifier) {
-        uiPostModel.Card(viewModel = viewModel, modifier = modifier)
+    override fun Post(exoPlayer: ExoPlayer, viewModel: AbstractHomeChildViewModel, modifier: Modifier) {
+        uiPostModel.Card(exoPlayer, viewModel, modifier)
     }
 }

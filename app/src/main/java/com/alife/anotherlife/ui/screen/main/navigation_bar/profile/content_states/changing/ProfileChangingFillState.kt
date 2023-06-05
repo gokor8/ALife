@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,6 +32,7 @@ import com.alife.anotherlife.core.composable.brush.verticalTopToBottomGradient
 import com.alife.anotherlife.core.composable.clickableNoRipple
 import com.alife.anotherlife.core.composable.icon.IconBase
 import com.alife.anotherlife.core.composable.image.ImageBase
+import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.style16
 import com.alife.anotherlife.core.composable.text.style.style36Bold
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.state.ProfileChangingAction
@@ -140,9 +142,29 @@ class ProfileChangingFillState(
         }
 
         Column(
-            modifier = Modifier.layoutId(constraints.bottom).padding(start = 14.dp)
+            modifier = Modifier
+                .layoutId(constraints.bottom)
+                .padding(start = 14.dp)
         ) {
             Text("Russia", maxLines = 1, style = style16(visibleColor))
+            BasicTextField(
+                value = state.description,
+                decorationBox = { innerTextField ->
+                    if (state.description.isEmpty())
+                        Text(
+                            text = "Description...",
+                            color = visibleColor,
+                            modifier = Modifier
+                                .align(Alignment.CenterHorizontally)
+                                .fillMaxWidth()
+                        )
+
+                    innerTextField()
+                },
+                onValueChange = { description ->
+                    viewModel.reduce(ProfileChangingAction.OnDescription(description))
+                }
+            )
         }
     }
 }

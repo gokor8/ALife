@@ -1,7 +1,9 @@
 package com.alife.anotherlife.di.domain.main.profile
 
 import com.alife.domain.main.profile.BasePostProfileInfoUseCase
+import com.alife.domain.main.profile.BaseUserProfileInfoUseCase
 import com.alife.domain.main.profile.PostProfileInfoUseCase
+import com.alife.domain.main.profile.UserProfileInfoUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,4 +16,7 @@ interface ProfileDomainModule {
 
     @Binds
     fun bindPostProfileInfoUseCase(useCase: PostProfileInfoUseCase): BasePostProfileInfoUseCase
+
+    @Binds
+    fun bindUserProfileInfoUseCase(useCase: UserProfileInfoUseCase): BaseUserProfileInfoUseCase
 }

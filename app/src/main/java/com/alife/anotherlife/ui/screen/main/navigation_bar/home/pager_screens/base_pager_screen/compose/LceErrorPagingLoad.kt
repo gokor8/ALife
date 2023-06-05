@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.paging.compose.LazyPagingItems
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.button.BorderButton
@@ -28,7 +29,10 @@ object LceErrorPagingLoadProvider : LCEModel.Error {
 class LceErrorPagingLoad : PagingLceError {
 
     @Composable
-    override fun LCEContent(modifier: Modifier, lazyPosts: LazyPagingItems<UIBasePostContainer>?) {
+    override fun LCEContent(
+        lazyPosts: LazyPagingItems<UIBasePostContainer>?,
+        modifier: Modifier,
+    ) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,

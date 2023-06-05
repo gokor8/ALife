@@ -29,7 +29,7 @@ object LceErrorNoPostsHaveMyPostProvider : LCEModel.Error {
 class LceErrorNoPostsHaveMyPost : PagingLceError {
 
     @Composable
-    override fun LCEContent(modifier: Modifier, lazyPosts: LazyPagingItems<UIBasePostContainer>?) {
+    override fun LCEContent(lazyPosts: LazyPagingItems<UIBasePostContainer>?, modifier: Modifier) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,

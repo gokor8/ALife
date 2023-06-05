@@ -2,6 +2,7 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.b
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.media3.exoplayer.ExoPlayer
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.AbstractHomeChildViewModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.post_model.UIPostModel
 
@@ -10,7 +11,11 @@ interface UIBasePostContainer {
     fun itemKey(): String
 
     @Composable
-    fun Post(viewModel: AbstractHomeChildViewModel, modifier: Modifier)
+    fun Post(
+        exoPlayer: ExoPlayer,
+        viewModel: AbstractHomeChildViewModel,
+        modifier: Modifier
+    )
 
 
     abstract class Abstract: UIBasePostContainer {
@@ -22,12 +27,16 @@ interface UIBasePostContainer {
         override fun itemKey(): String = username + timestamp
 
         @Composable
-        override fun Post(viewModel: AbstractHomeChildViewModel, modifier: Modifier) {
-            return if (viewModel.getUIState().isHavePostToday) {
+        override fun Post(
+            exoPlayer: ExoPlayer,
+            viewModel: AbstractHomeChildViewModel,
+            modifier: Modifier
+        ) {
+            if (viewModel.getUIState().isHavePostToday) {
                 clear(viewModel = viewModel, modifier = modifier)
             } else {
                 blur(viewModel = viewModel, modifier = modifier)
-            }.Card(viewModel = viewModel, modifier = modifier)
+            }.Card(exoPlayer, viewModel, modifier)
         }
 
         @Composable

@@ -11,6 +11,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.media3.exoplayer.ExoPlayer
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Button18
@@ -34,7 +35,11 @@ abstract class AbstractUIPhotosPostModel(
     override fun itemKey() = username + timestamp + avatar + frontAlife + backAlife
 
     @Composable
-    override fun Card(viewModel: AbstractHomeChildViewModel, modifier: Modifier) {
+    override fun Card(
+        exoPlayer: ExoPlayer,
+        viewModel: AbstractHomeChildViewModel,
+        modifier: Modifier
+    ) {
         PostPhotoCardCompose(
             profileName = username,
             avatar = avatar,
@@ -56,9 +61,17 @@ class BlurUIPhotosPostModel(
 ) : AbstractUIPhotosPostModel(username, timestamp, avatar, frontAlife, backAlife) {
 
     @Composable
-    override fun Card(viewModel: AbstractHomeChildViewModel, modifier: Modifier) {
+    override fun Card(
+        exoPlayer: ExoPlayer,
+        viewModel: AbstractHomeChildViewModel,
+        modifier: Modifier
+    ) {
         Box(modifier = modifier, contentAlignment = Alignment.Center) {
-            super.Card(viewModel, modifier.clip(Shapes.large).blur(30.dp))
+            super.Card(
+                exoPlayer,
+                viewModel,
+                modifier.clip(Shapes.large).blur(30.dp)
+            )
             Column(Modifier.padding(horizontal = 40.dp)) {
                 TextBase(
                     textResId = R.string.create_alife_on_post,

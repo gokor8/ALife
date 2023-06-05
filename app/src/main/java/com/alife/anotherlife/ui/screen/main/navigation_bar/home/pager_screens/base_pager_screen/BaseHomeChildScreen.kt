@@ -28,7 +28,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.media3.common.C
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -55,8 +59,20 @@ abstract class BaseHomeChildScreen(
     }
 
     @Composable
+    @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
     override fun Content(modifier: Modifier) {
+        val context = LocalContext.current
         val state = viewModel.getUIState()
+
+        val exoPlayer = remember {
+            ExoPlayer.Builder(context).build().apply {
+                videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT
+                repeatMode = Player.REPEAT_MODE_ONE
+                playWhenReady = true
+                prepare()
+            }
+        }
+
         val lazyPosts = state.postsPagingData?.collectAsLazyPagingItems()
 
         lazyPosts?.apply {
@@ -69,12 +85,12 @@ abstract class BaseHomeChildScreen(
 
         // TODO вынести в маппер
         when (val lceModel = state.lceModel) {
-            is LCEContent -> SafeContent(lazyPosts, localModifier)
+            is LCEContent -> SafeContent(exoPlayer, lazyPosts, localModifier)
             is LceErrorNoPostsHaveMyPostProvider -> {
-                LceErrorNoPostsHaveMyPost().LCEContent(localModifier, lazyPosts)
+                LceErrorNoPostsHaveMyPost().LCEContent(lazyPosts, localModifier)
             }
             is LceErrorPagingLoadProvider -> {
-                LceErrorPagingLoad().LCEContent(localModifier, lazyPosts)
+                LceErrorPagingLoad().LCEContent(lazyPosts, localModifier)
             }
             else -> lceModel.LCEContent(modifier = localModifier)
         }
@@ -82,7 +98,11 @@ abstract class BaseHomeChildScreen(
 
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
-    fun SafeContent(lazyPosts: LazyPagingItems<UIBasePostContainer>?, modifier: Modifier) {
+    fun SafeContent(
+        exoPlayer: ExoPlayer,
+        lazyPosts: LazyPagingItems<UIBasePostContainer>?,
+        modifier: Modifier
+    ) {
         val state = viewModel.getUIState()
 
         val snackBarHostState = remember { SnackbarHostState() }
@@ -146,7 +166,7 @@ abstract class BaseHomeChildScreen(
                             key = lazyPosts.itemKey(key = { it.itemKey() }),
                             contentType = lazyPosts.itemContentType()
                         ) { index ->
-                            lazyPosts[index]?.Post(viewModel = viewModel, modifier = Modifier)
+                            lazyPosts[index]?.Post(exoPlayer, viewModel, Modifier)
                         }
 
                         item {

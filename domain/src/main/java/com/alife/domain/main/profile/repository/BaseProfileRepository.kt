@@ -6,5 +6,5 @@ interface BaseProfileRepository {
 
     suspend fun getPostProfile(username: String): ProfileInfoEntity
 
-    //suspend fun getProfile(username: String): ?PostProfileInfoUseCase?
+    suspend fun getUserInfo(): ProfileInfoEntity
 }
