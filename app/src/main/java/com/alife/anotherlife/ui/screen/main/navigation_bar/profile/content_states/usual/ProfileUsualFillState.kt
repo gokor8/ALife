@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.usual
 
+import android.util.Log
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.core.animateFloat
@@ -71,7 +72,6 @@ class ProfileUsualFillState(
             modifier = Modifier
                 .layoutId(constraints.topBar)
                 .background(verticalTopToBottomGradient())
-                .zIndex(1f)
                 .systemBarsPadding()
                 .padding(bottom = 14.dp)
                 .padding(horizontal = 16.dp)
@@ -93,14 +93,17 @@ class ProfileUsualFillState(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .layoutId(constraints.image)
+                .zIndex(-1f)
                 .fillMaxWidth()
-                .aspectRatio(360 / 395f)
+                .aspectRatio(360 / 395f).clickableNoRipple {
+                    Log.d("Aboba Image", "ImageWas clicked")
+                }
         )
 
         Row(
             modifier = Modifier
                 .layoutId(constraints.preBottom)
-                .zIndex(1f)
+                .fillMaxWidth()
                 .background(verticalBottomToTopGradient())
                 .padding(horizontal = 14.dp),
             horizontalArrangement = Arrangement.SpaceBetween,

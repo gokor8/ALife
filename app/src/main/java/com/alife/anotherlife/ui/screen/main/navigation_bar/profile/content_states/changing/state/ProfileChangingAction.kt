@@ -7,7 +7,7 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.Profile
 
 interface ProfileChangingAction : BaseMVIAction<BaseProfileChangingReducer> {
 
-    class OnInit(private val profileUIDataModel: ProfileUIDataModel) : ProfileChangingAction {
+    class Init(private val profileUIDataModel: ProfileUIDataModel) : ProfileChangingAction {
         override suspend fun onAction(reducer: BaseProfileChangingReducer) {
             reducer.onProfileUIDataModel(profileUIDataModel)
         }
@@ -34,6 +34,18 @@ interface ProfileChangingAction : BaseMVIAction<BaseProfileChangingReducer> {
     class OnDescription(private val newDescription: String): ProfileChangingAction {
         override suspend fun onAction(reducer: BaseProfileChangingReducer) {
             reducer.onDescription(newDescription)
+        }
+    }
+
+    class SaveChanges : ProfileChangingAction {
+        override suspend fun onAction(reducer: BaseProfileChangingReducer) {
+            reducer.onSave()
+        }
+    }
+
+    class DiscardChanges : ProfileChangingAction {
+        override suspend fun onAction(reducer: BaseProfileChangingReducer) {
+            reducer.onDiscard()
         }
     }
 }

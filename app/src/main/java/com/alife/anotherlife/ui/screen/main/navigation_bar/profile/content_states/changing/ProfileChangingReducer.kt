@@ -43,7 +43,8 @@ class ProfileChangingReducer @Inject constructor(
     }
 
     override fun onSave() {
-        // some save
+        // some save usecase
+        profileReducer.onUsual()
     }
 
     override fun onDiscard() {

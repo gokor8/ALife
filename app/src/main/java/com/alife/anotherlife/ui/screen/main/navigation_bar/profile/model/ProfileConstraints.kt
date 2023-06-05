@@ -52,7 +52,6 @@ class ProfileConstraints :
             }
 
             constrain(refsModel.preBottom) {
-                width = Dimension.matchParent
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
                 bottom.linkTo(refsModel.image.bottom)
