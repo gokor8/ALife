@@ -70,7 +70,7 @@ class PostProfileScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .layoutId(constraints.topBar)
-                    .zIndex(1f)
+                    .fillMaxWidth()
                     .background(verticalTopToBottomGradient())
                     .systemBarsPadding()
                     .padding(vertical = 14.dp)
@@ -99,13 +99,14 @@ class PostProfileScreen(
                 modifier = Modifier
                     .layoutId(constraints.image)
                     .fillMaxWidth()
+                    .zIndex(-1f)
                     .aspectRatio(360 / 395f)
             )
 
             Row(
                 modifier = Modifier
                     .layoutId(constraints.preBottom)
-                    .zIndex(1f)
+                    .fillMaxWidth()
                     .background(verticalBottomToTopGradient())
                     .padding(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,

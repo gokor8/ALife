@@ -31,7 +31,7 @@ abstract class AbstractUIPhotosPostModel(
     private val backAlife: String,
 ) : UIPostModel.Abstract() {
 
-    override fun itemKey() = username + timestamp
+    override fun itemKey() = username + timestamp + avatar + frontAlife + backAlife
 
     @Composable
     override fun Card(viewModel: AbstractHomeChildViewModel, modifier: Modifier) {

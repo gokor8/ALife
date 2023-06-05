@@ -10,7 +10,7 @@ import javax.inject.Named
 
 class MyPostUseCase @Inject constructor(
     override val dispatcher: CoroutineDispatcher,
-    @Named("MockMainRepo")
+    //@Named("MockMainRepo")
     private val mainRepository: BaseMainRepository
 ) : AbstractUseCase(), BaseMyPostUseCase {
 
@@ -18,7 +18,8 @@ class MyPostUseCase @Inject constructor(
 
     override suspend fun isHavePostToday() = withIO {
         try {
-            mainRepository.isHavePostToday()
+            //mainRepository.isHavePostToday()
+            true
         } catch (e: Exception) {
             defaultValue
         }

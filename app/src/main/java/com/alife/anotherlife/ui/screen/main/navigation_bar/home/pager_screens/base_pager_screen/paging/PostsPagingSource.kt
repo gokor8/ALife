@@ -37,7 +37,7 @@ class PostsPagingSource @Inject constructor(
             val isHavePostToday = myPostUseCase.isHavePostToday()
 
             val postModelList = responseToEntity.map(
-                postsUseCase.getPosts(page, params.loadSize).posts,
+                postsUseCase.getPosts(page, 10).posts,//params.loadSize).posts,
                 isHavePostToday
             )
 

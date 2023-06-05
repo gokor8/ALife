@@ -138,11 +138,7 @@ abstract class BaseHomeChildScreen(
                             .statusBarsPadding(),
                     ) {
                         item {
-                            Spacer(
-                                modifier = Modifier
-                                    .height(60.dp)
-                                    .fillMaxWidth()
-                            )
+                            Spacer(modifier = Modifier.height(60.dp).fillMaxWidth())
                         }
 
                         items(

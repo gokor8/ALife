@@ -30,10 +30,7 @@ fun PostPhotoCardCompose(
 ) {
     val profileCardModel = ProfileCardModel()
 
-    ConstraintLayout(
-        ProfileCardConstraints().markup(profileCardModel),
-        modifier = Modifier.clickableNoRipple(onClick = onProfileClick)
-    ) {
+    ConstraintLayout(ProfileCardConstraints().markup(profileCardModel)) {
         val profileIconModifier = Modifier
             .layoutId(profileCardModel.profileIcon)
             .size(28.dp)

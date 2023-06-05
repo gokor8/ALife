@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.finish_create_alife.video.composable
 
+import android.net.Uri
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -8,14 +9,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import com.alife.anotherlife.core.composable.lifecycle.OnLifecycle
@@ -30,11 +32,13 @@ fun VideoPlayerComposable(
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
-    val mediaItem = MediaItem.Builder().setUri(videoUrl).build()
+    val mediaItem = MediaItem.fromUri(Uri.parse(videoUrl))
+    val mediaSource = ProgressiveMediaSource.Factory(DefaultDataSource.Factory(context)).createMediaSource(mediaItem)
 
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
-            setMediaItem(mediaItem)
+            //setMediaItem(mediaItem)
+            setMediaSource(mediaSource)
             videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT
             repeatMode = Player.REPEAT_MODE_ONE
             playWhenReady = true

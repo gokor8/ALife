@@ -35,10 +35,7 @@ class LoadStatesToStateEffect @Inject constructor(
             reducer.setState {
                 when (append) {
                     is LoadState.Loading -> copy(uiLoaderModel = UIPostLoaderModel.LoaderModel)
-                    is LoadState.Error -> {
-                        reducer.trySetEffect(HomeChildEffect.SnackBarPagingError())
-                        copy(uiLoaderModel = UIPostLoaderModel.EmptyModel)
-                    }
+                    is LoadState.Error -> copy(uiLoaderModel = UIPostLoaderModel.EmptyModel)
                     is LoadState.NotLoading -> copy(uiLoaderModel = UIPostLoaderModel.EmptyModel)
                 }
             }
