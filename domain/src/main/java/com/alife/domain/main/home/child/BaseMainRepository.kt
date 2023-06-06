@@ -6,5 +6,7 @@ interface BaseMainRepository {
 
     suspend fun getPosts(page: Int, pageSize: Int): PostsEntity
 
+    suspend fun getFriendsPosts(page: Int, pageSize: Int): PostsEntity
+
     suspend fun isHavePostToday(): Boolean
 }

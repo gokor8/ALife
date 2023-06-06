@@ -1,20 +1,24 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing
 
 import android.net.Uri
+import com.alife.anotherlife.core.ui.image.ImageExtModel
 import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.BaseProfileReducer
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.state.ProfileChangingEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.state.ProfileChangingState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileUIDataModel
-import com.alife.data.repository.main.profile.PhotoUriWrapper
-import com.alife.domain.main.profile.BaseReadNewProfilePhoto
+import com.alife.data.repository.main.profile.model.PhotoUriWrapper
+import com.alife.domain.main.profile.BaseReadNewProfilePhotoUseCase
+import com.alife.domain.main.profile.BaseSaveProfileDataUseCase
+import com.alife.domain.main.profile.entity.ProfileMainInfoEntity
 import javax.inject.Inject
 
 class ProfileChangingReducer @Inject constructor(
     override val uiStore: UIStore<ProfileChangingState, ProfileChangingEffect>,
     private val profileReducer: BaseProfileReducer,
-    private val readNewProfilePhoto: BaseReadNewProfilePhoto
+    private val readNewProfilePhoto: BaseReadNewProfilePhotoUseCase,
+    private val saveProfileDataUseCase: BaseSaveProfileDataUseCase
 ) : HandlerBaseVMReducer<ProfileChangingState, ProfileChangingEffect>(),
     BaseProfileChangingReducer {
 
@@ -22,7 +26,7 @@ class ProfileChangingReducer @Inject constructor(
         setState {
             copy(
                 username = profileUIDataModel.username,
-                photoUri = profileUIDataModel.photo,
+                photo = ImageExtModel.Uri(profileUIDataModel.photo),
                 name = profileUIDataModel.name,
                 description = profileUIDataModel.description
             )
@@ -37,7 +41,10 @@ class ProfileChangingReducer @Inject constructor(
         execute {
 
         }.handle {
-            readNewProfilePhoto.getPhoto(PhotoUriWrapper(uri))
+            val file = readNewProfilePhoto.getPhoto(PhotoUriWrapper(uri))
+            saveProfileDataUseCase.saveProfileImage(PhotoUriWrapper(uri))
+
+            setState { copy(photo = ImageExtModel.File(file)) }
         }
     }
 
@@ -49,7 +56,10 @@ class ProfileChangingReducer @Inject constructor(
         setState { copy(description = newDescription) }
     }
 
-    override fun onSave() {
+    override suspend fun onSave() {
+        with(getState()) {
+            saveProfileDataUseCase.saveData(ProfileMainInfoEntity(username, name, description))
+        }
         // some save usecase
         profileReducer.onUsual()
     }

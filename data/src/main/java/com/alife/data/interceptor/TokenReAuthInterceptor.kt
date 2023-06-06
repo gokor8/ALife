@@ -37,6 +37,7 @@ class TokenReAuthInterceptor @Inject constructor(
             }
             404 -> {
                 //tokensUseCase.deleteTokens()
+                response.close()
                 throw ServerUnavailable()
             }
             else -> response

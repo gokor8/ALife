@@ -20,7 +20,7 @@ class FriendsReducer @Inject constructor(
     override val uiStore: UIStore<HomeChildState, HomeChildEffect>,
     mapper: Mapper<ProfileCardEntity, UIPostModel>,
     loadStateMapper: BaseLoadStatesToStateEffect,
-    pagingFactory: BasePagingSourceFactory<PostsPagingSource>,
+    pagingFactory: BasePagingSourceFactory.Friends,
     tabsVisibilityContract: TabsVisibilityContract,
     myPostUseCase: BaseMyPostUseCase
 ) : AbstractHomeChildReducerBase(

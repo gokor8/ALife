@@ -1,3 +1,6 @@
 package com.alife.domain.main.profile.entity
 
-interface BasePhotoUriWrapper
+interface BasePhotoUriWrapper {
+
+    class Empty : BasePhotoUriWrapper
+}

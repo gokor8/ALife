@@ -55,4 +55,8 @@ class MainMockRepository @Inject constructor(
             )
         )
     }
+
+    override suspend fun getFriendsPosts(page: Int, pageSize: Int): PostsEntity {
+        TODO("Not yet implemented")
+    }
 }

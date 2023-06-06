@@ -4,14 +4,15 @@ import com.alife.domain.core.usecase.AbstractUseCase
 import com.alife.domain.main.profile.entity.BasePhotoUriWrapper
 import com.alife.domain.main.profile.repository.BaseProfileRepository
 import kotlinx.coroutines.CoroutineDispatcher
+import java.io.File
 import javax.inject.Inject
 
-class ReadNewProfilePhoto @Inject constructor(
+class ReadNewProfilePhotoUseCase @Inject constructor(
     override val dispatcher: CoroutineDispatcher,
     private val profileRepository: BaseProfileRepository
-) : AbstractUseCase(), BaseReadNewProfilePhoto {
+) : AbstractUseCase(), BaseReadNewProfilePhotoUseCase {
 
-    override suspend fun getPhoto(photoUriReader: BasePhotoUriWrapper): ByteArray = withIO {
+    override suspend fun getPhoto(photoUriReader: BasePhotoUriWrapper): File = withIO {
         profileRepository.getPhotoBytes(photoUriReader)
     }
 }

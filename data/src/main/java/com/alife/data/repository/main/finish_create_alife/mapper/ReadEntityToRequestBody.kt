@@ -12,7 +12,8 @@ interface BaseReadEntityToRequestBody {
 }
 
 class ReadEntityToRequestBody @Inject constructor(
-    private val readEntityToFile: BaseReadEntityToFile
+    private val readEntityToFile: BaseReadEntityToFile,
+    private val fileToMultipart: BaseFileToMultipart
 ) : BaseReadEntityToRequestBody {
 
     override fun map(
@@ -21,13 +22,6 @@ class ReadEntityToRequestBody @Inject constructor(
     ): MultipartBody.Part {
         val file = readEntityToFile.map(inputModel)
 
-        return MultipartBody.Part.createFormData(
-            file.nameWithoutExtension,
-            file.name,
-            RequestBody.create(
-                MediaType.parse(fileType.mediaType()),
-                file
-            )
-        )
+        return fileToMultipart.map(file, fileType)
     }
 }

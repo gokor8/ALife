@@ -14,8 +14,6 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.ba
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.ProfileCardEntityToUICard
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.UIBasePostContainer
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.post_model.UIPostModel
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.paging.BasePagingSourceFactory
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.paging.PostsPagingSourceFactory
 import com.alife.core.mapper.Mapper
 import com.alife.domain.main.home.child.ProfileCardEntity
 import dagger.Binds
@@ -48,9 +46,9 @@ interface HomeViewModelModule {
     @Binds
     fun bindPaging(paging: PostsPagingSource): PagingSource<Int, UIBasePostContainer>
 
-    @Binds
-    fun bindPostsPagingSourceFactory(pagingSource: PostsPagingSourceFactory)
-            : BasePagingSourceFactory<PostsPagingSource>
+//    @Binds
+//    fun bindPostsPagingSourceFactory(pagingSource: PostsPagingSourceFactory)
+//            : BasePagingSourceFactory<PostsPagingSource>
 
     @Binds
     fun bindPagingKeyMapper(mapper: PagingKeyMapper): BasePagingKeyMapper

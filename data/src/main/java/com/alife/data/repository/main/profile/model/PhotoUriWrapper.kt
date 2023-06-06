@@ -1,4 +1,4 @@
-package com.alife.data.repository.main.profile
+package com.alife.data.repository.main.profile.model
 
 import android.net.Uri
 import com.alife.domain.main.profile.entity.BasePhotoUriWrapper

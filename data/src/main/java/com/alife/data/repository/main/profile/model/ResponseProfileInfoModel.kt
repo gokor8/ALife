@@ -1,4 +1,4 @@
-package com.alife.data.repository.main.profile
+package com.alife.data.repository.main.profile.model
 
 import com.google.gson.annotations.SerializedName
 

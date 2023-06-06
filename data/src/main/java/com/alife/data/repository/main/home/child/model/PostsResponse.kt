@@ -18,7 +18,7 @@ class PostResponse(
     @SerializedName("secondPhoto")
     val secondPhoto: String?,
     @SerializedName("video")
-    val video: String?,
+    val video: String?
 ) {
 
     fun isPhoto() = firstPhoto != null && secondPhoto != null

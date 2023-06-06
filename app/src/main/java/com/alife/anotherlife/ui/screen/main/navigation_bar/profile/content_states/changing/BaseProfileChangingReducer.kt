@@ -14,6 +14,6 @@ interface BaseProfileChangingReducer : BaseVMReducer<ProfileChangingState, Profi
     fun onName(newName: String)
     fun onDescription(newDescription: String)
 
-    fun onSave()
+    suspend fun onSave()
     fun onDiscard()
 }

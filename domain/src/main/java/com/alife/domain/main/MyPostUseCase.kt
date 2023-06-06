@@ -18,8 +18,7 @@ class MyPostUseCase @Inject constructor(
 
     override suspend fun isHavePostToday() = withIO {
         try {
-            //mainRepository.isHavePostToday()
-            true
+            mainRepository.isHavePostToday()
         } catch (e: Exception) {
             defaultValue
         }

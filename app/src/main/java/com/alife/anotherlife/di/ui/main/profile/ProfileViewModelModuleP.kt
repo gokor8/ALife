@@ -1,5 +1,6 @@
 package com.alife.anotherlife.di.ui.main.profile
 
+import com.alife.anotherlife.core.ui.image.ImageExtModel
 import com.alife.anotherlife.core.ui.store.DefaultUIStore
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.post_profile.state.PostEffect
@@ -27,7 +28,7 @@ class ProfileViewModelModuleP {
     @Singleton
     @Provides
     fun provideProfileChanging(): UIStore<ProfileChangingState, ProfileChangingEffect> {
-        return DefaultUIStore(ProfileChangingState("", "", "", ""))
+        return DefaultUIStore(ProfileChangingState("", ImageExtModel.Empty(), "", ""))
     }
 
     @Singleton

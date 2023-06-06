@@ -20,7 +20,7 @@ class WorldReducer @Inject constructor(
     override val uiStore: UIStore<HomeChildState, HomeChildEffect>,
     mapper: Mapper<ProfileCardEntity, UIPostModel>,
     loadStateMapper: BaseLoadStatesToStateEffect,
-    pagingFactory: BasePagingSourceFactory<PostsPagingSource>,
+    pagingFactory: BasePagingSourceFactory.World,
     tabsVisibilityContract: TabsVisibilityContract,
     myPostUseCase: BaseMyPostUseCase
 ) : AbstractHomeChildReducerBase(
