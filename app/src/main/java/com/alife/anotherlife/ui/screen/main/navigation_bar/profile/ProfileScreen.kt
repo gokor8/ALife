@@ -15,6 +15,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alife.anotherlife.core.composable.modifier.BaseScrollFillMaxModifier
 import com.alife.anotherlife.core.ui.screen.VMScreenLCE
+import com.alife.anotherlife.core.ui.state.lce.LCEContent
+import com.alife.anotherlife.core.ui.state.lce.LCEModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.LceErrorProfileLoad
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.LceErrorProfileProvider
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileConstraintModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileConstraints
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.state.ProfileAction
@@ -30,6 +34,17 @@ class ProfileScreen(
     override suspend fun onInit() {
         viewModel.reduce(ProfileAction.OnInit())
     }
+
+    @Composable
+    override fun Content(modifier: Modifier) {
+        if(viewModel.getUIState().lceModel is LceErrorProfileProvider)
+            LceErrorProfileLoad().LCEContent {
+                viewModel.reduce(ProfileAction.OnInit())
+            }
+        else
+            super.Content(modifier)
+    }
+
 
     @Composable
     override fun SafeContent(modifier: Modifier) {

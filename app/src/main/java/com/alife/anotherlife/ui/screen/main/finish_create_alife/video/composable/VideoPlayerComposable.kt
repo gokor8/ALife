@@ -90,6 +90,7 @@ fun VideoPlayerComposable(
             factory = {
                 PlayerView(context).apply {
                     hideController()
+                    setShowBuffering(PlayerView.SHOW_BUFFERING_ALWAYS)
                     useController = false
                     player = exoPlayer
                     resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM

@@ -7,6 +7,7 @@ import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.ProfileChangingFillState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.usual.ProfileUsualFillState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.EmptyProfileUIDataModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.LceErrorProfileProvider
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileUIDataModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.state.ProfileEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.state.ProfileState
@@ -22,19 +23,19 @@ class ProfileReducer @Inject constructor(
         if (getState().profileUIDataModel is EmptyProfileUIDataModel)
             setState { copy(lceModel = LCELoading) }
 
-        execute { }.handle {
+        executeThis(getState()) {
+            copy(lceModel = LceErrorProfileProvider)
+        }.handleThis(getState()) {
             val profileInfo = with(profileInfoUseCase.getProfileInfo()) {
                 ProfileUIDataModel(name, username, pictureUrl, description)
             }
 
-            setState {
-                copy(
-                    lceModel = LCEContent,
-                    profileUIDataModel = profileInfo,
-                    contentFillState = ProfileUsualFillState(profileInfo)
-                )
-            }
-        }
+            copy(
+                lceModel = LCEContent,
+                profileUIDataModel = profileInfo,
+                contentFillState = ProfileUsualFillState(profileInfo)
+            )
+        }.apply(::setState)
     }
 
     override fun onChanging() {

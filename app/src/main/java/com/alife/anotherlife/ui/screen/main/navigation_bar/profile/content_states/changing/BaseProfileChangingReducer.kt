@@ -10,7 +10,7 @@ interface BaseProfileChangingReducer : BaseVMReducer<ProfileChangingState, Profi
 
     fun onProfileUIDataModel(profileUIDataModel: ProfileUIDataModel)
     fun onUsername(newUsername: String)
-    fun onPhoto(uri: Uri)
+    suspend fun onPhoto(uri: Uri)
     fun onName(newName: String)
     fun onDescription(newDescription: String)
 

@@ -116,4 +116,8 @@
     <string name="home_chile_paging_error_description">Повторите попытку</string>
     <string name="home_chile_paging_first_error_description">Вы единственный кто выложил пост, не удалось его загрузить</string>
 
+    // Profile
+    <string name="profile_error_title">Ошибка!</string>
+    <string name="profile_error_load_data">Произошла ошибка, при загрузке данных профиля</string>
+
 </resources>

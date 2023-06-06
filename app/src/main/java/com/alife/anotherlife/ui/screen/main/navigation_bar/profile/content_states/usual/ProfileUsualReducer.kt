@@ -6,6 +6,7 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.BaseProfileRe
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.usual.state.ProfileUsualEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.usual.state.ProfileUsualState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileUIDataModel
+import com.alife.domain.main.profile.BaseReadNewProfilePhoto
 import javax.inject.Inject
 
 class ProfileUsualReducer @Inject constructor(

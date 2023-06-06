@@ -7,11 +7,14 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.BaseProfileRe
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.state.ProfileChangingEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.state.ProfileChangingState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileUIDataModel
+import com.alife.data.repository.main.profile.PhotoUriWrapper
+import com.alife.domain.main.profile.BaseReadNewProfilePhoto
 import javax.inject.Inject
 
 class ProfileChangingReducer @Inject constructor(
     override val uiStore: UIStore<ProfileChangingState, ProfileChangingEffect>,
-    private val profileReducer: BaseProfileReducer
+    private val profileReducer: BaseProfileReducer,
+    private val readNewProfilePhoto: BaseReadNewProfilePhoto
 ) : HandlerBaseVMReducer<ProfileChangingState, ProfileChangingEffect>(),
     BaseProfileChangingReducer {
 
@@ -30,16 +33,20 @@ class ProfileChangingReducer @Inject constructor(
         setState { copy(username = newUsername) }
     }
 
-    override fun onPhoto(uri: Uri) {
-        TODO("Not yet implemented")
+    override suspend fun onPhoto(uri: Uri) {
+        execute {
+
+        }.handle {
+            readNewProfilePhoto.getPhoto(PhotoUriWrapper(uri))
+        }
     }
 
     override fun onName(newName: String) {
         setState { copy(name = newName) }
     }
 
-    override fun onDescription(newescription: String) {
-        setState { copy(description = newescription) }
+    override fun onDescription(newDescription: String) {
+        setState { copy(description = newDescription) }
     }
 
     override fun onSave() {

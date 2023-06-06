@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -50,6 +51,8 @@ class ProfileChangingFillState(
     @Composable
     @OptIn(ExperimentalAnimationApi::class)
     override fun ContentFill(constraints: ProfileConstraintModel) {
+        val context = LocalContext.current
+
         val viewModel: ProfileChangingViewModel = hiltViewModel()
         val state: ProfileChangingState = viewModel.getUIState()
 
@@ -83,6 +86,8 @@ class ProfileChangingFillState(
             ActivityResultContracts.GetContent()
         ) { fileUriState ->
             fileUriState?.apply {
+                context.contentResolver.openInputStream(fileUriState)
+
                 viewModel.reduce(ProfileChangingAction.OnPhoto(fileUriState))
             }
         }
