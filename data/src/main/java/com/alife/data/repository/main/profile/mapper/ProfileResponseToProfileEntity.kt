@@ -9,6 +9,6 @@ interface BaseProfileResponseToProfileEntity : Mapper<ResponseProfileInfoModel, 
 
 class ProfileResponseToProfileEntity @Inject constructor() : BaseProfileResponseToProfileEntity{
     override fun map(inputModel: ResponseProfileInfoModel) = with(inputModel) {
-        ProfileInfoEntity(username, name, country, description, pictureUrl)
+        ProfileInfoEntity(username, name, description, pictureUrl)
     }
 }

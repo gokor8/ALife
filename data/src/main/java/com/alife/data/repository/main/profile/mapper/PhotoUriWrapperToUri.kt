@@ -14,7 +14,7 @@ class PhotoUriWrapperToUri @Inject constructor() : BasePhotoUriWrapperToUri{
 
     override fun map(inputModel: BasePhotoUriWrapper): File {
         return if(inputModel is PhotoUriWrapper) {
-            inputModel.uri.toFile()
+            File(inputModel.uri.path)
         } else throw MappingException()
     }
 }

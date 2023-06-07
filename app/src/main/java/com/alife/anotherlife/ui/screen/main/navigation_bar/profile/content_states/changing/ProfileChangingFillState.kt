@@ -33,6 +33,7 @@ import com.alife.anotherlife.core.composable.brush.verticalTopToBottomGradient
 import com.alife.anotherlife.core.composable.clickableNoRipple
 import com.alife.anotherlife.core.composable.icon.IconBase
 import com.alife.anotherlife.core.composable.image.ImageBase
+import com.alife.anotherlife.core.composable.text.HintBasicTextField
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.style16
 import com.alife.anotherlife.core.composable.text.style.style36Bold
@@ -86,24 +87,18 @@ class ProfileChangingFillState(
             ActivityResultContracts.GetContent()
         ) { fileUriState ->
             fileUriState?.apply {
-                context.contentResolver.openInputStream(fileUriState)
-
                 viewModel.reduce(ProfileChangingAction.OnPhoto(fileUriState))
             }
         }
 
-        ImageBase(
-            R.drawable.img_tutor_back,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .layoutId(constraints.image)
-                .zIndex(-1f)
-                .fillMaxWidth()
-                .aspectRatio(360 / 395f)
-                .clickableNoRipple {
-                    pickImage.launch(imageExtension)
-                }
-        )
+        state.photo.ImageContent(modifier = Modifier
+            .layoutId(constraints.image)
+            .zIndex(-1f)
+            .fillMaxWidth()
+            .aspectRatio(360 / 395f)
+            .clickableNoRipple {
+                pickImage.launch(imageExtension)
+            })
 
         Row(
             modifier = Modifier
@@ -152,24 +147,14 @@ class ProfileChangingFillState(
                 .padding(start = 14.dp)
         ) {
             Text("Russia", maxLines = 1, style = style16(visibleColor))
-            BasicTextField(
-                value = state.description,
-                decorationBox = { innerTextField ->
-                    if (state.description.isEmpty())
-                        Text(
-                            text = "Description...",
-                            color = visibleColor,
-                            modifier = Modifier
-                                .align(Alignment.CenterHorizontally)
-                                .fillMaxWidth()
-                        )
 
-                    innerTextField()
-                },
-                onValueChange = { description ->
-                    viewModel.reduce(ProfileChangingAction.OnDescription(description))
-                }
-            )
+            HintBasicTextField(
+                state.description,
+                R.string.profile_hint_description,
+                visibleColor,
+            ) { description ->
+                viewModel.reduce(ProfileChangingAction.OnDescription(description))
+            }
         }
     }
 }

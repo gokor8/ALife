@@ -26,8 +26,8 @@ class PostProfileReducer @Inject constructor(
                 copy(
                     username = user.username,
                     name = user.name,
-                    country = user.country,
-                    description = user.description
+                    country = "",
+                    description = user.description ?: ""
                 )
             }
         }

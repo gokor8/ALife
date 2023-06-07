@@ -119,5 +119,6 @@
     // Profile
     <string name="profile_error_title">Ошибка!</string>
     <string name="profile_error_load_data">Произошла ошибка, при загрузке данных профиля</string>
+    <string name="profile_hint_description">Description…</string>
 
 </resources>

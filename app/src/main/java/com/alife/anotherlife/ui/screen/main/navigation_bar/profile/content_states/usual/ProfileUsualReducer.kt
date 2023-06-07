@@ -18,7 +18,7 @@ class ProfileUsualReducer @Inject constructor(
         setState {
             copy(
                 username = profileUIDataModel.username,
-                photoUri = profileUIDataModel.photo,
+                photo = profileUIDataModel.photo,
                 name = profileUIDataModel.name,
                 description = profileUIDataModel.description
             )

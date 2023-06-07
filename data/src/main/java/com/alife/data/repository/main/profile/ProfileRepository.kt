@@ -36,11 +36,11 @@ class ProfileRepository @Inject constructor(
 
     override suspend fun getUserInfo(): ProfileInfoEntity {
         return with(profileService.getUserInfo()) {
-            ProfileInfoEntity(username, name, country, description, pictureUrl)
+            ProfileInfoEntity(username, name, description, pictureUrl)
         }
     }
 
-    override suspend fun getPhotoBytes(photoUri: BasePhotoUriWrapper): File {
+    override suspend fun getPhotoFile(photoUri: BasePhotoUriWrapper): File {
         return profileUriWrapper.map(photoUri)
     }
 

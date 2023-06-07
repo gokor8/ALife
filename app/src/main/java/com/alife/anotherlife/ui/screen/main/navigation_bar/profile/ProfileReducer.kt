@@ -1,11 +1,13 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.profile
 
+import com.alife.anotherlife.core.ui.image.ImageExtModel
 import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
 import com.alife.anotherlife.core.ui.state.lce.LCEContent
 import com.alife.anotherlife.core.ui.state.lce.LCELoading
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.ProfileChangingFillState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.usual.ProfileUsualFillState
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.EmptyImageExtModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.EmptyProfileUIDataModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.LceErrorProfileProvider
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileUIDataModel
@@ -27,7 +29,13 @@ class ProfileReducer @Inject constructor(
             copy(lceModel = LceErrorProfileProvider)
         }.handleThis(getState()) {
             val profileInfo = with(profileInfoUseCase.getProfileInfo()) {
-                ProfileUIDataModel(name, username, pictureUrl, description)
+                val picture = if(pictureUrl == null) {
+                    EmptyImageExtModel()
+                } else {
+                    ImageExtModel.Uri(pictureUrl!!)
+                }
+
+                ProfileUIDataModel(name, username, picture, description ?: "")
             }
 
             copy(

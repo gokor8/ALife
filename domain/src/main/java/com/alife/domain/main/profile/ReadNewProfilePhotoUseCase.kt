@@ -13,6 +13,6 @@ class ReadNewProfilePhotoUseCase @Inject constructor(
 ) : AbstractUseCase(), BaseReadNewProfilePhotoUseCase {
 
     override suspend fun getPhoto(photoUriReader: BasePhotoUriWrapper): File = withIO {
-        profileRepository.getPhotoBytes(photoUriReader)
+        profileRepository.getPhotoFile(photoUriReader)
     }
 }

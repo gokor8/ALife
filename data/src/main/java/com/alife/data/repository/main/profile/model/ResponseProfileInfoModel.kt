@@ -7,10 +7,8 @@ class ResponseProfileInfoModel(
     val username: String,
     @SerializedName("name")
     val name: String,
-    @SerializedName("country")
-    val country: String,
     @SerializedName("description")
-    val description: String,
+    val description: String?,
     @SerializedName("pictureUrl")
-    val pictureUrl: String
+    val pictureUrl: String?
 )

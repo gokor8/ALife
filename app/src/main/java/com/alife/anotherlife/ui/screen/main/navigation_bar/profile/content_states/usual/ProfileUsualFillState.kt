@@ -88,17 +88,11 @@ class ProfileUsualFillState(
             )
         }
 
-        ImageBase(
-            R.drawable.img_tutor_back,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .layoutId(constraints.image)
-                .zIndex(-1f)
-                .fillMaxWidth()
-                .aspectRatio(360 / 395f).clickableNoRipple {
-                    Log.d("Aboba Image", "ImageWas clicked")
-                }
-        )
+        state.photo.ImageContent(modifier = Modifier
+            .layoutId(constraints.image)
+            .zIndex(-1f)
+            .fillMaxWidth()
+            .aspectRatio(360 / 395f))
 
         Row(
             modifier = Modifier

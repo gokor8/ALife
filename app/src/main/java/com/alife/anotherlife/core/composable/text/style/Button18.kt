@@ -3,6 +3,7 @@ package com.alife.anotherlife.core.composable.text.style
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -42,6 +43,22 @@ fun Button18(
         modifier = modifier.fillMaxWidth()
     ) {
         Text(text = text, fontSize = 18.sp, textAlign = TextAlign.Center)
+    }
+}
+
+@Composable
+fun FloatingButton18(
+    @StringRes text: Int,
+    modifier: Modifier = Modifier,
+    shape: Shape = Shapes.medium,
+    onClick: () -> Unit,
+) {
+    FloatingActionButton(
+        modifier = modifier.fillMaxWidth(),
+        shape = shape,
+        onClick = onClick
+    ) {
+        TextBase(text, fontSize = 18.sp, textAlign = TextAlign.Center)
     }
 }
 

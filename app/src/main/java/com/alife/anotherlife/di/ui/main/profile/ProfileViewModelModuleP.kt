@@ -40,7 +40,7 @@ class ProfileViewModelModuleP {
     @Singleton
     @Provides
     fun provideProfileUsual(): UIStore<ProfileUsualState, ProfileUsualEffect> {
-        return DefaultUIStore(ProfileUsualState("", "", "", "", ""))
+        return DefaultUIStore(ProfileUsualState("", ImageExtModel.Empty(), "", "", ""))
     }
 }
 

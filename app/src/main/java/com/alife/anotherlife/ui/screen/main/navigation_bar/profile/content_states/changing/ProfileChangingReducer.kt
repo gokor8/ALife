@@ -1,6 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing
 
 import android.net.Uri
+import android.util.Log
 import com.alife.anotherlife.core.ui.image.ImageExtModel
 import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
@@ -26,9 +27,9 @@ class ProfileChangingReducer @Inject constructor(
         setState {
             copy(
                 username = profileUIDataModel.username,
-                photo = ImageExtModel.Uri(profileUIDataModel.photo),
+                photo = profileUIDataModel.photo,
                 name = profileUIDataModel.name,
-                description = profileUIDataModel.description
+                description = profileUIDataModel.description ?: ""
             )
         }
     }
@@ -57,11 +58,13 @@ class ProfileChangingReducer @Inject constructor(
     }
 
     override suspend fun onSave() {
-        with(getState()) {
+        execute<Unit> {
+            Log.d("Aboba exc", it.toString())
+        }.handleThis(getState()) {
             saveProfileDataUseCase.saveData(ProfileMainInfoEntity(username, name, description))
+            // some save usecase
+            profileReducer.onUsual()
         }
-        // some save usecase
-        profileReducer.onUsual()
     }
 
     override fun onDiscard() {
