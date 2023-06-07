@@ -24,7 +24,7 @@ interface MainService {
     ): PostsResponse
 
     @GET("/checkAlLifePost")
-    fun getIsHavePostToday(): Response<Unit>
+    suspend fun getIsHavePostToday(): Response<Unit>
 
     @GET("/oleg-pedic")
     fun createPostYet(): CreatePostYetResponse

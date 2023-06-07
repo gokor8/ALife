@@ -29,7 +29,6 @@ class SplashScreen(override val navController: NavController) : VMScreen<SplashV
     override fun setupViewModel(): SplashViewModel = hiltViewModel()
 
     override suspend fun onInit() {
-        delay(1000L)
         viewModel.reduce(SplashAction.Init())
     }
 

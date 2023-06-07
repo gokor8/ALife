@@ -20,6 +20,7 @@ class MyPostUseCase @Inject constructor(
         try {
             mainRepository.isHavePostToday()
         } catch (e: Exception) {
+            print(e)
             defaultValue
         }
     }

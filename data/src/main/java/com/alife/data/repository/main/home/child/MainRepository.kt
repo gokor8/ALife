@@ -23,5 +23,7 @@ class MainRepository @Inject constructor(
         return mainService.getFriendPosts(page, pageSize).let(mapper::map)
     }
 
-    override suspend fun isHavePostToday() = mainService.getIsHavePostToday().isSuccessful
+    override suspend fun isHavePostToday(): Boolean {
+        return mainService.getIsHavePostToday().isSuccessful
+    }
 }
