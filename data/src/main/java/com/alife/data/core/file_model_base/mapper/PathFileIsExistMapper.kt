@@ -1,7 +1,7 @@
-package com.alife.data.repository.main.create_alife
+package com.alife.data.core.file_model_base.mapper
 
 import com.alife.core.mapper.Mapper
-import com.alife.data.repository.main.finish_create_alife.mapper.BaseFileIsExistMapper
+import com.alife.data.core.NoFileException
 import java.io.File
 import javax.inject.Inject
 

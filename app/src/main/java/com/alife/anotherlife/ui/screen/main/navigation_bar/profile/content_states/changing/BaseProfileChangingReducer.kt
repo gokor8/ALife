@@ -2,13 +2,13 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_stat
 
 import android.net.Uri
 import com.alife.anotherlife.core.ui.reducer.BaseVMReducer
-import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.state.ProfileChangingEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.state.ProfileChangingState
-import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileUIDataModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.UIProfileInfoModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.state.ProfileEffect
 
-interface BaseProfileChangingReducer : BaseVMReducer<ProfileChangingState, ProfileChangingEffect> {
+interface BaseProfileChangingReducer : BaseVMReducer<ProfileChangingState, ProfileEffect> {
 
-    fun onProfileUIDataModel(profileUIDataModel: ProfileUIDataModel)
+    fun onProfileUIDataModel(profileInfo: UIProfileInfoModel)
     fun onUsername(newUsername: String)
     suspend fun onPhoto(uri: Uri)
     fun onName(newName: String)

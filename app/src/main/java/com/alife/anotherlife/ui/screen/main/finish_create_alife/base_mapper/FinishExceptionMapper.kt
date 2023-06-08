@@ -2,14 +2,12 @@ package com.alife.anotherlife.ui.screen.main.finish_create_alife.base_mapper
 
 import android.util.Log
 import androidx.annotation.StringRes
-import com.alife.anotherlife.R
 import com.alife.anotherlife.core.ui.state.lce.LCEModel
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_model.FinishErrorContract
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_model.FinishLCEGenericError
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_model.LCEErrorNoFile
-import com.alife.data.repository.main.create_alife.NoFileException
+import com.alife.data.core.NoFileException
 import java.lang.Exception
-import javax.inject.Inject
 
 interface BaseFinishExceptionMapper {
     fun map(

@@ -5,7 +5,7 @@ import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.BaseProfileReducer
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.usual.state.ProfileUsualEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.usual.state.ProfileUsualState
-import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileUIDataModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.UIProfileInfoModel
 import javax.inject.Inject
 
 class ProfileUsualReducer @Inject constructor(
@@ -14,15 +14,8 @@ class ProfileUsualReducer @Inject constructor(
 ) : HandlerBaseVMReducer<ProfileUsualState, ProfileUsualEffect>(),
     BaseProfileUsualReducer {
 
-    override fun onProfileUIDataModel(profileUIDataModel: ProfileUIDataModel) {
-        setState {
-            copy(
-                username = profileUIDataModel.username,
-                photo = profileUIDataModel.photo,
-                name = profileUIDataModel.name,
-                description = profileUIDataModel.description
-            )
-        }
+    override fun onProfileUIDataModel(profileInfo: UIProfileInfoModel) {
+        setState { copy(profileInfo = profileInfo) }
     }
 
     override fun onChanging() {

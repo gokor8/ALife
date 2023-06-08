@@ -2,7 +2,7 @@ package com.alife.data.repository.main.create_alife.base_mapper
 
 import android.content.Context
 import com.alife.core.mapper.Mapper
-import com.alife.data.repository.main.create_alife.file_model_base.BaseFileModel
+import com.alife.data.core.file_model_base.BaseFileModel
 import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToReadModel
 import com.alife.data.repository.main.create_alife.video.video.VideoFileModel
 import com.alife.domain.core.MappingException

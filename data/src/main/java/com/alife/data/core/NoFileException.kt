@@ -1,4 +1,4 @@
-package com.alife.data.repository.main.create_alife
+package com.alife.data.core
 
 import java.lang.Exception
 

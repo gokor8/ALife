@@ -9,6 +9,6 @@ class ResponseProfileInfoModel(
     val name: String,
     @SerializedName("description")
     val description: String?,
-    @SerializedName("pictureUrl")
+    @SerializedName("profFileUrl")
     val pictureUrl: String?
 )

@@ -11,9 +11,7 @@ interface BaseProfileRepository {
 
     suspend fun getUserInfo(): ProfileInfoEntity
 
-    suspend fun getPhotoFile(photoUriReader: BasePhotoUriWrapper): File
+    suspend fun saveData(profileData: ProfileMainInfoEntity)
 
-    suspend fun saveData(profileData: ProfileMainInfoEntity): ProfileInfoEntity
-
-    suspend fun saveProfileImage(photoUri: BasePhotoUriWrapper)
+    suspend fun saveProfileImage(photoUri: BasePhotoUriWrapper): File
 }

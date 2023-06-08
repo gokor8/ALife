@@ -8,9 +8,9 @@ import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.ProfileChangingFillState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.usual.ProfileUsualFillState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.EmptyImageExtModel
-import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.EmptyProfileUIDataModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.EmptyUIProfileInfoModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.LceErrorProfileProvider
-import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileUIDataModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.UIProfileInfoModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.state.ProfileEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.state.ProfileState
 import com.alife.domain.main.profile.BaseUserProfileInfoUseCase
@@ -22,20 +22,20 @@ class ProfileReducer @Inject constructor(
 ) : HandlerBaseVMReducer<ProfileState, ProfileEffect>(), BaseProfileReducer {
 
     override suspend fun onInit() {
-        if (getState().profileUIDataModel is EmptyProfileUIDataModel)
+        if (getState().profileUIDataModel is EmptyUIProfileInfoModel)
             setState { copy(lceModel = LCELoading) }
 
         executeThis(getState()) {
             copy(lceModel = LceErrorProfileProvider)
         }.handleThis(getState()) {
             val profileInfo = with(profileInfoUseCase.getProfileInfo()) {
-                val picture = if(pictureUrl == null) {
+                val photo = if(pictureUrl == null) {
                     EmptyImageExtModel()
                 } else {
                     ImageExtModel.Uri(pictureUrl!!)
                 }
 
-                ProfileUIDataModel(name, username, picture, description ?: "")
+                UIProfileInfoModel(name, photo, username, description ?: "")
             }
 
             copy(
@@ -52,6 +52,10 @@ class ProfileReducer @Inject constructor(
 
     override fun onUsual() {
         setState { copy(contentFillState = ProfileUsualFillState(profileUIDataModel)) }
+    }
+
+    override fun onUsual(profileInfo: UIProfileInfoModel) {
+        setState { copy(contentFillState = ProfileUsualFillState(profileInfo)) }
     }
 
     override fun onBack() {

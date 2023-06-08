@@ -1,9 +1,9 @@
-package com.alife.data.repository.main.create_alife.file_model_base
+package com.alife.data.core.file_model_base
 
 import com.alife.data.data_source.cache.file.base.FileWrapperFactory
-import com.alife.data.repository.main.create_alife.file_model_base.file_builders.BaseFileExtension
-import com.alife.data.repository.main.create_alife.file_model_base.file_builders.BaseFileName
-import com.alife.data.repository.main.create_alife.file_model_base.file_builders.BasePathModel
+import com.alife.data.core.file_model_base.file_builders.BaseFileExtension
+import com.alife.data.core.file_model_base.file_builders.BaseFileName
+import com.alife.data.core.file_model_base.file_builders.BasePathModel
 import java.io.BufferedInputStream
 import java.io.FileNotFoundException
 

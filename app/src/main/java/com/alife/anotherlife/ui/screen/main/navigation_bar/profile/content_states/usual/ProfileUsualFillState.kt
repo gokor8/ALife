@@ -1,13 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.usual
 
-import android.util.Log
-import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.TweenSpec
-import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,7 +23,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -41,30 +34,27 @@ import com.alife.anotherlife.core.composable.addons.copyToClipboard
 import com.alife.anotherlife.core.composable.brush.verticalBottomToTopGradient
 import com.alife.anotherlife.core.composable.brush.verticalTopToBottomGradient
 import com.alife.anotherlife.core.composable.clickableNoRipple
-import com.alife.anotherlife.core.composable.clickableNoRipple
 import com.alife.anotherlife.core.composable.icon.IconBase
-import com.alife.anotherlife.core.composable.image.ImageBase
 import com.alife.anotherlife.core.composable.text.style.style16
 import com.alife.anotherlife.core.composable.text.style.style36Bold
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.usual.state.ProfileUsualAction
-import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.usual.state.ProfileUsualState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ContentFillState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileConstraintModel
-import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileUIDataModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.UIProfileInfoModel
 import kotlinx.coroutines.delay
 
 class ProfileUsualFillState(
-    private val profileUIDataModel: ProfileUIDataModel
+    private val profileInfo: UIProfileInfoModel
 ) : ContentFillState {
 
     @Composable
     override fun ContentFill(constraints: ProfileConstraintModel) {
         val context = LocalContext.current
         val viewModel: ProfileUsualViewModel = hiltViewModel()
-        val state: ProfileUsualState = viewModel.getUIState()
+        val state = viewModel.getUIState().profileInfo
 
         LaunchedEffect(Unit) {
-            viewModel.reduce(ProfileUsualAction.OnInit(profileUIDataModel))
+            viewModel.reduce(ProfileUsualAction.OnInit(profileInfo))
         }
 
         Row(
@@ -134,7 +124,7 @@ class ProfileUsualFillState(
                 .background(MaterialTheme.colorScheme.background)
                 .padding(start = 14.dp)
         ) {
-            Text(state.country, style = style16())
+            Text("Test Russia", style = style16())
             Spacer(modifier = Modifier.padding(8.dp))
             Text(state.description, style = style16())
         }

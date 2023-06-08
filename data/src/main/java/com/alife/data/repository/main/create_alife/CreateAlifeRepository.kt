@@ -1,9 +1,9 @@
 package com.alife.data.repository.main.create_alife
 
+import com.alife.data.core.file_model_base.mapper.BasePathIsExistMapper
 import com.alife.data.repository.main.create_alife.base_mapper.BaseCAReadEntityToFilePath
 import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToReadModel
 import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToSaveModel
-import com.alife.data.repository.main.finish_create_alife.mapper.BaseFileIsExistMapper
 import com.alife.domain.main.create_alife.picture.entity.PhotoPathEntity
 import com.alife.domain.main.create_alife.picture.entity.ImageReadEntity
 import com.alife.domain.main.create_alife.picture.entity.SaveImageEntity

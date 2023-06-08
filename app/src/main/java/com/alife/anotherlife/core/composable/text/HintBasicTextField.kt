@@ -6,6 +6,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.alife.anotherlife.core.composable.text.style.style16
 
 @Composable
 fun HintBasicTextField(
@@ -27,6 +28,7 @@ fun HintBasicTextField(
 
             innerTextField()
         },
+        textStyle = style16(color),
         onValueChange = onValueChange
     )
 }

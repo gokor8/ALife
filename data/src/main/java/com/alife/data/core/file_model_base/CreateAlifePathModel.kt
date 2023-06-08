@@ -1,7 +1,7 @@
-package com.alife.data.repository.main.create_alife.file_model_base
+package com.alife.data.core.file_model_base
 
 import android.content.Context
-import com.alife.data.repository.main.create_alife.file_model_base.file_builders.BasePathModel
+import com.alife.data.core.file_model_base.file_builders.BasePathModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 class CreateAlifePathModel(@ApplicationContext private val context: Context) : BasePathModel {

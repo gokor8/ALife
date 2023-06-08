@@ -6,64 +6,60 @@ import com.alife.anotherlife.core.ui.image.ImageExtModel
 import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.BaseProfileReducer
-import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.state.ProfileChangingEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.state.ProfileChangingState
-import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileUIDataModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.UIProfileInfoModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.state.ProfileEffect
 import com.alife.data.repository.main.profile.model.PhotoUriWrapper
-import com.alife.domain.main.profile.BaseReadNewProfilePhotoUseCase
 import com.alife.domain.main.profile.BaseSaveProfileDataUseCase
 import com.alife.domain.main.profile.entity.ProfileMainInfoEntity
+import java.io.IOException
 import javax.inject.Inject
 
 class ProfileChangingReducer @Inject constructor(
-    override val uiStore: UIStore<ProfileChangingState, ProfileChangingEffect>,
+    override val uiStore: UIStore<ProfileChangingState, ProfileEffect>,
     private val profileReducer: BaseProfileReducer,
-    private val readNewProfilePhoto: BaseReadNewProfilePhotoUseCase,
     private val saveProfileDataUseCase: BaseSaveProfileDataUseCase
-) : HandlerBaseVMReducer<ProfileChangingState, ProfileChangingEffect>(),
+) : HandlerBaseVMReducer<ProfileChangingState, ProfileEffect>(),
     BaseProfileChangingReducer {
 
-    override fun onProfileUIDataModel(profileUIDataModel: ProfileUIDataModel) {
-        setState {
-            copy(
-                username = profileUIDataModel.username,
-                photo = profileUIDataModel.photo,
-                name = profileUIDataModel.name,
-                description = profileUIDataModel.description ?: ""
-            )
-        }
+    override fun onProfileUIDataModel(profileUIDataModel: UIProfileInfoModel) {
+        setState { copy(profileInfo = profileUIDataModel) }
     }
 
     override fun onUsername(newUsername: String) {
-        setState { copy(username = newUsername) }
+        setState { copy(profileInfo = copyUsername(newUsername)) }
     }
 
     override suspend fun onPhoto(uri: Uri) {
+        val previousPhoto = getState().profileInfo.photo
+
+        setState { copy(profileInfo = copyPhoto(ImageExtModel.Loading())) }
+
         execute {
-
+            setState { copy(profileInfo = copyPhoto(previousPhoto)) }
+            profileReducer.trySetEffect(ProfileEffect.ProfilePhotoUploadError())
         }.handle {
-            val file = readNewProfilePhoto.getPhoto(PhotoUriWrapper(uri))
-            saveProfileDataUseCase.saveProfileImage(PhotoUriWrapper(uri))
+            val file = saveProfileDataUseCase.saveProfileImage(PhotoUriWrapper(uri))
 
-            setState { copy(photo = ImageExtModel.File(file)) }
+            setState { copy(profileInfo = copyPhoto(ImageExtModel.File(file))) }
         }
     }
 
     override fun onName(newName: String) {
-        setState { copy(name = newName) }
+        setState { copy(profileInfo = copyName(newName)) }
     }
 
     override fun onDescription(newDescription: String) {
-        setState { copy(description = newDescription) }
+        setState { copy(profileInfo = copyDescription(newDescription)) }
     }
 
     override suspend fun onSave() {
-        execute<Unit> {
+        execute {
             Log.d("Aboba exc", it.toString())
-        }.handleThis(getState()) {
+            profileReducer.trySetEffect(ProfileEffect.ProfileInfoUploadError())
+        }.handleThis(getState().profileInfo) {
             saveProfileDataUseCase.saveData(ProfileMainInfoEntity(username, name, description))
-            // some save usecase
-            profileReducer.onUsual()
+            profileReducer.onUsual(this)
         }
     }
 

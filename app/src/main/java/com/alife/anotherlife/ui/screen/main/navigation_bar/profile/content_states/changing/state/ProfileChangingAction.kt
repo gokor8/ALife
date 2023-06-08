@@ -3,11 +3,11 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_stat
 import android.net.Uri
 import com.alife.anotherlife.core.composable.mvi_extensions.BaseMVIAction
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.BaseProfileChangingReducer
-import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileUIDataModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.UIProfileInfoModel
 
 interface ProfileChangingAction : BaseMVIAction<BaseProfileChangingReducer> {
 
-    class Init(private val profileUIDataModel: ProfileUIDataModel) : ProfileChangingAction {
+    class Init(private val profileUIDataModel: UIProfileInfoModel) : ProfileChangingAction {
         override suspend fun onAction(reducer: BaseProfileChangingReducer) {
             reducer.onProfileUIDataModel(profileUIDataModel)
         }

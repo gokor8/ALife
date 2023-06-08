@@ -5,7 +5,6 @@ import com.alife.domain.main.profile.BaseReadNewProfilePhotoUseCase
 import com.alife.domain.main.profile.BaseSaveProfileDataUseCase
 import com.alife.domain.main.profile.BaseUserProfileInfoUseCase
 import com.alife.domain.main.profile.PostProfileInfoUseCase
-import com.alife.domain.main.profile.ReadNewProfilePhotoUseCase
 import com.alife.domain.main.profile.SaveProfileDataUseCase
 import com.alife.domain.main.profile.UserProfileInfoUseCase
 import dagger.Binds
@@ -26,7 +25,4 @@ interface ProfileDomainModule {
 
     @Binds
     fun bindSaveProfileDataUseCase(useCase: SaveProfileDataUseCase): BaseSaveProfileDataUseCase
-
-    @Binds
-    fun bindReadNewProfilePhoto(useCase: ReadNewProfilePhotoUseCase): BaseReadNewProfilePhotoUseCase
 }

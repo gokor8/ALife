@@ -2,14 +2,11 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model
 
 import com.alife.anotherlife.core.ui.image.ImageExtModel
 
-open class ProfileUIDataModel(
-    val name: String,
+open class UIProfileInfoModel(
     val username: String,
     val photo: ImageExtModel,
+    val name: String,
     val description: String
-) {
+)
 
-    fun isEmpty() = name.isEmpty() && username.isEmpty()
-}
-
-class EmptyProfileUIDataModel : ProfileUIDataModel("", "", EmptyImageExtModel(), "")
+class EmptyUIProfileInfoModel : UIProfileInfoModel("", EmptyImageExtModel(), "", "")

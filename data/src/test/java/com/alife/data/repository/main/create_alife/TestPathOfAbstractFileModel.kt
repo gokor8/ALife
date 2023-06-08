@@ -1,8 +1,8 @@
 package com.alife.data.repository.main.create_alife
 
-import com.alife.data.repository.main.create_alife.file_model_base.BaseFileModel
-import com.alife.data.repository.main.create_alife.file_model_base.file_builders.BaseFileName
-import com.alife.data.repository.main.create_alife.file_model_base.file_builders.BasePathModel
+import com.alife.data.core.file_model_base.BaseFileModel
+import com.alife.data.core.file_model_base.file_builders.BaseFileName
+import com.alife.data.core.file_model_base.file_builders.BasePathModel
 import com.alife.data.repository.main.create_alife.picture.model.file.BackAlifeFileName
 import com.alife.data.repository.main.create_alife.picture.model.file.FrontAlifeFileName
 import com.alife.data.repository.main.create_alife.picture.model.image.JpegExtension

@@ -23,7 +23,7 @@ interface ProfileService {
     @PUT("/profile")
     suspend fun saveUserData(
         @Body requestProfileSaveData: RequestProfileSaveData
-    ): ResponseProfileInfoModel
+    ): Response<Unit>
 
     @Multipart
     @POST("/profile/avatar_upload")

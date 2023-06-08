@@ -1,8 +1,8 @@
 package com.alife.anotherlife.di.data.main.create_alife
 
-import com.alife.data.repository.main.create_alife.BasePathIsExistMapper
+import com.alife.data.core.file_model_base.mapper.BasePathIsExistMapper
 import com.alife.data.repository.main.create_alife.CreateAlifeRepository
-import com.alife.data.repository.main.create_alife.PathFileIsExistMapper
+import com.alife.data.core.file_model_base.mapper.PathFileIsExistMapper
 import com.alife.data.repository.main.create_alife.base_mapper.BaseCAReadEntityToFileModel
 import com.alife.data.repository.main.create_alife.base_mapper.BaseCAReadEntityToFilePath
 import com.alife.data.repository.main.create_alife.base_mapper.CAReadEntityToFileModel
