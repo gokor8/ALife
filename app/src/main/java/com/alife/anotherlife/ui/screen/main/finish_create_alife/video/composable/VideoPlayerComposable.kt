@@ -1,104 +1,116 @@
 package com.alife.anotherlife.ui.screen.main.finish_create_alife.video.composable
 
 import android.net.Uri
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
-import androidx.media3.common.MimeTypes
 import androidx.media3.common.Player
-import androidx.media3.common.util.Util
-import androidx.media3.datasource.DataSource
-import androidx.media3.datasource.DefaultDataSource
-import androidx.media3.datasource.DefaultHttpDataSource
-import androidx.media3.datasource.cache.CacheDataSource
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
-import com.alife.anotherlife.core.composable.lifecycle.OnLifecycle
 import com.alife.anotherlife.theme.Shapes
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.model.ExoPlayerSetupState
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
-@ExperimentalAnimationApi
 @Composable
 fun VideoPlayerComposable(
-    exoPlayer: ExoPlayer,
-    videoUrl: String,
+    exoPlayerSetupState: ExoPlayerSetupState,
     modifier: Modifier = Modifier,
+) {
+    OutlinedCard(modifier = modifier, shape = Shapes.large) {
+        val context = LocalContext.current
+
+        val exoPlayer = remember {
+            ExoPlayer.Builder(context).build().apply {
+                exoPlayerSetupState.setup(this)
+            }
+        }
+
+        exoPlayerSetupState.afterSetup(exoPlayer)
+
+        DisposableEffect(
+            AndroidView(factory = {
+                PlayerView(context).apply {
+                    //hideController()
+                    //useController = false
+                    setShowBuffering(PlayerView.SHOW_BUFFERING_ALWAYS)
+                    resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
+
+                    player = exoPlayer
+                    layoutParams = FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                }
+            })
+        ) {
+            onDispose {
+                Log.d("ExoPlayer $exoPlayer", "release")
+                exoPlayer.release()
+            }
+        }
+    }
+}
+
+@Composable
+@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
+fun VideoPlayer(
+    uri: Uri,
+    exoPlayerSetupState: ExoPlayerSetupState,
+    modifier: Modifier = Modifier,
+    isPlaying: Boolean
 ) {
     val context = LocalContext.current
 
-    LaunchedEffect(videoUrl) {
-        exoPlayer.apply {
-            val dataSourceFactory = DefaultHttpDataSource.Factory()
-                .setUserAgent(Util.getUserAgent(context, context.packageName))
-            val source = ProgressiveMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(MediaItem.fromUri(videoUrl))
-
-            setMediaSource(source)
-            prepare()
-            playWhenReady = true
-        }
-    }
-
-    val lifecycleOwner by rememberUpdatedState(LocalLifecycleOwner.current)
-    DisposableEffect(lifecycleOwner) {
-        val lifecycle = lifecycleOwner.lifecycle
-        val observer = LifecycleEventObserver { _, event ->
-            when (event) {
-                Lifecycle.Event.ON_PAUSE -> exoPlayer.playWhenReady = false
-                Lifecycle.Event.ON_RESUME -> exoPlayer.playWhenReady = true
-                Lifecycle.Event.ON_DESTROY -> {
-                    exoPlayer.stop()
-                    exoPlayer.release()
-                }
-                else -> {}
+    Box(modifier = modifier) {
+        val exoPlayer = remember {
+            ExoPlayer.Builder(context).build().apply {
+                exoPlayerSetupState.setup(this)
+            //                videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT
+//                repeatMode = Player.REPEAT_MODE_ALL
+//                setMediaItem(MediaItem.fromUri(uri))
+//                prepare()
             }
         }
-        lifecycle.addObserver(observer)
-        onDispose {
-            lifecycle.removeObserver(observer)
-        }
-    }
 
-//    OnLifecycle { _, event ->
-//        when (event) {
-//            Lifecycle.Event.ON_RESUME -> exoPlayer.play()
-//            Lifecycle.Event.ON_DESTROY -> exoPlayer.pause()
-//            else -> Unit
-//        }
-//    }
+        if (isPlaying)
+            exoPlayer.play()
+        else
+            exoPlayer.pause()
+        //exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
 
-    OutlinedCard(modifier = modifier, shape = Shapes.large) {
-        AndroidView(
-            factory = {
+        DisposableEffect(
+            AndroidView(factory = {
                 PlayerView(context).apply {
                     hideController()
-                    setShowBuffering(PlayerView.SHOW_BUFFERING_ALWAYS)
                     useController = false
-                    player = exoPlayer
+                    setShowBuffering(PlayerView.SHOW_BUFFERING_ALWAYS)
                     resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
+
+                    player = exoPlayer
                     layoutParams = FrameLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT
                     )
                 }
             })
+        ) {
+            onDispose {
+                Log.d("aboba", "released")
+                exoPlayer.release()
+            }
+        }
     }
 }

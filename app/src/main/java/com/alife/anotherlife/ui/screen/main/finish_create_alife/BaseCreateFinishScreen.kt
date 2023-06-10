@@ -50,7 +50,6 @@ abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
         viewModel.reduceFinishAction(BaseFinishAction.Init())
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun SafeContent(modifier: Modifier) {
         val snackBarHostState = remember { SnackbarHostState() }
@@ -58,8 +57,7 @@ abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
         Scaffold(
             modifier,
             snackbarHost = { SnackbarHost(snackBarHostState) }
-        ) { innerPadding ->
-            innerPadding
+        ) { innerPadding -> innerPadding
             Box(Modifier.fillMaxSize()) {
                 Column(
                     modifier = Modifier

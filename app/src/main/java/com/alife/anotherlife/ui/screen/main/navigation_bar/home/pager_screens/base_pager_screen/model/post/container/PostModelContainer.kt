@@ -10,13 +10,6 @@ interface UIBasePostContainer {
 
     fun itemKey(): String
 
-    @Composable
-    fun Post(
-        exoPlayer: ExoPlayer,
-        viewModel: AbstractHomeChildViewModel,
-        modifier: Modifier
-    )
-
 
     abstract class Abstract: UIBasePostContainer {
 
@@ -25,19 +18,6 @@ interface UIBasePostContainer {
         protected abstract val avatar: String?
 
         override fun itemKey(): String = username + timestamp
-
-        @Composable
-        override fun Post(
-            exoPlayer: ExoPlayer,
-            viewModel: AbstractHomeChildViewModel,
-            modifier: Modifier
-        ) {
-            if (viewModel.getUIState().isHavePostToday) {
-                clear(viewModel = viewModel, modifier = modifier)
-            } else {
-                blur(viewModel = viewModel, modifier = modifier)
-            }.Card(exoPlayer, viewModel, modifier)
-        }
 
         @Composable
         protected abstract fun clear(

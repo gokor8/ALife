@@ -35,8 +35,7 @@ abstract class AbstractUIPhotosPostModel(
     override fun itemKey() = username + timestamp + avatar + frontAlife + backAlife
 
     @Composable
-    override fun Card(
-        exoPlayer: ExoPlayer,
+    open fun Card(
         viewModel: AbstractHomeChildViewModel,
         modifier: Modifier
     ) {
@@ -62,13 +61,11 @@ class BlurUIPhotosPostModel(
 
     @Composable
     override fun Card(
-        exoPlayer: ExoPlayer,
         viewModel: AbstractHomeChildViewModel,
         modifier: Modifier
     ) {
         Box(modifier = modifier, contentAlignment = Alignment.Center) {
             super.Card(
-                exoPlayer,
                 viewModel,
                 modifier.clip(Shapes.large).blur(30.dp)
             )

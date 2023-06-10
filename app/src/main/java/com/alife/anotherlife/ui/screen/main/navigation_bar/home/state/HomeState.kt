@@ -12,7 +12,7 @@ data class HomeState(
     val isRefreshing: Boolean = false,
     val pagerScreens: HomePagerIndexWrapperList = HomePagerIndexWrapperList(
         FriendsPagerItem(),
-        WorldPagerItem()
+        WorldPagerItem(),
     ),
     val pagerState: PagerState = PagerState(currentPage = 0),
     val isTabsVisible: Boolean = true

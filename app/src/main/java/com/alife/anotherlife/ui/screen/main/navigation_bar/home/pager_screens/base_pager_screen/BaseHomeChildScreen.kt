@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,7 +9,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
@@ -30,7 +30,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.media3.common.C
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.NavController
@@ -38,7 +37,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
-import com.alife.anotherlife.core.composable.modifier.OnlyTopPadding
+import com.alife.anotherlife.core.composable.modifier.BaseFillMaxModifier
 import com.alife.anotherlife.core.ui.screen.VMScreen
 import com.alife.anotherlife.core.ui.state.lce.LCEContent
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.model.SnackBarWrapper
@@ -46,32 +45,26 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.ba
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.LceErrorNoPostsHaveMyPostProvider
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.LceErrorPagingLoad
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.LceErrorPagingLoadProvider
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.DefaultPostContainerUI
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.PicturePostContainerUI
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.PlzCreatePostContainerUI
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.UIBasePostContainer
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.VideoPostContainerUI
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildAction
+import java.lang.Math.abs
 
 abstract class BaseHomeChildScreen(
     override val navController: NavController,
     private val isVisible: Boolean
-) : VMScreen<AbstractHomeChildViewModel>(OnlyTopPadding) {
+) : VMScreen<AbstractHomeChildViewModel>(BaseFillMaxModifier) {
 
     override suspend fun onInit() {
         viewModel.reduce(HomeChildAction.OnInit())
     }
 
     @Composable
-    @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
     override fun Content(modifier: Modifier) {
-        val context = LocalContext.current
         val state = viewModel.getUIState()
-
-        val exoPlayer = remember {
-            ExoPlayer.Builder(context).build().apply {
-                videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT
-                repeatMode = Player.REPEAT_MODE_ONE
-                playWhenReady = true
-                prepare()
-            }
-        }
 
         val lazyPosts = state.postsPagingData?.collectAsLazyPagingItems()
 
@@ -81,25 +74,24 @@ abstract class BaseHomeChildScreen(
             }
         }
 
-        val localModifier = modifier.fillMaxSize()
-
         // TODO вынести в маппер
         when (val lceModel = state.lceModel) {
-            is LCEContent -> SafeContent(exoPlayer, lazyPosts, localModifier)
+            is LCEContent -> SafeContent(lazyPosts, modifier)
             is LceErrorNoPostsHaveMyPostProvider -> {
-                LceErrorNoPostsHaveMyPost().LCEContent(lazyPosts, localModifier)
+                LceErrorNoPostsHaveMyPost().LCEContent(lazyPosts, modifier)
             }
+
             is LceErrorPagingLoadProvider -> {
-                LceErrorPagingLoad().LCEContent(lazyPosts, localModifier)
+                LceErrorPagingLoad().LCEContent(lazyPosts, modifier)
             }
-            else -> lceModel.LCEContent(modifier = localModifier)
+
+            else -> lceModel.LCEContent(modifier = modifier)
         }
     }
 
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
     fun SafeContent(
-        exoPlayer: ExoPlayer,
         lazyPosts: LazyPagingItems<UIBasePostContainer>?,
         modifier: Modifier
     ) {
@@ -113,12 +105,11 @@ abstract class BaseHomeChildScreen(
         )
 
         Scaffold(
-            modifier = modifier.pullRefresh(refreshState),
+            modifier = Modifier.pullRefresh(refreshState),
             contentWindowInsets = WindowInsets(bottom = 0.dp),
             snackbarHost = { SnackbarHost(snackBarHostState) }
         ) { innerPadding ->
             innerPadding
-
             val lazyListState = rememberLazyListState()
             var previousScrollPosition by remember(this::class.simpleName) { mutableStateOf(0) }
 
@@ -141,7 +132,7 @@ abstract class BaseHomeChildScreen(
                 }
             }
 
-            Box(modifier = Modifier.fillMaxSize()) {
+            Box {
                 PullRefreshIndicator(
                     state.isRefreshing,
                     refreshState,
@@ -149,24 +140,73 @@ abstract class BaseHomeChildScreen(
                 )
 
                 lazyPosts?.also {
+                    val fullyVisibleIndices: List<Int> by remember {
+                        derivedStateOf {
+                            val layoutInfo = lazyListState.layoutInfo
+                            val visibleItemsInfo = layoutInfo.visibleItemsInfo
+                            if (visibleItemsInfo.isEmpty()) {
+                                emptyList()
+                            } else {
+                                val fullyVisibleItemsInfo = visibleItemsInfo.toMutableList()
+
+                                val lastItem = fullyVisibleItemsInfo.last()
+
+                                val viewportHeight =
+                                    layoutInfo.viewportEndOffset + layoutInfo.viewportStartOffset
+
+                                if (lastItem.offset + lastItem.size > viewportHeight) {
+                                    fullyVisibleItemsInfo.removeLast()
+                                }
+
+                                val firstItemIfLeft = fullyVisibleItemsInfo.firstOrNull()
+                                if (firstItemIfLeft != null && firstItemIfLeft.offset < layoutInfo.viewportStartOffset) {
+                                    fullyVisibleItemsInfo.removeFirst()
+                                }
+
+                                fullyVisibleItemsInfo.map { it.index }
+                            }
+                        }
+                    }
+
+                    val centerIndex = remember {
+                        derivedStateOf {
+                            val layoutInfo = lazyListState.layoutInfo
+                            val firstVisibleIndex = layoutInfo.visibleItemsInfo.firstOrNull()?.index ?: -1
+                            val lastVisibleIndex = layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -1
+
+                            (firstVisibleIndex + lastVisibleIndex) / 2
+                            // Выполните необходимую логику для получения индекса центрального элемента
+                        }
+                    }
+
                     LazyColumn(
                         state = lazyListState,
                         contentPadding = PaddingValues(16.dp),
                         verticalArrangement = Arrangement.spacedBy(30.dp),
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .statusBarsPadding(),
+                        modifier = Modifier.fillMaxSize(),
                     ) {
                         item {
-                            Spacer(modifier = Modifier.height(60.dp).fillMaxWidth())
+                            Spacer(modifier = Modifier.height(90.dp).fillMaxWidth())
                         }
-
                         items(
                             count = lazyPosts.itemCount,
                             key = lazyPosts.itemKey(key = { it.itemKey() }),
                             contentType = lazyPosts.itemContentType()
                         ) { index ->
-                            lazyPosts[index]?.Post(exoPlayer, viewModel, Modifier)
+
+                            val isNeedPlay = centerIndex.value == index//fullyVisibleIndices.contains(index)
+                            Log.d("visible item1", "index = $index $isNeedPlay")
+
+                            when (val post = lazyPosts[index]) {
+                                is VideoPostContainerUI -> post.Post(
+                                    isNeedPlay = isNeedPlay,
+                                    viewModel = viewModel,
+                                    modifier = Modifier
+                                )
+                                is PicturePostContainerUI -> post.Post(viewModel, Modifier)
+                                is DefaultPostContainerUI -> post.Post(viewModel, modifier)
+                                is PlzCreatePostContainerUI -> post.Post(viewModel, modifier)
+                            }
                         }
 
                         item {

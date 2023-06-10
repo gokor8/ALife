@@ -14,8 +14,7 @@ class UIPlzCreatePostModel : UIPostModel {
     override fun itemKey() = itemStaticKey
 
     @Composable
-    override fun Card(
-        exoPlayer: ExoPlayer,
+    fun Card(
         viewModel: AbstractHomeChildViewModel,
         modifier: Modifier
     ) {

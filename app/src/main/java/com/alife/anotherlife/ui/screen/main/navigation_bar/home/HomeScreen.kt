@@ -9,12 +9,23 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.media3.common.C
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.alife.anotherlife.R
@@ -37,6 +48,7 @@ class HomeScreen(
     override fun setupViewModel(): HomeViewModel = hiltViewModel()
 
     @OptIn(ExperimentalPagerApi::class)
+    @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
     @Composable
     override fun Content(modifier: Modifier) {
         val state = viewModel.getUIState()
@@ -47,18 +59,20 @@ class HomeScreen(
             HorizontalPager(
                 count = pagerScreens.size,
                 state = pagerState
-            ) {
-                pagerScreens[it].model.screen(navController, it == pagerState.currentPage)
-                    .SetupContent()
+            ) { index ->
+                pagerScreens[index].model.screen(
+                    navController,
+                    index == pagerState.currentPage
+                ).SetupContent()
             }
 
-            val gradient = verticalPrimaryGradient()
-            Canvas(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(10.dp)
-                    .align(Alignment.TopCenter)
-            ) { drawRect(brush = gradient, size = size) }
+//            val gradient = verticalPrimaryGradient()
+//            Canvas(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .height(10.dp)
+//                    .align(Alignment.TopCenter)
+//            ) { drawRect(brush = gradient, size = size) }
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
