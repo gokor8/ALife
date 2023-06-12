@@ -55,15 +55,19 @@ class HomeScreen(
         val pagerScreens = state.pagerScreens
         val pagerState = state.pagerState
 
-        BoxWithConstraints(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
+        BoxWithConstraints(modifier = Modifier
+            .padding(innerPadding)
+            .fillMaxSize()) {
             HorizontalPager(
                 count = pagerScreens.size,
                 state = pagerState
             ) { index ->
-                pagerScreens[index].model.screen(
-                    navController,
-                    index == pagerState.currentPage
-                ).SetupContent()
+                if (index == pagerState.currentPage) {
+                    pagerScreens[index].model.screen(
+                        navController,
+                        index == pagerState.currentPage
+                    ).SetupContent()
+                }
             }
 
 //            val gradient = verticalPrimaryGradient()

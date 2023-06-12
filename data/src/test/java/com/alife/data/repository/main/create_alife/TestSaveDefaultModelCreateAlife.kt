@@ -13,7 +13,7 @@ class TestSaveDefaultModelCreateAlife {
     @Test
     fun `test create file and dir exist`() {
         val fileWrapperFactory = FakeSaveFileWrapperFactory(isExistDir = true, isExistFile = true)
-        val saveFileModel = FakeSaveFileModel(FakeFileName(), fileWrapperFactory)
+        val saveFileModel = FakeSave(FakeFileName(), fileWrapperFactory)
 
         saveFileModel.createFile()
 
@@ -27,7 +27,7 @@ class TestSaveDefaultModelCreateAlife {
     @Test
     fun `test create file none exist`() {
         val fileWrapperFactory = FakeSaveFileWrapperFactory(isExistDir = true, isExistFile = false)
-        val saveFileModel = FakeSaveFileModel(FakeFileName(), fileWrapperFactory)
+        val saveFileModel = FakeSave(FakeFileName(), fileWrapperFactory)
 
         saveFileModel.createFile()
 
@@ -40,7 +40,7 @@ class TestSaveDefaultModelCreateAlife {
     @Test
     fun `test create file none exist dir`() {
         val fileWrapperFactory = FakeSaveFileWrapperFactory(isExistDir = false, isExistFile = false)
-        val saveFileModel = FakeSaveFileModel(FakeFileName(), fileWrapperFactory)
+        val saveFileModel = FakeSave(FakeFileName(), fileWrapperFactory)
 
         saveFileModel.createFile()
 
@@ -53,11 +53,11 @@ class TestSaveDefaultModelCreateAlife {
     }
 
     // Fake Realization
-    class FakeSaveFileModel(
+    class FakeSave(
         fileName: BaseFileName,
         fileWrapperFactory: FileWrapperFactory
     ) : BaseSaveFileModel.DefaultSave(
-        TestPathOfAbstractFileModel.FakeFilePath(),
+        TestPathOfAbstract.FakeFilePath(),
         fileName,
         JpegExtension(),
         fileWrapperFactory

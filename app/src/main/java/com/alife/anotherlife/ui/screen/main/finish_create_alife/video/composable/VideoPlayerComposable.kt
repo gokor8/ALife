@@ -7,20 +7,26 @@ import android.widget.FrameLayout
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.Lifecycle
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
+import com.alife.anotherlife.core.composable.lifecycle.OnLifecycle
 import com.alife.anotherlife.theme.Shapes
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.model.ExoPlayerSetupState
 
@@ -28,9 +34,13 @@ import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.model.ExoP
 @Composable
 fun VideoPlayerComposable(
     exoPlayerSetupState: ExoPlayerSetupState,
+    isPlaying: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    OutlinedCard(modifier = modifier, shape = Shapes.large) {
+    OutlinedCard(
+        modifier = modifier,
+        shape = Shapes.large
+    ) {
         val context = LocalContext.current
 
         val exoPlayer = remember {
@@ -39,13 +49,27 @@ fun VideoPlayerComposable(
             }
         }
 
-        exoPlayerSetupState.afterSetup(exoPlayer)
+        if(isPlaying)
+            exoPlayer.play()
+        else
+            exoPlayer.pause()
+        //exoPlayerSetupState.afterSetup(exoPlayer)
+
+        OnLifecycle { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_RESUME -> {
+                    if(isPlaying) exoPlayer.play()
+                }
+                Lifecycle.Event.ON_PAUSE -> exoPlayer.pause()
+                else -> Unit
+            }
+        }
 
         DisposableEffect(
             AndroidView(factory = {
                 PlayerView(context).apply {
-                    //hideController()
-                    //useController = false
+                    hideController()
+                    useController = false
                     setShowBuffering(PlayerView.SHOW_BUFFERING_ALWAYS)
                     resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
 
@@ -78,10 +102,6 @@ fun VideoPlayer(
         val exoPlayer = remember {
             ExoPlayer.Builder(context).build().apply {
                 exoPlayerSetupState.setup(this)
-            //                videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT
-//                repeatMode = Player.REPEAT_MODE_ALL
-//                setMediaItem(MediaItem.fromUri(uri))
-//                prepare()
             }
         }
 
@@ -89,7 +109,6 @@ fun VideoPlayer(
             exoPlayer.play()
         else
             exoPlayer.pause()
-        //exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
 
         DisposableEffect(
             AndroidView(factory = {

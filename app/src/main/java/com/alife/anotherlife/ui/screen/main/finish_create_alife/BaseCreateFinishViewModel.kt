@@ -2,21 +2,13 @@ package com.alife.anotherlife.ui.screen.main.finish_create_alife
 
 import android.util.Log
 import androidx.navigation.NavController
-import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.mvi_extensions.BaseMVIAction
-import com.alife.anotherlife.core.ui.screen.VMScreenLCE
-import com.alife.anotherlife.core.ui.state.lce.StateLCE
 import com.alife.anotherlife.core.ui.view_model.BaseViewModelLCE
 import com.alife.anotherlife.core.ui.view_model.ViewModelLCE
-import com.alife.anotherlife.ui.screen.main.create_alife.state.BaseSnackBarEffect
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.BaseFinishAction
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.FinishEffect
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.FinishState
-import com.alife.anotherlife.ui.screen.main.finish_create_alife.photo.state.FinishPictureEffect
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.model.SnackBarWrapper
-import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.state.FinishVideoEffect
-import com.alife.anotherlife.ui.screen.registration.base.state.RegistrationEffect
-import com.alife.core.mvi.MVI
 
 interface BaseCreateFinishViewModel<
         REDUCER : BaseCreateFinishReducer<STATE>,
@@ -42,7 +34,10 @@ interface BaseCreateFinishViewModel<
             REDUCER : BaseCreateFinishReducer<STATE>,
             ACTION : BaseMVIAction<REDUCER>,
             STATE : FinishState<STATE>
-            >(reducer: REDUCER) : ViewModelLCE<REDUCER, ACTION, STATE, FinishEffect>(reducer),
+            >(
+        //val cacheDataSourceFactory: CacheDataSourceFactory,
+        reducer: REDUCER
+    ) : ViewModelLCE<REDUCER, ACTION, STATE, FinishEffect>(reducer),
         BaseCreateFinishViewModel<REDUCER, ACTION, STATE> {
 
         override suspend fun collectEffect(

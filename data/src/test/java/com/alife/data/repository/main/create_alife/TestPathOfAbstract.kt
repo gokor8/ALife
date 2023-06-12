@@ -10,10 +10,10 @@ import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
 
-class TestPathOfAbstractFileModel {
+class TestPathOfAbstract {
 
-    private val testFrontSaveModel = FakeFileModel(FrontAlifeFileName())
-    private val testBackSaveModel = FakeFileModel(BackAlifeFileName())
+    private val testFrontSaveModel = Fake(FrontAlifeFileName())
+    private val testBackSaveModel = Fake(BackAlifeFileName())
 
     @Test
     fun `test front file path`() {
@@ -41,7 +41,7 @@ class TestPathOfAbstractFileModel {
         override fun getPath(): String = ""
     }
 
-    class FakeFileModel(
+    class Fake(
         fileName: BaseFileName
-    ) : BaseFileModel.AbstractFileModel(FakeFilePath(), fileName, JpegExtension())
+    ) : BaseFileModel.Abstract(FakeFilePath(), fileName, JpegExtension())
 }

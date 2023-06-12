@@ -8,7 +8,7 @@ class TempFileName : BaseFileName {
     override fun getFileName() = "temp"
 }
 
-class TempFileModel(
+class Temp(
     filePathModel: BasePathModel,
     fileExtension: BaseFileExtension
-) : BaseFileModel.AbstractFileModel(filePathModel, TempFileName(), fileExtension)
+) : BaseFileModel.Abstract(filePathModel, TempFileName(), fileExtension)

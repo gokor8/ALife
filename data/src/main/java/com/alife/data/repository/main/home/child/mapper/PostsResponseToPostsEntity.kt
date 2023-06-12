@@ -18,10 +18,10 @@ class PostsResponseToPostsEntity @Inject constructor(): BasePostsResponseToPosts
             with(postResponse) {
                 when {
                     isPhoto() -> ImagePostEntity(
-                        username, Date(creationDate), "avatar", firstPhoto!!, secondPhoto!!
+                        username, Date(creationDate), profilePhoto, firstPhoto!!, secondPhoto!!
                     )
                     isVideo() -> VideoPostEntity(
-                        username, Date(creationDate), "avatar", video!!
+                        username, Date(creationDate), profilePhoto, video!!
                     )
                     else -> BadPostEntity(
                         postResponse.username,

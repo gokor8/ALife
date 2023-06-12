@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import com.alife.core.mapper.Mapper
 import com.alife.data.core.file_model_base.CreateAlifePathModel
-import com.alife.data.core.file_model_base.TempFileModel
+import com.alife.data.core.file_model_base.Temp
 import com.alife.data.core.file_model_base.file_builders.BaseFileExtension
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
@@ -27,7 +27,7 @@ class UriToTempFile @Inject constructor(
         val fileModel = fileNameToSeparate.map(uriToFileName.map(inputModel))
 
 
-        val file = TempFileModel(
+        val file = Temp(
             CreateAlifePathModel(context),
             BaseFileExtension.Default(fileModel.second)
         ).createFile()

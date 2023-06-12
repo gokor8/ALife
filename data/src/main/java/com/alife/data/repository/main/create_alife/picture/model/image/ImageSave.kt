@@ -6,7 +6,7 @@ import com.alife.data.core.file_model_base.BaseSaveFileModel
 import com.alife.data.core.file_model_base.file_builders.BaseFileName
 import java.io.FileOutputStream
 
-class ImageSaveFileModel(
+class ImageSave(
     private val imageByteArray: ByteArray,
     createAlifePathModel: CreateAlifePathModel,
     fileName: BaseFileName,

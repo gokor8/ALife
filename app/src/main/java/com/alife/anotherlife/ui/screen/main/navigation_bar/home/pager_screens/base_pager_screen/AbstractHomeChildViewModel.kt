@@ -10,7 +10,7 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.ba
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildState
 
 abstract class AbstractHomeChildViewModel(
-    override val reducerVM: BaseHomeChildReducer
+    override val reducerVM: BaseHomeChildReducer,
 ) : ViewModelLCE<BaseHomeChildReducer, HomeChildAction, HomeChildState, HomeChildEffect>(reducerVM) {
 
     override suspend fun onAction(action: HomeChildAction) {

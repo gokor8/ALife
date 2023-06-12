@@ -1,5 +1,5 @@
-package com.alife.anotherlife.ui.screen.main.navigation_bar.profile
 
+package com.alife.anotherlife.ui.screen.main.navigation_bar.profile
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
@@ -69,7 +69,6 @@ class ProfileScreen(
             contentWindowInsets = WindowInsets(bottom = innerPadding.calculateBottomPadding()),
             snackbarHost = { SnackbarHost(snackBarHostState) }
         ) { innerPadding ->
-
             ConstraintLayout(
                 ProfileConstraints().markup(constraints),
                 modifier = modifier

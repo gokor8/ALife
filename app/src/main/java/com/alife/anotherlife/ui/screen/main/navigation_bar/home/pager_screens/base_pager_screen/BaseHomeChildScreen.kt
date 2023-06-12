@@ -174,7 +174,9 @@ abstract class BaseHomeChildScreen(
                             val firstVisibleIndex = layoutInfo.visibleItemsInfo.firstOrNull()?.index ?: -1
                             val lastVisibleIndex = layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -1
 
-                            (firstVisibleIndex + lastVisibleIndex) / 2
+                            val centralIndex = (firstVisibleIndex + lastVisibleIndex) / 2
+                            Log.d("CentralIndex", "$centralIndex")
+                            centralIndex
                             // Выполните необходимую логику для получения индекса центрального элемента
                         }
                     }
@@ -186,7 +188,7 @@ abstract class BaseHomeChildScreen(
                         modifier = Modifier.fillMaxSize(),
                     ) {
                         item {
-                            Spacer(modifier = Modifier.height(90.dp).fillMaxWidth())
+                            Spacer(modifier = Modifier.height(120.dp).fillMaxWidth())
                         }
                         items(
                             count = lazyPosts.itemCount,
@@ -199,7 +201,7 @@ abstract class BaseHomeChildScreen(
 
                             when (val post = lazyPosts[index]) {
                                 is VideoPostContainerUI -> post.Post(
-                                    isNeedPlay = isNeedPlay,
+                                    isNeedPlay = isNeedPlay && state.isHavePostToday,
                                     viewModel = viewModel,
                                     modifier = Modifier
                                 )

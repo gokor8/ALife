@@ -19,7 +19,9 @@ class FriendsViewModelModuleP {
     @Reusable
     @Provides
     @FriendsAnnotation.FriendsUIStore
-    fun provideHomeUIStore(): UIStore<HomeChildState, HomeChildEffect> {
+    fun provideHomeUIStore(
+        //cacheDataSourceFactory: CacheDataSourceFactory
+    ): UIStore<HomeChildState, HomeChildEffect> {
         return DefaultUIStore(HomeChildState())
     }
 

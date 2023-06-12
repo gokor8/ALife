@@ -13,6 +13,8 @@ class PostResponse(
     val username: String,
     @SerializedName("creationDate")
     val creationDate: Long,
+    @SerializedName("profilePhoto")
+    val profilePhoto: String,
     @SerializedName("firstPhoto")
     val firstPhoto: String?,
     @SerializedName("secondPhoto")

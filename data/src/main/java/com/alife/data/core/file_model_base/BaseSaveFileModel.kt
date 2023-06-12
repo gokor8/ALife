@@ -17,7 +17,7 @@ interface BaseSaveFileModel : BaseFileModel {
         fileName: BaseFileName,
         fileExtension: BaseFileExtension,
         private val fileWrapperFactory: FileWrapperFactory
-    ) : BaseFileModel.AbstractFileModel(filePath, fileName, fileExtension), BaseSaveFileModel {
+    ) : BaseFileModel.Abstract(filePath, fileName, fileExtension), BaseSaveFileModel {
 
         override fun createFile(): File {
             val myDir = fileWrapperFactory.create(getFullPath())

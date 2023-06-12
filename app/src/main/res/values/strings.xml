@@ -35,6 +35,9 @@
     <string name="registration">Зарегистрироваться</string>
     <string name="test">Test</string>
 
+    // Image
+    <string name="image_error">Не удалось загрузить, картинку</string>
+
     //Registration
     <string name="error_empty">Field is Empty</string>
 

@@ -3,25 +3,32 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.b
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.media3.exoplayer.ExoPlayer
 import com.alife.anotherlife.R
+import com.alife.anotherlife.core.composable.alife_card.ALifeCardCompose
+import com.alife.anotherlife.core.composable.alife_card.start_strategy.DefaultStrategy
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.composable.text.style.Button18
 import com.alife.anotherlife.core.composable.text.style.style16Bold
 import com.alife.anotherlife.core.composable.text.style.style18Bold
 import com.alife.anotherlife.theme.Shapes
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.AbstractHomeChildViewModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.BlurCreateAlife
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.PostCardCompose
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.compose.PostPhotoCardCompose
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.UICloudPicturesModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.state.HomeChildAction
+import com.skydoves.cloudy.Cloudy
 import java.time.format.TextStyle
 
 abstract class AbstractUIPhotosPostModel(
@@ -39,15 +46,22 @@ abstract class AbstractUIPhotosPostModel(
         viewModel: AbstractHomeChildViewModel,
         modifier: Modifier
     ) {
-        PostPhotoCardCompose(
+        PostCardCompose(
             profileName = username,
             avatar = avatar,
             timestamp = timestamp,
-            photoCardModel = UICloudPicturesModel(frontAlife, backAlife),
+            modifier = modifier,
+            onProfileClick = { viewModel.reduce(HomeChildAction.OnPostProfile(username)) }
+        ) { newModifier -> AlifeCard(viewModel, newModifier) }
+    }
+
+    @Composable
+    protected open fun AlifeCard(viewModel: AbstractHomeChildViewModel, modifier: Modifier) {
+        ALifeCardCompose(
+            UICloudPicturesModel(frontAlife, backAlife),
+            offsetsStartStrategy = DefaultStrategy(),
             modifier = modifier
-        ) {
-            viewModel.reduce(HomeChildAction.OnPostProfile(username))
-        }
+        )
     }
 }
 
@@ -60,26 +74,12 @@ class BlurUIPhotosPostModel(
 ) : AbstractUIPhotosPostModel(username, timestamp, avatar, frontAlife, backAlife) {
 
     @Composable
-    override fun Card(
-        viewModel: AbstractHomeChildViewModel,
-        modifier: Modifier
-    ) {
-        Box(modifier = modifier, contentAlignment = Alignment.Center) {
-            super.Card(
-                viewModel,
-                modifier.clip(Shapes.large).blur(30.dp)
-            )
-            Column(Modifier.padding(horizontal = 40.dp)) {
-                TextBase(
-                    textResId = R.string.create_alife_on_post,
-                    textAlign = TextAlign.Center,
-                    style = style16Bold()
-                )
-                Spacer(modifier = Modifier.padding(bottom = 22.dp))
-                Button18(text = R.string.create_alife_base) {
-                    viewModel.reduce(HomeChildAction.OnTakeALife())
-                }
-            }
+    override fun AlifeCard(viewModel: AbstractHomeChildViewModel, modifier: Modifier) {
+        BlurCreateAlife(
+            modifier,
+            viewModel::reduce,
+        ) {
+            super.AlifeCard(viewModel, modifier)
         }
     }
 }

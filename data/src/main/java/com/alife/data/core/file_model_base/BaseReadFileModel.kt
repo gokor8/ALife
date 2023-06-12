@@ -19,7 +19,7 @@ interface BaseReadFileModel : BaseFileModel {
         filePath: BasePathModel,
         fileName: BaseFileName,
         fileExtension: BaseFileExtension,
-    ) : BaseFileModel.AbstractFileModel(filePath, fileName, fileExtension), BaseReadFileModel {
+    ) : BaseFileModel.Abstract(filePath, fileName, fileExtension), BaseReadFileModel {
 
         override fun readFromFile(
             buffer: BufferedInputStream,

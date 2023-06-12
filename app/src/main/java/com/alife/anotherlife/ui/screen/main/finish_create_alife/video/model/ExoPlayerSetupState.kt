@@ -4,8 +4,11 @@ import androidx.compose.runtime.Stable
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import androidx.media3.datasource.DataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.BaseMediaSource
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
+
 
 @Stable
 interface ExoPlayerSetupState {
@@ -46,12 +49,16 @@ interface ExoPlayerSetupState {
 
         @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
         override fun setup(exoPlayer: ExoPlayer) {
+//            exoPlayer.setMediaSource(
+//                ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(mediaItem)
+//            )
+
             exoPlayer.setMediaItem(mediaItem)
             super.setup(exoPlayer)
         }
     }
 
-    object Pause : ExoPlayerSetupState {
+    class Pause : ExoPlayerSetupState {
         override fun afterSetup(exoPlayer: ExoPlayer) {
             exoPlayer.pause()
         }

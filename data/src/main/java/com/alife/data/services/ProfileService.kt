@@ -10,6 +10,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ProfileService {
@@ -17,8 +18,8 @@ interface ProfileService {
     @GET("/profile")
     suspend fun getUserInfo(): ResponseProfileInfoModel
 
-    @GET("/post-profile")
-    suspend fun getPostProfile(@Query("username") username: String): ResponseProfileInfoModel
+    @GET("/profile/{username}")
+    suspend fun getPostProfile(@Path("username") username: String): ResponseProfileInfoModel
 
     @PUT("/profile")
     suspend fun saveUserData(

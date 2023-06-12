@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,11 +32,14 @@ import com.alife.anotherlife.core.composable.brush.verticalTopToBottomGradient
 import com.alife.anotherlife.core.composable.clickableNoRipple
 import com.alife.anotherlife.core.composable.icon.IconBase
 import com.alife.anotherlife.core.composable.image.ImageBase
+import com.alife.anotherlife.core.composable.text.HintBasicTextField
 import com.alife.anotherlife.core.composable.text.style.style16
 import com.alife.anotherlife.core.composable.text.style.style16Bold
 import com.alife.anotherlife.core.composable.text.style.style36Bold
 import com.alife.anotherlife.core.ui.screen.VMScreenLCE
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.post_profile.state.PostAction
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.state.ProfileChangingAction
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.usual.ProfileUsualFillState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileConstraintModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileConstraints
 
@@ -58,7 +62,7 @@ class PostProfileScreen(
         val constraints = ProfileConstraintModel()
         val state = viewModel.getUIState()
 
-        val onBackgroundColor = MaterialTheme.colorScheme.onBackground
+        val visibleColor = MaterialTheme.colorScheme.onBackground
 
         ConstraintLayout(
             ProfileConstraints().markup(constraints),
@@ -66,63 +70,62 @@ class PostProfileScreen(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .layoutId(constraints.topBar)
-                    .fillMaxWidth()
-                    .background(verticalTopToBottomGradient())
-                    .systemBarsPadding()
-                    .padding(vertical = 14.dp)
-            ) {
-                ImageBase(
-                    resId = R.drawable.ic_base_back,
-                    colorFilter = ColorFilter.tint(onBackgroundColor),
+            with(state.uiProfileInfoModel) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .clickableNoRipple {
-                            navController.popBackStack()
+                        .layoutId(constraints.topBar)
+                        .fillMaxWidth()
+                        .background(verticalTopToBottomGradient())
+                        .systemBarsPadding()
+                        .padding(vertical = 14.dp)
+                ) {
+                    ImageBase(
+                        resId = R.drawable.ic_base_back,
+                        colorFilter = ColorFilter.tint(visibleColor),
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .clickableNoRipple {
+                                navController.popBackStack()
+                            }
+                    )
+                    Text(
+                        username,
+                        style = style16Bold(),
+                        modifier = Modifier.clickableNoRipple {
+                            copyToClipboard(context, username)
                         }
+                    )
+                }
+
+                photo.ImageContent(
+                    modifier = Modifier
+                        .layoutId(constraints.image)
+                        .zIndex(-1f)
+                        .fillMaxWidth()
+                        .aspectRatio(360 / 395f)
                 )
-                Text(
-                    state.username,
-                    style = style16Bold(),
-                    modifier = Modifier.clickableNoRipple {
-                        copyToClipboard(context, state.username)
-                    }
-                )
-            }
 
-            ImageBase(
-                R.drawable.img_voin,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .layoutId(constraints.image)
-                    .fillMaxWidth()
-                    .zIndex(-1f)
-                    .aspectRatio(360 / 395f)
-            )
+                Row(
+                    modifier = Modifier
+                        .layoutId(constraints.preBottom)
+                        .fillMaxWidth()
+                        .background(verticalBottomToTopGradient())
+                        .padding(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(name, style = style36Bold())
+                }
 
-            Row(
-                modifier = Modifier
-                    .layoutId(constraints.preBottom)
-                    .fillMaxWidth()
-                    .background(verticalBottomToTopGradient())
-                    .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(state.name, style = style36Bold())
-                IconBase(R.drawable.ic_profile_addons, tint = onBackgroundColor)
-            }
-
-            Column(
-                modifier = Modifier
-                    .layoutId(constraints.bottom)
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(start = 16.dp)
-            ) {
-                Text(state.country, style = style16())
+                Column(
+                    modifier = Modifier
+                        .layoutId(constraints.bottom)
+                        .padding(start = 14.dp)
+                ) {
+                    Spacer(modifier = Modifier.padding(bottom = 14.dp))
+                    Text(description, color = visibleColor,)
+                }
             }
         }
     }

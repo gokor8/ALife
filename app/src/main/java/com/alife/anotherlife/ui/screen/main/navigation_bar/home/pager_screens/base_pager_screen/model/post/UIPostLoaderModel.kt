@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 interface UIPostLoaderModel {
 
     @Composable
-    fun Loader(modifier: Modifier) = Unit
+    fun  Loader(modifier: Modifier) = Unit
 
     object EmptyModel : UIPostLoaderModel
 

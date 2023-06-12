@@ -4,7 +4,7 @@ import android.content.Context
 import com.alife.core.mapper.Mapper
 import com.alife.data.core.file_model_base.BaseFileModel
 import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToReadModel
-import com.alife.data.repository.main.create_alife.video.video.VideoFileModel
+import com.alife.data.repository.main.create_alife.video.video.Video
 import com.alife.domain.core.MappingException
 import com.alife.domain.main.create_alife.entity.CreateAlifeReadEntity
 import com.alife.domain.main.create_alife.picture.entity.ImageReadEntity
@@ -23,7 +23,7 @@ class CAReadEntityToFileModel @Inject constructor(
     override fun map(inputModel: CreateAlifeReadEntity): BaseFileModel {
         return when(inputModel) {
             is ImageReadEntity -> entityToReadModel.map(inputModel)
-            is VideoReadEntity -> VideoFileModel(context)
+            is VideoReadEntity -> Video(context)
             else -> throw MappingException()
         }
     }

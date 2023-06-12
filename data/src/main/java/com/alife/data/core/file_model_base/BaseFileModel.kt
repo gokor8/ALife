@@ -12,7 +12,7 @@ interface BaseFileModel {
     fun createFile(): File = File(getFullPath())
 
 
-    abstract class AbstractFileModel(
+    abstract class Abstract(
         protected val filePath: BasePathModel,
         protected val fileName: BaseFileName,
         protected val fileExtension: BaseFileExtension

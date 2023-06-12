@@ -11,7 +11,6 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.ba
 import kotlinx.coroutines.flow.Flow
 
 data class HomeChildState(
-    // Set load state
     override val lceModel: LCEModel = LCEContent,
     val uiLoaderModel: UIPostLoaderModel = UIPostLoaderModel.EmptyModel,
     val profileList: List<UIPostModel> = listOf(UIPlzCreatePostModel()),

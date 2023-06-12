@@ -35,6 +35,9 @@ class ProfileCardConstraints :
 
             constrain(refsModel.alife) {
                 top.linkTo(refsModel.profileIcon.bottom, margin = 26.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                bottom.linkTo(parent.bottom)
             }
         }
     }
