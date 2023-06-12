@@ -16,6 +16,7 @@
     <string name="exception">Ошибка!</string>
     <string name="try_later">Повторите по позже</string>
     <string name="try_again">Повторите попытку</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiZ3JlZ29yeXVzYXRyYWNrIiwiYSI6ImNsaXRkMDBoejFsZGgza28xd3Ruc243YTQifQ.9Sjj0HSKbSKMrv0x3aQs7w</string>
 
     // Generic Exception
     <string name="generic_exception_title">Непредвиденная ошибка</string>

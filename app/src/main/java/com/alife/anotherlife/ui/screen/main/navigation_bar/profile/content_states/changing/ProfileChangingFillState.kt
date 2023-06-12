@@ -139,9 +139,6 @@ class ProfileChangingFillState(
         }
 
         Column(modifier = Modifier.layoutId(constraints.bottom).padding(start = 14.dp)) {
-            Text("Russia", maxLines = 1, style = style16(visibleColor))
-
-            Spacer(modifier = Modifier.padding(bottom = 14.dp))
             HintBasicTextField(
                 state.description,
                 R.string.profile_hint_description,

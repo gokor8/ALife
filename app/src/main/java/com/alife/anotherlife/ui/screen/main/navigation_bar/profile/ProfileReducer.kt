@@ -29,13 +29,9 @@ class ProfileReducer @Inject constructor(
             copy(lceModel = LceErrorProfileProvider)
         }.handleThis(getState()) {
             val profileInfo = with(profileInfoUseCase.getProfileInfo()) {
-                val photo = if(pictureUrl == null) {
-                    EmptyImageExtModel()
-                } else {
-                    ImageExtModel.Uri(pictureUrl!!)
-                }
+                val photo = pictureUrl?.run { ImageExtModel.Uri(this) } ?: EmptyImageExtModel()
 
-                UIProfileInfoModel(name, photo, username, description ?: "")
+                UIProfileInfoModel(username, photo, name, description ?: "")
             }
 
             copy(

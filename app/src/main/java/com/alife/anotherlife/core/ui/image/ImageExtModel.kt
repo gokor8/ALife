@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.alife.anotherlife.core.composable.image.ExtendImageBase
 
 interface ImageExtModel {
 
@@ -25,10 +26,9 @@ interface ImageExtModel {
 
         @Composable
         override fun ImageContent(modifier: Modifier) {
-            Image(
-                painter = rememberAsyncImagePainter(model),
+            ExtendImageBase(
+                model = model,
                 contentScale = ContentScale.Crop,
-                contentDescription = "",
                 modifier = modifier
             )
         }

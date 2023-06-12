@@ -27,7 +27,7 @@ class TokenReAuthInterceptor @Inject constructor(
         // TODO если надо будет на некоторые только запросы добавлять заголовок токена
         // TODO то можно завести интерфейс или енам класс со списком тех, которым нужно добавлять
         // Или инкапсулировать в метод абстрактного класса
-        Log.d("Tokens", "${tokens.accessToken} | ${tokens.refreshToken}")
+        //Log.d("Tokens", "${tokens.accessToken} | ${tokens.refreshToken}")
 
         val response = chain.proceed(request)
 

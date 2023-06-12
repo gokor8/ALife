@@ -1,5 +1,6 @@
 package com.alife.data.interceptor.model
 
+import android.util.Log
 import android.view.WindowManager.BadTokenException
 import com.alife.core.addons.JsonWrapper
 import com.alife.core.chain.ChainHandler
@@ -15,29 +16,37 @@ import javax.inject.Inject
 
 interface BaseTokenErrorChain : ChainHandler.BaseSuspend<TokenErrorChainModel, Response>
 
-        class RefreshTokenErrorChain @Inject constructor(
-            private val tokensUseCase: BaseTokensUseCase,
-            private val tokenService: TokenService,
-            private val requestToAuthHeader: BaseRequestToAuthHeader
-        ) : BaseTokenErrorChain {
+class RefreshTokenErrorChain @Inject constructor(
+    private val tokensUseCase: BaseTokensUseCase,
+    private val tokenService: TokenService,
+    private val requestToAuthHeader: BaseRequestToAuthHeader
+) : BaseTokenErrorChain {
 
-            override suspend fun handle(inputModel: TokenErrorChainModel) = with(inputModel) {
-                val response = tokenService.sendRegData(RequestRefreshModel(refreshToken))//chain.proceed(request)
+    override suspend fun handle(inputModel: TokenErrorChainModel): Response {
+        val response =
+            tokenService.sendRegData(RequestRefreshModel(inputModel.refreshToken))//chain.proceed(request)
 
-                response.takeIf { response ->
-                    response.isSuccessful
-                } ?: run {
-                    //response.close()
-                    tokensUseCase.deleteTokens()
-                    throw RefreshTokenDied()
-                }
+        response.takeIf { response ->
+            response.isSuccessful
+        } ?: run {
+            //response.close()
+            tokensUseCase.deleteTokens()
+            throw RefreshTokenDied()
+        }
 
-                val tokens = response.body()?.apply {
-                    tokensUseCase.saveTokens(accessToken, refreshToken)
-                } ?: throw BadTokenException()
+        val tokens = response.body()?.also { newTokens ->
+            tokensUseCase.saveTokens(newTokens.accessToken, newTokens.refreshToken)
+        } ?: throw BadTokenException()
 
-                response.code()
+        Log.d("Tokens", "newTokens $tokens")
 
-                return@with chain.proceed(requestToAuthHeader.map(request, tokens.accessToken))
+        response.code()
+
+        return inputModel.chain.proceed(
+            requestToAuthHeader.map(
+                inputModel.request,
+                tokens.accessToken
+            )
+        )
     }
 }

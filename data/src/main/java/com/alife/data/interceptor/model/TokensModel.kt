@@ -8,4 +8,7 @@ class TokensModel(
     val accessToken: String,
     @SerializedName("refreshToken")
     val refreshToken: String
-) : BaseTokensModel
+) : BaseTokensModel {
+
+    override fun toString(): String = "$accessToken \r\n $refreshToken"
+}

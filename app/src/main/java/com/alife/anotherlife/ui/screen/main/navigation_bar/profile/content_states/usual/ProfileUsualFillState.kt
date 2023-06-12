@@ -124,8 +124,6 @@ class ProfileUsualFillState(
                 .background(MaterialTheme.colorScheme.background)
                 .padding(start = 14.dp)
         ) {
-            Text("Test Russia", style = style16())
-            Spacer(modifier = Modifier.padding(8.dp))
             Text(state.description, style = style16())
         }
     }
