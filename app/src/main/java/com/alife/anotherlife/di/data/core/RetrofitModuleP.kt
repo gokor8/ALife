@@ -51,10 +51,10 @@ class RetrofitModuleP {
         chuckerInterceptor: ChuckerInterceptor
     ): OkHttpClient = OkHttpClient()
         .newBuilder()
-        .addInterceptor(defaultRequestInterceptor)
-        .addInterceptor(tokenReAuthInterceptor)
         .addInterceptor(chuckerInterceptor)
         .addInterceptor(httpLoggingInterceptor)
+        .addInterceptor(tokenReAuthInterceptor)
+        .addInterceptor(defaultRequestInterceptor)
         .readTimeout(2, TimeUnit.MINUTES)
         .connectTimeout(1, TimeUnit.MINUTES)
         .build()

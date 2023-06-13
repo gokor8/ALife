@@ -26,8 +26,12 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled true //Important step
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+            //minifyEnabled false
+            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
@@ -66,7 +70,7 @@ dependencies {
     implementation "androidx.compose.material:material:1.4.3"
     implementation 'androidx.compose.material3:material3:1.1.0'
 
-    implementation "com.google.accompanist:accompanist-pager:0.23.1"
+    implementation "com.google.accompanist:accompanist-pager:0.25.1"
     implementation 'com.google.firebase:firebase-crashlytics:18.3.7'
     implementation 'com.google.firebase:firebase-analytics:21.3.0'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
@@ -112,9 +116,6 @@ dependencies {
     // Navigation
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
-    // Cloudy
-    implementation "com.github.skydoves:cloudy:0.1.2"
-
     // Map
     //implementation 'com.yandex.android:maps.mobile:4.3.1-lite'
     implementation 'com.mapbox.maps:android:10.13.0'
@@ -122,14 +123,14 @@ dependencies {
 
     // LoadImage
     implementation "io.coil-kt:coil-compose:2.3.0"
-    //implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
-    //implementation "com.github.skydoves:landscapist-glide:2.1.9"
+    implementation "io.coil-kt:coil:2.4.0"
+    implementation "com.google.android.material:material:1.9.0"
 
     // Exoplayer
     implementation "androidx.media3:media3-exoplayer:1.0.2"
     implementation "androidx.media3:media3-exoplayer-dash:1.0.2"
     implementation "androidx.media3:media3-ui:1.0.2"
-    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
 
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:32.0.0')
