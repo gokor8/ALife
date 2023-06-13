@@ -15,6 +15,7 @@ class EmailExpiredLCEError(private val onBack: () -> Unit) : LCEModel.Error {
             stringResource(R.string.exception),
             stringResource(R.string.email_code_critical_error),
             stringResource(R.string.back),
+            Modifier,
             onBack
         )
     }

@@ -15,7 +15,6 @@ import com.alife.anotherlife.ui.screen.main.create_alife.mapper.BaseActionScoped
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.base.BaseCameraSetupFactory
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.image.capture.BaseCaptureWrapper
 import com.alife.anotherlife.ui.screen.main.create_alife.model.camera.video.capture.BaseVideoCaptureWrapper
-import com.alife.anotherlife.ui.screen.main.create_alife.state.AbstractDialogErrorEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.BaseDialogErrorEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.BaseSnackBarEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction

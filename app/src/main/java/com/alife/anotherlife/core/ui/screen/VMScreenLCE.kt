@@ -10,8 +10,8 @@ import com.alife.anotherlife.core.ui.view_model.BaseViewModelLCE
 import com.alife.anotherlife.core.ui.view_model.ViewModelLCE
 import com.alife.core.mapper.Mapper
 abstract class VMScreenLCE<VM : BaseViewModelLCE<*, *, *, *>>(
-
-    modifier: ModifierProvider = ScrollableModifier()
+    modifier: ModifierProvider = ScrollableModifier(),
+    private val contentMapper: LceContentMapper = LceContentMapper.Default(),
 ) : VMScreen<VM>(modifier) {
 
     @Composable
@@ -32,7 +32,12 @@ abstract class VMScreenLCE<VM : BaseViewModelLCE<*, *, *, *>>(
             }
         }
 
-        lceModel.LCEContent(modifier)
+        LceStateMap(lceModel, modifier)
+    }
+
+    @Composable
+    open fun LceStateMap(lceModel: LCEModel, modifier: Modifier) {
+        contentMapper.Map(lceModel, modifier)
     }
 
     @Composable

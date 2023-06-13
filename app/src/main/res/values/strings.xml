@@ -91,7 +91,15 @@
     // Create Alife
     <string name="create_alife_on_post">Создайте Alife, чтобы увидеть посты</string>
     <string name="create_alife_base">Создайте свой Alife</string>
-    
+
+    // Location Map Dialog
+    <string name="dialog_map_location_title">Приложению необходим доступ к геолокации</string>
+    <string name="dialog_map_location_description">Для просмотр карты \n предоставьте доступ к геолокации</string>
+
+    // Location Dialog
+    <string name="dialog_location_title">Приложению необходим доступ к геолокации</string>
+    <string name="dialog_location_description">Для публикования с гео \n предоставьте доступ к геолокации</string>
+
     // Camera Dialog
     <string name="dialog_camera_title">Приложению необходим доступ к камере</string>
     <string name="dialog_camera_description">Для создания Alife \n предоставьте доступ к камере</string>
@@ -126,5 +134,9 @@
     <string name="profile_error_load_photo">Не удалось загрузить вашу фотокарточку</string>
     <string name="profile_error_load_info">Не удалось обновить профиль</string>
     <string name="profile_hint_description">Description…</string>
+
+    // Map
+    <string name="map_error_title">Предоставьте разрешение</string>
+    <string name="map_error_descripion">Предоставьте разрешение, на определение геолокации</string>
 
 </resources>

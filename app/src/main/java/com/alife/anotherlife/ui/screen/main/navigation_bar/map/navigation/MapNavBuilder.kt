@@ -14,5 +14,5 @@ class MapNavBuilder(
 ) : BottomBarNavBuilder(innerPadding, navController, MapNavigationRoute()) {
 
     @Composable
-    override fun content(navBackStackEntry: NavBackStackEntry) = MapScreen(innerPadding)
+    override fun content(navBackStackEntry: NavBackStackEntry) = MapScreen(innerPadding, navController)
 }

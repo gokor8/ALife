@@ -118,6 +118,7 @@ dependencies {
     // Map
     //implementation 'com.yandex.android:maps.mobile:4.3.1-lite'
     implementation 'com.mapbox.maps:android:10.13.0'
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 
     // LoadImage
     implementation "io.coil-kt:coil-compose:2.3.0"
