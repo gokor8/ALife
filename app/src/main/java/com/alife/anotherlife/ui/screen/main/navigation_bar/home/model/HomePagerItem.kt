@@ -2,6 +2,7 @@ package com.alife.anotherlife.ui.screen.main.navigation_bar.home.model
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -49,9 +50,9 @@ abstract class HomePagerItem(
             textResId = titleId,
             textAlign = TextAlign.Center,
             color = if (selected)
-                Color.Unspecified
+                MaterialTheme.colorScheme.primary
             else
-                Color.Unspecified.copy(alpha = 0.5f),
+                MaterialTheme.colorScheme.primary.copy(alpha = .4f),
             modifier = Modifier
                 .padding(4.dp)
                 .clickableNoRipple(onClick = onClick)

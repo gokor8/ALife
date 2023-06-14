@@ -1,7 +1,9 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.map.model
 
+import android.app.ActionBar
 import android.util.TypedValue
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import coil.load
 import com.alife.anotherlife.core.composable.map.ResizeAnimation
@@ -42,9 +44,14 @@ interface MapElementModel {
             (view as? ImageView)?.also { imageView ->
                 imageView.load(imageUrl)
                 imageView.setOnClickListener {
-                    imageView.startAnimation(
-                        ResizeAnimation(imageView, finishSize, startSize)
-                    )
+//                    if (isSelected) {
+//                        imageView.startAnimation(
+//                            ResizeAnimation(imageView, finishSize, startSize)
+//                        )
+//                    } else {
+//                        view.layoutParams =
+//                            ViewGroup.LayoutParams(startSize.toInt(), startSize.toInt())
+//                    }
                 }
             }
         }

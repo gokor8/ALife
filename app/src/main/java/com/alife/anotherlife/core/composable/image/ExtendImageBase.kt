@@ -32,7 +32,7 @@ fun ExtendImageBase(
         },
         error = {
             Box(contentAlignment = Alignment.Center) {
-                TextBase(textResId = R.string.image_error)
+                ImageBase(R.drawable.ic_base_error)
             }
         },
         modifier = modifier

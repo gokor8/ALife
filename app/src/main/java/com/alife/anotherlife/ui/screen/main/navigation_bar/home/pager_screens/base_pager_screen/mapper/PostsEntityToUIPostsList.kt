@@ -1,5 +1,7 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper
 
+import android.text.format.DateFormat
+import android.text.format.DateUtils
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.PageVerify
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.post_model.UIBadPostModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.UIPostsModelList
@@ -17,6 +19,9 @@ import com.alife.domain.main.home.child.base_entity.ImagePostEntity
 import com.alife.domain.main.home.child.base_entity.PostEntity
 import com.alife.domain.main.home.child.base_entity.PostsEntity
 import com.alife.domain.main.home.child.base_entity.VideoPostEntity
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
 import javax.inject.Inject
 
 interface BasePostsEntityToUIPostsList {
@@ -34,14 +39,29 @@ class PostsEntityToUIPostsList @Inject constructor(
             posts.map { postEntity ->
                 when (postEntity) {
                     is VideoPostEntity -> with(postEntity) {
-                        VideoPostContainerUI(username, creationDate.toString(), avatar, video)
+                        val date = DateUtils.getRelativeTimeSpanString(
+                            creationDate.time,
+                            Calendar.getInstance().timeInMillis,
+                            DateUtils.MINUTE_IN_MILLIS
+                        )
+                        VideoPostContainerUI(username, date.toString(), avatar, video)
                     }
                     is ImagePostEntity -> with(postEntity) {
-                        PicturePostContainerUI(username, creationDate.toString(), avatar, firstPhoto, secondPhoto)
+                        val date = DateUtils.getRelativeTimeSpanString(
+                            creationDate.time,
+                            Calendar.getInstance().timeInMillis,
+                            DateUtils.MINUTE_IN_MILLIS
+                        )
+                        PicturePostContainerUI(username, date.toString(), avatar, firstPhoto, secondPhoto)
                     }
                     is BadPostEntity -> with(postEntity) {
+                        val date = DateUtils.getRelativeTimeSpanString(
+                            creationDate.time,
+                            Calendar.getInstance().timeInMillis,
+                            DateUtils.MINUTE_IN_MILLIS
+                        )
                         DefaultPostContainerUI(
-                            UIBadPostModel(username, creationDate.toString(), avatar)
+                            UIBadPostModel(username, date.toString(), avatar)
                         )
                     }
                     else -> throw MappingException()

@@ -40,7 +40,7 @@ fun ALifeCardCompose(
         uiAlifeCardModel.Images(
             isReversed = isReversed,
             Modifier
-                .size(100.dp, 150.dp)
+                .size(100.dp, 135.dp)
                 .draggableALifeModifier(
                     offsetsStartStrategy,
                     DpSize(maxWidth, maxHeight),

@@ -44,27 +44,27 @@ fun MapBoxComposable(
                 cameraOptions { zoom(15.5) }
             }
 
+            mapBoxElements.forEach { element ->
+                val isSelected = element == lastSelectedElement
+
+                val viewAnnotation = viewAnnotationManager.addViewAnnotation(
+                    resId = R.layout.post_map_view,
+                    options = viewAnnotationOptions {
+                        geometry(element.point)
+                        allowOverlap(isSelected)
+                    }
+                )
+
+                element.onBind(viewAnnotation, isSelected) {
+                    lastSelectedElement = element
+                }
+            }
+
             layoutParams = FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
             )
         }
     }, modifier = modifier) { mapView ->
-        mapBoxElements.forEach { element ->
-            val isSelected = element == lastSelectedElement
-
-            val viewAnnotation = mapView.viewAnnotationManager.addViewAnnotation(
-                resId = R.layout.post_map_view,
-                options = viewAnnotationOptions {
-                    geometry(element.point)
-                    allowOverlap(isSelected)
-                }
-            )
-
-            element.onBind(viewAnnotation, isSelected) {
-                lastSelectedElement = element
-            }
-        }
-
         //viewAnnotationManager.cameraForAnnotations(listOf(viewAnnotation))
 
         val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
