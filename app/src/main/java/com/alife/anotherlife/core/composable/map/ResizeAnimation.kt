@@ -9,7 +9,7 @@ class ResizeAnimation(
     private var view: View,
     private val targetSize: Float,
     private var startSize: Float,
-    duration: Long = 1000L
+    duration: Long = 700L
 ) : Animation() {
 
     init {

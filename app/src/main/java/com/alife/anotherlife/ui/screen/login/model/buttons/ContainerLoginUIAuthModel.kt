@@ -1,6 +1,8 @@
 package com.alife.anotherlife.ui.screen.login.model.buttons
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CornerSize
+import com.alife.anotherlife.R
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,9 +24,15 @@ data class ContainerLoginUIAuthModel(
         registration.Button(viewModel = viewModel, Modifier)
         Spacer(modifier = Modifier.padding(bottom = 5.dp))
         Row(modifier = Modifier) {
-            lastLeft.Button(viewModel = viewModel, Modifier)
-            Spacer(modifier = Modifier.padding(bottom = 5.dp))
-            loginIn.Button(viewModel = viewModel, Modifier)
+            LoginTextUIAuthModel.Authorization(
+                R.drawable.ic_inst,
+                CornerSize(20.dp)
+            ).Button(viewModel = viewModel, Modifier)
+            Spacer(modifier = Modifier.padding(start = 5.dp))
+            LoginTextUIAuthModel.Authorization(
+                R.drawable.ic_facebook,
+                CornerSize(20.dp)
+            ).Button(viewModel = viewModel, Modifier)
         }
     }
 }

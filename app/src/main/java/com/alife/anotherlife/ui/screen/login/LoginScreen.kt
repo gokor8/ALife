@@ -19,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.alife.anotherlife.R
+import com.alife.anotherlife.core.composable.image.ImageBase
 import com.alife.anotherlife.core.composable.modifier.ScrollableModifier
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.ui.screen.DefaultScreen

@@ -5,12 +5,17 @@ import android.view.animation.ScaleAnimation
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import coil.load
 import com.alife.anotherlife.R
+import com.alife.anotherlife.ui.screen.main.navigation_bar.map.model.MapElementModel
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
@@ -26,37 +31,42 @@ import com.mapbox.maps.viewannotation.viewAnnotationOptions
 
 
 @Composable
-fun MapBoxComposable(modifier: Modifier) {
+fun MapBoxComposable(
+    mapBoxElements: List<MapElementModel>,
+    modifier: Modifier
+) {
 
-    val startSize = LocalDensity.current.run { 50.dp.toPx() }
-    val finishSize = LocalDensity.current.run { 60.dp.toPx() }
+    var lastSelectedElement by remember { mutableStateOf<MapElementModel>(MapElementModel.Empty()) }
 
     AndroidView(factory = { context ->
         MapView(context).apply {
             getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS) {
                 cameraOptions { zoom(15.5) }
             }
-            val viewAnnotation = viewAnnotationManager.addViewAnnotation(
-                resId = R.layout.post_map_view,
-                options = viewAnnotationOptions {
-                    geometry(Point.fromLngLat(39.701504, 47.235714))
-                    allowOverlap(true)
-                }
-            )
-            (viewAnnotation as? ImageView)?.also { imageView ->
-                imageView.load("http://151.248.123.27:8080/upload/photo_check/96ad8943-2f18-4934-9756-b918c7240d40.jpeg")
-                imageView.setOnClickListener {
-                    imageView.startAnimation(ResizeAnimation(imageView, finishSize, startSize))
-                }
-            }
-
-            //viewAnnotationManager.cameraForAnnotations(listOf(viewAnnotation))
 
             layoutParams = FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
             )
         }
     }, modifier = modifier) { mapView ->
+        mapBoxElements.forEach { element ->
+            val isSelected = element == lastSelectedElement
+
+            val viewAnnotation = mapView.viewAnnotationManager.addViewAnnotation(
+                resId = R.layout.post_map_view,
+                options = viewAnnotationOptions {
+                    geometry(element.point)
+                    allowOverlap(isSelected)
+                }
+            )
+
+            element.onBind(viewAnnotation, isSelected) {
+                lastSelectedElement = element
+            }
+        }
+
+        //viewAnnotationManager.cameraForAnnotations(listOf(viewAnnotation))
+
         val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
             mapView.getMapboxMap().setCamera(CameraOptions.Builder().zoom(15.5).bearing(it).build())
         }
@@ -80,7 +90,7 @@ fun MapBoxComposable(modifier: Modifier) {
                     return false
                 }
 
-                override fun onMoveEnd(detector: MoveGestureDetector) {}
+                override fun onMoveEnd(detector: MoveGestureDetector) = Unit
             }
         )
 
