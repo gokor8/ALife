@@ -1,18 +1,24 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.map
 
 import android.util.Log
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.key
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.alife.anotherlife.core.composable.brush.verticalPrimaryGradient
 import com.alife.anotherlife.core.composable.map.MapBoxComposable
 import com.alife.anotherlife.core.ui.permission.location.LocationPermission
 import com.alife.anotherlife.core.ui.permission.location.MomentaryLocationPermission
@@ -58,20 +64,32 @@ class MapScreen(
 
     @Composable
     override fun SafeContent(modifier: Modifier) {
-        MapBoxComposable(
-            listOf(
-                MapElementModel.Image(
-                    Point.fromLngLat(39.701504, 47.235714),
-                    "http://151.248.123.27:8080/upload/photo_check/96ad8943-2f18-4934-9756-b918c7240d40.jpeg"
+        Box(
+            modifier = Modifier.fillMaxSize().statusBarsPadding()
+        ) {
+            MapBoxComposable(
+                listOf(
+                    MapElementModel.Image(
+                        Point.fromLngLat(39.701504, 47.235714),
+                        "http://151.248.123.27:8080/upload/photo_check/96ad8943-2f18-4934-9756-b918c7240d40.jpeg"
+                    ),
+                    MapElementModel.Image(
+                        Point.fromLngLat(40.701504, 47.235714),
+                        "http://151.248.123.27:8080/upload/photo_check/96ad8943-2f18-4934-9756-b918c7240d40.jpeg"
+                    )
                 ),
-                MapElementModel.Image(
-                    Point.fromLngLat(40.701504, 47.235714),
-                    "http://151.248.123.27:8080/upload/photo_check/96ad8943-2f18-4934-9756-b918c7240d40.jpeg"
-                )
-            ),
-            Modifier
-                .fillMaxSize()
-                .padding(PaddingValues(bottom = innerPadding.calculateBottomPadding() - 26.dp))
-        )
+                Modifier
+                    .fillMaxSize()
+                    .padding(PaddingValues(bottom = innerPadding.calculateBottomPadding() - 26.dp))
+            )
+
+            val gradient = verticalPrimaryGradient()
+            Canvas(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(10.dp)
+                    .align(Alignment.TopCenter)
+            ) { drawRect(brush = gradient, size = size) }
+        }
     }
 }
