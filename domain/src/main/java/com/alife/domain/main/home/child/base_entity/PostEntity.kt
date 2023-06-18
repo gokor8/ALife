@@ -3,12 +3,9 @@ package com.alife.domain.main.home.child.base_entity
 import java.util.Date
 
 interface PostEntity {
-
-    abstract class Abstract : PostEntity {
-        abstract val username: String
-        abstract val creationDate: Date
-        abstract val avatar: String?
-    }
+    val username: String
+    val creationDate: Date
+    val avatar: String?
 }
 
 class VideoPostEntity(
@@ -16,7 +13,7 @@ class VideoPostEntity(
     override val creationDate: Date,
     override val avatar: String?,
     val video: String,
-) : PostEntity.Abstract()
+) : PostEntity
 
 class ImagePostEntity(
     override val username: String,
@@ -24,10 +21,10 @@ class ImagePostEntity(
     override val avatar: String?,
     val firstPhoto: String,
     val secondPhoto: String,
-) : PostEntity.Abstract()
+) : PostEntity
 
 class BadPostEntity(
     override val username: String,
     override val creationDate: Date,
     override val avatar: String?,
-) : PostEntity.Abstract()
+) : PostEntity

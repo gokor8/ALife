@@ -23,7 +23,7 @@ class PostResponse(
     val video: String?
 ) {
 
-    fun isPhoto() = firstPhoto != null && secondPhoto != null
-
-    fun isVideo() = video != null
+    fun getPhotos() = if (firstPhoto != null && secondPhoto != null) {
+        Pair(firstPhoto, secondPhoto)
+    } else null
 }

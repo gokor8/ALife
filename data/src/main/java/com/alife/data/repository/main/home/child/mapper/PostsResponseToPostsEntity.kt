@@ -11,23 +11,23 @@ import javax.inject.Inject
 
 interface BasePostsResponseToPostsEntity : Mapper<PostsResponse, PostsEntity>
 
-class PostsResponseToPostsEntity @Inject constructor(): BasePostsResponseToPostsEntity {
+class PostsResponseToPostsEntity @Inject constructor() : BasePostsResponseToPostsEntity {
 
     override fun map(inputModel: PostsResponse): PostsEntity {
         return PostsEntity(inputModel.results.map { postResponse ->
             with(postResponse) {
+                val photos = getPhotos()
+                val creationDate = Date(creationDate)
                 when {
-                    isPhoto() -> ImagePostEntity(
-                        username, Date(creationDate), profilePhoto, firstPhoto!!, secondPhoto!!
+                    photos != null -> ImagePostEntity(
+                        username,
+                        creationDate,
+                        profilePhoto,
+                        photos.first,
+                        photos.second
                     )
-                    isVideo() -> VideoPostEntity(
-                        username, Date(creationDate), profilePhoto, video!!
-                    )
-                    else -> BadPostEntity(
-                        postResponse.username,
-                        Date(postResponse.creationDate),
-                        "postResponse.avatar"
-                    )
+                    video != null -> VideoPostEntity(username, creationDate, profilePhoto, video)
+                    else -> BadPostEntity(username, creationDate, profilePhoto)
                 }
             }
         })

@@ -7,9 +7,7 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.ba
 import com.alife.data.repository.main.home.child.MainMockRepository
 import com.alife.data.repository.main.home.child.MainRepository
 import com.alife.data.repository.main.home.child.mapper.BasePostsResponseToPostsEntity
-import com.alife.data.repository.main.home.child.mapper.BasePostsResponseToPostsEntityMockImage
 import com.alife.data.repository.main.home.child.mapper.PostsResponseToPostsEntity
-import com.alife.data.repository.main.home.child.mapper.PostsResponseToPostsEntityMockImage
 import com.alife.domain.main.home.child.BaseMainRepository
 import dagger.Binds
 import dagger.Module
@@ -32,9 +30,9 @@ interface HomeDataModule {
     fun bindPostsResponseToPostsEntity(mapper: PostsResponseToPostsEntity)
             : BasePostsResponseToPostsEntity
 
-    @Binds
-    fun bindPostsResponseToPostsEntityMockImage(mapper: PostsResponseToPostsEntityMockImage)
-            : BasePostsResponseToPostsEntityMockImage
+//    @Binds
+//    fun bindPostsResponseToPostsEntityMockImage(mapper: PostsResponseToPostsEntityMockImage)
+//            : BasePostsResponseToPostsEntityMockImage
 
     @Binds
     fun bindLoadStatesToStateEffect(mapper: LoadStatesToStateEffect): BaseLoadStatesToStateEffect

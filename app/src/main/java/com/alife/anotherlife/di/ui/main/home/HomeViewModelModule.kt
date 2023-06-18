@@ -4,10 +4,12 @@ import androidx.paging.PagingSource
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.BaseHomeReducerBase
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.HomeReducer
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.model.TabsVisibilityContract
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BaseDateAgoFormatMapper
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BasePagingKeyMapper
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BasePostsEntityToEmptyUIPostModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.paging.PostsPagingSource
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BasePostsEntityToUIPostsList
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.DateAgoFormatMapper
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.PagingKeyMapper
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.PostsEntityToEmptyUIPostModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.PostsEntityToUIPostsList
@@ -42,6 +44,9 @@ interface HomeViewModelModule {
     @Binds
     fun bindPostsEntityToEmptyUIPostModel(mapper: PostsEntityToEmptyUIPostModel)
             : BasePostsEntityToEmptyUIPostModel
+
+    @Binds
+    fun bindDateAgoFormatMapper(mapper: DateAgoFormatMapper): BaseDateAgoFormatMapper
 
     @Binds
     fun bindPaging(paging: PostsPagingSource): PagingSource<Int, UIBasePostContainer>
