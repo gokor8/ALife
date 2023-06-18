@@ -24,14 +24,19 @@ abstract class AbstractPermission(
             mutableStateOf<PermissionStatus>(PermissionStatus.Init())
         }
 
-        val permission = permissionStrategy.rememberPermission(permission = permission) { status ->
+        val permissionCallback: (PermissionStatus) -> Unit = { status ->
             permissionStatus = status
             onPermission(status)
         }
 
+        val permission = permissionStrategy.rememberPermission(
+            permission = permission,
+            onPermission = permissionCallback
+        )
+
         OnPermissionStateSetup(permission, onPermission)
 
-        OnAllPermissionSetup(permission, permissionStatus, onPermission)
+        OnAllPermissionSetup(permission, permissionStatus, permissionCallback)
 
         return permission
     }

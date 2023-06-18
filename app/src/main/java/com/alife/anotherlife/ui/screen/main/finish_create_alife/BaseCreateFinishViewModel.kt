@@ -3,6 +3,7 @@ package com.alife.anotherlife.ui.screen.main.finish_create_alife
 import android.util.Log
 import androidx.navigation.NavController
 import com.alife.anotherlife.core.composable.mvi_extensions.BaseMVIAction
+import com.alife.anotherlife.core.ui.permission.location.LocationPermission
 import com.alife.anotherlife.core.ui.view_model.BaseViewModelLCE
 import com.alife.anotherlife.core.ui.view_model.ViewModelLCE
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.BaseFinishAction
@@ -14,6 +15,8 @@ interface BaseCreateFinishViewModel<
         REDUCER : BaseCreateFinishReducer<STATE>,
         ACTION : BaseMVIAction<REDUCER>,
         STATE : FinishState<STATE>> : BaseViewModelLCE<REDUCER, ACTION, STATE, FinishEffect> {
+
+    val location: LocationPermission
 
     fun reduceFinishAction(action: BaseFinishAction)
 
@@ -39,6 +42,8 @@ interface BaseCreateFinishViewModel<
         reducer: REDUCER
     ) : ViewModelLCE<REDUCER, ACTION, STATE, FinishEffect>(reducer),
         BaseCreateFinishViewModel<REDUCER, ACTION, STATE> {
+
+        override val location = LocationPermission()
 
         override suspend fun collectEffect(
             navController: NavController,

@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.map
 
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -48,6 +49,7 @@ class MapScreen(
         val permission = viewModel.locationPermission.requirePermission(viewModel)
 
         viewModel.lceErrorMapMapper.Map(lceModel, modifier) {
+            Log.d("Full Dialog", "require permission")
             permission.launchPermissionRequest()
             viewModel.reduce(MapAction.Init())
         }

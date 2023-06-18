@@ -1,5 +1,6 @@
 package com.alife.anotherlife.core.ui.permission
 
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
@@ -34,8 +35,11 @@ abstract class FullPermission(
             permissionState.launchPermissionRequest()
         }
 
+        Log.d("Full Dialog", "$permissionStatus")
+        Log.d("Full Dialog", "permissionStatus: ${permissionStatus is PermissionStatus.PreFatal}")
+
         fatalDialog.ShowDialog(
-            permissionStatus is PermissionStatus.Fatality,
+            permissionStatus is PermissionStatus.PreFatal,
             onAgree = { activityLauncher.launch(context.settingsIntent()) },
             onDismiss = { onPermission(PermissionStatus.Fatal()) }
         )
