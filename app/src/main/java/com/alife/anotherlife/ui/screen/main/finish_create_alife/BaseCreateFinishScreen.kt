@@ -1,5 +1,9 @@
 package com.alife.anotherlife.ui.screen.main.finish_create_alife
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.location.LocationManager
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,10 +34,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.getSystemService
 import androidx.navigation.NavController
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.icon.IconBase
@@ -45,8 +51,10 @@ import com.alife.anotherlife.ui.screen.main.create_alife.model.audio.BaseAudioAc
 import com.alife.anotherlife.ui.screen.main.create_alife.state.BaseSnackBarEffect
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeAction
 import com.alife.anotherlife.ui.screen.main.create_alife.state.CreateAlifeEffect
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_model.EmptyLocationModel
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.BaseFinishAction
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.model.SnackBarWrapper
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import kotlinx.coroutines.launch
 
 abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
@@ -57,11 +65,13 @@ abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
         viewModel.reduceFinishAction(BaseFinishAction.Init())
     }
 
+    @SuppressLint("MissingPermission")
+    @OptIn(ExperimentalPermissionsApi::class)
     @Composable
     override fun SafeContent(modifier: Modifier) {
         val snackBarHostState = remember { SnackbarHostState() }
 
-        val viewModelLocation = viewModel.location
+        val locationPermission = viewModel.location.requirePermission(viewModel)
 
         Scaffold(
             modifier,
@@ -84,18 +94,13 @@ abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
                         Spacer(
                             Modifier
                                 .padding(start = 8.dp)
-                                .weight(1f))
+                                .weight(1f)
+                        )
                         Switch(
-                            checked = false,
-                            onCheckedChange = { isChecked ->
-                               // viewModelLocation.l
-//                                audioPermission.launchPermissionRequest()
-//
-//                                viewModel.reduce(
-//                                    CreateAlifeAction.OnChangedAudio(
-//                                        BaseAudioActionModel.Checked(isChecked)
-//                                    )
-//                                )
+                            checked = viewModel.getUIState().location !is EmptyLocationModel,
+                            onCheckedChange = {
+                                Log.d("Aboba switch", "on click switch")
+                                locationPermission.launchPermissionRequest()
                             },
                             thumbContent = {
                                 IconBase(icon = R.drawable.ic_gps, Modifier.padding(6.dp))
@@ -139,10 +144,19 @@ abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
                 wrapper.value?.SnackBar(snackBarHostState)
             }
 
+            val context = LocalContext.current
+
             LaunchedEffect(Unit) {
-                viewModel.collectEffect(navController) { wrapper ->
-                    snackBarErrorEffect = wrapper
-                }
+                viewModel.collectEffect(
+                    navController,
+                    onSnackBarError = { wrapper -> snackBarErrorEffect = wrapper },
+                    onLocation = {
+                        context.getSystemService<LocationManager>()
+                            ?.getLastKnownLocation(LocationManager.GPS_PROVIDER)?.apply {
+                            viewModel.reduceFinishAction(BaseFinishAction.Location(longitude, latitude))
+                        }
+                    }
+                )
             }
         }
     }

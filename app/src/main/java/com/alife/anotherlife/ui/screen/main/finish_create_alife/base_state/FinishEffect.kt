@@ -13,6 +13,8 @@ interface FinishEffect : MVI.Effect {
 
     class GoBack : FinishEffect, NavigationWrapper.Back()
 
+    class RequireGps : FinishEffect
+
     // TODO New Stack Screen (backToMainScreen)
     class GoMain : FinishEffect, NavigationWrapper.Forward(HomeNavigator())
 }

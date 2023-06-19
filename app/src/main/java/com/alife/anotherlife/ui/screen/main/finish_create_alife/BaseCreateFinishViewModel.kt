@@ -3,6 +3,8 @@ package com.alife.anotherlife.ui.screen.main.finish_create_alife
 import android.util.Log
 import androidx.navigation.NavController
 import com.alife.anotherlife.core.composable.mvi_extensions.BaseMVIAction
+import com.alife.anotherlife.core.ui.permission.PermissionBoxer
+import com.alife.anotherlife.core.ui.permission.PermissionStatus
 import com.alife.anotherlife.core.ui.permission.location.LocationPermission
 import com.alife.anotherlife.core.ui.view_model.BaseViewModelLCE
 import com.alife.anotherlife.core.ui.view_model.ViewModelLCE
@@ -14,7 +16,8 @@ import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.model.Snac
 interface BaseCreateFinishViewModel<
         REDUCER : BaseCreateFinishReducer<STATE>,
         ACTION : BaseMVIAction<REDUCER>,
-        STATE : FinishState<STATE>> : BaseViewModelLCE<REDUCER, ACTION, STATE, FinishEffect> {
+        STATE : FinishState<STATE>> : BaseViewModelLCE<REDUCER, ACTION, STATE, FinishEffect>,
+    PermissionBoxer {
 
     val location: LocationPermission
 
@@ -22,7 +25,8 @@ interface BaseCreateFinishViewModel<
 
     suspend fun collectEffect(
         navController: NavController,
-        onSnackBarError: (SnackBarWrapper) -> Unit
+        onSnackBarError: (SnackBarWrapper) -> Unit,
+        onLocation: () -> Unit
     )
 
     override suspend fun onEffect(navController: NavController, effect: FinishEffect) {
@@ -38,21 +42,26 @@ interface BaseCreateFinishViewModel<
             ACTION : BaseMVIAction<REDUCER>,
             STATE : FinishState<STATE>
             >(
-        //val cacheDataSourceFactory: CacheDataSourceFactory,
         reducer: REDUCER
     ) : ViewModelLCE<REDUCER, ACTION, STATE, FinishEffect>(reducer),
         BaseCreateFinishViewModel<REDUCER, ACTION, STATE> {
 
         override val location = LocationPermission()
 
+        override fun reduceBox(permissionStatus: PermissionStatus) {
+            reduceFinishAction(BaseFinishAction.Gps(permissionStatus))
+        }
+
         override suspend fun collectEffect(
             navController: NavController,
-            onSnackBarError: (SnackBarWrapper) -> Unit
+            onSnackBarError: (SnackBarWrapper) -> Unit,
+            onLocation: () -> Unit
         ) {
             reducerVM.getEffectCollector().collect { effect ->
                 Log.d("catched effect", "$$effect")
                 when (effect) {
                     is SnackBarWrapper -> onSnackBarError(effect)
+                    is FinishEffect.RequireGps -> onLocation()
                     else -> onEffect(navController, effect)
                 }
             }

@@ -55,8 +55,8 @@ class RetrofitModuleP {
         .addInterceptor(defaultRequestInterceptor)
         .addInterceptor(chuckerInterceptor)
         .addInterceptor(httpLoggingInterceptor)
-        .readTimeout(2, TimeUnit.MINUTES)
-        .connectTimeout(1, TimeUnit.MINUTES)
+        .readTimeout(3, TimeUnit.MINUTES)
+        .connectTimeout(3, TimeUnit.MINUTES)
         .build()
 
     @Provides

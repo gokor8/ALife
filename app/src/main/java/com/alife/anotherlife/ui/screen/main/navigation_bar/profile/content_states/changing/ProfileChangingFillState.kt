@@ -4,6 +4,11 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +24,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -115,6 +121,21 @@ class ProfileChangingFillState(
                 },
                 modifier = Modifier.weight(1f)
             )
+
+            val infiniteTransition = rememberInfiniteTransition()
+
+            val startPulseValue = 1f
+            val pulseFraction = 1.2f
+
+            val scale by infiniteTransition.animateFloat(
+                initialValue = startPulseValue,
+                targetValue = pulseFraction,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(1000),
+                    repeatMode = RepeatMode.Reverse
+                ), label = ""
+            )
+
             AnimatedContent(targetState = Unit, label = "") {
                 IconBase(
                     R.drawable.ic_close,
