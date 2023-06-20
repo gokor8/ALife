@@ -3,7 +3,6 @@ package com.alife.anotherlife.di.ui.main.create_alife.video
 import com.alife.anotherlife.core.ui.store.DefaultUIStore
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.FinishEffect
-import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.state.FinishVideoEffect
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.state.FinishVideoState
 import dagger.Module
 import dagger.Provides

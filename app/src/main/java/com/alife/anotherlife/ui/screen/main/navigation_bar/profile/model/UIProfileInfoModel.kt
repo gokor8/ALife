@@ -7,6 +7,10 @@ open class UIProfileInfoModel(
     val photo: ImageExtModel,
     val name: String,
     val description: String
-)
+) {
+    fun copy(newPhoto: ImageExtModel) = UIProfileInfoModel(username, newPhoto, name, description)
 
-class EmptyUIProfileInfoModel : UIProfileInfoModel("", EmptyImageExtModel(), "", "")
+    fun copyLoadPhoto() = copy(ImageExtModel.Loading())
+}
+
+class InitUIProfileInfoModel : UIProfileInfoModel("", ImageExtModel.Loading(), "", "")

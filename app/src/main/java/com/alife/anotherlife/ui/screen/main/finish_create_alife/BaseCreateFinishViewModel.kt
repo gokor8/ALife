@@ -12,6 +12,9 @@ import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.BaseF
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.FinishEffect
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.FinishState
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.model.SnackBarWrapper
+import com.google.android.gms.location.Priority
+import com.google.android.gms.tasks.CancellationToken
+import com.google.android.gms.tasks.CancellationTokenSource
 
 interface BaseCreateFinishViewModel<
         REDUCER : BaseCreateFinishReducer<STATE>,
@@ -26,7 +29,7 @@ interface BaseCreateFinishViewModel<
     suspend fun collectEffect(
         navController: NavController,
         onSnackBarError: (SnackBarWrapper) -> Unit,
-        onLocation: () -> Unit
+        onLocation: (Int, CancellationToken) -> Unit
     )
 
     override suspend fun onEffect(navController: NavController, effect: FinishEffect) {
@@ -55,13 +58,15 @@ interface BaseCreateFinishViewModel<
         override suspend fun collectEffect(
             navController: NavController,
             onSnackBarError: (SnackBarWrapper) -> Unit,
-            onLocation: () -> Unit
+            onLocation: (Int, CancellationToken) -> Unit
         ) {
             reducerVM.getEffectCollector().collect { effect ->
-                Log.d("catched effect", "$$effect")
                 when (effect) {
                     is SnackBarWrapper -> onSnackBarError(effect)
-                    is FinishEffect.RequireGps -> onLocation()
+                    is FinishEffect.RequireGps -> onLocation(
+                        Priority.PRIORITY_HIGH_ACCURACY,
+                        CancellationTokenSource().token
+                    )
                     else -> onEffect(navController, effect)
                 }
             }

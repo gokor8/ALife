@@ -7,11 +7,15 @@ import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.BaseProfileReducer
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.state.ProfileChangingState
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.InitUIProfileInfoModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.UIProfileInfoModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.state.ProfileEffect
 import com.alife.data.repository.main.profile.model.PhotoUriWrapper
 import com.alife.domain.main.profile.BaseSaveProfileDataUseCase
 import com.alife.domain.main.profile.entity.ProfileMainInfoEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import javax.inject.Inject
 
@@ -22,8 +26,8 @@ class ProfileChangingReducer @Inject constructor(
 ) : HandlerBaseVMReducer<ProfileChangingState, ProfileEffect>(),
     BaseProfileChangingReducer {
 
-    override fun onProfileUIDataModel(profileUIDataModel: UIProfileInfoModel) {
-        setState { copy(profileInfo = profileUIDataModel) }
+    override suspend fun onProfileUIDataModel(profileInfo: UIProfileInfoModel) {
+        setState { copy(profileInfo = profileInfo) }
     }
 
     override fun onUsername(newUsername: String) {
@@ -59,11 +63,13 @@ class ProfileChangingReducer @Inject constructor(
             profileReducer.trySetEffect(ProfileEffect.ProfileInfoUploadError())
         }.handleThis(getState().profileInfo) {
             saveProfileDataUseCase.saveData(ProfileMainInfoEntity(username, name, description))
+            setState { copy(profileInfo = InitUIProfileInfoModel()) }
             profileReducer.onUsual(this)
         }
     }
 
     override fun onDiscard() {
+        setState { copy(profileInfo = profileInfo.copyLoadPhoto()) }
         profileReducer.onUsual()
     }
 }

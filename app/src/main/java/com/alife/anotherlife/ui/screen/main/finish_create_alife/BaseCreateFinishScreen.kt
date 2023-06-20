@@ -55,7 +55,12 @@ import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_model.Empty
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.base_state.BaseFinishAction
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.model.SnackBarWrapper
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.android.gms.location.CurrentLocationRequest
+import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import java.lang.ref.WeakReference
 
 abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
     override val navController: NavController
@@ -70,6 +75,14 @@ abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
     @Composable
     override fun SafeContent(modifier: Modifier) {
         val snackBarHostState = remember { SnackbarHostState() }
+        val coroutineScope = rememberCoroutineScope()
+        val context = LocalContext.current
+
+        val locationClient = remember {
+            LocationServices.getFusedLocationProviderClient(context)
+        }
+
+        val state = viewModel.getUIState()
 
         val locationPermission = viewModel.location.requirePermission(viewModel)
 
@@ -97,13 +110,12 @@ abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
                                 .weight(1f)
                         )
                         Switch(
-                            checked = viewModel.getUIState().location !is EmptyLocationModel,
+                            checked = state.location !is EmptyLocationModel,
                             onCheckedChange = {
-                                Log.d("Aboba switch", "on click switch")
                                 locationPermission.launchPermissionRequest()
                             },
                             thumbContent = {
-                                IconBase(icon = R.drawable.ic_gps, Modifier.padding(6.dp))
+                                state.locationState.ImageContent(Modifier.padding(6.dp))
                             },
                             colors = SwitchDefaults.colors(
                                 uncheckedTrackColor = Color.Transparent,
@@ -144,17 +156,16 @@ abstract class BaseCreateFinishScreen<VM : BaseCreateFinishViewModel<*, *, *>>(
                 wrapper.value?.SnackBar(snackBarHostState)
             }
 
-            val context = LocalContext.current
-
             LaunchedEffect(Unit) {
                 viewModel.collectEffect(
                     navController,
                     onSnackBarError = { wrapper -> snackBarErrorEffect = wrapper },
-                    onLocation = {
-                        context.getSystemService<LocationManager>()
-                            ?.getLastKnownLocation(LocationManager.GPS_PROVIDER)?.apply {
-                            viewModel.reduceFinishAction(BaseFinishAction.Location(longitude, latitude))
-                        }
+                    onLocation = { priority, token ->
+                        viewModel.reduceFinishAction(
+                            BaseFinishAction.FindingLocation(
+                                locationClient.getCurrentLocation(priority, token)
+                            )
+                        )
                     }
                 )
             }

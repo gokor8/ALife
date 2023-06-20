@@ -8,7 +8,7 @@ class VideoFinishLoadUseCase @Inject constructor(
     finishAlifeRepository: BaseFinishAlifeRepository
 ) : BaseFinishLoadUseCase.Abstract(finishAlifeRepository), BaseVideoFinishLoadUseCase {
 
-    override suspend fun upload() {
-        repository.uploadVideo()
+    override suspend fun upload(locationEntity: BaseLocationEntity) {
+        repository.uploadVideo(locationEntity)
     }
 }

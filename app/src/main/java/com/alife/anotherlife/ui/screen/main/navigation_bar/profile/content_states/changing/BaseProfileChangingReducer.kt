@@ -8,7 +8,7 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.state.Profile
 
 interface BaseProfileChangingReducer : BaseVMReducer<ProfileChangingState, ProfileEffect> {
 
-    fun onProfileUIDataModel(profileInfo: UIProfileInfoModel)
+    suspend fun onProfileUIDataModel(profileInfo: UIProfileInfoModel)
     fun onUsername(newUsername: String)
     suspend fun onPhoto(uri: Uri)
     fun onName(newName: String)

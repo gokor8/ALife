@@ -8,7 +8,7 @@ class PhotoFinishLoadUseCase @Inject constructor(
     finishAlifeRepository: BaseFinishAlifeRepository
 ) : BaseFinishLoadUseCase.Abstract(finishAlifeRepository), BasePhotoFinishLoadUseCase {
 
-    override suspend fun upload() {
-        repository.uploadPhoto()
+    override suspend fun upload(locationEntity: BaseLocationEntity) {
+        repository.uploadPhoto(locationEntity)
     }
 }

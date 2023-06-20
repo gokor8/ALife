@@ -88,7 +88,7 @@ abstract class AbstractVideoScreenState(
                     top.linkTo(title.bottom, 4.dp)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                }
+                }, label = ""
             ) { timerUnit ->
                 Text(
                     text = timerUnit.time(),

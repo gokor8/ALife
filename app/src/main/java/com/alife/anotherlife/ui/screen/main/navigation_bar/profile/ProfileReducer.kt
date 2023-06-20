@@ -8,7 +8,7 @@ import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing.ProfileChangingFillState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.usual.ProfileUsualFillState
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.EmptyImageExtModel
-import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.EmptyUIProfileInfoModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.InitUIProfileInfoModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.LceErrorProfileProvider
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.UIProfileInfoModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.state.ProfileEffect
@@ -22,7 +22,7 @@ class ProfileReducer @Inject constructor(
 ) : HandlerBaseVMReducer<ProfileState, ProfileEffect>(), BaseProfileReducer {
 
     override suspend fun onInit() {
-        if (getState().profileUIDataModel is EmptyUIProfileInfoModel)
+        if (getState().profileUIDataModel is InitUIProfileInfoModel)
             setState { copy(lceModel = LCELoading) }
 
         executeThis(getState()) {
@@ -46,12 +46,21 @@ class ProfileReducer @Inject constructor(
         setState { copy(contentFillState = ProfileChangingFillState(profileUIDataModel)) }
     }
 
+    override fun onChanging(profileInfo: UIProfileInfoModel) {
+        setState { copy(contentFillState = ProfileChangingFillState(profileInfo)) }
+    }
+
     override fun onUsual() {
         setState { copy(contentFillState = ProfileUsualFillState(profileUIDataModel)) }
     }
 
     override fun onUsual(profileInfo: UIProfileInfoModel) {
-        setState { copy(contentFillState = ProfileUsualFillState(profileInfo)) }
+        setState {
+            copy(
+                contentFillState = ProfileUsualFillState(profileInfo),
+                profileUIDataModel = profileInfo
+            )
+        }
     }
 
     override fun onBack() {

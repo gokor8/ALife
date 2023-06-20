@@ -7,7 +7,7 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.UIProfi
 
 interface BaseProfileUsualReducer : BaseVMReducer<ProfileUsualState, ProfileUsualEffect> {
 
-    fun onProfileUIDataModel(profileInfo: UIProfileInfoModel)
+    suspend fun onProfileUIDataModel(profileInfo: UIProfileInfoModel)
 
     fun onChanging()
 

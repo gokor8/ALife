@@ -1,5 +1,8 @@
-
 package com.alife.anotherlife.ui.screen.main.navigation_bar.profile
+
+import android.util.Log
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
@@ -59,6 +62,7 @@ class ProfileScreen(
     }
 
 
+    @OptIn(ExperimentalAnimationApi::class)
     @Composable
     override fun SafeContent(modifier: Modifier) {
         val constraints = ProfileConstraintModel()
@@ -69,20 +73,23 @@ class ProfileScreen(
             contentWindowInsets = WindowInsets(bottom = innerPadding.calculateBottomPadding()),
             snackbarHost = { SnackbarHost(snackBarHostState) }
         ) { innerPadding ->
-            ConstraintLayout(
-                ProfileConstraints().markup(constraints),
-                modifier = modifier
-                    .padding(innerPadding)
-                    .imePadding()
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background)
-            ) {
-                val fillState = viewModel.getUIState().contentFillState
+            val fillState = viewModel.getUIState().contentFillState
 
-                key(fillState) {
-                    fillState.ContentFill(constraints = constraints)
+            //AnimatedContent(targetState = fillState, label = "") {
+                ConstraintLayout(
+                    ProfileConstraints().markup(constraints),
+                    modifier = modifier
+                        .padding(innerPadding)
+                        .imePadding()
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background)
+                ) {
+                    key(fillState) {
+                        Log.d("Aboba profile", "$fillState")
+                        fillState.ContentFill(constraints = constraints)
+                    }
                 }
-            }
+            //}
         }
 
         var snackBarErrorEffect by remember {

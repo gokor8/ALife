@@ -9,6 +9,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.PartMap
+import retrofit2.http.Query
 
 interface UploadService {
 
@@ -20,6 +21,23 @@ interface UploadService {
     ): Response<Unit>
 
     @Multipart
+    @POST("/upload/photo")
+    suspend fun sendPhotos(
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double,
+        @Part firstPhoto: MultipartBody.Part,
+        @Part secondPhoto: MultipartBody.Part
+    ): Response<Unit>
+
+    @Multipart
     @POST("/upload/video")
     suspend fun sendVideo(@Part video: MultipartBody.Part): Response<Unit>
+
+    @Multipart
+    @POST("/upload/video")
+    suspend fun sendVideo(
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double,
+        @Part video: MultipartBody.Part
+    ): Response<Unit>
 }

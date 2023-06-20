@@ -1,6 +1,5 @@
 package com.alife.domain.main.create_alife.video
 
-import com.alife.domain.main.create_alife.video.entity.VideoPathEntity
 import com.alife.domain.main.create_alife.video.repository.BaseCreateAlifeVideoRepository
 import javax.inject.Inject
 

@@ -14,8 +14,9 @@ interface BaseFinishMVIAction<R : BaseCreateFinishReducer<*>> : BaseMVIAction<R>
             Log.d("Aboba switch", "$finishAction")
             when (finishAction) {
                 is BaseFinishAction.Init -> reducer.onInit()
-                is BaseFinishAction.Download -> reducer.onDownload()
+                is BaseFinishAction.Download -> reducer.onUpload()
                 is BaseFinishAction.Gps -> reducer.onGps(finishAction.permissionStatus)
+                is BaseFinishAction.FindingLocation -> reducer.onFindLocation(finishAction.locationTask)
                 is BaseFinishAction.Location -> reducer.onNewLocation(
                     LocationModel(
                         finishAction.longitude,

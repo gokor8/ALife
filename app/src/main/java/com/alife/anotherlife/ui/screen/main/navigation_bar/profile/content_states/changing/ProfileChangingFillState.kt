@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.changing
 
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
@@ -25,8 +26,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
@@ -34,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.alife.anotherlife.R
+import com.alife.anotherlife.core.composable.animation.rememberPulseAnim
 import com.alife.anotherlife.core.composable.brush.verticalBottomToTopGradient
 import com.alife.anotherlife.core.composable.brush.verticalTopToBottomGradient
 import com.alife.anotherlife.core.composable.clickableNoRipple
@@ -48,8 +54,8 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.Content
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.ProfileConstraintModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.UIProfileInfoModel
 
-class ProfileChangingFillState(
-    private val profileUIDataModel: UIProfileInfoModel
+data class ProfileChangingFillState(
+    private val profileInfo: UIProfileInfoModel
 ) : ContentFillState {
 
     private val imageExtension = "image/*"
@@ -61,7 +67,8 @@ class ProfileChangingFillState(
         val state = viewModel.getUIState().profileInfo
 
         LaunchedEffect(Unit) {
-            viewModel.reduce(ProfileChangingAction.Init(profileUIDataModel))
+            Log.d("Aboba profile", "$profileInfo : image : ${profileInfo.photo}")
+            viewModel.reduce(ProfileChangingAction.Init(profileInfo))
         }
 
         val visibleColor = MaterialTheme.colorScheme.onBackground
@@ -122,20 +129,6 @@ class ProfileChangingFillState(
                 modifier = Modifier.weight(1f)
             )
 
-            val infiniteTransition = rememberInfiniteTransition()
-
-            val startPulseValue = 1f
-            val pulseFraction = 1.2f
-
-            val scale by infiniteTransition.animateFloat(
-                initialValue = startPulseValue,
-                targetValue = pulseFraction,
-                animationSpec = infiniteRepeatable(
-                    animation = tween(1000),
-                    repeatMode = RepeatMode.Reverse
-                ), label = ""
-            )
-
             AnimatedContent(targetState = Unit, label = "") {
                 IconBase(
                     R.drawable.ic_close,
@@ -148,6 +141,7 @@ class ProfileChangingFillState(
                 )
             }
             Spacer(modifier = Modifier.padding(start = 24.dp))
+
             AnimatedContent(targetState = Unit, label = "") {
                 IconBase(
                     R.drawable.ic_task_list,
@@ -159,7 +153,11 @@ class ProfileChangingFillState(
             }
         }
 
-        Column(modifier = Modifier.layoutId(constraints.bottom).padding(start = 14.dp)) {
+        Column(
+            modifier = Modifier
+                .layoutId(constraints.bottom)
+                .padding(top = 14.dp, start = 14.dp)
+        ) {
             HintBasicTextField(
                 state.description,
                 R.string.profile_hint_description,

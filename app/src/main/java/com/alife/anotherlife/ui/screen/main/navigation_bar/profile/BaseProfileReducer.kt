@@ -12,6 +12,8 @@ interface BaseProfileReducer : BaseVMReducer<ProfileState, ProfileEffect> {
 
     fun onChanging()
 
+    fun onChanging(profileInfo: UIProfileInfoModel)
+
     fun onUsual()
 
     fun onUsual(profileInfo: UIProfileInfoModel)

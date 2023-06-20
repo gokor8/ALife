@@ -1,5 +1,8 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.profile.content_states.usual
 
+import android.util.Log
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -54,6 +57,7 @@ class ProfileUsualFillState(
         val state = viewModel.getUIState().profileInfo
 
         LaunchedEffect(Unit) {
+            Log.d("Aboba profile", "$profileInfo : image : ${profileInfo.photo}")
             viewModel.reduce(ProfileUsualAction.OnInit(profileInfo))
         }
 
@@ -78,11 +82,13 @@ class ProfileUsualFillState(
             )
         }
 
-        state.photo.ImageContent(modifier = Modifier
-            .layoutId(constraints.image)
-            .zIndex(-1f)
-            .fillMaxWidth()
-            .aspectRatio(360 / 395f))
+        state.photo.ImageContent(
+            modifier = Modifier
+                .layoutId(constraints.image)
+                .zIndex(-1f)
+                .fillMaxWidth()
+                .aspectRatio(360 / 395f)
+        )
 
         Row(
             modifier = Modifier
