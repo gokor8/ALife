@@ -19,6 +19,8 @@ class ProfileUsualReducer @Inject constructor(
     BaseProfileUsualReducer {
 
     override suspend fun onProfileUIDataModel(profileInfo: UIProfileInfoModel) {
+        setState { copy(profileInfo = profileInfo.copyLoadPhoto()) }
+        delay(500L)
         setState { copy(profileInfo = profileInfo) }
     }
 

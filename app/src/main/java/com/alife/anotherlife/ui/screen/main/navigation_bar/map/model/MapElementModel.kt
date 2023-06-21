@@ -1,16 +1,27 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.map.model
 
-import android.app.ActionBar
-import android.util.TypedValue
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.load
-import coil.transform.CircleCropTransformation
-import coil.transform.RoundedCornersTransformation
 import com.alife.anotherlife.R
-import com.alife.anotherlife.core.composable.map.ResizeAnimation
+import com.alife.anotherlife.core.composable.icon.IconBase
+import com.alife.anotherlife.core.composable.image.ExtendImageBase
+import com.alife.anotherlife.core.composable.text.style.style10W400
+import com.alife.anotherlife.core.composable.text.style.style14W400
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.mapbox.geojson.Point
@@ -22,6 +33,9 @@ interface MapElementModel {
 
     fun onBind(view: View, isSelected: Boolean, onSelected: () -> Unit)
 
+    @Composable
+    fun BottomBarContent(onDetail: () -> Unit) = Unit
+
 
     abstract class Abstract(override val point: Point) : MapElementModel
 
@@ -31,26 +45,17 @@ interface MapElementModel {
         override fun onBind(view: View, isSelected: Boolean, onSelected: () -> Unit) = Unit
     }
 
-    class Image(
+    class ImageElement(
+        private val username: String,
+        private val creationDate: String,
+        private val preview: String,
         point: Point,
-        private val imageUrl: String,
     ) : Abstract(point) {
 
         private val size = SizeInvertiblePair(50f, 55f)
 
         override fun onBind(view: View, isSelected: Boolean, onSelected: () -> Unit) {
             val sizes = size.getPair(isSelected)
-
-            val startSize = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                sizes.first,
-                view.resources.displayMetrics
-            )
-            val finishSize = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                sizes.first,
-                view.resources.displayMetrics
-            )
 
             val progressDrawable = CircularProgressDrawable(view.context).apply {
                 strokeWidth = 5f
@@ -59,29 +64,45 @@ interface MapElementModel {
             }
 
             (view as? ShapeableImageView)?.also { imageView ->
-                imageView.load(imageUrl) {
+                imageView.load(preview) {
                     crossfade(true)
                     placeholder(progressDrawable)
                 }
 
-                val style = if(isSelected) {
+                val style = if (isSelected) {
                     R.style.roundRectangleImageView
                 } else {
                     R.style.roundCircleImageView
                 }
 
-                imageView.shapeAppearanceModel = ShapeAppearanceModel.builder(imageView.context, style, style).build()
+                imageView.shapeAppearanceModel =
+                    ShapeAppearanceModel.builder(imageView.context, style, style).build()
 
-                imageView.setOnClickListener {
-                    onSelected()
-//                    if (isSelected) {
-//                        imageView.startAnimation(
-//                            ResizeAnimation(imageView, finishSize, startSize)
-//                        )
-//                    } else {
-//                        view.layoutParams =
-//                            ViewGroup.LayoutParams(startSize.toInt(), startSize.toInt())
-//                    }
+                imageView.setOnClickListener { onSelected() }
+            }
+        }
+
+        @Composable
+        override fun BottomBarContent(onDetail: () -> Unit) {
+            Row(modifier = Modifier.fillMaxWidth()) {
+                ExtendImageBase(
+                    model = preview,
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp, vertical = 14.dp)
+                        .size(105.dp)
+                )
+
+                Column(modifier = Modifier.padding(vertical = 26.dp)) {
+                    Text(username, style = style14W400())
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(creationDate, style = style14W400(Color.Unspecified.copy(alpha = .6f)))
+
+                    Text(text = "${point.longitude()}, ${point.latitude()}", style = style10W400())
+                }
+                Spacer(modifier = Modifier.weight(1f))
+
+                TextButton(onClick = onDetail) {
+                    IconBase(icon = R.drawable.ic_right_arrow, modifier = Modifier.padding(6.dp))
                 }
             }
         }

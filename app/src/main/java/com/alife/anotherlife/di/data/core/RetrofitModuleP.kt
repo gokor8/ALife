@@ -5,6 +5,7 @@ import com.alife.data.interceptor.DefaultRequestInterceptor
 import com.alife.data.interceptor.TokenReAuthInterceptor
 import com.alife.data.interceptor.model.RetrofitAnnotation
 import com.alife.data.services.MainService
+import com.alife.data.services.MapService
 import com.alife.data.services.MockImageService
 import com.alife.data.services.ProfileService
 import com.alife.data.services.RegistrationService
@@ -81,6 +82,10 @@ class RetrofitModuleP {
     @Provides
     fun provideMainService(retrofit: Retrofit): MainService =
         retrofit.create(MainService::class.java)
+
+    @Provides
+    fun provideMapService(retrofit: Retrofit): MapService =
+        retrofit.create(MapService::class.java)
 
     @Provides
     fun provideProfileService(retrofit: Retrofit): ProfileService =

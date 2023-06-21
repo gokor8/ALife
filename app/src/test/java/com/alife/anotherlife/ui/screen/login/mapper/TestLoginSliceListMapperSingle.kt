@@ -6,9 +6,9 @@ import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
 
-class TestLoginSliceListMapper {
+class TestLoginSliceListMapperSingle {
 
-    private val loginSliceListMapper = LoginSliceListMapper()
+    private val loginSliceListMapper = LoginSliceListMapperSingle()
 
     @Test
     fun `test slice list with 0 items`() {

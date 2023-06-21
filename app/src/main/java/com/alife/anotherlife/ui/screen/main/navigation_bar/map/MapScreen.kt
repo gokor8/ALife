@@ -9,8 +9,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -24,6 +31,7 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.map.model.MapElementM
 import com.alife.anotherlife.ui.screen.main.navigation_bar.map.state.MapAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.mapbox.geojson.Point
+import kotlinx.coroutines.launch
 
 class MapScreen(
     private val innerPadding: PaddingValues,
@@ -32,6 +40,10 @@ class MapScreen(
 
     @Composable
     override fun setupViewModel(): MapViewModel = hiltViewModel()
+
+    override suspend fun onInit() {
+        viewModel.reduce(MapAction.Init())
+    }
 
     @OptIn(ExperimentalPermissionsApi::class)
     @Composable
@@ -55,32 +67,47 @@ class MapScreen(
         }
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun SafeContent(modifier: Modifier) {
-        Box(modifier = Modifier.fillMaxSize().statusBarsPadding()) {
+        val uiPosts = viewModel.getUIState().mapPosts
+        val coroutineScope = rememberCoroutineScope()
+        val selected = remember { mutableStateOf<MapElementModel>(MapElementModel.Empty()) }
+        val bottomSheetState = rememberModalBottomSheetState()
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding()
+        ) {
             MapBoxComposable(
-                mapBoxElements = listOf(
-                    MapElementModel.Image(
-                        Point.fromLngLat(40.701604, 47.235714),
-                        "http://151.248.123.27:8080/upload/photo_check/96ad8943-2f18-4934-9756-b918c7240d40.jpeg"
-                    ),
-                    MapElementModel.Image(
-                        Point.fromLngLat(39.701504, 47.235714),
-                        "http://151.248.123.27:8080/upload/photo_check/96ad8943-2f18-4934-9756-b918c7240d40.jpeg"
-                    ),
-                    MapElementModel.Image(
-                        Point.fromLngLat(39.901504, 47.235714),
-                        "http://151.248.123.27:8080/upload/photo_check/96ad8943-2f18-4934-9756-b918c7240d40.jpeg"
-                    ),
-                    MapElementModel.Image(
-                        Point.fromLngLat(40.901504, 47.235714),
-                        "http://151.248.123.27:8080/upload/photo_check/96ad8943-2f18-4934-9756-b918c7240d40.jpeg"
-                    )
-                ),
+                selected = selected,
+                mapBoxElements = uiPosts,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(PaddingValues(bottom = innerPadding.calculateBottomPadding() - 26.dp))
             )
+
+            LaunchedEffect(selected.value) {
+                if (selected.value !is MapElementModel.Empty)
+                    bottomSheetState.show()
+                else
+                    bottomSheetState.hide()
+            }
+
+            if (bottomSheetState.isVisible) {
+                ModalBottomSheet(
+                    sheetState = bottomSheetState,
+                    onDismissRequest = {
+                        selected.value = MapElementModel.Empty()
+                        coroutineScope.launch { bottomSheetState.hide() }
+                    }
+                ) {
+                    selected.value.BottomBarContent {
+
+                    }
+                }
+            }
 
             val gradient = verticalPrimaryGradient()
             Canvas(

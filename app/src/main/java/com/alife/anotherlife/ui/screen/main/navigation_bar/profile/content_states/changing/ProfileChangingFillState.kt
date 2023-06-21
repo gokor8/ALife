@@ -67,7 +67,6 @@ data class ProfileChangingFillState(
         val state = viewModel.getUIState().profileInfo
 
         LaunchedEffect(Unit) {
-            Log.d("Aboba profile", "$profileInfo : image : ${profileInfo.photo}")
             viewModel.reduce(ProfileChangingAction.Init(profileInfo))
         }
 

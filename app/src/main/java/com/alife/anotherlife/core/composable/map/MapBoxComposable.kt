@@ -12,12 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import com.alife.anotherlife.R
 import com.alife.anotherlife.ui.screen.main.navigation_bar.map.model.MapElementModel
-import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.MapView
 import com.mapbox.maps.Style
 import com.mapbox.maps.dsl.cameraOptions
-import com.mapbox.maps.plugin.gestures.OnMoveListener
+import com.mapbox.maps.plugin.gestures.addOnMapClickListener
 import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.viewannotation.viewAnnotationOptions
@@ -25,12 +24,12 @@ import com.mapbox.maps.viewannotation.viewAnnotationOptions
 
 @Composable
 fun MapBoxComposable(
-    lastSelected: MutableState<MapElementModel> = remember { mutableStateOf(MapElementModel.Empty()) },
+    selected: MutableState<MapElementModel> = remember { mutableStateOf(MapElementModel.Empty()) },
     mapBoxElements: List<MapElementModel>,
     modifier: Modifier
 ) {
 
-    var lastSelectedElement by lastSelected
+    var selectedElement by selected
 
     AndroidView(
         factory = { context ->
@@ -38,8 +37,11 @@ fun MapBoxComposable(
                 getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS) {
                     cameraOptions { zoom(15.5) }
                 }
+//                getMapboxMap().addOnMapClickListener {
+//                    selected.value = MapElementModel.Empty()
+//                    true
+//                }
 
-                // TODO
                 val bearing = AddRemoveLocationChangedListener.Bearing {
                     getMapboxMap().setCamera(CameraOptions.Builder().zoom(15.5).bearing(it).build())
                 }
@@ -50,12 +52,7 @@ fun MapBoxComposable(
                 }
 
                 gestures.addOnMoveListener(
-                    OnCameraMoveListener(
-                        position,
-                        bearing,
-                        location,
-                        gestures
-                    )
+                    OnCameraMoveListener(position, bearing, location, gestures)
                 )
 
                 location.updateSettings {
@@ -64,7 +61,6 @@ fun MapBoxComposable(
                 }
                 position.addOnIndicatorListener(location)
                 bearing.addOnIndicatorListener(location)
-                // TODO
 
                 layoutParams = FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
@@ -74,7 +70,7 @@ fun MapBoxComposable(
         modifier = modifier
     ) { mapView ->
         mapBoxElements.forEach { element ->
-            val isSelected = element == lastSelectedElement
+            val isSelected = element == selectedElement
 
             val createdView =
                 mapView.viewAnnotationManager.annotations.firstNotNullOfOrNull {
@@ -88,7 +84,7 @@ fun MapBoxComposable(
                 )
 
             element.onBind(createdView, isSelected) {
-                lastSelectedElement = element
+                selectedElement = element
             }
         }
     }

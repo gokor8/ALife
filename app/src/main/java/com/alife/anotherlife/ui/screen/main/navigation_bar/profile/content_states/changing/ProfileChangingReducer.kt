@@ -27,6 +27,8 @@ class ProfileChangingReducer @Inject constructor(
     BaseProfileChangingReducer {
 
     override suspend fun onProfileUIDataModel(profileInfo: UIProfileInfoModel) {
+        setState { copy(profileInfo = profileInfo.copyLoadPhoto()) }
+        delay(500L)
         setState { copy(profileInfo = profileInfo) }
     }
 

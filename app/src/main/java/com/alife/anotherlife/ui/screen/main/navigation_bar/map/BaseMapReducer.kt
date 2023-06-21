@@ -8,9 +8,7 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.map.state.MapState
 
 interface BaseMapReducer : BaseVMReducer<MapState, MapEffect> {
 
-    fun onInit() {
-        setState { copy(lceModel = LCELoading) }
-    }
+    suspend fun onInit()
 
     suspend fun onMapPermissionGranted()
 

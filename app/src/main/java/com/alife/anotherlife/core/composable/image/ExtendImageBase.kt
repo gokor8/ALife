@@ -10,7 +10,6 @@ import androidx.compose.ui.layout.ContentScale
 import coil.compose.SubcomposeAsyncImage
 import com.alife.anotherlife.R
 import com.alife.anotherlife.core.composable.addons.BaseProgressBar
-import com.alife.anotherlife.core.composable.text.TextBase
 
 @Composable
 fun ExtendImageBase(
