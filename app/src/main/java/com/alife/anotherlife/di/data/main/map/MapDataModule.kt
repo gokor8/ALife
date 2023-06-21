@@ -2,7 +2,9 @@ package com.alife.anotherlife.di.data.main.map
 
 import com.alife.data.repository.main.map.MapRepository
 import com.alife.data.repository.main.map.mapper.BaseMapPostDataModelToEntity
+import com.alife.data.repository.main.map.mapper.BaseMapPostsDataModelToEntity
 import com.alife.data.repository.main.map.mapper.MapPostDataModelToEntity
+import com.alife.data.repository.main.map.mapper.MapPostsDataModelToEntity
 import com.alife.domain.main.map.BaseMapRepository
 import dagger.Binds
 import dagger.Module
@@ -18,4 +20,7 @@ interface MapDataModule {
 
     @Binds
     fun bindMapPostDataModelToEntity(mapper: MapPostDataModelToEntity): BaseMapPostDataModelToEntity
+
+    @Binds
+    fun bindMapPostsDataModelToEntity(mapper: MapPostsDataModelToEntity): BaseMapPostsDataModelToEntity
 }

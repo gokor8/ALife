@@ -8,7 +8,7 @@ class PostsResponse(
     val results: List<PostResponse>
 )
 
-class PostResponse(
+abstract class BasePostResponse(
     @SerializedName("username")
     val username: String,
     @SerializedName("creationDate")
@@ -27,3 +27,12 @@ class PostResponse(
         Pair(firstPhoto, secondPhoto)
     } else null
 }
+
+class PostResponse(
+    username: String,
+    creationDate: Long,
+    profilePhoto: String,
+    firstPhoto: String?,
+    secondPhoto: String?,
+    video: String?
+) : BasePostResponse(username, creationDate, profilePhoto, firstPhoto, secondPhoto, video)

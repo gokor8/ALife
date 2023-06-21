@@ -31,4 +31,8 @@ interface UIBasePostContainer {
             modifier: Modifier
         ): UIPostModel
     }
+
+    class Empty : UIBasePostContainer {
+        override fun itemKey() = "empty"
+    }
 }
