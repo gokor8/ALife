@@ -9,5 +9,6 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.map.model.UIMapPost
 
 data class MapState(
     override val lceModel: LCEModel = LCELoading,
-    val mapPosts: List<MapElementModel> = listOf()
+    val mapPosts: List<MapElementModel> = listOf(),
+    val selected: MapElementModel = MapElementModel.Empty()
 ) : StateLCE

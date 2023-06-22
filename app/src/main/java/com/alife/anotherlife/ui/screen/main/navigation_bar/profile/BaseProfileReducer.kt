@@ -18,5 +18,7 @@ interface BaseProfileReducer : BaseVMReducer<ProfileState, ProfileEffect> {
 
     fun onUsual(profileInfo: UIProfileInfoModel)
 
+    fun onExit()
+
     fun onBack()
 }

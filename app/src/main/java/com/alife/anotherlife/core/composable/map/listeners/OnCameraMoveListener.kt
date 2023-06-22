@@ -1,5 +1,6 @@
-package com.alife.anotherlife.core.composable.map
+package com.alife.anotherlife.core.composable.map.listeners
 
+import com.alife.anotherlife.core.composable.map.listeners.AddRemoveLocationChangedListener
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.maps.plugin.gestures.GesturesPlugin
 import com.mapbox.maps.plugin.gestures.OnMoveListener
@@ -15,8 +16,8 @@ class OnCameraMoveListener(
     override fun onMove(detector: MoveGestureDetector) = false
 
     override fun onMoveBegin(detector: MoveGestureDetector) {
-        position.removeOnIndicatorListener(location)
-        bearing.removeOnIndicatorListener(location)
+        position.removeListener(location)
+        bearing.removeListener(location)
         gestures.removeOnMoveListener(this)
     }
 

@@ -43,14 +43,12 @@ class LoginScreen(override val navController: NavController) :
 
             val state = viewModel.getUIState()
 
-            Box(
-                modifier = Modifier
+            ImageBase(
+                resId = R.drawable.img_login, modifier = Modifier
+                    .fillMaxWidth()
                     .weight(1f)
-                    .fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                TextBase(textResId = R.string.pass_login_in)
-            }
+                    .padding(20.dp)
+            )
 
             StaticTextUIAuthModel.Hint().Button(
                 viewModel = viewModel,

@@ -14,6 +14,9 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonColors
+import androidx.compose.material3.IconButtonDefaults.iconButtonColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -63,6 +67,7 @@ class ProfileUsualFillState(
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .layoutId(constraints.topBar)
                 .background(verticalTopToBottomGradient())
@@ -70,16 +75,30 @@ class ProfileUsualFillState(
                 .padding(bottom = 14.dp)
                 .padding(horizontal = 16.dp)
         ) {
+            val usernameCopy = stringResource(R.string.copy_username)
             Text(
                 state.username,
                 style = style16(),
                 textAlign = TextAlign.Start,
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp)
                     .clickableNoRipple {
-                        copyToClipboard(context, state.username)
+                        copyToClipboard(context, state.username, usernameCopy)
                     }
             )
+
+            IconButton(onClick = {
+                viewModel.reduce(ProfileUsualAction.Exit())
+            }, colors = iconButtonColors(
+                containerColor = MaterialTheme.colorScheme.error,
+                disabledContainerColor = MaterialTheme.colorScheme.error.copy(.7f)
+            )) {
+                IconBase(
+                    icon = R.drawable.ic_exit,
+                    tint = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.padding(10.dp)
+                )
+            }
         }
 
         state.photo.ImageContent(

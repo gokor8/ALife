@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -89,11 +90,13 @@ class PostProfileScreen(
                                 navController.popBackStack()
                             }
                     )
+
+                    val usernameCopy = stringResource(R.string.copy_username)
                     Text(
                         username,
                         style = style16Bold(),
                         modifier = Modifier.clickableNoRipple {
-                            copyToClipboard(context, username)
+                            copyToClipboard(context, username, usernameCopy)
                         }
                     )
                 }

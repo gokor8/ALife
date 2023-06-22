@@ -6,11 +6,11 @@ import android.content.Context
 import android.widget.Toast
 import com.alife.anotherlife.R
 
-fun copyToClipboard(context: Context, text: String) {
+fun copyToClipboard(context: Context, text: String, toast: String) {
     val clipboardManager =
         context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    val clip = ClipData.newPlainText("username", text)
+    val clip = ClipData.newPlainText(toast, text)
     clipboardManager.setPrimaryClip(clip)
 
-    Toast.makeText(context, R.string.copy_username, Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, toast, Toast.LENGTH_SHORT).show()
 }

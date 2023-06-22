@@ -62,7 +62,6 @@ class ProfileScreen(
     }
 
 
-    @OptIn(ExperimentalAnimationApi::class)
     @Composable
     override fun SafeContent(modifier: Modifier) {
         val constraints = ProfileConstraintModel()
@@ -75,21 +74,19 @@ class ProfileScreen(
         ) { innerPadding ->
             val fillState = viewModel.getUIState().contentFillState
 
-            //AnimatedContent(targetState = fillState, label = "") {
-                ConstraintLayout(
-                    ProfileConstraints().markup(constraints),
-                    modifier = modifier
-                        .padding(innerPadding)
-                        .imePadding()
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background)
-                ) {
-                    key(fillState) {
-                        Log.d("Aboba profile", "$fillState")
-                        fillState.ContentFill(constraints = constraints)
-                    }
+            ConstraintLayout(
+                ProfileConstraints().markup(constraints),
+                modifier = modifier
+                    .padding(innerPadding)
+                    .imePadding()
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+            ) {
+                key(fillState) {
+                    Log.d("Aboba profile", "$fillState")
+                    fillState.ContentFill(constraints = constraints)
                 }
-            //}
+            }
         }
 
         var snackBarErrorEffect by remember {

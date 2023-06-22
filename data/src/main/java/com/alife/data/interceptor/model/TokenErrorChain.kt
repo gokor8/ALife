@@ -26,6 +26,9 @@ class RefreshTokenErrorChain @Inject constructor(
         val response =
             tokenService.sendRegData(RequestRefreshModel(inputModel.refreshToken))//chain.proceed(request)
 
+        Log.d("Aboba tokens", "refresh request /refresh ${inputModel.refreshToken}")
+        Log.d("Aboba tokens", "refresh response $response")
+
         response.takeIf { response ->
             response.isSuccessful
         } ?: run {

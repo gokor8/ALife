@@ -5,6 +5,7 @@ import com.alife.anotherlife.core.ui.state.lce.LCEContent
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.main.navigation_bar.map.mapper.BaseMapPostEntityToUI
 import com.alife.anotherlife.ui.screen.main.navigation_bar.map.model.LceErrorMapPermissionProvider
+import com.alife.anotherlife.ui.screen.main.navigation_bar.map.model.MapElementModel
 import com.alife.anotherlife.ui.screen.main.navigation_bar.map.state.MapEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.map.state.MapState
 import com.alife.domain.main.map.BaseMapPostUseCase
@@ -38,5 +39,9 @@ class MapReducer @Inject constructor(
         val uiMapPostList = mapPostEntityToUI.map(mapPostUseCase.getMapPosts())
 
         setState { copy(mapPosts = uiMapPostList) }
+    }
+
+    override suspend fun onSaveSelected(mapElementModel: MapElementModel) {
+        setState { copy(selected = mapElementModel) }
     }
 }

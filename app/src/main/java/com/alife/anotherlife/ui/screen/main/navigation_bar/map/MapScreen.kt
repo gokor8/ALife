@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -68,10 +69,9 @@ class MapScreen(
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun SafeContent(modifier: Modifier) {
-        val uiPosts = viewModel.getUIState().mapPosts
+        val state = viewModel.getUIState()
         val action = viewModel::reduce
         val coroutineScope = rememberCoroutineScope()
-        val selected = remember { mutableStateOf<MapElementModel>(MapElementModel.Empty()) }
         val bottomSheetState = rememberModalBottomSheetState()
 
         Box(
@@ -80,15 +80,17 @@ class MapScreen(
                 .statusBarsPadding()
         ) {
             MapBoxComposable(
-                selected = selected,
-                mapBoxElements = uiPosts,
+                selected = state.selected,
+                mapBoxElements = state.mapPosts,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(PaddingValues(bottom = bottomPadding.safeCalculateBottomPadding(26.dp)))
-            )
+            ) { selected ->
+                action(MapAction.SaveLastSelected(selected))
+            }
 
-            LaunchedEffect(selected.value) {
-                if (selected.value !is MapElementModel.Empty)
+            LaunchedEffect(state.selected) {
+                if (state.selected !is MapElementModel.Empty)
                     bottomSheetState.show()
                 else
                     bottomSheetState.hide()
@@ -98,14 +100,13 @@ class MapScreen(
                 ModalBottomSheet(
                     sheetState = bottomSheetState,
                     onDismissRequest = {
-                        selected.value = MapElementModel.Empty()
+                        action(MapAction.SaveLastSelected(MapElementModel.Empty()))
                         coroutineScope.launch { bottomSheetState.hide() }
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth().offset(x = .5.dp)
                 ) {
-                    selected.value.BottomBarContent { username ->
+                    state.selected.BottomBarContent { username ->
                         action(MapAction.OpenDetailScreen(username))
-                        //coroutineScope.launch { bottomSheetState.hide() }
                     }
                 }
             }

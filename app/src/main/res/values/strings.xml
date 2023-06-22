@@ -24,6 +24,7 @@
 
     // Copy
     <string name="copy_username">Никнейм скопирован</string>
+    <string name="copy_geo">Координаты скопированы</string>
 
     // Dialog
     <string name="permission_dialog_description">Предоставьте разрешние через настройки</string>

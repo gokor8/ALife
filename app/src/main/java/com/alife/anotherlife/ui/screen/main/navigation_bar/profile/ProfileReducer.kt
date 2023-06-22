@@ -63,6 +63,10 @@ class ProfileReducer @Inject constructor(
         }
     }
 
+    override fun onExit() {
+
+    }
+
     override fun onBack() {
 
     }
