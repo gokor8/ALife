@@ -10,4 +10,10 @@ interface PostDetailAction : BaseMVIAction<BasePostDetailReducer> {
             reducer.onInit(username)
         }
     }
+
+    class ClickUsername(private val username: String) : PostDetailAction {
+        override suspend fun onAction(reducer: BasePostDetailReducer) {
+            reducer.onUsername(username)
+        }
+    }
 }

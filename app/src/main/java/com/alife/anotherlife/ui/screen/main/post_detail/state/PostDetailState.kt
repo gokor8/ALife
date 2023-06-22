@@ -3,9 +3,9 @@ package com.alife.anotherlife.ui.screen.main.post_detail.state
 import com.alife.anotherlife.core.ui.state.lce.LCELoading
 import com.alife.anotherlife.core.ui.state.lce.LCEModel
 import com.alife.anotherlife.core.ui.state.lce.StateLCE
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.UIBasePostContainer
+import com.alife.anotherlife.ui.screen.main.post_detail.model.BaseUIPostDetail
 
-class PostDetailState(
+data class PostDetailState(
     override val lceModel: LCEModel = LCELoading,
-    val postContainerUI: UIBasePostContainer = UIBasePostContainer.Empty()
+    val uiPostDetail: BaseUIPostDetail = BaseUIPostDetail.Empty()
 ) : StateLCE

@@ -11,6 +11,12 @@ interface MapAction : BaseMVIAction<BaseMapReducer> {
         }
     }
 
+    class OpenDetailScreen(private val username: String) : MapAction {
+        override suspend fun onAction(reducer: BaseMapReducer) {
+            reducer.onOpenDetailScreen(username)
+        }
+    }
+
     class MapPermissionGranted : MapAction {
         override suspend fun onAction(reducer: BaseMapReducer) {
             reducer.onMapPermissionGranted()

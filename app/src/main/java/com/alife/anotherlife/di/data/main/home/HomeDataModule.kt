@@ -32,9 +32,9 @@ interface HomeDataModule {
     fun bindPostsResponseToPostsEntity(mapper: PostsResponseToPostsEntity)
             : BasePostsResponseToPostsEntity
 
-    @Binds
-    fun bindPostResponseToPostEntity(mapper: PostResponseToPostEntity): BasePostResponseToPostEntity
-
+//
+//    @Binds
+//    fun bindPostResponseToPostEntity(mapper: PostResponseToPostEntity): BasePostResponseToPostEntity
 //    @Binds
 //    fun bindPostsResponseToPostsEntityMockImage(mapper: PostsResponseToPostsEntityMockImage)
 //            : BasePostsResponseToPostsEntityMockImage

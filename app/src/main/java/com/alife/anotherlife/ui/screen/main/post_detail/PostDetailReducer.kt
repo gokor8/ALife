@@ -1,8 +1,10 @@
 package com.alife.anotherlife.ui.screen.main.post_detail
 
-import com.alife.anotherlife.core.ui.reducer.AbstractVMReducer
+import com.alife.anotherlife.core.ui.reducer.HandlerBaseVMReducer
+import com.alife.anotherlife.core.ui.state.lce.LCEContent
 import com.alife.anotherlife.core.ui.store.UIStore
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper.BasePostEntityToUIPost
+import com.alife.anotherlife.ui.screen.main.post_detail.mapper.BasePostDetailEntityToUIDetail
+import com.alife.anotherlife.ui.screen.main.post_detail.model.ErrorLcePostDetailModelProvider
 import com.alife.anotherlife.ui.screen.main.post_detail.state.PostDetailEffect
 import com.alife.anotherlife.ui.screen.main.post_detail.state.PostDetailState
 import com.alife.domain.main.map.BaseMapRepository
@@ -10,11 +12,21 @@ import javax.inject.Inject
 
 class PostDetailReducer @Inject constructor(
     override val uiStore: UIStore<PostDetailState, PostDetailEffect>,
-    private val postsEntityToUIPostsList: BasePostEntityToUIPost,
+    private val postsEntityToUIDetail: BasePostDetailEntityToUIDetail,
     private val mapRepository: BaseMapRepository
-) : AbstractVMReducer<PostDetailState, PostDetailEffect>(), BasePostDetailReducer {
+) : HandlerBaseVMReducer<PostDetailState, PostDetailEffect>(), BasePostDetailReducer {
 
     override suspend fun onInit(username: String) {
-        postsEntityToUIPostsList.map(mapRepository.getPost(username))
+        execute {
+            setState { copy(lceModel = ErrorLcePostDetailModelProvider) }
+        }.handle {
+            val post = postsEntityToUIDetail.map(mapRepository.getPost(username))
+
+            setState { copy(lceModel = LCEContent, uiPostDetail = post) }
+        }
+    }
+
+    override suspend fun onUsername(username: String) {
+        setEffect(PostDetailEffect.ToProfile(username))
     }
 }

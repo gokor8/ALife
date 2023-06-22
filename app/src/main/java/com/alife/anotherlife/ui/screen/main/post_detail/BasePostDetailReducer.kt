@@ -7,4 +7,6 @@ import com.alife.anotherlife.ui.screen.main.post_detail.state.PostDetailState
 interface BasePostDetailReducer : BaseVMReducer<PostDetailState, PostDetailEffect> {
 
     suspend fun onInit(username: String)
+
+    suspend fun onUsername(username: String)
 }

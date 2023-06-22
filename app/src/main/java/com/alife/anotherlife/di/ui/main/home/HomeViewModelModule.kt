@@ -51,14 +51,7 @@ interface HomeViewModelModule {
     fun bindPostEntityToUIPost(mapper: PostEntityToUIPost): BasePostEntityToUIPost
 
     @Binds
-    fun bindDateAgoFormatMapper(mapper: DateAgoFormatMapper): BaseDateAgoFormatMapper
-
-    @Binds
     fun bindPaging(paging: PostsPagingSource): PagingSource<Int, UIBasePostContainer>
-
-//    @Binds
-//    fun bindPostsPagingSourceFactory(pagingSource: PostsPagingSourceFactory)
-//            : BasePagingSourceFactory<PostsPagingSource>
 
     @Binds
     fun bindPagingKeyMapper(mapper: PagingKeyMapper): BasePagingKeyMapper

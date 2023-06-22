@@ -10,6 +10,8 @@ interface BaseMapReducer : BaseVMReducer<MapState, MapEffect> {
 
     suspend fun onInit()
 
+    suspend fun onOpenDetailScreen(username: String)
+
     suspend fun onMapPermissionGranted()
 
     suspend fun onMapPermissionFatal()

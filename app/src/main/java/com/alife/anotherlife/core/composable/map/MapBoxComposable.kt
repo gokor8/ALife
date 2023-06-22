@@ -7,6 +7,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
@@ -24,12 +25,14 @@ import com.mapbox.maps.viewannotation.viewAnnotationOptions
 
 @Composable
 fun MapBoxComposable(
-    selected: MutableState<MapElementModel> = remember { mutableStateOf(MapElementModel.Empty()) },
+    selected: MutableState<MapElementModel> = rememberSaveable { mutableStateOf(MapElementModel.Empty()) },
     mapBoxElements: List<MapElementModel>,
     modifier: Modifier
 ) {
 
     var selectedElement by selected
+
+    //var lastPosition by remember {  }
 
     AndroidView(
         factory = { context ->

@@ -1,7 +1,5 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper
 
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.PageVerify
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.UIPostsModelList
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.DefaultPostContainerUI
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.PicturePostContainerUI
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.container.UIBasePostContainer
@@ -14,7 +12,6 @@ import com.alife.domain.main.home.child.base_entity.ImagePostEntity
 import com.alife.domain.main.home.child.base_entity.PostEntity
 import com.alife.domain.main.home.child.base_entity.VideoPostEntity
 import javax.inject.Inject
-
 
 interface BasePostEntityToUIPost : Mapper<PostEntity, UIBasePostContainer>
 

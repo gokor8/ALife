@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface MapService {
 
-    @GET("/mapfeed")
+    @GET("/allPostMap")
     suspend fun getMapPosts(): MapPostsDataModel
 }

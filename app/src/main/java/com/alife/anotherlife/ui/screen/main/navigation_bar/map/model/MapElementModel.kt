@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.map.model
 
+import android.os.Parcelable
 import android.view.View
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,6 +26,7 @@ import com.alife.anotherlife.core.composable.text.style.style14W400
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.mapbox.geojson.Point
+import kotlinx.parcelize.Parcelize
 
 interface MapElementModel {
 
@@ -34,32 +36,33 @@ interface MapElementModel {
     fun onBind(view: View, isSelected: Boolean, onSelected: () -> Unit)
 
     @Composable
-    fun BottomBarContent(onDetail: () -> Unit) = Unit
+    fun BottomBarContent(onDetail: (String) -> Unit) = Unit
 
 
-    abstract class Abstract(override val point: Point) : MapElementModel
+    abstract class Abstract(override val point: Point) : MapElementModel, Parcelable
 
+    @Parcelize
     class Empty(
-        point: Point = Point.fromLngLat(0.0, 0.0)
+        override val point: Point = Point.fromLngLat(0.0, 0.0)
     ) : Abstract(point) {
         override fun onBind(view: View, isSelected: Boolean, onSelected: () -> Unit) = Unit
     }
 
+    @Parcelize
     class ImageElement(
         private val username: String,
         private val creationDate: String,
         private val preview: String,
-        point: Point,
+        override val point: Point,
     ) : Abstract(point) {
 
-        private val size = SizeInvertiblePair(50f, 55f)
+        private val strokeWidth = 5f
+        private val centerRadius = 30f
 
         override fun onBind(view: View, isSelected: Boolean, onSelected: () -> Unit) {
-            val sizes = size.getPair(isSelected)
-
             val progressDrawable = CircularProgressDrawable(view.context).apply {
-                strokeWidth = 5f
-                centerRadius = 30f
+                strokeWidth = this@ImageElement.strokeWidth
+                centerRadius = this@ImageElement.centerRadius
                 start()
             }
 
@@ -83,7 +86,7 @@ interface MapElementModel {
         }
 
         @Composable
-        override fun BottomBarContent(onDetail: () -> Unit) {
+        override fun BottomBarContent(onDetail: (String) -> Unit) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 ExtendImageBase(
                     model = preview,
@@ -101,7 +104,7 @@ interface MapElementModel {
                 }
                 Spacer(modifier = Modifier.weight(1f))
 
-                TextButton(onClick = onDetail) {
+                TextButton(onClick = { onDetail(username) }) {
                     IconBase(icon = R.drawable.ic_right_arrow, modifier = Modifier.padding(6.dp))
                 }
             }

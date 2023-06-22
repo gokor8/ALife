@@ -22,6 +22,10 @@ class MapReducer @Inject constructor(
         uiStore.setState { copy(mapPosts = uiMapPosts) }
     }
 
+    override suspend fun onOpenDetailScreen(username: String) {
+        setEffect(MapEffect.OpenDetailScreen(username))
+    }
+
     override suspend fun onMapPermissionGranted() {
         setState { copy(lceModel = LCEContent) }
     }

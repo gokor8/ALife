@@ -28,7 +28,9 @@ abstract class VMScreenLCE<VM : BaseViewModelLCE<*, *, *, *>>(
         if(lceModel is LCEContent) {
             lceModel = object : LCEModel.Content {
                 @Composable
-                override fun LCEContent(modifier: Modifier) { SafeContent(modifier) }
+                override fun LCEContent(modifier: Modifier) {
+                    SafeContent(modifier)
+                }
             }
         }
 
