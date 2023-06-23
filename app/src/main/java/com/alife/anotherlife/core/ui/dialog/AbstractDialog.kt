@@ -1,5 +1,6 @@
 package com.alife.anotherlife.core.ui.dialog
 
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -37,11 +38,13 @@ abstract class AbstractDialog(
         onAgree: () -> Unit = {},
         onDismiss: () -> Unit = {},
     ) {
-        var visibility by remember(isVisible, this) {
+        var visibility by remember(isVisible) {
             mutableStateOf(isVisible)
         }
 
-        LaunchedEffect(isVisible, this) {
+        Log.d("Full Dialog out dialog", "Launch Effect $isVisible, ${this@AbstractDialog}")
+        LaunchedEffect(isVisible) {
+            Log.d("Full Dialog in dialog", "Launch Effect $isVisible, ${this@AbstractDialog}")
             visibility = isVisible
         }
 
@@ -50,7 +53,10 @@ abstract class AbstractDialog(
             onDismiss()
         }
 
+        Log.d("Full Dialog in dialog", "visibility $visibility")
+
         if (visibility) {
+            Log.d("Full Dialog in dialog", "showed")
             Dialog(onDismissRequest = wrappedDismiss) {
                 Surface(
                     modifier = Modifier

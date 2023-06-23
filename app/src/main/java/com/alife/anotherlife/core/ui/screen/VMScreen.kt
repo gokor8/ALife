@@ -20,12 +20,16 @@ abstract class VMScreen<VM : BaseViewModel<*, *, *>>(
     @Composable
     abstract fun setupViewModel(): VM
 
+    @Composable
+    open fun OnInitComposable() = Unit
+
     open suspend fun onInit() = Unit
 
     @Composable
     override fun SetupContent() {
         viewModel = setupViewModel()
         SetupLaunchEffect()
+        OnInitComposable()
         super.SetupContent()
     }
 

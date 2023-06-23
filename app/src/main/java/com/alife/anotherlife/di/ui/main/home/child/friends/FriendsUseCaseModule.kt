@@ -1,7 +1,5 @@
 package com.alife.anotherlife.di.ui.main.home.child.friends
 
-import com.alife.data.repository.main.home.child.ThrowToProfileEntity
-import com.alife.domain.main.home.child.BaseProfileCardUseCase
 import com.alife.domain.main.home.child.child_friends.BaseFriendsProfileCardUC
 import com.alife.domain.main.home.child.child_friends.FriendsProfileCardUC
 import com.alife.domain.main.home.child.mapper.BaseThrowToProfileEntity
@@ -16,7 +14,4 @@ interface FriendsUseCaseModule {
 
     @Binds
     fun bindFriendsUseCase(useCase: FriendsProfileCardUC): BaseFriendsProfileCardUC
-
-    @Binds
-    fun bindHomeChildThrowableMapper(mapper: ThrowToProfileEntity): BaseThrowToProfileEntity
 }

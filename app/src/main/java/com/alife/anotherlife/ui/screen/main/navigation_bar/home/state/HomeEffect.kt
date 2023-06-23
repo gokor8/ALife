@@ -4,5 +4,7 @@ import com.alife.core.mvi.MVI
 
 interface HomeEffect : MVI.Effect {
 
+    class Refresh() : HomeEffect
+
     class ChangePagerItemEffect(val position: Int) : HomeEffect
 }

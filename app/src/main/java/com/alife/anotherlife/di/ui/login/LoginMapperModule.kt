@@ -9,7 +9,7 @@ import com.alife.anotherlife.ui.screen.login.mapper.base.BaseMockAuthTypeToUIAut
 import com.alife.anotherlife.ui.screen.login.mapper.base.BaseUIAuthToColumnUIAuth
 import com.alife.anotherlife.ui.screen.login.mapper.container.LoginAuthTypeToContainerUIAuth
 import com.alife.anotherlife.ui.screen.login.mapper.container.MockUIAuthToColumnContainer
-import com.alife.core.mapper.ListMapper
+import com.alife.core.mapper.ListMapperSingle
 import com.alife.core.mapper.Mapper
 import com.alife.domain.login.content.entity.AuthTypeEntity
 import com.alife.domain.registration.usecase.base.entity.ReadBoxRegEntity
@@ -29,7 +29,7 @@ interface LoginMapperModule {
     fun loginAuthTypeToUIAuth(mapper: LoginAuthTypeToContainerUIAuth): BaseLoginAuthTypeToUIAuth
 
     @Binds
-    fun loginSliceListMapper(mapper: LoginSliceListMapper): ListMapper<AuthTypeEntity>
+    fun loginSliceListMapper(mapper: LoginSliceListMapperSingle): ListMapperSingle<AuthTypeEntity>
 
     @Binds
     fun listAuthTypeToUIAuth(mapper: ListAuthTypeToUIAuth): BaseListAuthTypeToUIAuth

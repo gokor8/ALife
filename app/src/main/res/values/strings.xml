@@ -16,22 +16,29 @@
     <string name="exception">Ошибка!</string>
     <string name="try_later">Повторите по позже</string>
     <string name="try_again">Повторите попытку</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiZ3JlZ29yeXVzYXRyYWNrIiwiYSI6ImNsaXRkMDBoejFsZGgza28xd3Ruc243YTQifQ.9Sjj0HSKbSKMrv0x3aQs7w</string>
 
     // Generic Exception
     <string name="generic_exception_title">Непредвиденная ошибка</string>
     <string name="generic_exception_description">Произошла непредвиденная ошибка, повторите попытку</string>
 
+    // Copy
+    <string name="copy_username">Никнейм скопирован</string>
+    <string name="copy_geo">Координаты скопированы</string>
 
     // Dialog
     <string name="permission_dialog_description">Предоставьте разрешние через настройки</string>
     <string name="permission_dialog_settings">в Настройки</string>
-
+    
     // Login
     <string name="pass_login_in">Hi, pass login in</string>
     <string name="authorization_type">Выберите подходящий способ авторизации</string>
     <string name="login_in">Войти</string>
     <string name="registration">Зарегистрироваться</string>
     <string name="test">Test</string>
+
+    // Image
+    <string name="image_error">Не удалось загрузить, картинку</string>
 
     //Registration
     <string name="error_empty">Field is Empty</string>
@@ -81,7 +88,18 @@
 
     // Home_Friends
     <string name="home_friends_be_first">Ваши друзья еще не выкладывали Alife, будьте первыми.</string>
-    <string name="home_friends_create_alife">Создайте свой Alife</string>
+
+    // Create Alife
+    <string name="create_alife_on_post">Создайте Alife, чтобы увидеть посты</string>
+    <string name="create_alife_base">Создайте свой Alife</string>
+
+    // Location Map Dialog
+    <string name="dialog_map_location_title">Приложению необходим доступ к геолокации</string>
+    <string name="dialog_map_location_description">Для просмотр карты \n предоставьте доступ к геолокации</string>
+
+    // Location Dialog
+    <string name="dialog_location_title">Приложению необходим доступ к геолокации</string>
+    <string name="dialog_location_description">Для публикования с гео \n предоставьте доступ к геолокации</string>
 
     // Camera Dialog
     <string name="dialog_camera_title">Приложению необходим доступ к камере</string>
@@ -99,10 +117,28 @@
     <string name="camera_snackbar_camera_description_error">Попробуйте снова.</string>
 
     // Upload
-    <string name="upload_error">Произошла ошибка во время отправки</string>
+    <string name="upload_error_video">Произошла ошибка во время отправки видео</string>
+    <string name="upload_error_photo">Произошла ошибка во время отправки фото</string>
     <string name="upload_no_photo_file_error">Мы не смогли найти фото для загрузки</string>
     <string name="upload_no_video_file_error">Мы не смогли найти видео для загрузки</string>
     <string name="upload_no_photo_file_error_description">Повторите сделать фотокарточки снова</string>
     <string name="upload_no_video_file_error_description">Попробуйте записать видео снова</string>
+
+    // HomeChild
+    <string name="home_chile_paging_error_title">Произошла ошибка, при загрузке данных</string>
+    <string name="home_chile_paging_error_description">Повторите попытку</string>
+    <string name="home_chile_paging_first_error_description">Вы единственный кто выложил пост, не удалось его загрузить</string>
+
+    // Profile
+    <string name="profile_error_title">Ошибка!</string>
+    <string name="profile_error_load_data">Произошла ошибка, при загрузке данных профиля</string>
+    <string name="profile_error_load_photo">Не удалось загрузить вашу фотокарточку</string>
+    <string name="profile_error_load_info">Не удалось обновить профиль</string>
+    <string name="profile_error_exit">Не удалось выйти из сессии</string>
+    <string name="profile_hint_description">Description…</string>
+
+    // Map
+    <string name="map_error_title">Предоставьте разрешение</string>
+    <string name="map_error_descripion">Предоставьте разрешение, на определение геолокации</string>
 
 </resources>

@@ -17,8 +17,8 @@ class FirstTutorialScreen : BaseTutorialScreen(R.string.tutorial_first_descripti
     override fun MiddleContent(modifier: Modifier) {
         ALifeCardCompose(
             UIAlifeCardModel.Default(
-                R.drawable.img_tutor_front,
-                R.drawable.img_tutor_back
+                R.drawable.img_tutor_2_front,
+                R.drawable.img_tutor_2_back
             ),
             PocketStrategy(),
             modifier.padding(horizontal = 44.dp)

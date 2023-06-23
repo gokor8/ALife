@@ -5,6 +5,7 @@ plugins {
     id 'com.google.dagger.hilt.android'
     id 'com.google.firebase.crashlytics'
     id 'com.google.gms.google-services'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -16,7 +17,7 @@ android {
         minSdk 26
         targetSdk 33
         versionCode 1
-        versionName "1.0"
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -26,8 +27,12 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled true //Important step
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+            //minifyEnabled false
+            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
@@ -55,20 +60,29 @@ dependencies {
     implementation project(path: ':domain')
     implementation project(path: ':data')
     implementation project(path: ':core')
-    implementation platform('androidx.compose:compose-bom:2022.10.00')
+    implementation platform('androidx.compose:compose-bom:2023.05.01')
 
     implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.activity:activity-compose:1.7.1'
+    implementation 'androidx.activity:activity-compose:1.7.2'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.compose.material3:material3'
-    implementation "com.google.accompanist:accompanist-pager:0.23.1"
+
+    // Material
+    implementation "androidx.compose.material:material:1.4.3"
+    implementation 'androidx.compose.material3:material3:1.1.0'
+
+    implementation "com.google.accompanist:accompanist-pager:0.25.1"
     implementation 'com.google.firebase:firebase-crashlytics:18.3.7'
-    implementation 'com.google.firebase:firebase-analytics:21.2.2'
+    implementation 'com.google.firebase:firebase-analytics:21.3.0'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+
+    // Chucker
+    debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
 
     // CameraX
     implementation "androidx.camera:camera-core:$camerax_version"
@@ -84,7 +98,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-permissions:0.30.0"
 
     // UI Addons
-    implementation "com.google.accompanist:accompanist-systemuicontroller:0.28.0"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.30.0"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 
     // Tests
@@ -94,21 +108,35 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
+    // Localization
+    implementation "com.google.accompanist:accompanist-localization:v0.31.4-beta"
+
+    // Pagging
+    implementation "androidx.paging:paging-compose:1.0.0-alpha20"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
     // Drag and drop
     implementation "androidx.draganddrop:draganddrop:1.0.0"
 
     // Navigation
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
+    // Map
+    //implementation 'com.yandex.android:maps.mobile:4.3.1-lite'
+    implementation 'com.mapbox.maps:android:10.13.0'
+    implementation("com.google.android.gms:play-services-location:21.0.1")
+
     // LoadImage
     implementation "io.coil-kt:coil-compose:2.3.0"
-    //implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
-    //implementation "com.github.skydoves:landscapist-glide:2.1.9"
+    implementation "io.coil-kt:coil:2.4.0"
+    implementation "com.google.android.material:material:1.9.0"
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
 
     // Exoplayer
     implementation "androidx.media3:media3-exoplayer:1.0.2"
     implementation "androidx.media3:media3-exoplayer-dash:1.0.2"
     implementation "androidx.media3:media3-ui:1.0.2"
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
 
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:32.0.0')

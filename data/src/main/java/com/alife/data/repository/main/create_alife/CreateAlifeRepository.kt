@@ -1,5 +1,6 @@
 package com.alife.data.repository.main.create_alife
 
+import com.alife.data.core.file_model_base.mapper.BasePathIsExistMapper
 import com.alife.data.repository.main.create_alife.base_mapper.BaseCAReadEntityToFilePath
 import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToReadModel
 import com.alife.data.repository.main.create_alife.picture.mapper.BaseEntityToSaveModel
@@ -9,7 +10,7 @@ import com.alife.domain.main.create_alife.picture.entity.SaveImageEntity
 import com.alife.domain.main.create_alife.picture.repository.BaseCreateAlifePhotoRepository
 import com.alife.domain.main.create_alife.picture.repository.BaseCreateAlifeRepository
 import com.alife.domain.main.create_alife.video.entity.VideoReadEntity
-import com.alife.domain.main.create_alife.video.entity.VideoStorageEntity
+import com.alife.domain.main.create_alife.video.entity.VideoPathEntity
 import com.alife.domain.main.create_alife.video.repository.BaseCreateAlifeVideoRepository
 import java.io.BufferedInputStream
 import java.io.File
@@ -21,7 +22,7 @@ class CreateAlifeRepository @Inject constructor(
     private val entityToSaveModel: BaseEntityToSaveModel,
     private val entityToReadModel: BaseEntityToReadModel,
     private val caReadEntityToPath: BaseCAReadEntityToFilePath,
-    private val fileIsExistMapper: BaseFileIsExistMapper,
+    private val pathIsExistMapper: BasePathIsExistMapper,
 ) : BaseCreateAlifeRepository, BaseCreateAlifePhotoRepository, BaseCreateAlifeVideoRepository {
 
     override suspend fun saveToFile(saveImageEntity: SaveImageEntity) {
@@ -51,12 +52,16 @@ class CreateAlifeRepository @Inject constructor(
         val frontPath = caReadEntityToPath.map(ImageReadEntity.Front())
         val backPath = caReadEntityToPath.map(ImageReadEntity.Back())
 
-        return PhotoPathEntity(fileIsExistMapper.map(frontPath), fileIsExistMapper.map(backPath))
+        return PhotoPathEntity(pathIsExistMapper.map(frontPath), pathIsExistMapper.map(backPath))
     }
 
-    override fun getVideoUrl(): VideoStorageEntity {
-        return VideoStorageEntity(
-            fileIsExistMapper.map(caReadEntityToPath.map(VideoReadEntity()))
+    override fun getVideoUrl(): VideoPathEntity {
+        return VideoPathEntity(
+            pathIsExistMapper.map(caReadEntityToPath.map(VideoReadEntity()))
         )
+    }
+
+    override fun getRawVideoUrl(): VideoPathEntity {
+        return VideoPathEntity(caReadEntityToPath.map(VideoReadEntity()))
     }
 }

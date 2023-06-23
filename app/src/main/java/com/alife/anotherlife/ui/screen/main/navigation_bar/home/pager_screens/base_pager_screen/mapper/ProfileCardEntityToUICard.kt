@@ -1,17 +1,22 @@
 package com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.mapper
 
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UICardModel
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.UIProfileCardModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.post_model.UIPostModel
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.base_pager_screen.model.post.post_model.UIPhotosPostModel
 import com.alife.core.mapper.Mapper
 import com.alife.domain.main.home.child.ProfileCardEntity
 import javax.inject.Inject
 
-class ProfileCardEntityToUICard @Inject constructor() : Mapper<ProfileCardEntity, UICardModel> {
-    override fun map(inputModel: ProfileCardEntity): UICardModel {
+class ProfileCardEntityToUICard @Inject constructor() : Mapper<ProfileCardEntity, UIPostModel> {
+    override fun map(inputModel: ProfileCardEntity): UIPostModel {
         return with(inputModel) {
-            UIProfileCardModel(
+            val randomPictureRequest = "https://api.api-ninjas.com/v1/randomimage?category=nature"
+            UIPhotosPostModel(
                 // TODO add timestamp mapper
-                username, frontAlife, backAlife, timestamp.toString(), avatar
+                username,
+                timestamp.toString(),
+                randomPictureRequest,//avatar,
+                randomPictureRequest,//frontAlife,
+                randomPictureRequest//backAlife
             )
         }
     }

@@ -1,8 +1,8 @@
 package com.alife.data.repository.main.create_alife
 
 import com.alife.data.data_source.cache.file.OriginalFileWrapperFactory
-import com.alife.data.repository.main.create_alife.file_model_base.BaseReadFileModel
-import com.alife.data.repository.main.create_alife.file_model_base.file_builders.BaseFileName
+import com.alife.data.core.file_model_base.BaseReadFileModel
+import com.alife.data.core.file_model_base.file_builders.BaseFileName
 import com.alife.data.repository.main.create_alife.picture.model.image.JpegExtension
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
@@ -13,7 +13,7 @@ class TestReadDefaultModelCreateAlife {
 
     @Test(expected = FileNotFoundException::class)
     fun `test read file none exist`() {
-        val readFileModel = FakeReadFileModel(FakeFileName())
+        val readFileModel = FakeRead(FakeFileName())
 
         val `in` = BufferedInputStream(null)
         val fileWrapperFactory =
@@ -28,7 +28,7 @@ class TestReadDefaultModelCreateAlife {
 
     @Test
     fun `test read file exist`() {
-        val readFileModel = FakeReadFileModel(FakeFileName())
+        val readFileModel = FakeRead(FakeFileName())
 
         val `in` = BufferedInputStream(null)
         val fileWrapperFactory =
@@ -45,7 +45,7 @@ class TestReadDefaultModelCreateAlife {
 
     @Test(expected = FileNotFoundException::class)
     fun `test read file when path empty`() {
-        val readFileModel = FakeReadEmptyFileModel()
+        val readFileModel = FakeReadEmpty()
 
         val `in` = BufferedInputStream(null)
         val fileWrapperFactory = OriginalFileWrapperFactory()
@@ -54,14 +54,14 @@ class TestReadDefaultModelCreateAlife {
     }
 
     // Fake Realization
-    class FakeReadEmptyFileModel : BaseReadFileModel.DefaultRead(
-        TestPathOfAbstractFileModel.FakeFilePath(),
+    class FakeReadEmpty : BaseReadFileModel.DefaultRead(
+        TestPathOfAbstract.FakeFilePath(),
         EmptyFileName(),
         EmptyFileExtension()
     )
 
-    class FakeReadFileModel(fileName: BaseFileName) : BaseReadFileModel.DefaultRead(
-        TestPathOfAbstractFileModel.FakeFilePath(),
+    class FakeRead(fileName: BaseFileName) : BaseReadFileModel.DefaultRead(
+        TestPathOfAbstract.FakeFilePath(),
         fileName,
         JpegExtension()
     )

@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui.screen.login.model.buttons.text
 
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
@@ -57,6 +58,25 @@ sealed class LoginTextUIAuthModel(@StringRes textId: Int) : TextUIAuthModel(text
                 Spacer(modifier = Modifier.padding(start = 5.dp))
                 TextBase(textResId = textRes)
             }
+        }
+    }
+
+    class Authorization(
+        @DrawableRes private val image: Int,
+        override val radius: CornerSize,
+    ) : LoginTextUIAuthModel(R.string.registration) {
+
+        override val authType: AuthType = AuthType.AUTH_SERVICE
+
+        @Composable
+        override fun Button(viewModel: LoginViewModel, modifier: Modifier) {
+            ButtonBase(
+                onClick = { viewModel.onAuthTypeAction(authType) },
+                shape = RoundedCornerShape(radius),
+                enabled = false,
+                contentPadding = PaddingValues(10.dp),
+                modifier = modifier
+            ) { ImageBase(resId = image) }
         }
     }
 }

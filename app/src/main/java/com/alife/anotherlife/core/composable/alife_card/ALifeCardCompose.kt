@@ -37,41 +37,25 @@ fun ALifeCardCompose(
     CardWithConstraints(modifier = modifier, shape = shape) {
         var isReversed by rememberSaveable { mutableStateOf(false) }
 
-        val painters = uiAlifeCardModel.getPainters(isReversed = isReversed)
-
-        Crossfade(
-            painters,
-            animationSpec = spring(2f),
-            label = ""
-        ) { painters ->
-            Image(
-                painter = painters.first,
-                contentDescription = "",
-                contentScale = ContentScale.FillBounds,
-                modifier = mainImageModifier.clip(shape)
-            )
-
-            Image(
-                painter = painters.second,
-                contentScale = ContentScale.Crop,
-                contentDescription = "",
-                modifier = Modifier
-                    .size(100.dp, 150.dp)
-                    .draggableALifeModifier(
-                        offsetsStartStrategy,
-                        DpSize(maxWidth, maxHeight),
-                        DpSize(100.dp, 150.dp),
-                        DragChainValidator(
-                            LeftDragXYChain(),
-                            DefaultDragXChain()
-                        )
+        uiAlifeCardModel.Images(
+            isReversed = isReversed,
+            Modifier
+                .size(100.dp, 135.dp)
+                .draggableALifeModifier(
+                    offsetsStartStrategy,
+                    DpSize(maxWidth, maxHeight),
+                    DpSize(100.dp, 150.dp),
+                    DragChainValidator(
+                        LeftDragXYChain(),
+                        DefaultDragXChain()
                     )
-                    .clip(shape)
-                    .clickableNoRipple {
-                        isReversed = !isReversed
-                    }
-            )
-        }
+                )
+                .clip(shape)
+                .clickableNoRipple {
+                    isReversed = !isReversed
+                },
+            mainImageModifier.clip(shape)
+        )
     }
 }
 

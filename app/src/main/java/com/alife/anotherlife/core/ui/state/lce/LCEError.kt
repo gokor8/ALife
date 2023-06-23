@@ -24,6 +24,11 @@ import com.alife.anotherlife.core.composable.text.style.Title18Style
 import com.alife.anotherlife.core.composable.text.style.Title20Style
 import com.alife.anotherlife.core.ui.text.TextWrapper
 
+interface EmptyError: LCEModel.Error {
+    @Composable
+    override fun LCEContent(modifier: Modifier) = Unit
+}
+
 class LCEError(
     private val title: TextWrapper,
     private val description: TextWrapper,
@@ -33,7 +38,7 @@ class LCEError(
 
     @Composable
     override fun LCEContent(modifier: Modifier) {
-        ErrorScreen(title.getString(), description.getString(), buttonText.getString(), onTry)
+        ErrorScreen(title.getString(), description.getString(), buttonText.getString(), Modifier, onTry)
     }
 }
 
@@ -83,9 +88,10 @@ fun ErrorScreen(
     title: String,
     description: String = "",
     buttonText: String = "",
-    onTry: () -> Unit
+    modifier: Modifier = Modifier,
+    onTry: () -> Unit = {}
 ) = Column(
-    modifier = Modifier
+    modifier = modifier
         .background(MaterialTheme.colorScheme.background)
         .then(SystemPaddingModifier.provideModifier()),
     verticalArrangement = Arrangement.Center,

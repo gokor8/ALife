@@ -7,7 +7,7 @@ import com.alife.core.mvi.MVI
 
 interface SplashEffect : MVI.Effect {
 
-    class NavigateToLogin : SplashEffect, NavigationWrapper.Forward(LoginNavigator())
+    class NavigateToLogin : SplashEffect, NavigationWrapper.ForwardSingleInclusive(LoginNavigator())
 
-    class NavigateToMain : SplashEffect, NavigationWrapper.Forward(MainScreenNavigator())
+    class NavigateToMain : SplashEffect, NavigationWrapper.ForwardSingleInclusive(MainScreenNavigator())
 }

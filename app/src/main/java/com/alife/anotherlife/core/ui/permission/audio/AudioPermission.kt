@@ -3,7 +3,6 @@ package com.alife.anotherlife.core.ui.permission.audio
 import androidx.compose.runtime.Composable
 import com.alife.anotherlife.core.ui.dialog.AbstractDialog
 import com.alife.anotherlife.core.ui.permission.AbstractPermission
-import com.alife.anotherlife.core.ui.permission.FullAbstractPermission
 import com.alife.anotherlife.core.ui.permission.strategy.BaseStrategyMapper
 import com.alife.anotherlife.core.ui.permission.strategy.PermissionStrategy
 import com.alife.anotherlife.di.ui.core.DialogAnnotation

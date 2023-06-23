@@ -1,8 +1,8 @@
 package com.alife.data.repository.main.create_alife
 
 import com.alife.data.data_source.cache.file.base.FileWrapperFactory
-import com.alife.data.repository.main.create_alife.file_model_base.BaseSaveFileModel
-import com.alife.data.repository.main.create_alife.file_model_base.file_builders.BaseFileName
+import com.alife.data.core.file_model_base.BaseSaveFileModel
+import com.alife.data.core.file_model_base.file_builders.BaseFileName
 import com.alife.data.repository.main.create_alife.picture.model.image.JpegExtension
 import junit.framework.TestCase
 import org.junit.Test
@@ -13,7 +13,7 @@ class TestSaveDefaultModelCreateAlife {
     @Test
     fun `test create file and dir exist`() {
         val fileWrapperFactory = FakeSaveFileWrapperFactory(isExistDir = true, isExistFile = true)
-        val saveFileModel = FakeSaveFileModel(FakeFileName(), fileWrapperFactory)
+        val saveFileModel = FakeSave(FakeFileName(), fileWrapperFactory)
 
         saveFileModel.createFile()
 
@@ -27,7 +27,7 @@ class TestSaveDefaultModelCreateAlife {
     @Test
     fun `test create file none exist`() {
         val fileWrapperFactory = FakeSaveFileWrapperFactory(isExistDir = true, isExistFile = false)
-        val saveFileModel = FakeSaveFileModel(FakeFileName(), fileWrapperFactory)
+        val saveFileModel = FakeSave(FakeFileName(), fileWrapperFactory)
 
         saveFileModel.createFile()
 
@@ -40,7 +40,7 @@ class TestSaveDefaultModelCreateAlife {
     @Test
     fun `test create file none exist dir`() {
         val fileWrapperFactory = FakeSaveFileWrapperFactory(isExistDir = false, isExistFile = false)
-        val saveFileModel = FakeSaveFileModel(FakeFileName(), fileWrapperFactory)
+        val saveFileModel = FakeSave(FakeFileName(), fileWrapperFactory)
 
         saveFileModel.createFile()
 
@@ -53,11 +53,11 @@ class TestSaveDefaultModelCreateAlife {
     }
 
     // Fake Realization
-    class FakeSaveFileModel(
+    class FakeSave(
         fileName: BaseFileName,
         fileWrapperFactory: FileWrapperFactory
     ) : BaseSaveFileModel.DefaultSave(
-        TestPathOfAbstractFileModel.FakeFilePath(),
+        TestPathOfAbstract.FakeFilePath(),
         fileName,
         JpegExtension(),
         fileWrapperFactory

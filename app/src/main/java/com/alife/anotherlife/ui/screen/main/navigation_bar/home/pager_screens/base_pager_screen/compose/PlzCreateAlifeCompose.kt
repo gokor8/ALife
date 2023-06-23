@@ -33,7 +33,7 @@ fun PlzCreateAlifeCompose(
         Spacer(modifier = Modifier.padding(top = 10.dp))
 
         TextTransparentButton(
-            textResId = R.string.home_friends_create_alife,
+            textResId = R.string.create_alife_base,
             textStyle = Bold16TextStyle().style(),
             border = BorderStroke(1.dp, Color.Black),
             contentPadding = PaddingValues(vertical = 12.dp),

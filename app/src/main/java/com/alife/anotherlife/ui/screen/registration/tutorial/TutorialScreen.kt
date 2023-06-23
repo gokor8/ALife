@@ -31,7 +31,7 @@ class TutorialScreen(
     @OptIn(ExperimentalPagerApi::class)
     @Composable
     override fun Content(modifier: Modifier) {
-        Column(modifier) {
+        Box(modifier) {
             val state = viewModel.getUIState()
 
             val pagerState = rememberPagerState()
@@ -39,7 +39,7 @@ class TutorialScreen(
             HorizontalPager(
                 count = state.screenTutorsList.size,
                 state = pagerState,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.fillMaxSize().padding(bottom = 40.dp)
             ) { index ->
                 state.screenTutorsList[index].SetupContent()
             }
@@ -50,13 +50,16 @@ class TutorialScreen(
                 )
             }
 
-            state.buttonHeightState.BottomButton(viewModel = viewModel)
+            state.buttonHeightState.BottomButton(
+                viewModel = viewModel,
+                modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 10.dp)
+            )
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
                     .padding(horizontal = 44.dp)
             ) {
                 repeat(state.screenTutorsList.size) { index ->
@@ -67,7 +70,7 @@ class TutorialScreen(
                     Box(
                         modifier = Modifier
                             .padding(horizontal = 8.dp)
-                            .size(78.dp, 8.dp)
+                            .height(8.dp).weight(1f)
                             .background(
                                 animationColor,
                                 MaterialTheme.shapes.medium

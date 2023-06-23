@@ -17,7 +17,9 @@ class WorldViewModelModuleP {
     @Reusable
     @Provides
     @WorldAnnotation.WorldUIStore
-    fun provideWorldUIStore(): UIStore<HomeChildState, HomeChildEffect> {
-        return DefaultUIStore(HomeChildState())
+    fun provideWorldUIStore(
+        //cacheDataSourceFactory: CacheDataSourceFactory
+    ): UIStore<HomeChildState, HomeChildEffect> {
+        return DefaultUIStore(HomeChildState())//cacheDataSourceFactory = cacheDataSourceFactory))
     }
 }

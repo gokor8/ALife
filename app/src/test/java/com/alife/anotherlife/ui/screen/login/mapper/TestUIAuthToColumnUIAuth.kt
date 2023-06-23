@@ -5,7 +5,7 @@ import com.alife.anotherlife.ui.screen.login.model.FakeListAuthTypeToUIAuth
 import com.alife.anotherlife.ui.screen.login.model.FakeUIAuthModel
 import com.alife.anotherlife.ui.screen.login.model.FakeAuthTypeEntity
 import com.alife.anotherlife.ui.screen.login.model.buttons.ColumnContainerUIAuthModel
-import com.alife.core.mapper.ListMapper
+import com.alife.core.mapper.ListMapperSingle
 import com.alife.domain.login.content.entity.AuthTypeEntity
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
@@ -14,7 +14,7 @@ class TestUIAuthToColumnUIAuth {
 
     private val uiAuthToColumnContainerUIAuth = UIAuthToColumnContainerUIAuth(
         FakeListAuthTypeToUIAuth(),
-        FakeListSlicer()
+        FakeSingleListSlicer()
     )
 
 
@@ -88,6 +88,6 @@ class TestUIAuthToColumnUIAuth {
 
 
 // Fake
-class FakeListSlicer : ListMapper<AuthTypeEntity> {
+class FakeSingleListSlicer : ListMapperSingle<AuthTypeEntity> {
     override fun map(inputModel: List<AuthTypeEntity>): List<AuthTypeEntity> = inputModel
 }

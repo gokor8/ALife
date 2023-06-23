@@ -1,5 +1,6 @@
 package com.alife.anotherlife.ui
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -12,8 +13,6 @@ import com.alife.anotherlife.ui.screen.main.finish_create_alife.photo.navigation
 import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.navigation.FinishVideoNavBuilder
 import com.alife.anotherlife.ui.screen.main.navigation.MainScreenNavBuilder
 import com.alife.anotherlife.ui.screen.main.navigation_bar.home.navigation.HomeNavBuilder
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.friends.navigation.FriendsNavBuilder
-import com.alife.anotherlife.ui.screen.main.navigation_bar.home.pager_screens.world.navigation.WorldNavBuilder
 import com.alife.anotherlife.ui.screen.registration.tutorial.navigation.TutorialNavBuilder
 import javax.inject.Inject
 
@@ -31,9 +30,9 @@ class DevNavigationGraph @Inject constructor() : NavigationGraph {
                 },
                 TutorialNavBuilder(navHostController),
                 MainScreenNavBuilder(navHostController),
-                HomeNavBuilder(navHostController),
-                FriendsNavBuilder(navHostController),
-                WorldNavBuilder(navHostController),
+                HomeNavBuilder(PaddingValues(), navHostController),
+                //FriendsNavBuilder(navHostController),
+                //WorldNavBuilder(navHostController),
                 CreateAlifeNavBuilder(navHostController),
                 FinishPictureNavBuilder(navHostController),
                 FinishVideoNavBuilder(navHostController)

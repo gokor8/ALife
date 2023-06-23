@@ -29,7 +29,6 @@ class SplashScreen(override val navController: NavController) : VMScreen<SplashV
     override fun setupViewModel(): SplashViewModel = hiltViewModel()
 
     override suspend fun onInit() {
-        delay(1000L)
         viewModel.reduce(SplashAction.Init())
     }
 
@@ -55,7 +54,7 @@ class SplashScreen(override val navController: NavController) : VMScreen<SplashV
         ) {
             ImageBase(
                 resId = R.drawable.ic_alife_logo,
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.tertiary),
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
                 modifier = Modifier.size(100.dp)
             )
         }

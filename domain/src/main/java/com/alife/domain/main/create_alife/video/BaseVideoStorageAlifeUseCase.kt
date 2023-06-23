@@ -1,8 +1,10 @@
 package com.alife.domain.main.create_alife.video
 
-import com.alife.domain.main.create_alife.video.entity.VideoStorageEntity
+import com.alife.domain.main.create_alife.video.entity.VideoPathEntity
 
 interface BaseVideoStorageAlifeUseCase {
 
-    fun getVideoStorageEntity(): VideoStorageEntity
+    fun getVideoStorageEntity(): VideoPathEntity
+
+    fun getVideoRawPathEntity(): VideoPathEntity
 }

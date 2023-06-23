@@ -19,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.alife.anotherlife.R
+import com.alife.anotherlife.core.composable.image.ImageBase
 import com.alife.anotherlife.core.composable.modifier.ScrollableModifier
 import com.alife.anotherlife.core.composable.text.TextBase
 import com.alife.anotherlife.core.ui.screen.DefaultScreen
@@ -42,14 +43,12 @@ class LoginScreen(override val navController: NavController) :
 
             val state = viewModel.getUIState()
 
-            Box(
-                modifier = Modifier
+            ImageBase(
+                resId = R.drawable.img_login, modifier = Modifier
+                    .fillMaxWidth()
                     .weight(1f)
-                    .fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                TextBase(textResId = R.string.pass_login_in)
-            }
+                    .padding(20.dp)
+            )
 
             StaticTextUIAuthModel.Hint().Button(
                 viewModel = viewModel,

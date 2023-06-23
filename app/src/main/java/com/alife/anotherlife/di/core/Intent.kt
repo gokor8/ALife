@@ -15,12 +15,16 @@ import javax.inject.Qualifier
 @InstallIn(SingletonComponent::class)
 class IntentModule {
 
-    @IntentModule.IntentAnnotation.Settings
-    @Provides
-    fun provideSettingsAppIntent(@ApplicationContext context: Context): Intent = Intent().apply {
-        action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-        data = Uri.fromParts("package", context.packageName, null)
+    companion object {
+        fun Context.settingsIntent() = Intent().apply {
+            action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+            data = Uri.fromParts("package", packageName, null)
+        }
     }
+
+    @IntentAnnotation.Settings
+    @Provides
+    fun provideSettingsAppIntent(@ApplicationContext context: Context) = context.settingsIntent()
 
 
     interface IntentAnnotation {

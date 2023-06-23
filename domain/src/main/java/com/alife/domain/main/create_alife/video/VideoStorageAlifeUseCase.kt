@@ -8,4 +8,6 @@ class VideoStorageAlifeUseCase @Inject constructor(
 ) : BaseVideoStorageAlifeUseCase {
 
     override fun getVideoStorageEntity() = repository.getVideoUrl()
+
+    override fun getVideoRawPathEntity() = repository.getRawVideoUrl()
 }

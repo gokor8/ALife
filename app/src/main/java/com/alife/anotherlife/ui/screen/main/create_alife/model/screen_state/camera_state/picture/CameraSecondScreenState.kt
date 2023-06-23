@@ -12,6 +12,6 @@ class CameraSecondScreenState(
         reducer: BaseCreateAlifePhotoReducer,
         captureWrapper: CookedCaptureWrapper
     ) {
-        reducer.onFinish()
+        reducer.onFinish(captureWrapper)
     }
 }

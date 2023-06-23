@@ -14,7 +14,7 @@ class ThirdTutorialScreen : BaseTutorialScreen(R.string.tutorial_third_descripti
     @Composable
     override fun MiddleContent(modifier: Modifier) {
         ImageBase(
-            resId = R.drawable.img_tutorial_third,
+            resId = R.drawable.img_tutor_3,
             contentScale = ContentScale.FillBounds,
             modifier = modifier.padding(horizontal = 38.dp)
         )

@@ -13,6 +13,7 @@ class GenericLCEError(private val onTry: () -> Unit) : LCEModel.Error {
             stringResource(R.string.generic_exception_title),
             stringResource(R.string.generic_exception_description),
             stringResource(R.string.repeat),
+            Modifier,
             onTry
         )
     }
