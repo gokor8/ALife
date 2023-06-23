@@ -1,11 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    // Addons
+
+    // Добавки
     <string name="app_name">AnotherLife</string>
     <string name="vertical_logo">A Life</string>
     <string name="horizontal_short_logo">ALife</string>
     <string name="horizontal_short_small_logo">Alife</string>
     <string name="horizontal_logo">Another Life</string>
-    <string name="continue_next">Continue</string>
+    <string name="continue_next">Продолжить</string>
     <string name="back">Назад</string>
     <string name="cancel">Отмена</string>
     <string name="agree">Разрешить</string>
@@ -14,131 +16,237 @@
     <string name="global_exception">Произошла критическая ошибка</string>
     <string name="connection_exception">Время выполнения запроса истекло</string>
     <string name="exception">Ошибка!</string>
-    <string name="try_later">Повторите по позже</string>
+    <string name="try_later">Повторите позже</string>
     <string name="try_again">Повторите попытку</string>
     <string name="mapbox_access_token">pk.eyJ1IjoiZ3JlZ29yeXVzYXRyYWNrIiwiYSI6ImNsaXRkMDBoejFsZGgza28xd3Ruc243YTQifQ.9Sjj0HSKbSKMrv0x3aQs7w</string>
 
-    // Generic Exception
+    // Общие исключения
     <string name="generic_exception_title">Непредвиденная ошибка</string>
     <string name="generic_exception_description">Произошла непредвиденная ошибка, повторите попытку</string>
 
-    // Copy
+    // Копирование
     <string name="copy_username">Никнейм скопирован</string>
     <string name="copy_geo">Координаты скопированы</string>
 
-    // Dialog
-    <string name="permission_dialog_description">Предоставьте разрешние через настройки</string>
+    // Диалог
+    <string name="permission_dialog_description">Предоставьте разрешение через настройки</string>
     <string name="permission_dialog_settings">в Настройки</string>
-    
-    // Login
-    <string name="pass_login_in">Hi, pass login in</string>
-    <string name="authorization_type">Выберите подходящий способ авторизации</string>
+
+    // Вход
+    <string name="pass_login_in">Привет, войди</string>
+    <string name="authorization_type">Выберите способ авторизации</string>
     <string name="login_in">Войти</string>
     <string name="registration">Зарегистрироваться</string>
-    <string name="test">Test</string>
+    <string name="test">Тест</string>
 
-    // Image
-    <string name="image_error">Не удалось загрузить, картинку</string>
+    // Изображение
+    <string name="image_error">Не удалось загрузить изображение</string>
 
-    //Registration
-    <string name="error_empty">Field is Empty</string>
+    // Регистрация
+    <string name="error_empty">Поле пустое</string>
 
-    // Registration Name
-    <string name="what_is_your_name">What is your name?</string>
-    <string name="name">Name</string>
-    <string name="error_less_4">Text less 4</string>
-    <string name="error_more_25">Text more 25</string>
+    // Имя пользователя
+    <string name="what_is_your_name">Как вас зовут?</string>
+    <string name="name">Имя</string>
+    <string name="error_less_4">Минимум 4 символа</string>
+    <string name="error_more_25">Максимум 25 символов</string>
 
-    // Registration Username
-    <string name="also_need_your_username">Also need username</string>
-    <string name="username">Username</string>
+    // Никнейм
+    <string name="also_need_your_username">Также нужен никнейм</string>
+    <string name="username">Никнейм</string>
 
-    // Registration Birthday
-    <string name="i_need_your_birthday">I need your birthday -_-</string>
-    <string name="birthday">Birthday</string>
-    <string name="invalid_birthday">Invalid birthday</string>
-    <string name="gaffer">Gaffer</string>
-    <string name="so_young">So Young</string>
+    // День рождения
+    <string name="i_need_your_birthday">Мне нужна ваша дата рождения -_-</string>
+    <string name="birthday">Дата рождения</string>
+    <string name="invalid_birthday">Неверная дата рождения</string>
+    <string name="gaffer">Взрослый</string>
+    <string name="so_young">Так молод</string>
 
     // Email
-    <string name="your_email">Your Email Plz.</string>
+    <string name="your_email">Ваш email, пожалуйста.</string>
     <string name="email">Email</string>
-    <string name="invalid_email">Invalid Email</string>
-    <string name="error_send_email">При отправке ваших данных произошла ошибка</string>
+    <string name="invalid_email">Неверный email</string>
+    <string name="error_send_email">Ошибка отправки данных</string>
 
     // Email Code
-    <string name="email_code">Code from email sms</string>
-    <string name="email_code_error">Вы ввели неверный код подтверждения</string>
-    <string name="email_code_critical_error">Ваш код подтверждения истек, повторите попытку</string>
+    <string name="email_code">Код из email-сообщения</string>
+    <string name="email_code_error">Вы ввели неправильный код подтверждения</string>
+    <string name="email_code_critical_error">Срок действия вашего кода подтверждения истек, повторите попытку</string>
 
-    // Tutorial
-    <string name="tutorial_first_description">В течение 1 минуты сделай видео или фото и покажи, чем ты занимаешься</string>
-    <string name="tutorial_second_title">Время показать всем чем вы занимаетесь!</string>
-    <string name="tutorial_second_description">В течение 1 минуты сделай видео или фото и покажи, чем ты занимаешься</string>
-    <string name="tutorial_third_description">Все люди публикуют фото в одно и то же время</string>
+    // Учебник
+    <string name="tutorial_first_description">Сделайте видео или фото в течение 1 минуты и покажите, чем вы занимаетесь</string>
+    <string name="tutorial_second_title">Пора показать всем, чем вы занимаетесь!</string>
+    <string name="tutorial_second_description">Сделайте видео или фото в течение 1 минуты и покажите, чем вы занимаетесь</string>
+    <string name="tutorial_third_description">Все люди публикуют фото одновременно</string>
 
-    // Main
+    // Главный экран
     <string name="bottom_bar_map">Карта</string>
     <string name="bottom_bar_home">ALife</string>
     <string name="bottom_bar_profile">Профиль</string>
 
-    // Home
-    <string name="home_pager_friends">Friends</string>
-    <string name="home_pager_world">World</string>
+    // Главная страница
+    <string name="home_pager_friends">Друзья</string>
+    <string name="home_pager_world">Мир</string>
 
-    // Home_Friends
-    <string name="home_friends_be_first">Ваши друзья еще не выкладывали Alife, будьте первыми.</string>
+    // Друзья
+    <string name="home_friends_be_first">Ваши друзья еще не создавали Alife, будьте первыми</string>
 
-    // Create Alife
+    // Создание Alife
     <string name="create_alife_on_post">Создайте Alife, чтобы увидеть посты</string>
     <string name="create_alife_base">Создайте свой Alife</string>
 
-    // Location Map Dialog
-    <string name="dialog_map_location_title">Приложению необходим доступ к геолокации</string>
-    <string name="dialog_map_location_description">Для просмотр карты \n предоставьте доступ к геолокации</string>
+    // Диалог выбора местоположения на карте
+    <string name="dialog_map_location_title">Приложению требуется доступ к геолокации</string>
+    <string name="dialog_map_location_description">Для просмотра карты\nпредоставьте доступ к геолокации</string>
 
-    // Location Dialog
-    <string name="dialog_location_title">Приложению необходим доступ к геолокации</string>
-    <string name="dialog_location_description">Для публикования с гео \n предоставьте доступ к геолокации</string>
+    // Диалог выбора местоположения
+    <string name="dialog_location_title">Приложению требуется доступ к геолокации</string>
+    <string name="dialog_location_description">Для добавления геометки\nпредоставьте доступ к геолокации</string>
 
-    // Camera Dialog
-    <string name="dialog_camera_title">Приложению необходим доступ к камере</string>
-    <string name="dialog_camera_description">Для создания Alife \n предоставьте доступ к камере</string>
+    // Диалог выбора камеры
+    <string name="dialog_camera_title">Приложению требуется доступ к камере</string>
+    <string name="dialog_camera_description">Для создания Alife\nпредоставьте доступ к камере</string>
 
-    // Camera Audio
-    <string name="dialog_audio_title">Приложению необходим доступ к микрофону</string>
-    <string name="dialog_audio_description">Для записи видео со звуком \n предоставьте доступ к микрофону</string>
+    // Звук в видеозаписи
+    <string name="dialog_audio_title">Приложению требуется доступ к микрофону</string>
+    <string name="dialog_audio_description">Для записи видео с звуком\nпредоставьте доступ к микрофону</string>
 
-    // Camera
-    <string name="camera_blocking_error_camera">Предоставьте разрешение на использование Камеры</string>
-    <string name="camera_blocking_error_fatal">Не получилось подключиться к камере</string>
-    <string name="camera_snackbar_video_error">Произошла ошибка во время записи видео</string>
-    <string name="camera_snackbar_photo_error">Произошла ошибка во время фото</string>
-    <string name="camera_snackbar_camera_description_error">Попробуйте снова.</string>
+    // Камера
+    <string name="camera_blocking_error_camera">Предоставьте разрешение на использование камеры</string>
+    <string name="camera_blocking_error_fatal">Не удалось подключиться к камере</string>
+    <string name="camera_snackbar_video_error">Ошибка при записи видео</string>
+    <string name="camera_snackbar_photo_error">Ошибка при съемке фото</string>
+    <string name="camera_snackbar_camera_description_error">Повторите попытку</string>
 
-    // Upload
-    <string name="upload_error_video">Произошла ошибка во время отправки видео</string>
-    <string name="upload_error_photo">Произошла ошибка во время отправки фото</string>
-    <string name="upload_no_photo_file_error">Мы не смогли найти фото для загрузки</string>
-    <string name="upload_no_video_file_error">Мы не смогли найти видео для загрузки</string>
-    <string name="upload_no_photo_file_error_description">Повторите сделать фотокарточки снова</string>
-    <string name="upload_no_video_file_error_description">Попробуйте записать видео снова</string>
+    // Загрузка
+    <string name="upload_error_video">Ошибка при отправке видео</string>
+    <string name="upload_error_photo">Ошибка при отправке фото</string>
+    <string name="upload_no_photo_file_error">Не удалось найти фото для загрузки</string>
+    <string name="upload_no_video_file_error">Не удалось найти видео для загрузки</string>
+    <string name="upload_no_photo_file_error_description">Повторите попытку сделать фото</string>
+    <string name="upload_no_video_file_error_description">Повторите попытку записать видео</string>
 
-    // HomeChild
-    <string name="home_chile_paging_error_title">Произошла ошибка, при загрузке данных</string>
+    // Дочерний экран главной страницы
+    <string name="home_chile_paging_error_title">Ошибка при загрузке данных</string>
     <string name="home_chile_paging_error_description">Повторите попытку</string>
-    <string name="home_chile_paging_first_error_description">Вы единственный кто выложил пост, не удалось его загрузить</string>
+    <string name="home_chile_paging_first_error_description">Вы первый, кто создал пост, и его не удалось загрузить</string>
 
-    // Profile
-    <string name="profile_error_title">Ошибка!</string>
-    <string name="profile_error_load_data">Произошла ошибка, при загрузке данных профиля</string>
-    <string name="profile_error_load_photo">Не удалось загрузить вашу фотокарточку</string>
+    // Профиль
+    <string name="profile_error_title">Ошибка</string>
+    <string name="profile_error_load_data">Ошибка при загрузке данных профиля</string>
+    <string name="profile_error_load_photo">Не удалось загрузить фото</string>
     <string name="profile_error_load_info">Не удалось обновить профиль</string>
-    <string name="profile_error_exit">Не удалось выйти из сессии</string>
-    <string name="profile_hint_description">Description…</string>
+    <string name="profile_error_exit">Не удалось выйти из сеанса</string>
+    <string name="profile_hint_description">Описание...</string>
 
-    // Map
+    // Карта
     <string name="map_error_title">Предоставьте разрешение</string>
-    <string name="map_error_descripion">Предоставьте разрешение, на определение геолокации</string>
+    <string name="map_error_descripion">Предоставьте разрешение на использование геолокации</string>
+    <string name="map_error_location_descripion">Не удалось определить ваше местоположение</string>
 
+    // Описание Alife
+    <string name="post_description_hint">Описание Alife</string>
+    <string name="post_description_error">Описание Alife не может быть пустым</string>
+    <string name="post_description_error_description">Добавьте описание Alife</string>
+
+    // Удаление Alife
+    <string name="dialog_delete_post_title">Удалить Alife</string>
+    <string name="dialog_delete_post_description">Вы уверены, что хотите удалить Alife?</string>
+    <string name="dialog_delete_post_positive_button">Удалить</string>
+    <string name="dialog_delete_post_negative_button">Отмена</string>
+
+    // Поделиться Alife
+    <string name="share_post">Поделиться Alife</string>
+    <string name="share_title">Поделиться</string>
+    <string name="share_description">Поделиться Alife</string>
+    <string name="share_dialog_title">Сделать Alife доступным</string>
+    <string name="share_dialog_public">Публичный</string>
+    <string name="share_dialog_private">Приватный</string>
+    <string name="share_dialog_description">Выберите, как сделать Alife доступным для других</string>
+    <string name="share_snackbar_success">Alife успешно опубликован</string>
+    <string name="share_snackbar_error">Ошибка при публикации Alife</string>
+
+    // Комментарии
+    <string name="comment_error_title">Ошибка</string>
+    <string name="comment_error_load">Ошибка при загрузке комментариев</string>
+    <string name="comment_error_send">Ошибка при отправке комментария</string>
+    <string name="comment_error_send_description">Повторите попытку отправить комментарий</string>
+    <string name="comment_hint">Добавить комментарий...</string>
+
+    // Просмотрщик изображений
+    <string name="viewer_error">Ошибка при загрузке изображения</string>
+
+    // Профиль друга
+    <string name="friend_profile_error">Ошибка при загрузке профиля друга</string>
+    <string name="friend_profile_error_description">Повторите попытку</string>
+
+    // Уведомления
+    <string name="notifications_title">Уведомления</string>
+    <string name="notifications_empty">У вас нет уведомлений</string>
+    <string name="notifications_error">Ошибка при загрузке уведомлений</string>
+    <string name="notifications_error_description">Повторите попытку</string>
+    <string name="notifications_mark_all_as_read">Отметить все как прочитанные</string>
+    <string name="notifications_mark_as_read">Отметить как прочитанное</string>
+    <string name="notifications_mark_as_unread">Отметить как непрочитанное</string>
+
+    // Видео
+    <string name="video_error">Ошибка при загрузке видео</string>
+
+    // Интернет-соединение
+    <string name="network_error">Ошибка соединения</string>
+    <string name="network_error_description">Проверьте подключение к Интернету и повторите попытку</string>
+
+    // Пустое содержимое
+    <string name="empty_content">Нет данных для отображения</string>
+
+    // Профиль пользователя
+    <string name="user_profile_error">Ошибка при загрузке профиля пользователя</string>
+    <string name="user_profile_error_description">Повторите попытку</string>
+
+    // Загрузка данных
+    <string name="loading_data">Загрузка данных...</string>
+
+    // Ошибки входа
+    <string name="login_error_title">Ошибка входа</string>
+    <string name="login_error_description">Проверьте данные и повторите попытку</string>
+    <string name="login_error_email">Проверьте правильность написания email</string>
+    <string name="login_error_password">Пароль должен содержать не менее 6 символов</string>
+    <string name="login_error_invalid_credentials">Неправильные учетные данные</string>
+    <string name="login_error_blocked">Ваш аккаунт заблокирован</string>
+    <string name="login_error_user_not_found">Пользователь не найден</string>
+
+    // Ошибки регистрации
+    <string name="register_error_title">Ошибка регистрации</string>
+    <string name="register_error_description">Проверьте данные и повторите попытку</string>
+    <string name="register_error_username_taken">Этот никнейм уже занят</string>
+    <string name="register_error_email_taken">Этот email уже зарегистрирован</string>
+    <string name="register_error_weak_password">Пароль должен содержать не менее 6 символов</string>
+    <string name="register_error_invalid_email">Неправильный формат email</string>
+
+    // Обновление пароля
+    <string name="password_update_title">Обновление пароля</string>
+    <string name="password_update_error">Ошибка при обновлении пароля</string>
+    <string name="password_update_success">Пароль успешно обновлен</string>
+    <string name="password_update_error_description">Повторите попытку обновления пароля</string>
+    <string name="password_update_current">Текущий пароль</string>
+    <string name="password_update_new">Новый пароль</string>
+    <string name="password_update_confirm">Подтвердите новый пароль</string>
+    <string name="password_update_password_error">Пароль должен содержать не менее 6 символов</string>
+    <string name="password_update_confirm_error">Подтверждение пароля не совпадает</string>
+    <string name="password_update_button">Обновить пароль</string>
+
+    // Удаление аккаунта
+    <string name="account_delete_title">Удаление аккаунта</string>
+    <string name="account_delete_description">Вы уверены, что хотите удалить свой аккаунт? Это действие нельзя отменить.</string>
+    <string name="account_delete_positive_button">Удалить</string>
+    <string name="account_delete_negative_button">Отмена</string>
+
+    // Общие
+    <string name="ok">ОК</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
+    <string name="save">Сохранить</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="loading">Загрузка...</string>
 </resources>
