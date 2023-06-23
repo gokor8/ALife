@@ -6,5 +6,5 @@ import com.alife.core.mvi.MVI
 
 interface TutorialEffect : MVI.Effect {
 
-    class NavigateMainScreen : TutorialEffect, NavigationWrapper.Forward(MainScreenNavigator())
+    class NavigateMainScreen : TutorialEffect, NavigationWrapper.ForwardNewGraphClearAll(MainScreenNavigator())
 }

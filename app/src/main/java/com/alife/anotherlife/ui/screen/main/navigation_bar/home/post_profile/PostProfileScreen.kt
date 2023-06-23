@@ -87,7 +87,7 @@ class PostProfileScreen(
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
                             .clickableNoRipple {
-                                navController.popBackStack()
+                                navController.navigateUp()
                             }
                     )
 

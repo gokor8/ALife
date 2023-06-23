@@ -14,11 +14,13 @@ import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.model.UIProfi
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.state.ProfileEffect
 import com.alife.anotherlife.ui.screen.main.navigation_bar.profile.state.ProfileState
 import com.alife.domain.main.profile.BaseUserProfileInfoUseCase
+import com.alife.domain.main.profile.ExitProfileUseCase
 import javax.inject.Inject
 
 class ProfileReducer @Inject constructor(
     override val uiStore: UIStore<ProfileState, ProfileEffect>,
-    private val profileInfoUseCase: BaseUserProfileInfoUseCase
+    private val profileInfoUseCase: BaseUserProfileInfoUseCase,
+    private val exitProfileUseCase: ExitProfileUseCase
 ) : HandlerBaseVMReducer<ProfileState, ProfileEffect>(), BaseProfileReducer {
 
     override suspend fun onInit() {
@@ -63,11 +65,14 @@ class ProfileReducer @Inject constructor(
         }
     }
 
-    override fun onExit() {
-
+    override suspend fun onExit() {
+        execute {
+            setEffect(ProfileEffect.ProfileExitError())
+        }.handle {
+            exitProfileUseCase.exit()
+            setEffect(ProfileEffect.Exit())
+        }
     }
 
-    override fun onBack() {
-
-    }
+    override fun onBack() = Unit
 }

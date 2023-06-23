@@ -24,5 +24,5 @@ interface BaseCreateAlifePhotoReducer : BaseVMReducer<CreateAlifeState, CreateAl
 
     suspend fun onPictureLoading()
 
-    suspend fun onFinish()
+    suspend fun onFinish(captureWrapper: CookedCaptureWrapper)
 }

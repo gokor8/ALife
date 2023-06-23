@@ -29,11 +29,9 @@ class ProfileUsualReducer @Inject constructor(
         profileReducer.onChanging()
     }
 
-    override fun onExit() {
+    override suspend fun onExit() {
         profileReducer.onExit()
     }
 
-    override fun onBack() {
-
-    }
+    override fun onBack() = Unit
 }

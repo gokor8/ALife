@@ -90,8 +90,8 @@ class ProfileUsualFillState(
             IconButton(onClick = {
                 viewModel.reduce(ProfileUsualAction.Exit())
             }, colors = iconButtonColors(
-                containerColor = MaterialTheme.colorScheme.error,
-                disabledContainerColor = MaterialTheme.colorScheme.error.copy(.7f)
+                containerColor = MaterialTheme.colorScheme.errorContainer.copy(.8f),
+                disabledContainerColor = MaterialTheme.colorScheme.errorContainer.copy(.6f)
             )) {
                 IconBase(
                     icon = R.drawable.ic_exit,

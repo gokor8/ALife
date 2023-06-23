@@ -15,6 +15,5 @@ interface FinishEffect : MVI.Effect {
 
     class RequireGps : FinishEffect
 
-    // TODO New Stack Screen (backToMainScreen)
-    class GoMain : FinishEffect, NavigationWrapper.Forward(HomeNavigator())
+    class GoMain : FinishEffect, NavigationWrapper.ForwardSingleInclusive(HomeNavigator())
 }

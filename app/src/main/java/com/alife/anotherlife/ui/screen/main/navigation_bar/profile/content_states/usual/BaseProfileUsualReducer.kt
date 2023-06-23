@@ -11,7 +11,7 @@ interface BaseProfileUsualReducer : BaseVMReducer<ProfileUsualState, ProfileUsua
 
     fun onChanging()
 
-    fun onExit()
+    suspend fun onExit()
 
     fun onBack()
 }

@@ -32,7 +32,7 @@ interface UIPostMedia {
                     firstPhotoLink,
                     secondPhotoLink
                 ),
-                modifier = modifier
+                modifier = Modifier
             )
         }
     }

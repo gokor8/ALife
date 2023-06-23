@@ -108,6 +108,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
+    // Localization
+    implementation "com.google.accompanist:accompanist-localization:v0.31.4-beta"
+
     // Pagging
     implementation "androidx.paging:paging-compose:1.0.0-alpha20"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"

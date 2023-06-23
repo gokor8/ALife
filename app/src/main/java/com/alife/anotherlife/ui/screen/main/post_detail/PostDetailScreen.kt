@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -42,7 +43,7 @@ class PostDetailScreen(
     @Composable
     override fun LceStateMap(lceModel: LCEModel, modifier: Modifier) {
         if (lceModel is ErrorLcePostDetailModelProvider) ErrorLcePostDetailModel().ErrorContent {
-            navController.popBackStack()
+            navController.navigateUp()
         } else {
             super.LceStateMap(lceModel, modifier)
         }
@@ -50,32 +51,36 @@ class PostDetailScreen(
 
     @Composable
     override fun SafeContent(modifier: Modifier) {
+        val color = MaterialTheme.colorScheme.onBackground
         val state = viewModel.getUIState().uiPostDetail
         val action = viewModel::reduce
 
         Column(modifier.padding(horizontal = 20.dp)) {
-            Row {
-                IconBase(
-                    icon = R.drawable.ic_arrow_left,
-                    tint = MaterialTheme.colorScheme.onPrimary
-                )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = {
+                    navController.navigateUp()
+                }) {
+                    IconBase(
+                        icon = R.drawable.ic_arrow_left,
+                        tint = color
+                    )
+                }
                 Spacer(modifier = Modifier.weight(1f))
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     TextButton(
                         onClick = {
                             action(PostDetailAction.ClickUsername(username))
                         },
-                        contentPadding = PaddingValues(6.dp)
+                        contentPadding = PaddingValues(vertical = 2.dp, horizontal = 6.dp)
                     ) {
-                        Text(text = state.username, fontWeight = FontWeight.Bold)
+                        Text(text = state.username, color = color, fontWeight = FontWeight.Bold)
                     }
                     Text(
                         text = state.timestamp,
-                        color = Color.Unspecified.copy(.6f),
+                        color = color.copy(.6f),
                         fontSize = 12.sp
                     )
                 }
-                Spacer(modifier = Modifier.weight(1f))
             }
             Spacer(modifier = Modifier.height(10.dp))
             state.uiPostMedia.MediaContent(modifier = Modifier.fillMaxSize())

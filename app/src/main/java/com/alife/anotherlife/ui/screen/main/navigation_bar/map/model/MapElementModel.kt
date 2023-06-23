@@ -16,6 +16,7 @@ import androidx.compose.material.TextButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -102,7 +103,8 @@ interface MapElementModel {
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .padding(horizontal = 16.dp, vertical = 14.dp)
-                        .size(80.dp, 120.dp)
+                        .size(80.dp, 100.dp)
+                        .clip(MaterialTheme.shapes.large)
                 )
 
                 Column(
@@ -120,7 +122,7 @@ interface MapElementModel {
                         ImageBase(
                             resId = R.drawable.ic_gps,
                             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
-                            modifier = Modifier.size(10.dp)
+                            modifier = Modifier.size(10.dp).padding(horizontal = 2.dp)
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(text = coordinates, style = style10W400(color))

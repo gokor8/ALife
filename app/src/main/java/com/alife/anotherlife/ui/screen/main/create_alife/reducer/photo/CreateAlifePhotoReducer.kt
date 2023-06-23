@@ -95,17 +95,21 @@ class CreateAlifePhotoReducer @Inject constructor(
         }
     }
 
-    override suspend fun onFinish() {
+    override suspend fun onFinish(captureWrapper: CookedCaptureWrapper) {
         if (!coroutineAwaitList.isComplete()) {
             setState { copy(lceModel = LCELoading) }
             coroutineAwaitList.joinAll(Dispatchers.IO)
         }
 
-        // TODO if video captured navigate VideCaptureFinish
-        // TODO if photo captured finish navigate PhotoCaptureFinish
-        // TODO check creationType and navigate
         setEffect(CreateAlifeEffect.CreateAlifePhotoFinish())
-        setState { copy(lceModel = LCEContent) }
+        setState {
+            copy(
+                lceModel = LCEContent,
+                pagerContainer = pagerContainer.changePicture(
+                    PicturePagerItem.DefaultTakePicture(captureWrapper)
+                )
+            )
+        }
     }
 
     override suspend fun onPermissionFatal() {
