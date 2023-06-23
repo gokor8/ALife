@@ -1,11 +1,144 @@
 <resources>
     // Addons
     <string name="app_name">AnotherLife</string>
-    <string name="horizontal_logo">A Life</string>
+    <string name="vertical_logo">A Life</string>
+    <string name="horizontal_short_logo">ALife</string>
+    <string name="horizontal_short_small_logo">Alife</string>
+    <string name="horizontal_logo">Another Life</string>
+    <string name="continue_next">Continue</string>
+    <string name="back">Назад</string>
+    <string name="cancel">Отмена</string>
+    <string name="agree">Разрешить</string>
+    <string name="repeat">Повторить</string>
+    <string name="upload">Загрузить</string>
+    <string name="global_exception">Произошла критическая ошибка</string>
+    <string name="connection_exception">Время выполнения запроса истекло</string>
+    <string name="exception">Ошибка!</string>
+    <string name="try_later">Повторите по позже</string>
+    <string name="try_again">Повторите попытку</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiZ3JlZ29yeXVzYXRyYWNrIiwiYSI6ImNsaXRkMDBoejFsZGgza28xd3Ruc243YTQifQ.9Sjj0HSKbSKMrv0x3aQs7w</string>
 
+    // Generic Exception
+    <string name="generic_exception_title">Непредвиденная ошибка</string>
+    <string name="generic_exception_description">Произошла непредвиденная ошибка, повторите попытку</string>
+
+    // Copy
+    <string name="copy_username">Никнейм скопирован</string>
+    <string name="copy_geo">Координаты скопированы</string>
+
+    // Dialog
+    <string name="permission_dialog_description">Предоставьте разрешние через настройки</string>
+    <string name="permission_dialog_settings">в Настройки</string>
+    
     // Login
     <string name="pass_login_in">Hi, pass login in</string>
     <string name="authorization_type">Выберите подходящий способ авторизации</string>
     <string name="login_in">Войти</string>
     <string name="registration">Зарегистрироваться</string>
+    <string name="test">Test</string>
+
+    // Image
+    <string name="image_error">Не удалось загрузить, картинку</string>
+
+    //Registration
+    <string name="error_empty">Field is Empty</string>
+
+    // Registration Name
+    <string name="what_is_your_name">What is your name?</string>
+    <string name="name">Name</string>
+    <string name="error_less_4">Text less 4</string>
+    <string name="error_more_25">Text more 25</string>
+
+    // Registration Username
+    <string name="also_need_your_username">Also need username</string>
+    <string name="username">Username</string>
+
+    // Registration Birthday
+    <string name="i_need_your_birthday">I need your birthday -_-</string>
+    <string name="birthday">Birthday</string>
+    <string name="invalid_birthday">Invalid birthday</string>
+    <string name="gaffer">Gaffer</string>
+    <string name="so_young">So Young</string>
+
+    // Email
+    <string name="your_email">Your Email Plz.</string>
+    <string name="email">Email</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="error_send_email">При отправке ваших данных произошла ошибка</string>
+
+    // Email Code
+    <string name="email_code">Code from email sms</string>
+    <string name="email_code_error">Вы ввели неверный код подтверждения</string>
+    <string name="email_code_critical_error">Ваш код подтверждения истек, повторите попытку</string>
+
+    // Tutorial
+    <string name="tutorial_first_description">В течение 1 минуты сделай видео или фото и покажи, чем ты занимаешься</string>
+    <string name="tutorial_second_title">Время показать всем чем вы занимаетесь!</string>
+    <string name="tutorial_second_description">В течение 1 минуты сделай видео или фото и покажи, чем ты занимаешься</string>
+    <string name="tutorial_third_description">Все люди публикуют фото в одно и то же время</string>
+
+    // Main
+    <string name="bottom_bar_map">Карта</string>
+    <string name="bottom_bar_home">ALife</string>
+    <string name="bottom_bar_profile">Профиль</string>
+
+    // Home
+    <string name="home_pager_friends">Friends</string>
+    <string name="home_pager_world">World</string>
+
+    // Home_Friends
+    <string name="home_friends_be_first">Ваши друзья еще не выкладывали Alife, будьте первыми.</string>
+
+    // Create Alife
+    <string name="create_alife_on_post">Создайте Alife, чтобы увидеть посты</string>
+    <string name="create_alife_base">Создайте свой Alife</string>
+
+    // Location Map Dialog
+    <string name="dialog_map_location_title">Приложению необходим доступ к геолокации</string>
+    <string name="dialog_map_location_description">Для просмотр карты \n предоставьте доступ к геолокации</string>
+
+    // Location Dialog
+    <string name="dialog_location_title">Приложению необходим доступ к геолокации</string>
+    <string name="dialog_location_description">Для публикования с гео \n предоставьте доступ к геолокации</string>
+
+    // Camera Dialog
+    <string name="dialog_camera_title">Приложению необходим доступ к камере</string>
+    <string name="dialog_camera_description">Для создания Alife \n предоставьте доступ к камере</string>
+
+    // Camera Audio
+    <string name="dialog_audio_title">Приложению необходим доступ к микрофону</string>
+    <string name="dialog_audio_description">Для записи видео со звуком \n предоставьте доступ к микрофону</string>
+
+    // Camera
+    <string name="camera_blocking_error_camera">Предоставьте разрешение на использование Камеры</string>
+    <string name="camera_blocking_error_fatal">Не получилось подключиться к камере</string>
+    <string name="camera_snackbar_video_error">Произошла ошибка во время записи видео</string>
+    <string name="camera_snackbar_photo_error">Произошла ошибка во время фото</string>
+    <string name="camera_snackbar_camera_description_error">Попробуйте снова.</string>
+
+    // Upload
+    <string name="upload_error_video">Произошла ошибка во время отправки видео</string>
+    <string name="upload_error_photo">Произошла ошибка во время отправки фото</string>
+    <string name="upload_no_photo_file_error">Мы не смогли найти фото для загрузки</string>
+    <string name="upload_no_video_file_error">Мы не смогли найти видео для загрузки</string>
+    <string name="upload_no_photo_file_error_description">Повторите сделать фотокарточки снова</string>
+    <string name="upload_no_video_file_error_description">Попробуйте записать видео снова</string>
+
+    // HomeChild
+    <string name="home_chile_paging_error_title">Произошла ошибка, при загрузке данных</string>
+    <string name="home_chile_paging_error_description">Повторите попытку</string>
+    <string name="home_chile_paging_first_error_description">Вы единственный кто выложил пост, не удалось его загрузить</string>
+
+    // Profile
+    <string name="profile_error_title">Ошибка!</string>
+    <string name="profile_error_load_data">Произошла ошибка, при загрузке данных профиля</string>
+    <string name="profile_error_load_photo">Не удалось загрузить вашу фотокарточку</string>
+    <string name="profile_error_load_info">Не удалось обновить профиль</string>
+    <string name="profile_error_exit">Не удалось выйти из сессии</string>
+    <string name="profile_hint_description">Description…</string>
+
+    // Map
+    <string name="map_error_title">Предоставьте разрешение</string>
+    <string name="map_error_descripion">Предоставьте разрешение, на определение геолокации</string>
+
 </resources>

@@ -1,43 +1,46 @@
 package com.alife.anotherlife.ui.example.test.screen
 
-import android.util.Log
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.alife.anotherlife.ui.example.test.custom_composable.CustomCompose
-import com.alife.anotherlife.ui.example.test.screen.boxer.TestScreenBoxer
-import com.alife.anotherlife.ui.example.test.screen.state.TestScreenAction
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.alife.anotherlife.core.composable.button.ButtonBase
+import com.alife.anotherlife.core.composable.modifier.SystemPaddingModifier
+import com.alife.anotherlife.core.ui.screen.DefaultScreen
+import com.alife.anotherlife.ui.screen.main.create_alife.navigation.CreateAlifeNavigator
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.photo.navigation.FinishPictureNavigator
+import com.alife.anotherlife.ui.screen.main.finish_create_alife.video.navigation.FinishVideoNavigator
+import com.alife.anotherlife.ui.screen.main.navigation.MainScreenNavigator
+import com.alife.anotherlife.ui.screen.main.navigation_bar.home.navigation.HomeNavigator
+import com.alife.anotherlife.ui.screen.registration.tutorial.navigation.TutorialNavigator
 
-class TestScreen {
+class TestScreen(val navController: NavController) : DefaultScreen(SystemPaddingModifier) {
 
     @Composable
-    fun savable(save: () -> Unit): () -> Unit = remember { save }
-
-    @Composable
-    fun Content(viewModel: TestViewModel) = Column {
-
-        CustomCompose(viewModel, TestScreenBoxer(), viewModel.getUIState().textsModel)
-
-        Spacer(modifier = Modifier.weight(1f))
-        
-        TextField(
-            value = viewModel.getUIState().testScreenText,
-            onValueChange = { text: String ->
-                viewModel.reduce(TestScreenAction.TestTextAction(text))
-                Log.e("Aboba", text)
-            }
+    override fun Content(modifier: Modifier) = Surface {
+        val listNavigators = listOf(
+            TutorialNavigator(),
+            MainScreenNavigator(),
+            HomeNavigator(),
+            CreateAlifeNavigator(),
+            FinishPictureNavigator(),
+            FinishVideoNavigator()
         )
 
-        Button(onClick = savable {
-            viewModel.reduce(TestScreenAction.TestContinueClick())
-            Log.e("Aboba", "Clicked")
-        }) {
-            Text(text = viewModel.getUIState().testScreenText)
+        LazyColumn(modifier = modifier, contentPadding = PaddingValues(10.dp)) {
+            items(listNavigators.size) {
+                val navigator = listNavigators[it]
+
+                ButtonBase(onClick = {
+                    navController.navigate(navigator.toString())
+                }) {
+                    Text(text = navigator::class.simpleName ?: ":c")
+                }
+            }
         }
     }
 }

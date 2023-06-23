@@ -17,13 +17,17 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            minifyEnabled true
+//            shrinkResources true
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -31,14 +35,27 @@ android {
 }
 
 dependencies {
-
+    implementation project(path: ':core')
     implementation project(path: ':domain')
 
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'com.google.android.material:material:1.8.0'
-    implementation 'androidx.core:core-ktx:+'
+    implementation "javax.inject:javax.inject:1"
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // Paging
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // Exoplayer
+    implementation "androidx.media3:media3-exoplayer:1.0.2"
+    implementation "androidx.media3:media3-exoplayer-dash:1.0.2"
+    //implementation "androidx.media3:media3-ui:1.0.2"
+
+    // DI
+    implementation 'com.google.dagger:hilt-android:2.45'
+    //kapt 'com.google.dagger:hilt-compiler:2.45'
 }

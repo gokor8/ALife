@@ -1,17 +1,22 @@
 package com.alife.anotherlife.ui.screen.login
 
+import com.alife.anotherlife.core.EmptyUIStore
+import com.alife.anotherlife.core.FakeEffectCollector
+import com.alife.anotherlife.core.FakeStateCollector
 import com.alife.anotherlife.core.FakeUIStore
 import com.alife.anotherlife.core.ViewModelTest
+import com.alife.anotherlife.core.ui.reducer.AbstractVMReducer
+import com.alife.anotherlife.core.ui.state_collector.EffectCollector
 import com.alife.anotherlife.core.ui.state_collector.StateCollector
 import com.alife.anotherlife.core.ui.store.UIStore
 import com.alife.anotherlife.ui.screen.login.model.AuthType
-import com.alife.anotherlife.ui.screen.login.reducer.AbstractLoginReducer
+import com.alife.anotherlife.ui.screen.login.reducer.BaseLoginReducerBase
 import com.alife.anotherlife.ui.screen.login.reducer.LoginReducer
 import com.alife.anotherlife.ui.screen.login.state.LoginAction
+import com.alife.anotherlife.ui.screen.login.state.LoginEffect
 import com.alife.anotherlife.ui.screen.login.state.LoginState
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
@@ -25,7 +30,7 @@ class TestLoginViewModel : ViewModelTest() {
     @Before
     fun before() {
         reduceCollector = mutableListOf()
-        viewModel = LoginViewModel(FakeLoginReducer(reduceCollector))
+        viewModel = LoginViewModel(FakeLoginReducerBase(reduceCollector))
     }
 
     @Test
@@ -61,24 +66,24 @@ class TestLoginViewModel : ViewModelTest() {
 
 // Test Realizations
 class DidntValidAction : LoginAction {
-    override fun onAction(reducer: LoginReducer) {}
+
+    override suspend fun onAction(reducer: LoginReducer) {
+
+    }
 }
 
 enum class LoginReduce {
     INIT, LOGIN_IN, REGISTRATION, AUTH_SERVICE
 }
 
-class FakeLoginReducer(
+class FakeLoginReducerBase(
     private val reduceCollector: MutableList<LoginReduce>,
-) : AbstractLoginReducer() {
+) : AbstractVMReducer<LoginState, LoginEffect>(), BaseLoginReducerBase {
 
-    // Переписать на интерфейс + интерфейс принимает вью модель
-    override val uiStore: UIStore<LoginState, Nothing> = FakeUIStore()
+    override val uiStore: UIStore<LoginState, LoginEffect> = EmptyUIStore()
 
-    // Didnt need
-    override fun getState(): StateCollector<LoginState> {
-        return uiStore.getStateCollector()
-    }
+    override fun getStateCollector(): StateCollector<LoginState> = FakeStateCollector(emptyList())
+    override fun getEffectCollector(): EffectCollector<LoginEffect> = FakeEffectCollector()
 
     override fun onInit() {
         reduceCollector.add(LoginReduce.INIT)
@@ -88,7 +93,7 @@ class FakeLoginReducer(
         reduceCollector.add(LoginReduce.LOGIN_IN)
     }
 
-    override fun onRegistration() {
+    override suspend fun onRegistration() {
         reduceCollector.add(LoginReduce.REGISTRATION)
     }
 

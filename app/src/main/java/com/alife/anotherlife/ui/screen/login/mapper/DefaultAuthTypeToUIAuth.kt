@@ -4,7 +4,7 @@ import com.alife.anotherlife.ui.screen.login.mapper.base.BaseDefaultAuthTypeToUI
 import com.alife.anotherlife.ui.screen.login.model.buttons.UIAuthModel
 import com.alife.anotherlife.ui.screen.login.model.buttons.text.LoginTextUIAuthModel
 import com.alife.anotherlife.ui.screen.login.model.buttons.text.StaticTextUIAuthModel
-import com.alife.domain.login.entity.DefaultAuthTypeEntity
+import com.alife.domain.login.content.entity.DefaultAuthTypeEntity
 import javax.inject.Inject
 
 class DefaultAuthTypeToUIAuth @Inject constructor() : BaseDefaultAuthTypeToUIAuth {

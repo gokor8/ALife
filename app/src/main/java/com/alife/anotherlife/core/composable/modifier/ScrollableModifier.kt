@@ -1,5 +1,6 @@
 package com.alife.anotherlife.core.composable.modifier
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -9,6 +10,8 @@ class ScrollableModifier : ModifierProvider {
 
     @Composable
     override fun provideModifier(): Modifier {
-        return Modifier.verticalScroll(rememberScrollState())
+        return SystemPaddingModifier
+            .provideModifier()
+            .verticalScroll(rememberScrollState())
     }
 }

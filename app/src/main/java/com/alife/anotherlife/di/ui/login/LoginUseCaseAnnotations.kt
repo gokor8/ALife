@@ -11,4 +11,8 @@ sealed interface LoginUseCaseAnnotations {
     @Qualifier
     @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
     annotation class MockATUseCase
+
+    @Qualifier
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class UseCaseList
 }

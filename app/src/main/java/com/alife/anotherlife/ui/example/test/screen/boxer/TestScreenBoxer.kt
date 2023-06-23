@@ -7,7 +7,7 @@ import com.alife.anotherlife.ui.example.test.screen.state.TestScreenAction
 
 class TestScreenBoxer : TextsBoxer<TestScreenAction> {
 
-    override fun map(inputModel: CustomAction): TestScreenAction {
-        return TestScreenAction.TestBoxAction(inputModel)
+    override fun map(inputModel: TestScreenAction) {
+       // return TestScreenAction.TestBoxAction(inputModel)
     }
 }
