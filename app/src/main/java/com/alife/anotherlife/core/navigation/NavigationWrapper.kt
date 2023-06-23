@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.alife.anotherlife.core.navigation.nav_navigator.BaseNavigator
+import com.alife.anotherlife.ui.screen.splash.navigation.SplashScreenNavRoute
 
 interface BaseNavigationWrapper {
     fun navigate(navController: NavController)
@@ -49,14 +50,14 @@ sealed class NavigationWrapper(protected val defaultNavigator: BaseNavigator) : 
     ) : NavigationWrapper(defaultNavigator) {
 
         override fun navigate(navController: NavController) {
-            val navOptions = NavOptions.Builder()
-                .setPopUpTo(navController.graph.id, inclusive = true)
-                .build()
 
-            navController.navigate(
-                route = defaultNavigator.toString(),
-                navOptions = navOptions
-            )
+            navController.navigate(route = SplashScreenNavRoute().routeTag) {
+                // Установка флага popUpTo для очистки стека
+                popUpTo(defaultNavigator.toString()) {
+                    // Включительно с указанным назначением
+                    inclusive = true
+                }
+            }
         }
     }
 

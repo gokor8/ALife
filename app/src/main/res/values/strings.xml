@@ -137,7 +137,7 @@
     <string name="profile_error_load_photo">Не удалось загрузить фото</string>
     <string name="profile_error_load_info">Не удалось обновить профиль</string>
     <string name="profile_error_exit">Не удалось выйти из сеанса</string>
-    <string name="profile_hint_description">Описание...</string>
+    <string name="profile_hint_description">Описание…</string>
 
     // Карта
     <string name="map_error_title">Предоставьте разрешение</string>
@@ -171,7 +171,7 @@
     <string name="comment_error_load">Ошибка при загрузке комментариев</string>
     <string name="comment_error_send">Ошибка при отправке комментария</string>
     <string name="comment_error_send_description">Повторите попытку отправить комментарий</string>
-    <string name="comment_hint">Добавить комментарий...</string>
+    <string name="comment_hint">Добавить комментарий…</string>
 
     // Просмотрщик изображений
     <string name="viewer_error">Ошибка при загрузке изображения</string>
@@ -204,7 +204,7 @@
     <string name="user_profile_error_description">Повторите попытку</string>
 
     // Загрузка данных
-    <string name="loading_data">Загрузка данных...</string>
+    <string name="loading_data">Загрузка данных…</string>
 
     // Ошибки входа
     <string name="login_error_title">Ошибка входа</string>
@@ -248,5 +248,5 @@
     <string name="save">Сохранить</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
-    <string name="loading">Загрузка...</string>
+    <string name="loading">Загрузка…</string>
 </resources>

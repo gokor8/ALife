@@ -77,6 +77,7 @@ interface MapElementModel {
                 imageView.load(preview) {
                     crossfade(true)
                     placeholder(progressDrawable)
+                    error(R.drawable.ic_base_error)
                 }
 
                 val style = if (isSelected) {

@@ -89,12 +89,9 @@ interface BaseCreateFinishReducer<STATE : FinishState<STATE>> :
             execute {
                 Log.e("Aboba", "Some finish error $it")
                 trySetEffect(FinishVideoEffect.UploadVideoError())
-                // TODO если 500 ошибка, то говорить что чел уже выкладывал сегодня пост
-                //setState { copy(lceModel = LCEError()) } // TODO add backEffect()
             }.handleThis(getState()) {
                 finishLoadUseCase.upload(locationModelMapper.map(location))
                 setEffect(FinishEffect.GoMain())
-                // TODO upload and navigate next
             }
 
             setState { copyLce(newLceModel = LCEContent) }
